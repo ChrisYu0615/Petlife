@@ -1,0 +1,51 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#sidebar {
+    background-color: #343a40;
+    /* Sidebar background color */
+    color: #818181;
+    padding: 20px;
+    height: 100vh;
+    /* 100% of the viewport height */
+}
+
+#sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: color 0.3s;
+}
+
+#sidebar a:hover {
+    color: #f8f9fa;
+    /* Hover color */
+}
+
+#content {
+    padding: 20px;
+}
+
+#accordionExample .accordion-button {
+    font-size: 18px;
+}
+
+div.sidebar_select a {
+    font-size: 18px;
+    margin: 15px 0;
+    font-weight: 400;
+    color: var(--black-color);
+}
+
+li.list-group-item a {
+    color: var(--black-color);
+}
+
+h3.main_header {
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+}

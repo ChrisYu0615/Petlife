@@ -1,0 +1,42 @@
+[
+    {
+        "article_id": 1,
+        "article_title": "我的貓會後空翻",
+        "category": "貓",
+        "views": 100,
+        "likes": 20,
+        "create_time": "2023-01-01 12:21:01"
+    },
+    {
+        "article_id": 2,
+        "article_title": "我的狗都不吃飯",
+        "category": "狗",
+        "views": 150,
+        "likes": 30,
+        "create_time": "2023-02-12 23:11:01"
+    },
+    {
+        "article_id": 3,
+        "article_title": "老鼠一日生活體驗",
+        "category": "其他",
+        "views": 120,
+        "likes": 25,
+        "create_time": "2020-10-11 13:22:30"
+    },
+    {
+        "article_id": 4,
+        "article_title": "狗狗友善公園",
+        "category": "狗",
+        "views": 1000,
+        "likes": 200,
+        "create_time": "2021-05-12 21:00:32"
+    },
+    {
+        "article_id": 5,
+        "article_title": "貓咪的睡姿",
+        "category": "貓",
+        "views": 20000,
+        "likes": 5021,
+        "create_time": "2023-11-20 10:23:43"
+    }
+]
