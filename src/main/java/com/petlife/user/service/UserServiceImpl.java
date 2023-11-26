@@ -2,12 +2,9 @@ package com.petlife.user.service;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 import com.petlife.user.dao.UserDAO;
 import com.petlife.user.dao.UserDAOImpl2;
 import com.petlife.user.entity.User;
-import com.petlife.util.HibernateUtil;
 
 public class UserServiceImpl implements UserServeice {
 	private UserDAO dao;

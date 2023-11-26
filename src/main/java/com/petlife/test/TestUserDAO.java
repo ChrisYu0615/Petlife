@@ -1,18 +1,12 @@
 package com.petlife.test;
 
-import java.util.List;
-import java.util.Set;
-
-import com.petlife.acctstate.entity.AcctState;
-import com.petlife.accttype.entity.AcctType;
-import com.petlife.user.dao.UserDAO;
 import com.petlife.user.dao.UserDAOImpl;
 import com.petlife.user.entity.User;
 
 public class TestUserDAO {
 	public static void main(String[] args) {
 
-		UserDAO dao = new UserDAOImpl();
+		UserDAOImpl dao = new UserDAOImpl();
 		// 新增資料
 //		User user = new User();
 //		user.setUserAcct("a1231@gmail.com");
