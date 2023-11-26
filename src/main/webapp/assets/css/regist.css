@@ -1,0 +1,46 @@
+div div.col-md-5 {
+	margin-top: 40px;
+}
+
+div.row.card-header {
+	margin: 0;
+	background-color: #FFD966 !important;
+}
+
+div h2.col-auto {
+	font-size: 24px;
+	margin: 0;
+	font-weight: bold;
+}
+
+div.row.card-footer {
+	margin: auto;
+}
+
+div.card-body, div.card-footer {
+	background-color: #FEFAE0;
+}
+
+span.must_insert {
+	color: red;
+}
+
+span.verify_result {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+button#btn_regist, button#getauthencode {
+	background-color: #2B8BC1;
+	font-weight: bold;
+}
+
+button#btn_cancel {
+	background-color: #F4980E;
+	color: white;
+	font-weight: bold;
+}
+
+input.form-control {
+	height: 40px;
+}

@@ -1,0 +1,166 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#sidebar {
+    background-color: #343a40;
+    /* Sidebar background color */
+    color: #818181;
+    padding: 20px;
+    height: 100vh;
+    /* 100% of the viewport height */
+}
+
+#sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: color 0.3s;
+}
+
+#sidebar a:hover {
+    color: #f8f9fa;
+    /* Hover color */
+}
+
+#content {
+    padding: 20px;
+}
+
+#accordionExample .accordion-button {
+    font-size: 18px;
+}
+
+li.list-group-item {
+    font-size: 16px;
+}
+
+h3.main_header {
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+div.main_item {
+    padding: 0 10px;
+}
+
+button.btn_option {
+    width: 100%;
+    text-align: start;
+    border: 0px;
+    background-color: transparent;
+    color: black;
+    padding: 15px 0px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+#preview {
+    display: inline-block;
+}
+
+#preview img.preview_img {
+    border: 1px solid black;
+    width: 160px;
+    height: 160px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+div.main_form {
+    text-align: right;
+    padding: 20px;
+}
+
+div.select_form {
+    /* padding-left: 105px; */
+    text-align: start;
+}
+
+button#addCards {
+    border: 0;
+}
+
+div.sidebar_select a {
+    font-size: 18px;
+    margin: 15px 0;
+    font-weight: 400;
+    color: var(--black-color);
+}
+
+li.list-group-item a {
+    color: var(--black-color);
+}
+
+div input.main_input {
+    width: 220px;
+}
+
+input#p_file {
+    display: none;
+}
+
+.btn-primary {
+    background-color: #2B8BC1;
+    font-weight: bold;
+}
+
+.btn-warning {
+    background-color: #F4980E;
+    color: white;
+    font-weight: bold;
+}
+
+div.check_area {
+    margin: 20px;
+}
+
+div.form-group label {
+    font-weight: bold;
+}
+
+div.creditcard {
+    text-align: start;
+    /* padding-left: 105px; */
+}
+
+div.creditcard ul li {
+    width: 220px;
+}
+
+div.creditcard ul li button.btn_delete_card {
+    border: 0;
+    background-color: transparent;
+    color: #2B8BC1;
+    margin-left: 50px;
+    text-decoration: underline;
+}
+
+#lightbox {
+    /*   border: 1px solid red; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: hsla(0, 0%, 0%, .5);
+
+    display: none;
+}
+
+/* 元素 article 置中及基本樣式 */
+#lightbox>article {
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ddd;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
