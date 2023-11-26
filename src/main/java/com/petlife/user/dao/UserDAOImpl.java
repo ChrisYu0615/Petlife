@@ -3,7 +3,6 @@ package com.petlife.user.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 
 import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
