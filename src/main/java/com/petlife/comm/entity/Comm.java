@@ -40,11 +40,11 @@ public class Comm {
 	@Expose
 	private String commName;
 
-	@Column(name = "comm_desc", updatable = true)
+	@Column(name = "comm_desc", updatable = true, columnDefinition = "longtext")
 	@Expose
 	private String commDesc;
 
-	@Column(name = "comm_state", updatable = true)
+	@Column(name = "comm_state", updatable = true, columnDefinition = "tinyint")
 	@Expose
 	private Integer commState;
 
@@ -78,7 +78,7 @@ public class Comm {
 	@Expose
 	private Integer commOnsalePrice;
 
-	@Column(name = "comm_view_count", updatable = true)
+	@Column(name = "comm_view_count", updatable = true, columnDefinition = "mediumtext")
 	@Expose
 	private Long commViewCount;
 
