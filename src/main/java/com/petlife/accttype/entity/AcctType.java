@@ -7,9 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.petlife.admin.entity.Admin;
 import com.petlife.user.entity.User;
 
 @Entity
@@ -25,15 +27,22 @@ public class AcctType {
 	private String acctType;
 
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
+	@OrderBy("user_id asc")
 	private Set<User> users;
+
+	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
+	@OrderBy("admin_id asc")
+	private Set<Admin> admins;
 
 	public AcctType() {
 	}
 
-	public AcctType(Integer acctTypeId, String acctType, Set<User> users) {
+	public AcctType(Integer acctTypeId, String acctType, Set<User> users, Set<Admin> admins) {
+		super();
 		this.acctTypeId = acctTypeId;
 		this.acctType = acctType;
 		this.users = users;
+		this.admins = admins;
 	}
 
 	public Integer getAcctTypeId() {
@@ -60,8 +69,17 @@ public class AcctType {
 		this.users = users;
 	}
 
+	public Set<Admin> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<Admin> admins) {
+		this.admins = admins;
+	}
+
 	@Override
 	public String toString() {
-		return "AcctType [acctTypeId=" + acctTypeId + ", acctType=" + acctType + ", users=" + users + "]";
+		return "AcctType [acctTypeId=" + acctTypeId + ", acctType=" + acctType + ", users=" + users + ", admins="
+				+ admins + "]";
 	}
 }

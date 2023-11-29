@@ -12,6 +12,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.petlife.admin.entity.Admin;
 import com.petlife.user.entity.User;
 
 @Entity
@@ -30,14 +31,19 @@ public class AcctState {
 	@OrderBy("user_id asc")
 	private Set<User> users;
 
+	@OneToMany(mappedBy = "acctState", cascade = CascadeType.ALL)
+	@OrderBy("admin_id asc")
+	private Set<Admin> admins;
+
 	public AcctState() {
 	}
 
-	public AcctState(Integer acctStateId, String acctStateType, Set<User> users) {
+	public AcctState(Integer acctStateId, String acctStateType, Set<User> users, Set<Admin> admins) {
 		super();
 		this.acctStateId = acctStateId;
 		this.acctStateType = acctStateType;
 		this.users = users;
+		this.admins = admins;
 	}
 
 	public Integer getAcctStateId() {
@@ -64,8 +70,18 @@ public class AcctState {
 		this.users = users;
 	}
 
+	public Set<Admin> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<Admin> admins) {
+		this.admins = admins;
+	}
+
 	@Override
 	public String toString() {
-		return "AcctState [acctStateId=" + acctStateId + ", acctStateType=" + acctStateType + ", users=" + users + "]";
+		return "AcctState [acctStateId=" + acctStateId + ", acctStateType=" + acctStateType + ", users=" + users
+				+ ", admins=" + admins + "]";
 	}
+
 }
