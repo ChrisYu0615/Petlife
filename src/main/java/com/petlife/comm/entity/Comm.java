@@ -1,5 +1,6 @@
 package com.petlife.comm.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -72,11 +73,11 @@ public class Comm {
 
 	@Column(name = "comm_price", updatable = true)
 	@Expose
-	private Integer commPrice;
+	private BigDecimal commPrice;
 
 	@Column(name = "comm_onsale_price", updatable = true)
 	@Expose
-	private Integer commOnsalePrice;
+	private BigDecimal commOnsalePrice;
 
 	@Column(name = "comm_view_count", updatable = true, columnDefinition = "mediumtext")
 	@Expose
@@ -86,8 +87,8 @@ public class Comm {
 	}
 
 	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
-			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, Integer commPrice,
-			Integer commOnsalePrice, Long commViewCount) {
+			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
+			BigDecimal commOnsalePrice, Long commViewCount) {
 		super();
 		this.commId = commId;
 		this.sellerId = sellerId;
@@ -174,19 +175,19 @@ public class Comm {
 		this.commStock = commStock;
 	}
 
-	public Integer getCommPrice() {
+	public BigDecimal getCommPrice() {
 		return commPrice;
 	}
 
-	public void setCommPrice(Integer commPrice) {
+	public void setCommPrice(BigDecimal commPrice) {
 		this.commPrice = commPrice;
 	}
 
-	public Integer getCommOnsalePrice() {
+	public BigDecimal getCommOnsalePrice() {
 		return commOnsalePrice;
 	}
 
-	public void setCommOnsalePrice(Integer commOnsalePrice) {
+	public void setCommOnsalePrice(BigDecimal commOnsalePrice) {
 		this.commOnsalePrice = commOnsalePrice;
 	}
 
@@ -194,7 +195,7 @@ public class Comm {
 		return commViewCount;
 	}
 
-	public void setCommViewCount(Long commViewCount) {
+	public void setCommViewCount(long commViewCount) {
 		this.commViewCount = commViewCount;
 	}
 	

@@ -21,7 +21,7 @@ public interface CommDAO {
 //	
 //	public Comm findByCatId(Integer comm_cat_id);
 //	
-//	public Comm findByPriceRange(Integer max_price, Integer min_price);
+//	public Comm findByPriceRange(BigDecimal max_price, BigDecimal min_price);
 	
 	// 查全部
 	public List<Comm> getAll();
