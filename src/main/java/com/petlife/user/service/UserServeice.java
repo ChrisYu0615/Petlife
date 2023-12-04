@@ -8,9 +8,6 @@ public interface UserServeice {
 
 	// 增
 	User addUser(User user);
-	
-	//
-//	User registUser(User user);
 
 	// 刪
 	Integer deleteUser(Integer userId);
