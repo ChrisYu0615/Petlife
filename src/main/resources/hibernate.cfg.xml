@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/petlife?serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">qazw0813</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+
+		<property name="hibernate.current_session_context_class">thread</property>
+		<mapping class="com.petlife.acctstate.entity.AcctState"/> 
+		<mapping class="com.petlife.accttype.entity.AcctType"/> 
+		<mapping class="com.petlife.buylist.entity.Buylist"/> 
+		<mapping class="com.petlife.buylistdetails.entity.BuylistDetails"/> 
+		<mapping class="com.petlife.buyliststate.entity.BuylistState"/> 
+		<mapping class="com.petlife.comm.entity.Comm"/> 
+		<mapping class="com.petlife.coupon.entity.Coupon"/> 
+		<mapping class="com.petlife.couponjdbc.CouponVO"/> 
+		<mapping class="com.petlife.seller.entity.Seller"/> 
+		<mapping class="com.petlife.user.entity.User"/> 		
+
+	</session-factory>
+</hibernate-configuration>
