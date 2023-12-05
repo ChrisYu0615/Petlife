@@ -1,11 +1,10 @@
-<%@page import="com.petlife.coupon.entity.Coupon"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.petlife.coupon.*"%>
+<%@ page import="com.petlife.couponjdbc.*"%>
 
 <%
 //見com.emp.controller.EmpServlet.java第238行存入req的couponVO物件 (此為輸入格式有錯誤時的couponVO物件)
-Coupon coupon = (Coupon) request.getAttribute("coupon");
+CouponVO couponVO = (CouponVO) request.getAttribute("couponVO");
 %>
 
 <html>
@@ -90,37 +89,37 @@ th, td {
 			<tr>
 				<td>優惠碼名稱:</td>
 				<td><input type="TEXT" name="couponName"
-					value="<%=(coupon == null) ? "嗨喔" : coupon.getCouponName()%>"
+					value="<%=(couponVO == null) ? "嗨喔" : couponVO.getCouponName()%>"
 					size="45" /></td>
 			</tr>
 			<tr>
 				<td>優惠碼敘述:</td>
 				<td><input type="TEXT" name="couponContent"
-					value="<%=(coupon == null) ? "你好" : coupon.getCouponContent()%>"
+					value="<%=(couponVO == null) ? "你好" : couponVO.getCouponContent()%>"
 					size="45" /></td>
 			</tr>
 			<tr>
 				<td>使用條件:</td>
 				<td><input name="conditionsOfUse" id="f_date1" type="text"
-					value="<%=(coupon == null) ? "1" : coupon.getConditionsOfUse()%>"
+					value="<%=(couponVO == null) ? "1" : couponVO.getConditionsOfUse()%>"
 					size="45" /></td>
 			</tr>
 			<tr>
 				<td>開始時間:</td>
 				<td><input type="TEXT" name="startDate"
-					value="<%=(coupon == null) ? "2021-10-27 15:00:00" : coupon.getStartDate()%>"
+					value="<%=(couponVO == null) ? "2021-10-27 15:00:00" : couponVO.getStartDate()%>"
 					size="45" /></td>
 			</tr>
 			<tr>
 				<td>結束時間:</td>
 				<td><input type="TEXT" name="endDate"
-					value="<%=(coupon == null) ? "2023-10-27 14:00:00" : coupon.getEndDate()%>"
+					value="<%=(couponVO == null) ? "2023-10-27 14:00:00" : couponVO.getEndDate()%>"
 					size="45" /></td>
 			</tr>
 			<tr>
 				<td>折扣金額:</td>
 				<td><input type="TEXT" name="discountAmount"
-					value="<%=(coupon == null) ? "100" : coupon.getDiscountAmount()%>"
+					value="<%=(couponVO == null) ? "100" : couponVO.getDiscountAmount()%>"
 					size="45" /></td>
 			</tr>
 
