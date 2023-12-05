@@ -13,8 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.petlife.acctstate.entity.AcctState;
-import com.petlife.accttype.entity.AcctType;
+import com.petlife.admin.entity.AcctState;
+import com.petlife.admin.entity.AcctType;
 
 @Entity
 @Table(name = "seller")
