@@ -1,94 +1,105 @@
-package com.petlife.article.dao;
-
-
+package com.petlife.buylistdetails.dao;
 
 import java.util.List;
 
 import org.hibernate.Session;
 
-import com.petlife.article.entity.Article;
+import com.petlife.buylistdetails.entity.BuylistDetails;
 import com.petlife.util.HibernateUtil;
-public class ArticleDAOImpl implements ArticleDAO {
 
+public class BuylistDetailsDAOImpl2 implements BuylistDetailsDAO {
 	@Override
-	public int add(Article article) {
+	public Integer add(BuylistDetails buylistDetails) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Integer id = (Integer) session.save(article);
+			Integer id = (Integer) session.save(buylistDetails);
 			session.getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 		return -1;
 	}
-		
-	
 
 	@Override
-	public int update(Article article) {
+	public Integer delete(Integer buylistDetailsId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.update(article);
-			session.getTransaction().commit();
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return -1;
-	}	
-//
-	@Override
-	public int delete(Integer articleId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			Article article = session.get(Article.class, articleId);
-			if (article != null) {
-				session.delete(article);
+
+			BuylistDetails buylistDetails = session.get(BuylistDetails.class, buylistDetailsId);
+			if (buylistDetails != null) {
+				session.delete(buylistDetails);
 			}
 			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 		return -1;
-		
 	}
 
 	@Override
-	public Article findByPK(Integer articleId) {
+	public Integer update(BuylistDetails buylistDetails) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Article article = session.get(Article.class, articleId);
+
+			session.update(buylistDetails);
+
 			session.getTransaction().commit();
-			return article;
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return -1;
+	}
+
+	@Override
+	public BuylistDetails findByPK(Integer buylistDetailsId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			BuylistDetails buylistDetails = session.get(BuylistDetails.class, buylistDetailsId);
+
+			session.getTransaction().commit();
+			return buylistDetails;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 		return null;
 	}
 
 	@Override
-	public List<Article> getAll() {
+	public List<BuylistDetails> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Article> list = session.createQuery("from Article", Article.class).list();
+
+			List<BuylistDetails> buylistDetailsList = session.createQuery("from BuylistDetails", BuylistDetails.class).getResultList();
+
 			session.getTransaction().commit();
-			return list;
+			return buylistDetailsList;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 		return null;
 	}
-
 }

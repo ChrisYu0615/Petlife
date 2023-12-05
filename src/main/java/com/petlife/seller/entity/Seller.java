@@ -31,8 +31,8 @@ public class Seller {
     @Column(name = "seller_pwd")
     private String sellerPwd;
 
-    @Column(name = "seller_pwd_edit_time")
-    private Date sellerPwdEditTime; //DATE型別?
+//    @Column(name = "seller_pwd_edit_time")
+//    private Date sellerPwdEditTime; //DATE型別?
 
     @Column(name = "seller_name")
     private String sellerName;
@@ -100,7 +100,7 @@ public class Seller {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Seller(int sellerId, String sellerAcct, String sellerPwd, Date sellerPwdEditTime, String sellerName,
+	public Seller(int sellerId, String sellerAcct, String sellerPwd,  String sellerName,
 			String sellerNickname, String id, Date birthday, Boolean gender, String sellerAddress, String phoneNum,
 			byte[] headShot, AcctState acctState, double accumulaStart, int accumulaPeople, AcctType acctType,
 			String swiftCode, String bankAcct, byte[] idFront, byte[] idBack, byte[] bankAcctImg,
@@ -109,7 +109,7 @@ public class Seller {
 		this.sellerId = sellerId;
 		this.sellerAcct = sellerAcct;
 		this.sellerPwd = sellerPwd;
-		this.sellerPwdEditTime = sellerPwdEditTime;
+//		this.sellerPwdEditTime = sellerPwdEditTime;
 		this.sellerName = sellerName;
 		this.sellerNickname = sellerNickname;
 		this.id = id;
@@ -155,13 +155,13 @@ public class Seller {
 		this.sellerPwd = sellerPwd;
 	}
 
-	public Date getSellerPwdEditTime() {
-		return sellerPwdEditTime;
-	}
+//	public Date getSellerPwdEditTime() {
+//		return sellerPwdEditTime;
+//	}
 
-	public void setSellerPwdEditTime(Date sellerPwdEditTime) {
-		this.sellerPwdEditTime = sellerPwdEditTime;
-	}
+//	public void setSellerPwdEditTime(Date sellerPwdEditTime) {
+//		this.sellerPwdEditTime = sellerPwdEditTime;
+//	}
 
 	public String getSellerName() {
 		return sellerName;
@@ -322,7 +322,7 @@ public class Seller {
 	@Override
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerAcct=" + sellerAcct + ", sellerPwd=" + sellerPwd
-				+ ", sellerPwdEditTime=" + sellerPwdEditTime + ", sellerName=" + sellerName + ", sellerNickname="
+				+ ", sellerPwdEditTime="+ ", sellerName=" + sellerName + ", sellerNickname="
 				+ sellerNickname + ", id=" + id + ", birthday=" + birthday + ", gender=" + gender + ", sellerAddress="
 				+ sellerAddress + ", phoneNum=" + phoneNum + ", headShot=" + Arrays.toString(headShot) + ", acctState="
 				+ acctState + ", accumulaStart=" + accumulaStart + ", accumulaPeople=" + accumulaPeople + ", acctType="

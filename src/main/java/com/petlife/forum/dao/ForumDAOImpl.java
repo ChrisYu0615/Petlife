@@ -1,9 +1,11 @@
 package com.petlife.forum.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.forum.entity.Forum;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class ForumDAOImpl implements ForumDAO {
 

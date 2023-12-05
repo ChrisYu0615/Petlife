@@ -1,9 +1,12 @@
 package com.petlife.reporttype.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.reporttype.entity.ReportType;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
+
 
 public class ReportTypeDAOImpl implements ReportTypeDAO {
 
