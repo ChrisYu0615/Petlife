@@ -17,7 +17,8 @@ div.row.card-footer {
 	margin: auto;
 }
 
-div.card-body, div.card-footer {
+div.card-body,
+div.card-footer {
 	background-color: #FEFAE0;
 }
 
@@ -30,7 +31,8 @@ span.verify_result {
 	font-weight: bold;
 }
 
-button#btn_regist, button#getauthencode {
+button#btn_regist,
+button#getauthencode {
 	background-color: #2B8BC1;
 	font-weight: bold;
 }
@@ -43,4 +45,12 @@ button#btn_cancel {
 
 input.form-control {
 	height: 40px;
+}
+
+input#idcard-front,
+input#idcard-back,
+input#account-img,
+input#shelter-img {
+	width: 246px;
+	height: 38px;
 }

@@ -1,7 +1,8 @@
-$(".headerPage").load("../header.html");
-$(".footerPage").load("../footer.html");
 
 $(function() {
+	$(".headerPage").load("../components/header.html");
+	$(".footerPage").load("../components/footer.html");
+
 	// 添加獲取驗證碼按鈕的點擊事件處理程序
 	var getauthencode_btn = document.getElementById('getauthencode');
 	getauthencode_btn.addEventListener('click', function() {
@@ -35,28 +36,11 @@ $(function() {
 		if (showPasswordCheckbox.checked) {
 			// 顯示密碼
 			passwordInput.type = 'text';
-			comfirmPasswordInput.type = 'text';
 		} else {
 			// 隱藏密碼
 			passwordInput.type = 'password';
-			comfirmPasswordInput.type = 'password';
 		}
 	});
-
-	// 初始化日期選擇器
-	$(document).ready(function() {
-		$('#birthdate').datepicker({
-			format: 'yyyy-mm-dd',
-			language: 'zh-TW',
-			autoclose: true
-		});
-	});
-
-	// 在出生年月日框框和旁邊的日曆按鈕新增點擊事件，點擊時會打開日期選擇器
-	$('#birthdate + .input-group-text').on('click', function() {
-		$('#birthdate').datepicker('show');
-	});
-
 
 	// 使用Fetch API載入JSON檔案，讀取縣市的所有選項
 	fetch('../assets/json/cities.json')
@@ -156,26 +140,26 @@ $(function() {
 		xhr.send("action=verify&useraccount=" + userAccountVal);
 	});
 
-	// 針對輸入框輸入後change事件，輸入任何字後就會把錯誤訊息消除
-	$("#useraccount").change(function() {
+	// 針對輸入框輸入後blur事件，輸入任何字後就會把錯誤訊息消除
+	$("#useraccount").blur(function() {
 		if ($.trim($("#useraccount").val()) != "") {
 			$("#verify_useraccount").html("");
 		}
 	});
 
-	$("#authencode").change(function() {
+	$("#authencode").blur(function() {
 		if ($.trim($("#authencode").val()) != "") {
 			$("#verify_authencode").html("");
 		}
 	});
 
-	$("#password").change(function() {
+	$("#password").blur(function() {
 		if ($.trim($("#password").val()) != "") {
 			$("#verify_password").html("");
 		}
 	});
 
-	$("#confirm-password").change(function() {
+	$("#confirm-password").blur(function() {
 		if ($.trim($("#password").val()) != "" && $.trim($("#password").val()) != $.trim($("#confirm-password").val())) {
 			$("#verify_confirm-password").html("<font color='red'>確認密碼不一致!!</font>");
 		} else {
@@ -183,49 +167,49 @@ $(function() {
 		}
 	});
 
-	$("#username").change(function() {
+	$("#username").blur(function() {
 		if ($.trim($("#username").val()) != "") {
 			$("#verify_username").html("");
 		}
 	});
 
-	$("#nickname").change(function() {
+	$("#nickname").blur(function() {
 		if ($.trim($("#nickname").val()) != "") {
 			$("#verify_nickname").html("");
 		}
 	});
 
-	$("#male,#female").change(function() {
+	$("#male,#female").blur(function() {
 		if ($("input[name='gender']:checked").length > 0) {
 			$("#verify_gender").html("");
 		}
 	});
 
-	$("#birthdate").change(function() {
+	$("#birthdate").blur(function() {
 		if ($.trim($("#birthdate").val()) != "") {
 			$("#verify_birthdate").html("");
 		}
 	});
 
-	$("#phone").change(function() {
+	$("#phone").blur(function() {
 		if ($.trim($("#phone").val()) != "") {
 			$("#verify_phone").html("");
 		}
 	});
 
-	$("#county").change(function() {
+	$("#county").blur(function() {
 		if ($.trim($("#county").val()) != "") {
 			$("#verify_county").html("");
 		}
 	});
 
-	$("#district").change(function() {
+	$("#district").blur(function() {
 		if ($.trim($("#district").val()) != "") {
 			$("#verify_district").html("");
 		}
 	});
 
-	$("#address").change(function() {
+	$("#address").blur(function() {
 		if ($.trim($("#address").val()) != "") {
 			$("#verify_address").html("");
 		}
@@ -237,8 +221,6 @@ $(function() {
 		if ($.trim($("#useraccount").val()) == "") {
 			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
 			verifyFlag = false;
-		} else {
-			$("#verify_useraccount").html("");
 		}
 
 		if ($.trim($("#authencode").val()) == "") {
@@ -253,15 +235,6 @@ $(function() {
 			verifyFlag = false;
 		} else {
 			$("#verify_password").html("");
-		}
-
-		if ($.trim($("#confirm-password").val()) == "") {
-			$("#verify_confirm-password").html("<font color='red'>請輸入確認密碼!!</font>");
-			verifyFlag = false;
-		} else if ($.trim($("#password").val()) != "" && $.trim($("#password").val()) != $.trim($("#confirm-password").val())) {
-			$("#verify_confirm-password").html("<font color='red'>確認密碼不一致!!</font>");
-		} else {
-			$("#verify_confirm-password").html("");
 		}
 
 		if ($.trim($("#username").val()) == "") {
@@ -316,6 +289,47 @@ $(function() {
 
 		if (verifyFlag == false) {
 			event.preventDefault();
+		} else {
+			event.preventDefault();
+			let userData = {
+				useraccount: $("#useraccount").val(),
+				authencode: $("#authencode").val(),
+				password: $("#password").val(),
+				username: $("#username").val(),
+				nickname: $("#nickname").val(),
+				gender: $("input[name='gender']:checked").val(),
+				birthdate: $("#birthdate").val(),
+				phone: $("#phone").val(),
+				country: $("#county").val(),
+				district: $("#district").val(),
+				address: $("#address").val()
+			};
+
+			console.log(userData);
+
+			$.ajax({
+				url: "/Petlife/user/user.do?action=userRegister",           // 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				contentType: "application/json",
+				data: JSON.stringify(userData),             // 將物件資料(不用雙引號) 傳送到指定的 url
+				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+				success: function(data) {      // request 成功取得回應後執行
+					console.log(data);
+					if ($.trim(data.userNameErr).length != 0) {
+						$("#verify_username").html(`<font color='red'>${data.userNameErr}</font>`);
+					}
+
+					if ($.trim(data.userPwdErr).length != 0) {
+						$("#verify_password").html(`<font color='red'>${data.userPwdErr}</font>`);
+					}
+					if ($.trim(data.userPhoneNumErr).length != 0) {
+						$("#verify_phone").html(`<font color='red'>${data.userPhoneNumErr}</font>`);
+					}
+					if ($.trim(data.addressErr).length != 0) {
+						$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+					}
+				}
+			});
 		}
 	});
 

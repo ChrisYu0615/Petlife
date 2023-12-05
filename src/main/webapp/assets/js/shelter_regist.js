@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+	$(".headerPage").load("../components/header.html");
+	$(".footerPage").load("../components/footer.html");
+
     // 添加獲取驗證碼按鈕的點擊事件處理程序
     var getauthencode_btn = document.getElementById('getauthencode');
     getauthencode_btn.addEventListener('click', function () {
@@ -39,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 使用Fetch API載入JSON檔案，讀取縣市的所有選項
-    fetch('./cities.json')
+    fetch('../assets/json/cities.json')
         .then(response => response.json())
         .then(data => {
             var countySelect = document.getElementById('county');

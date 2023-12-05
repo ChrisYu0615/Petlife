@@ -1,5 +1,8 @@
 package com.petlife.test;
 
+import com.petlife.advertisement.dao.AdvertisementDAO;
+import com.petlife.advertisement.dao.AdvertisementDAOImpl;
+import com.petlife.advertisement.entity.Advertisement;
 import com.petlife.user.dao.UserDAOImpl;
 import com.petlife.user.entity.User;
 
@@ -7,6 +10,7 @@ public class TestUserDAO {
 	public static void main(String[] args) {
 
 		UserDAOImpl dao = new UserDAOImpl();
+		AdvertisementDAO dao1 = new AdvertisementDAOImpl();
 		// 新增資料
 //		User user = new User();
 //		user.setUserAcct("a1231@gmail.com");
@@ -73,9 +77,12 @@ public class TestUserDAO {
 //		for (User user : list) {
 //			System.out.println(user);
 //		}
-		
-		//透過會員暱稱查詢
-		User user4 = dao.findUserByUserNickname("大憨吉吉");
-		System.out.println(user4);
+
+		// 透過會員暱稱查詢
+//		User user4 = dao.findUserByUserNickname("大憨吉吉");
+//		System.out.println(user4);
+
+		Advertisement ad = dao1.findByPK(2);
+		System.out.println(ad);
 	}
 }

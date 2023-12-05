@@ -27,11 +27,11 @@ public class Comm {
 	@Expose
 	private Integer commId;
 
-//	Seller 等隊友弄好才能使用
-//	@ManyToOne
-//	@JoinColumn(name = "seller_id")
-//	@Expose
-//	private Seller sellerId;
+// Seller 等隊友弄好才能使用
+// @ManyToOne
+// @JoinColumn(name = "seller_id")
+// @Expose
+// private Seller sellerId;
 
 	@Column(name = "seller_id", updatable = true)
 	@Expose
@@ -41,35 +41,36 @@ public class Comm {
 	@Expose
 	private String commName;
 
-	@Column(name = "comm_desc", updatable = true, columnDefinition = "longtext")
-	@Expose
-	private String commDesc;
+@Column(name = "comm_desc", updatable = true, columnDefinition = "longtext")
+@Expose
+private String commDesc;
+
 
 	@Column(name = "comm_state", updatable = true, columnDefinition = "tinyint")
 	@Expose
 	private Integer commState;
 
-	@Column(name = "list_datetime", updatable = true)
-	@Expose
-	private Timestamp listDatetime;
+ @Column(name = "list_datetime", updatable = true)
+ @Expose
+ private Timestamp listDatetime;
 
-	@Lob // 告知為大型Object
-	@Column(name = "comm_img", updatable = true)
-	@Expose
-	private byte[] commImg;
+ @Lob // 告知為大型Object
+ @Column(name = "comm_img", updatable = true)
+ @Expose
+ private byte[] commImg;
 
-//	等做完商品分類表再回來
-//	@ManyToOne
-//	@JoinColumn(name = "comm_cat_id")
-//	private CommCat commCatId;
+// 等做完商品分類表再回來
+// @ManyToOne
+// @JoinColumn(name = "comm_cat_id")
+// private CommCat commCatId;
 
-	@Column(name = "comm_cat_id", updatable = true)
-	@Expose
-	private Integer commCatId;
+ @Column(name = "comm_cat_id", updatable = true)
+ @Expose
+ private Integer commCatId;
 
-	@Column(name = "comm_stock", updatable = true)
-	@Expose
-	private Integer commStock;
+ @Column(name = "comm_stock", updatable = true)
+ @Expose
+ private Integer commStock;
 
 	@Column(name = "comm_price", updatable = true)
 	@Expose
@@ -83,8 +84,8 @@ public class Comm {
 	@Expose
 	private Long commViewCount;
 
-	public Comm() {
-	}
+ public Comm() {
+ }
 
 	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
 			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
@@ -103,77 +104,77 @@ public class Comm {
 		this.commOnsalePrice = commOnsalePrice;
 	}
 
-	public Integer getCommId() {
-		return commId;
-	}
-	
-	public void setCommId(Integer commId) {
-		this.commId = commId;
-	}
-	
-	public Integer getSellerId() {
-		return sellerId;
-	}
+ public Integer getCommId() {
+  return commId;
+ }
+ 
+ public void setCommId(Integer commId) {
+  this.commId = commId;
+ }
+ 
+ public Integer getSellerId() {
+  return sellerId;
+ }
 
-	public void setSellerId(Integer sellerId) {
-		this.sellerId = sellerId;
-	}
+ public void setSellerId(Integer sellerId) {
+  this.sellerId = sellerId;
+ }
 
-	public String getCommName() {
-		return commName;
-	}
+ public String getCommName() {
+  return commName;
+ }
 
-	public void setCommName(String commName) {
-		this.commName = commName;
-	}
+ public void setCommName(String commName) {
+  this.commName = commName;
+ }
 
-	public String getCommDesc() {
-		return commDesc;
-	}
+ public String getCommDesc() {
+  return commDesc;
+ }
 
-	public void setCommDesc(String commDesc) {
-		this.commDesc = commDesc;
-	}
+ public void setCommDesc(String commDesc) {
+  this.commDesc = commDesc;
+ }
 
-	public Integer getCommState() {
-		return commState;
-	}
+ public Integer getCommState() {
+  return commState;
+ }
 
-	public void setCommState(Integer commState) {
-		this.commState = commState;
-	}
+ public void setCommState(Integer commState) {
+  this.commState = commState;
+ }
 
-	public Timestamp getListDatetime() {
-		return listDatetime;
-	}
+ public Timestamp getListDatetime() {
+  return listDatetime;
+ }
 
-	public void setListDatetime(Timestamp listDatetime) {
-		this.listDatetime = listDatetime;
-	}
+ public void setListDatetime(Timestamp listDatetime) {
+  this.listDatetime = listDatetime;
+ }
 
-	public byte[] getCommImg() {
-		return commImg;
-	}
+ public byte[] getCommImg() {
+  return commImg;
+ }
 
-	public void setCommImg(byte[] commImg) {
-		this.commImg = commImg;
-	}
+ public void setCommImg(byte[] commImg) {
+  this.commImg = commImg;
+ }
 
-	public Integer getCommCatId() {
-		return commCatId;
-	}
+ public Integer getCommCatId() {
+  return commCatId;
+ }
 
-	public void setCommCatId(Integer commCatId) {
-		this.commCatId = commCatId;
-	}
+ public void setCommCatId(Integer commCatId) {
+  this.commCatId = commCatId;
+ }
 
-	public Integer getCommStock() {
-		return commStock;
-	}
+ public Integer getCommStock() {
+  return commStock;
+ }
 
-	public void setCommStock(Integer commStock) {
-		this.commStock = commStock;
-	}
+ public void setCommStock(Integer commStock) {
+  this.commStock = commStock;
+ }
 
 	public BigDecimal getCommPrice() {
 		return commPrice;
@@ -191,9 +192,9 @@ public class Comm {
 		this.commOnsalePrice = commOnsalePrice;
 	}
 
-	public Long getCommViewCount() {
-		return commViewCount;
-	}
+ public Long getCommViewCount() {
+  return commViewCount;
+ }
 
 	public void setCommViewCount(long commViewCount) {
 		this.commViewCount = commViewCount;
