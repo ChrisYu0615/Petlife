@@ -7,8 +7,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.petlife.article.entity.Article;
-
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override

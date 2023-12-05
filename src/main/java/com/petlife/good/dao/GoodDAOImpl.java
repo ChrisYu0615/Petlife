@@ -4,9 +4,11 @@ package com.petlife.good.dao;
 
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.good.entity.Good;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class GoodDAOImpl implements GoodDAO {
 

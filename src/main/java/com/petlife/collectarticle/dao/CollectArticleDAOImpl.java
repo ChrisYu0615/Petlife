@@ -1,9 +1,11 @@
 package com.petlife.collectarticle.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.collectarticle.entity.CollectArticle;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class CollectArticleDAOImpl implements CollectArticleDAO {
 

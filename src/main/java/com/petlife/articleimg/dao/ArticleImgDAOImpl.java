@@ -1,9 +1,11 @@
 package com.petlife.articleimg.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.articleimg.entity.ArticleImg;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class ArticleImgDAOImpl implements ArticleImgDAO {
 

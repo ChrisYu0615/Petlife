@@ -112,7 +112,7 @@ public class UserServlet extends HttpServlet {
 	// 註冊會員程序
 	private String userRegist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		
+
 		// 用來裝前端傳入的json資料(會員註冊填的資料)
 		Map<String, String> registerUserData = null;
 		// 取得前端傳入的json資料，使用BufferReader
@@ -182,7 +182,7 @@ public class UserServlet extends HttpServlet {
 			userAddress = registerUserData.get("country") + registerUserData.get("district")
 					+ registerUserData.get("address");
 		}
-		
+
 		// 性別
 		boolean userGender = Boolean.valueOf(registerUserData.get("gender"));
 
@@ -194,6 +194,7 @@ public class UserServlet extends HttpServlet {
 
 			PrintWriter out = resp.getWriter();
 			out.print(errorMsgJson);
+			return "";
 		} else {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
 			User user = new User(userAcct, userPwd, userName, userNickname, userBirthday, userAddress, userPhoneNum,
@@ -235,7 +236,6 @@ public class UserServlet extends HttpServlet {
 //					e.printStackTrace();
 //				}
 //				return "";
-		return "";
 	}
 
 	// 取得隨機驗證碼並寄信給該用戶

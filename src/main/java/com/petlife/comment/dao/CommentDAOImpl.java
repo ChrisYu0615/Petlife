@@ -1,9 +1,11 @@
 package com.petlife.comment.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.comment.entity.Comment;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class CommentDAOImpl implements CommentDAO {
 

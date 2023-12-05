@@ -18,6 +18,11 @@ public interface SellerDAO {
 	
 	List<Seller> getAll();
 	
+	Seller findSellerBySellerShopname(String shopname);
+	
+	Seller findSellerBySellerAccount(String sellerAccount);
+	
+	
 //	List<Buyliststate> getByCompositeQuery(Map<String, String> map);
 
 //	List<Buyliststate> getAll(int currentPage);

@@ -1,9 +1,11 @@
 package com.petlife.reportforum.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
+
 import com.petlife.reportforum.entity.ReportForum;
-import util.HibernateUtil;
+import com.petlife.util.HibernateUtil;
 
 public class ReportForumDAOImpl implements ReportForumDAO {
 
