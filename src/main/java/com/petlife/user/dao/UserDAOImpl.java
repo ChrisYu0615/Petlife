@@ -82,7 +82,8 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
-			HibernateUtil.shutdown();
+//			session.close();
+//			HibernateUtil.shutdown();
 		}
 		return null;
 	}

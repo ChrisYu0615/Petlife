@@ -65,9 +65,9 @@ public class TestCommDAO {
 //		System.out.println("找到的comm name: " + result2.getCommName());
 		
 		// 找多個
-		List<Comm> resultList = dao.getAll();
-		for(Comm comm : resultList) {
-			System.out.println("Id = " + comm.getCommId());
-		}
+//		List<Comm> resultList = dao.getAll();
+//		for(Comm comm : resultList) {
+//			System.out.println("Id = " + comm.getCommId());
+//		}
 	}
 }

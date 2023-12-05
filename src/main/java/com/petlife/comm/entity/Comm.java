@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 //import javax.persistence.ManyToOne;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import com.google.gson.annotations.Expose;
 //import com.petlife.seller.Seller;
@@ -79,16 +80,16 @@ public class Comm {
 	@Expose
 	private BigDecimal commOnsalePrice;
 
-	@Column(name = "comm_view_count", updatable = true, columnDefinition = "mediumtext")
+	@Column(name = "comm_view_count", updatable = true)
 	@Expose
-	private Long commViewCount;
+	private Integer commViewCount;
 
 	public Comm() {
 	}
 
 	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
 			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
-			BigDecimal commOnsalePrice, Long commViewCount) {
+			BigDecimal commOnsalePrice, Integer commViewCount) {
 		super();
 		this.commId = commId;
 		this.sellerId = sellerId;
@@ -191,11 +192,11 @@ public class Comm {
 		this.commOnsalePrice = commOnsalePrice;
 	}
 
-	public Long getCommViewCount() {
+	public Integer getCommViewCount() {
 		return commViewCount;
 	}
 
-	public void setCommViewCount(long commViewCount) {
+	public void setCommViewCount(Integer commViewCount) {
 		this.commViewCount = commViewCount;
 	}
 

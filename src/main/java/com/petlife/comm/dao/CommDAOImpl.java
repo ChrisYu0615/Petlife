@@ -98,7 +98,8 @@ public class CommDAOImpl implements CommDAO{
 			System.out.println(e);
 			return null;
 		} finally {
-			s.close();
+//			s.close();
+//			HibernateUtil.shutdown();
 		}
 	}
 

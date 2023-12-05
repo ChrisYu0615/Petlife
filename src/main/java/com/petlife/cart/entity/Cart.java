@@ -44,7 +44,7 @@ public class Cart {
 
 	public Cart(Integer cartId, User user, Comm comm, Integer purchasingAmout) {
 		super();
-		this.cartId = cartId;
+//		this.cartId = cartId;
 		this.user = user;
 		this.comm = comm;
 		this.purchasingAmout = purchasingAmout;
@@ -104,7 +104,5 @@ public class Cart {
 	public String toString() {
 		return "Cart [cartId=" + cartId + ", user=" + user + ", comm=" + comm + ", purchasingAmout=" + purchasingAmout
 				+ "]";
-	}
-	
-	
+	}	
 }
