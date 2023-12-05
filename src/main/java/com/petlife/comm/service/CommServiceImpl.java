@@ -5,7 +5,7 @@ import com.petlife.comm.dao.CommDAO;
 import com.petlife.comm.dao.CommDAOImpl;
 import com.petlife.test.TestCommDAO;
 
-public class CommServiceImpl implements Service{
+public abstract class CommServiceImpl implements Service{
 	private CommDAO dao;
 	
 	public  CommServiceImpl() {
