@@ -1,0 +1,113 @@
+*{
+    box-sizing: border-box;
+    font-size: 18px;
+}
+.from{
+    /* border: 1px solid black; */
+    width: 800px;
+    position: relative;
+    left: 60%;
+    background-color:rgb(246, 229, 208);
+    box-shadow: 5px 5px 5px lightgray;
+    border-radius: 20px;
+    /* margin-top: 10px; */
+}
+input.form-check-input{
+    width: 100px;
+    /* border: 1px solid black; */
+   
+}
+div.col{
+    /* border: 1px solid lightgray; */
+    padding: 15px 0px 10px 40px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    width: 800px;
+    /* box-shadow: 2px 2px 2px lightgray; */
+}
+/* 下拉選單 */
+.select1{
+    width: 200px;
+    display: inline-block;
+}
+/* 預覽圖 */
+
+label.form-check-label{
+    margin-right: 50px;
+}
+
+label{
+    /* border: 1px solid green; */
+    margin-right: 30px;
+}
+input.form-control{
+    display: inline-block;
+    width: 300px;
+  
+}
+div.pet_img{
+    display: inline-block;
+    border: 1px solid green;
+    height: 150px;
+    width: 700px;
+    vertical-align: top;
+    margin-left: 20px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+span.pet_img{
+    text-align: center;
+}
+/* 標題 */
+div.row{
+/*     border: 1px solid black; */
+    position: relative;
+    left: 80%;
+}
+h1{
+    background-color: lightblue;
+    border-radius: 25px;
+    text-align: center;
+    width: 800px;
+    box-shadow: 3px 3px 3px lightgray;
+}
+/* logo */
+img.brand-image{
+    background-color: antiquewhite;
+   
+}
+.brand-link .brand-image {
+    margin-left: 0rem;
+}
+
+/* 領養者標題 */
+h2{
+    background-color: lightblue;
+    border-radius: 25px;
+    text-align: center;
+    width: 600px;
+    margin-left: 100px;
+    box-shadow: 3px 3px 3px lightgray;
+    margin-bottom: 15px;
+}
+/* 按鈕 */
+div.button{
+    position: relative;
+    left: 35%;
+    width: 300px;
+    /* border: 1px solid black; */
+}
+button.put_on {
+   /* border: 1px solid red; */
+   margin-right: 45px;
+}
+button.btn{
+    width: 90px;
+}
+button.delete{
+    color: white;
+    background-color: #EC8F5E;
+}
+button.put_on{
+ background-color: #2B8BC1;
+}

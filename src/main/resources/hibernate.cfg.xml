@@ -4,14 +4,14 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<!-- <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property> -->
-		<!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/petlife?serverTimezone=Asia/Taipei</property> -->
-		<!-- <property name="hibernate.connection.username">root</property> -->
-		<!-- <property name="hibernate.connection.password">abc123</property> -->
-		<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> -->
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/petlife?serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">fuli0712</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- 使用資料庫連線池配置 -->
-		<property name="connection.datasource">java:comp/env/jdbc/Petlife</property>
+<!-- 		<property name="connection.datasource">java:comp/env/jdbc/Petlife</property> -->
 
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
@@ -37,5 +37,8 @@
 		<mapping class="com.petlife.mall.entity.Comm" />
 		<mapping class="com.petlife.user.entity.User" />
 		<mapping class="com.petlife.seller.entity.Seller" />
+		<mapping class="com.petlife.pet.entity.Pet"/>
+		<mapping class="com.petlife.pet.entity.PetVariety"/>
+		<mapping class="com.petlife.pet.entity.PetPhoto"/>
 	</session-factory>
 </hibernate-configuration>
