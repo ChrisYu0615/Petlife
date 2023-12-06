@@ -45,10 +45,6 @@ public class Admin {
 	@JoinColumn(name = "acct_type_id", referencedColumnName = "acct_type_id", insertable = false)
 	private AcctType acctType;
 
-	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-	@OrderBy("ad_id asc")
-	private Set<Advertisement> advertisements;
-
 	@Column(name = "admin_create_time", updatable = false, insertable = false)
 	private Timestamp adminCreateTime;
 
@@ -124,14 +120,6 @@ public class Admin {
 		this.acctType = acctType;
 	}
 
-	public Set<Advertisement> getAdvertisements() {
-		return advertisements;
-	}
-
-	public void setAdvertisements(Set<Advertisement> advertisements) {
-		this.advertisements = advertisements;
-	}
-
 	public Timestamp getAdminCreateTime() {
 		return adminCreateTime;
 	}
@@ -160,9 +148,7 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", adminAcct=" + adminAcct + ", adminPwd=" + adminPwd + ", adminNickname="
-				+ adminNickname + ", adminPwdErrTimes=" + adminPwdErrTimes + ", acctState="
-				+ acctState.getAcctStateType() + ", acctType=" + acctType.getAcctType() + ", advertisements="
-				+ advertisements + ", adminCreateTime=" + adminCreateTime + "]";
+				+ adminNickname + ", adminPwdErrTimes=" + adminPwdErrTimes + ", acctState=" + acctState + ", acctType="
+				+ acctType + ", adminCreateTime=" + adminCreateTime + "]";
 	}
-
 }

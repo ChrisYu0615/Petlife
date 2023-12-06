@@ -311,7 +311,7 @@ $(function() {
 			console.log(userData);
 
 			$.ajax({
-				url: "/Petlife/member/member.do?action=userRegister",           // 資料請求的網址
+				url: "/Petlife/user/user.do?action=userRegister",           // 資料請求的網址
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 				contentType: "application/json",
 				data: JSON.stringify(userData),             // 將物件資料(不用雙引號) 傳送到指定的 url
