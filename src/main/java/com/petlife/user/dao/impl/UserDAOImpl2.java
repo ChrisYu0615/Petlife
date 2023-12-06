@@ -1,18 +1,18 @@
-package com.petlife.member.dao.impl;
+package com.petlife.user.dao.impl;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.petlife.member.dao.MemberDAO;
-import com.petlife.member.entity.Member;
+import com.petlife.user.dao.UserDAO;
+import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 
-public class MemberDAOImpl2 implements MemberDAO {
+public class UserDAOImpl2 implements UserDAO {
 	private SessionFactory factory;
 
-	public MemberDAOImpl2() {
+	public UserDAOImpl2() {
 		factory = HibernateUtil.getSessionFactory();
 	}
 
@@ -21,14 +21,14 @@ public class MemberDAOImpl2 implements MemberDAO {
 	}
 
 	@Override
-	public Integer add(Member user) {
+	public Integer add(User user) {
 		Integer id = (Integer) getSession().save(user);
 		return id;
 	}
 
 	@Override
 	public Integer delete(Integer userId) {
-		Member user = getSession().get(Member.class, userId);
+		User user = getSession().get(User.class, userId);
 		if (user != null) {
 			getSession().delete(user);
 			return 1;
@@ -38,7 +38,7 @@ public class MemberDAOImpl2 implements MemberDAO {
 	}
 
 	@Override
-	public Integer update(Member user) {
+	public Integer update(User user) {
 		try {
 			getSession().update(user);
 			return 1;
@@ -48,14 +48,14 @@ public class MemberDAOImpl2 implements MemberDAO {
 	}
 
 	@Override
-	public Member findByPK(Integer userId) {
+	public User findByPK(Integer userId) {
 		getSession().clear();
-		return getSession().get(Member.class, userId);
+		return getSession().get(User.class, userId);
 	}
 
 	@Override
-	public List<Member> getAll() {
-		return getSession().createQuery("from User", Member.class).getResultList();
+	public List<User> getAll() {
+		return getSession().createQuery("from User", User.class).getResultList();
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class MemberDAOImpl2 implements MemberDAO {
 	}
 
 	@Override
-	public Member findUserByUserNickname(String userNickname) {
-		List<Member> users = getSession().createQuery("from User where userNickName=:userNickName", Member.class)
+	public User findUserByUserNickname(String userNickname) {
+		List<User> users = getSession().createQuery("from User where userNickName=:userNickName", User.class)
 				.setParameter("userNickName", userNickname).getResultList();
 
 		if (users.size() > 0) {
@@ -75,8 +75,8 @@ public class MemberDAOImpl2 implements MemberDAO {
 	}
 
 	@Override
-	public Member findUserByUserAccount(String userAccount) {
-		List<Member> users = getSession().createQuery("from User where userAcct=:userAcct", Member.class)
+	public User findUserByUserAccount(String userAccount) {
+		List<User> users = getSession().createQuery("from User where userAcct=:userAcct", User.class)
 				.setParameter("userAcct", userAccount).getResultList();
 		
 		if (users.size() > 0) {

@@ -5,14 +5,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.member.entity.Member;
+import com.petlife.user.entity.User;
 
 @Entity
 @Table(name = "acct_state")
@@ -28,7 +27,7 @@ public class AcctState {
 
 	@OneToMany(mappedBy = "acctState", cascade = CascadeType.ALL)
 	@OrderBy("user_id asc")
-	private Set<Member> users;
+	private Set<User> users;
 
 	@OneToMany(mappedBy = "acctState", cascade = CascadeType.ALL)
 	@OrderBy("admin_id asc")
@@ -37,7 +36,7 @@ public class AcctState {
 	public AcctState() {
 	}
 
-	public AcctState(Integer acctStateId, String acctStateType, Set<Member> users, Set<Admin> admins) {
+	public AcctState(Integer acctStateId, String acctStateType, Set<User> users, Set<Admin> admins) {
 		super();
 		this.acctStateId = acctStateId;
 		this.acctStateType = acctStateType;
@@ -61,11 +60,11 @@ public class AcctState {
 		this.acctStateType = acctStateType;
 	}
 
-	public Set<Member> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<Member> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

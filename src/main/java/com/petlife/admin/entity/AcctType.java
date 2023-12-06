@@ -11,7 +11,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.member.entity.Member;
+import com.petlife.user.entity.User;
 
 @Entity
 @Table(name = "acct_type")
@@ -27,7 +27,7 @@ public class AcctType {
 
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
 	@OrderBy("user_id asc")
-	private Set<Member> users;
+	private Set<User> users;
 
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
 	@OrderBy("admin_id asc")
@@ -36,7 +36,7 @@ public class AcctType {
 	public AcctType() {
 	}
 
-	public AcctType(Integer acctTypeId, String acctType, Set<Member> users, Set<Admin> admins) {
+	public AcctType(Integer acctTypeId, String acctType, Set<User> users, Set<Admin> admins) {
 		super();
 		this.acctTypeId = acctTypeId;
 		this.acctType = acctType;
@@ -60,11 +60,11 @@ public class AcctType {
 		this.acctType = acctType;
 	}
 
-	public Set<Member> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<Member> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

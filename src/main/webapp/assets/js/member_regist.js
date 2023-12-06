@@ -17,8 +17,6 @@ $(function() {
 				count--;
 			} else {
 				// 啟用按鈕
-				// getauthencode_btn.classList.remove("btn btn-secondary");
-				// getauthencode_btn.classList.add("btn btn-primary");
 				getauthencode_btn.disabled = false;
 				getauthencode_btn.textContent = '取得驗證碼';
 				clearInterval(countdown);
@@ -26,10 +24,15 @@ $(function() {
 		}, 1000);
 	});
 
+	// 限制生日只能選到當前日期
+	var nowDate = new Date();
+	var year = nowDate.getFullYear();
+	var month = nowDate.getMonth + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : (nowDate.getMonth() + 1);
+	var date = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+	$("#birthdate").attr("max", year + "-" + month + "-" + date);
+
 	// 密碼顯示切換功能
 	var passwordInput = document.getElementById('password');
-	var comfirmPasswordInput = document.getElementById('confirm-password');
-
 	var showPasswordCheckbox = document.getElementById('showPassword');
 
 	showPasswordCheckbox.addEventListener('change', function() {
@@ -76,34 +79,35 @@ $(function() {
 
 	// 前端驗證區塊
 	var verifyFlag = true;
+	var verifyAcct = true;
+	var verifyNickname = true;
 
 	// 使用ajax判斷暱稱是否重複
 	var nickname = document.getElementById("nickname");
 	nickname.addEventListener("blur", function() {
 		document.getElementById("verify_nickname").innerHTML = "";
-		console.log("發送ajax請求");
-
 		var xhr = new XMLHttpRequest();
-
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
 					document.getElementById("verify_nickname").innerHTML = xhr.responseText;
 					if (verifyResult.includes("暱稱重複")) {
-						verifyFlag = false;
+						verifyNickname = false;
+						$("#btn_regist").prop("disabled", true);
+					} else {
+						verifyNickname = true;
+						if (verifyAcct == true && verifyNickname == true) {
+							$("#btn_regist").prop("disabled", false);
+						}
 					}
-					console.log(xhr.responseText);
 				} else {
 					alert(xhr.status);
 				}
 			}
 		}
-
 		xhr.open("POST", "/Petlife/user/user.do", true);
-
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
 		var nicknameval = document.getElementById("nickname").value;
 		xhr.send("action=verify&nickname=" + nicknameval);
 	});
@@ -113,29 +117,28 @@ $(function() {
 	var userAccount = document.getElementById("useraccount");
 	userAccount.addEventListener("blur", function() {
 		document.getElementById("verify_useraccount").innerHTML = "";
-		console.log("發送ajax請求");
-
 		var xhr = new XMLHttpRequest();
-
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
 					document.getElementById("verify_useraccount").innerHTML = xhr.responseText;
 					if (verifyResult.includes("帳號重複")) {
-						verifyFlag = false;
+						verifyAcct = false;
+						$("#btn_regist").prop("disabled", true);
+					} else {
+						verifyAcct = true;
+						if (verifyAcct == true && verifyNickname == true) {
+							$("#btn_regist").prop("disabled", false);
+						}
 					}
-					console.log(xhr.responseText);
 				} else {
 					alert(xhr.status);
 				}
 			}
 		}
-
 		xhr.open("POST", "/Petlife/user/user.do", true);
-
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
 		var userAccountVal = document.getElementById("useraccount").value;
 		xhr.send("action=verify&useraccount=" + userAccountVal);
 	});
@@ -216,7 +219,7 @@ $(function() {
 	});
 
 	// 當表單提交時，驗證有無欄位沒有輸入
-	$("#regist_form").submit(function(event) {
+	$("#btn_regist").on("click", function() {
 		verifyFlag = true;
 		if ($.trim($("#useraccount").val()) == "") {
 			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
@@ -288,9 +291,9 @@ $(function() {
 		}
 
 		if (verifyFlag == false) {
-			event.preventDefault();
+			$("html, body").scrollTop(0);
+
 		} else {
-			event.preventDefault();
 			let userData = {
 				useraccount: $("#useraccount").val(),
 				authencode: $("#authencode").val(),
@@ -308,7 +311,7 @@ $(function() {
 			console.log(userData);
 
 			$.ajax({
-				url: "/Petlife/user/user.do?action=userRegister",           // 資料請求的網址
+				url: "/Petlife/member/member.do?action=userRegister",           // 資料請求的網址
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 				contentType: "application/json",
 				data: JSON.stringify(userData),             // 將物件資料(不用雙引號) 傳送到指定的 url

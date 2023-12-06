@@ -1,25 +1,25 @@
-package com.petlife.member.service;
+package com.petlife.user.service;
 
 import java.util.List;
 
-import com.petlife.member.entity.Member;
+import com.petlife.user.entity.User;
 
-public interface MemberServeice {
+public interface UserServeice {
 
 	// 增
-	Member addUser(Member user);
+	User addUser(User user);
 
 	// 刪
 	Integer deleteUser(Integer userId);
 
 	// 改
-	Integer updateUser(Member user);
+	Integer updateUser(User user);
 
 	// 查(單個)
-	Member getUserByUserId(Integer userId);
+	User getUserByUserId(Integer userId);
 
 	// 查(多個)
-	List<Member> getAllUsers();
+	List<User> getAllUsers();
 	
 	int getPageTotal();
 

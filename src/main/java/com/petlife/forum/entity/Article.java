@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.member.entity.Member;
+import com.petlife.user.entity.User;
 
 @Entity
 @Table(name = "article")
@@ -28,7 +28,7 @@ public class Article  {
 	@ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false)
 	@Expose
-    private Member user;
+    private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "forum_art_id", referencedColumnName = "forum_id", nullable= false, insertable = false)
@@ -55,7 +55,7 @@ public class Article  {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(Integer articleId, Member user, Forum forum, String articleName, String articleContent,
+	public Article(Integer articleId, User user, Forum forum, String articleName, String articleContent,
 			Timestamp updateTime, Integer ctr, Boolean state) {
 		super();
 		this.articleId = articleId;
@@ -76,11 +76,11 @@ public class Article  {
 		this.articleId = articleId;
 	}
 
-	public Member getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Member user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
