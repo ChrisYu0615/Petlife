@@ -1,4 +1,4 @@
-<%@page import="com.petlife.coupon.entity.Coupon"%>
+<%@page import="com.petlife.admin.entity.Coupon"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.petlife.coupon.*"%>

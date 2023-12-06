@@ -16,10 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.petlife.acctstate.entity.AcctState;
-import com.petlife.accttype.entity.AcctType;
-import com.petlife.advertisement.entity.Advertisement;
-
 @Entity
 @Table(name = "admin")
 public class Admin {
