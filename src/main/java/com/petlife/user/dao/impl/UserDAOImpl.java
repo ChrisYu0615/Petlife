@@ -1,17 +1,17 @@
-package com.petlife.member.dao.impl;
+package com.petlife.user.dao.impl;
 
 import java.util.List;
 
 import org.hibernate.Session;
 
-import com.petlife.member.dao.MemberDAO;
-import com.petlife.member.entity.Member;
+import com.petlife.user.dao.UserDAO;
+import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 
-public class MemberDAOImpl implements MemberDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@Override
-	public Integer add(Member user) {
+	public Integer add(User user) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -35,7 +35,7 @@ public class MemberDAOImpl implements MemberDAO {
 		try {
 			session.beginTransaction();
 
-			Member user = session.get(Member.class, userId);
+			User user = session.get(User.class, userId);
 			if (user != null) {
 				session.delete(user);
 			}
@@ -51,7 +51,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public Integer update(Member user) {
+	public Integer update(User user) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -70,12 +70,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public Member findByPK(Integer userId) {
+	public User findByPK(Integer userId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-			Member user = session.get(Member.class, userId);
+			User user = session.get(User.class, userId);
 
 			session.getTransaction().commit();
 			return user;
@@ -89,12 +89,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<Member> getAll() {
+	public List<User> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-			List<Member> userList = session.createQuery("from User", Member.class).getResultList();
+			List<User> userList = session.createQuery("from User", User.class).getResultList();
 
 			session.getTransaction().commit();
 			return userList;
@@ -127,11 +127,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public Member findUserByUserNickname(String userNickname) {
+	public User findUserByUserNickname(String userNickname) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<Member> user = session.createQuery("from User where userNickName=:userNickName", Member.class)
+			List<User> user = session.createQuery("from User where userNickName=:userNickName", User.class)
 					.setParameter("userNickName", userNickname).getResultList();
 			session.getTransaction().commit();
 
@@ -150,7 +150,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public Member findUserByUserAccount(String userAccount) {
+	public User findUserByUserAccount(String userAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
