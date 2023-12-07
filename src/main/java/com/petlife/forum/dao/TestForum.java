@@ -1,6 +1,7 @@
 package com.petlife.forum.dao;
 
 import com.petlife.forum.dao.impl.ForumDAOImpl;
+import com.petlife.forum.entity.Forum;
 
 public class TestForum {
     public static void main(String[] args) {

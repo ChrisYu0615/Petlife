@@ -3,69 +3,88 @@ package com.petlife.forum.dao.impl;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import com.petlife.forum.dao.ArticleImgDAO;
 import com.petlife.forum.entity.ArticleImg;
 import com.petlife.util.HibernateUtil;
 
 public class ArticleImgDAOImpl implements ArticleImgDAO {
-    private SessionFactory factory;
-
-    public ArticleImgDAOImpl() {
-        factory = HibernateUtil.getSessionFactory();
-    }
-
-    private Session getSession() {
-        return factory.getCurrentSession();
-    }
 
     @Override
-    public Integer add(ArticleImg articleImg) {
-        Integer id = (Integer) getSession().save(articleImg);
-        return id;
-    }
-
-    @Override
-    public Integer delete(Integer articleImgId) {
-        ArticleImg articleImg = getSession().get(ArticleImg.class, articleImgId);
-        if (articleImg != null) {
-            getSession().delete(articleImg);
-            return 1;
-        } else {
+    public int add(ArticleImg articleImg) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Integer id = (Integer) session.save(articleImg);
+            session.getTransaction().commit();
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
             return -1;
         }
     }
 
     @Override
-    public Integer update(ArticleImg articleImg) {
+    public int update(ArticleImg articleImg) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
-            getSession().update(articleImg);
+            session.beginTransaction();
+            session.update(articleImg);
+            session.getTransaction().commit();
             return 1;
         } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return -1;
+        }
+    }
+
+    @Override
+    public int delete(Integer articleImgId) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            ArticleImg articleImg = session.get(ArticleImg.class, articleImgId);
+            if (articleImg != null) {
+                session.delete(articleImg);
+            }
+            session.getTransaction().commit();
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
             return -1;
         }
     }
 
     @Override
     public ArticleImg findByPK(Integer articleImgId) {
-        return getSession().get(ArticleImg.class, articleImgId);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            ArticleImg articleImg = session.get(ArticleImg.class, articleImgId);
+            session.getTransaction().commit();
+            return articleImg;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 
     @Override
     public List<ArticleImg> getAll() {
-        return getSession().createQuery("from ArticleImg", ArticleImg.class).getResultList();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            List<ArticleImg> list = session.createQuery("from ArticleImg", ArticleImg.class).list();
+            session.getTransaction().commit();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        }
     }
-
-    @Override
-    public List<ArticleImg> getImgsByArticleId(Integer articleId) {
-        String hql = "from ArticleImg where article_id = :articleId";
-        Query<ArticleImg> query = getSession().createQuery(hql, ArticleImg.class);
-        query.setParameter("articleId", articleId);
-        return query.getResultList();
-    }
-
-    // 其他可能的方法
-    // ...
 }

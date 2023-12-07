@@ -3,9 +3,9 @@ package com.petlife.forum.entity;
 
 
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.member.entity.Member;
+import com.petlife.user.entity.User;
 
 @Entity
 @Table(name = "good")
@@ -33,7 +33,7 @@ public class Good {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false)
 	@Expose
-    private Member user;
+    private User user;
 
     @Column(name = "good_date", nullable = false, insertable = false)
     private Timestamp goodDate;
@@ -43,7 +43,7 @@ public class Good {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Good(Integer goodId, Article article, Member user, Timestamp goodDate) {
+	public Good(Integer goodId, Article article, User user, Timestamp goodDate) {
 		super();
 		this.goodId = goodId;
 		this.article = article;
@@ -67,11 +67,11 @@ public class Good {
 		this.article = article;
 	}
 
-	public Member getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Member user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
