@@ -75,9 +75,21 @@ public class UserDAOImpl2 implements UserDAO {
 	}
 
 	@Override
-	public User findUserByUserAccount(String userAccount) {
+	public User findUserByUserAccount(String userAcct) {
 		List<User> users = getSession().createQuery("from User where userAcct=:userAcct", User.class)
-				.setParameter("userAcct", userAccount).getResultList();
+				.setParameter("userAcct", userAcct).getResultList();
+
+		if (users.size() > 0) {
+			return users.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public User findUserByUserAccountAndPassword(String userAcct, String userPwd) {
+		List<User> users = getSession()
+				.createQuery("from User where userAcct=:userAcct and userPwd=:userPwd", User.class)
+				.setParameter("userAcct", userAcct).setParameter("userPwd", userPwd).getResultList();
 		
 		if (users.size() > 0) {
 			return users.get(0);

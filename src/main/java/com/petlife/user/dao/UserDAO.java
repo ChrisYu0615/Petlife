@@ -16,8 +16,15 @@ public interface UserDAO {
 
 	// 查(單個)
 	public User findByPK(Integer userId);
+	
+	// 查一般會員暱稱是否重複
 	public User findUserByUserNickname(String userNickname);
-	public User findUserByUserAccount(String userAccount);
+	
+	// 查一般會員帳號是否重複
+	public User findUserByUserAccount(String userAcct);
+	
+	// 查一般會員帳號密碼是否存在
+	public User findUserByUserAccountAndPassword(String userAcct,String userPwd);
 
 	// 查(多個)
 	public List<User> getAll();
