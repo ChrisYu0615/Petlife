@@ -23,16 +23,17 @@ import com.petlife.util.HibernateUtil;
 public class ShelterDAOImpl implements ShelterDAO {
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
 	private SessionFactory factory;
-	
+
 	public ShelterDAOImpl() {
 		factory = HibernateUtil.getSessionFactory();
 	}
+
 	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session	
+	// 以避免請求執行緒共用了同個 Session
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
-	
+
 	@Override
 	public int insert(Shelter entity) {
 		// 回傳給 service 剛新增成功的自增主鍵值
@@ -45,7 +46,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 			getSession().update(entity);
 			System.out.println("修改DAO");
 			return 1;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return -1;
 		}
 	}
@@ -68,20 +69,32 @@ public class ShelterDAOImpl implements ShelterDAO {
 //		getSession().clear();
 //		return getSession().get(Shelter.class, id);
 		System.out.println(shelterId);
-			Shelter Shelter = getSession().createQuery("from Shelter where shelterId =" + shelterId , Shelter.class).uniqueResult();
-			return Shelter;
-		
+		Shelter Shelter = getSession().createQuery("from Shelter where shelterId =" + shelterId, Shelter.class)
+				.uniqueResult();
+		return Shelter;
+
 	}
-	
+
 	@Override
 	public Shelter getByName(String shelterName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Shelter getByAddress(String shelterAddress) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Shelter getByAccount(String shelterAcct) {
+		List<Shelter> shelters = getSession().createQuery("from Shelter where shelterAcct=:shelterAcct", Shelter.class)
+				.setParameter("shelterAcct", shelterAcct).getResultList();
+
+		if (shelters.size() > 0) {
+			return shelters.get(0);
+		}
 		return null;
 	}
 
@@ -94,13 +107,13 @@ public class ShelterDAOImpl implements ShelterDAO {
 	public List<Shelter> getByCompositeQuery(Map<String, String> map) {
 		if (map.size() == 0)
 			return getAll();
-		
+
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		CriteriaQuery<Shelter> criteria = builder.createQuery(Shelter.class);
 		Root<Shelter> root = criteria.from(Shelter.class);
-		
+
 		List<Predicate> predicates = new ArrayList<>();
-		
+
 		for (Map.Entry<String, String> row : map.entrySet()) {
 			if ("shelterName".equals(row.getKey())) {
 				predicates.add(builder.like(root.get("shelterName"), "%" + row.getValue() + "%"));
@@ -110,7 +123,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 				predicates.add(builder.like(root.get("shelterAddress"), "%" + row.getValue() + "%"));
 			}
 		}
-		
+
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 		criteria.orderBy(builder.asc(root.get("shelterId")));
 		TypedQuery<Shelter> query = getSession().createQuery(criteria);
@@ -121,17 +134,12 @@ public class ShelterDAOImpl implements ShelterDAO {
 	@Override
 	public List<Shelter> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Shelter", Shelter.class)
-				.setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT)
-				.list();
+		return getSession().createQuery("from Shelter", Shelter.class).setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT).list();
 	}
 
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Shelter", Long.class).uniqueResult();
 	}
-
-	
-	
 }

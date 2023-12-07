@@ -54,7 +54,7 @@ public class Shelter {
 	private String shelterIntroduction;
 	
 	@ManyToOne
-	@JoinColumn(name = "acct_type_id", referencedColumnName = "acct_type_id", updatable = false, insertable = false)
+	@JoinColumn(name = "acct_type_id", referencedColumnName = "acct_type_id", insertable = false)
 	private AcctType acctType;
 	
 	@Column(name = "shelter_lng")
@@ -66,11 +66,23 @@ public class Shelter {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "acct_state_id", referencedColumnName = "acct_state_id",updatable = false, insertable = false)
+	@JoinColumn(name = "acct_state_id", referencedColumnName = "acct_state_id", insertable = false)
 	private AcctState acctState;
 	
 	
 	public Shelter(String shelterAcct, String shelterPwd, String shelterName, String shelterPhoneNum, 
+			String shelterAddress, Double shelterLng, Double shelterLat) {
+		super();
+		this.shelterAcct = shelterAcct;
+		this.shelterPwd = shelterPwd;
+		this.shelterName = shelterName;
+		this.shelterPhoneNum = shelterPhoneNum;
+		this.shelterAddress = shelterAddress;
+		this.shelterLng = shelterLng;
+		this.shelterLat = shelterLat;
+	}
+	
+	public Shelter(String shelterAcct, String shelterPwd, String shelterName, String shelterPhoneNum,
 			String shelterAddress, String shelterIntroduction, Double shelterLng, Double shelterLat) {
 		super();
 		this.shelterAcct = shelterAcct;
@@ -82,8 +94,6 @@ public class Shelter {
 		this.shelterLng = shelterLng;
 		this.shelterLat = shelterLat;
 	}
-	
-	
 
 	public Shelter(Integer shelterId, String shelterAcct, String shelterPwd, String shelterName,
 			Timestamp shelterCreateTime, Integer shelterPwdErrTimes, String shelterPhoneNum, String shelterAddress,

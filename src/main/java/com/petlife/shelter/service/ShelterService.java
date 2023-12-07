@@ -21,4 +21,5 @@ public interface ShelterService {
 	
 	List<Shelter> getSheltersByCompositeQuery(Map<String, String[]> map);
 	
+	boolean exisShelterAccount(String shelterAcct);
 }
