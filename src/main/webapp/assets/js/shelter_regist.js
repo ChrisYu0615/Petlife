@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	fetch('../assets/json/cities.json')
 		.then(response => response.json())
 		.then(data => {
-			var countySelect = document.getElementById('county');
+			var countySelect = document.getElementById('country');
 			for (var city in data) {
 				var option = document.createElement('option');
 				option.value = city;
@@ -72,19 +72,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	var verifyFlag = true;
 
 	// 使用ajax判斷會員帳號是否重複
-	var userAccount = document.getElementById("useraccount");
+	var userAccount = document.getElementById("shelteraccount");
 	userAccount.addEventListener("blur", function() {
-		document.getElementById("verify_useraccount").innerHTML = "";
+		document.getElementById("verify_shelteraccount").innerHTML = "";
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
-					document.getElementById("verify_useraccount").innerHTML = xhr.responseText;
+					document.getElementById("verify_shelteraccount").innerHTML = xhr.responseText;
 					if (verifyResult.includes("帳號重複")) {
 						$("#btn_regist").prop("disabled", true);
 					} else {
-						$("#btn_regist").prop("disabled", true);
+						$("#btn_regist").prop("disabled", false);
 					}
 				} else {
 					alert(xhr.status);
@@ -93,14 +93,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		xhr.open("POST", "/Petlife/shelter/shelter.do", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		var userAccountVal = document.getElementById("useraccount").value;
-		xhr.send("action=verify&useraccount=" + userAccountVal);
+		var shelterAccountVal = document.getElementById("shelteraccount").value;
+		xhr.send("action=verify&shelteraccount=" + shelterAccountVal);
 	});
 
 	// 針對輸入框輸入後blur事件，輸入任何字後就會把錯誤訊息消除
-	$("#useraccount").blur(function() {
-		if ($.trim($("#useraccount").val()) != "") {
-			$("#verify_useraccount").html("");
+	$("#shelteraccount").blur(function() {
+		if ($.trim($("#shelteraccount").val()) != "") {
+			$("#verify_shelteraccount").html("");
 		}
 	});
 
@@ -149,9 +149,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// 當表單提交時，驗證有無欄位沒有輸入
 	$("#btn_regist").on("click", function() {
-		verifyFlag = true
-		if ($.trim($("#useraccount").val()) == "") {
-			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
+		verifyFlag = true;
+		if ($.trim($("#shelteraccount").val()) == "") {
+			$("#verify_shelteraccount").html("<font color='red'>請輸入會員帳號!!</font>");
 			verifyFlag = false;
 		}
 
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (verifyFlag == false) {
 			$("html, body").scrollTop(0);
 		} else {
-			let userAccount = $.trim($("#useraccount").val());
+			let shelterAccount = $.trim($("#shelteraccount").val());
 			let authencode = $.trim($("#authencode").val());
 			let password = $.trim($("#password").val());
 			let shelterName = $.trim($("#sheltername").val());
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			let address = $.trim($("#address").val());
 
 			let formData = new FormData();
-			formData.append("shelteraccount", userAccount);
+			formData.append("shelteraccount", shelterAccount);
 			formData.append("authencode", authencode);
 			formData.append("password", password);
 			formData.append("shelterName", shelterName);
@@ -231,23 +231,26 @@ document.addEventListener("DOMContentLoaded", function() {
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 				data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
 				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-				contentType: true,
+				contentType: false,
+				processData: false,
+				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
 					console.log(data);
 					if ($.trim(data.shelterPwdErr).length != 0) {
 						$("#verify_password").html(`<font color='red'>${data.shelterPwdErr}</font>`);
-					}
-					if ($.trim(data.userInChargeErr).length != 0) {
-						$("#verify_user_in_charge").html(`<font color='red'>${data.userInChargeErr}</font>`);
+						$("html, body").scrollTop(0);
 					}
 					if ($.trim(data.shelterNameErr).length != 0) {
 						$("#verify_sheltername").html(`<font color='red'>${data.shelterNameErr}</font>`);
+						$("html, body").scrollTop(0);
 					}
 					if ($.trim(data.shelterPhoneNumErr).length != 0) {
 						$("#verify_phone").html(`<font color='red'>${data.shelterPhoneNumErr}</font>`);
+						$("html, body").scrollTop(0);
 					}
 					if ($.trim(data.addressErr).length != 0) {
 						$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+						$("html, body").scrollTop(0);
 					}
 				}
 			});

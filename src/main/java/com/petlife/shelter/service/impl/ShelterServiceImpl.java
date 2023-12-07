@@ -13,24 +13,22 @@ import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.util.HibernateUtil;
 
-public class ShelterServiceImpl implements ShelterService{
+public class ShelterServiceImpl implements ShelterService {
 
 	private ShelterDAO dao;
-	
+
 	public ShelterServiceImpl() {
 		dao = new ShelterDAOImpl();
 	}
 
 	@Override
 	public Shelter addShelter(Shelter shelter) {
-		
+
 //		Integer id = dao.insert(shelter);
 //		shelter = dao.getById(id);
 //		return shelter;
 		dao.insert(shelter);
 		return shelter;
-		
-		
 	}
 
 	@Override
@@ -49,27 +47,26 @@ public class ShelterServiceImpl implements ShelterService{
 	public List<Shelter> getAllShelters(int currentPage) {
 		return dao.getAll(currentPage);
 	}
-	
+
 	@Override
 	public int getPageTotal() {
 		long total = dao.getTotal();
 		// 計算Shelter數量每頁3筆的話總共有幾頁
-		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
 
-
 	@Override
 	public List<Shelter> getSheltersByCompositeQuery(Map<String, String[]> map) {
-		Map<String,String> query = new HashMap<>();
+		Map<String, String> query = new HashMap<>();
 		// Map.Entry對Map集合來說就代表一組Key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
-		
-		for (Map.Entry<String, String[]>row : entry) {
+
+		for (Map.Entry<String, String[]> row : entry) {
 			String key = row.getKey();
 			// 因為請求參數裡包含了action，要去除
 			if ("action".equals(key)) {
-				continue;	//跳過
+				continue; // 跳過
 			}
 			String value = row.getValue()[0];
 			if (value == null || value.isEmpty()) {
@@ -77,12 +74,18 @@ public class ShelterServiceImpl implements ShelterService{
 			}
 			query.put(key, value);
 		}
-		
+
 		System.out.println(query);
-		
+
 		return dao.getByCompositeQuery(query);
 	}
-	
-	
-	
+
+	@Override
+	public boolean exisShelterAccount(String shelterAcct) {
+		if (dao.getByAccount(shelterAcct) != null) {
+			return true;
+		}
+		return false;
+	}
+
 }
