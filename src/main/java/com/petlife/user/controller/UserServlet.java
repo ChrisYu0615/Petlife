@@ -1,4 +1,4 @@
-package com.petlife.member.controller;
+package com.petlife.user.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,17 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.petlife.member.entity.Member;
-import com.petlife.member.service.MemberServeice;
-import com.petlife.member.service.impl.MemberServiceImpl;
+import com.petlife.user.entity.User;
+import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.impl.UserServiceImpl;
 
 @WebServlet("/user/user.do")
-public class MemberServlet extends HttpServlet {
-	private MemberServeice userServeice;
+public class UserServlet extends HttpServlet {
+	private UserServeice userServeice;
 
 	@Override
 	public void init() throws ServletException {
-		userServeice = new MemberServiceImpl();
+		userServeice = new UserServiceImpl();
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public class MemberServlet extends HttpServlet {
 			return "";
 		} else {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
-			Member user = new Member(userAcct, userPwd, userName, userNickname, userBirthday, userAddress, userPhoneNum,
+			User user = new User(userAcct, userPwd, userName, userNickname, userBirthday, userAddress, userPhoneNum,
 					userGender);
 			user = userServeice.addUser(user);
 			req.getSession().setAttribute("user", user);

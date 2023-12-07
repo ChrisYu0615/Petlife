@@ -160,29 +160,21 @@ public class SellerController extends HttpServlet {
 
 		String bankCode = req.getParameter("bankcode");
 
+		// 驗證銀行帳號
 		String bankAccount = req.getParameter("bankAccount");
 		String bankAccountReg = "^\\d{10,16}$";
 		if (!bankAccount.matches(bankAccountReg)) {
 			errorMsg.put("bankAccountErr", "帳戶只能輸入數字(10-16碼之間)");
 		}
-		
+
 		Part idcardFront = req.getPart("idcardFront");
-		InputStream idcardFrontIn = idcardFront.getInputStream();
-		byte[] idcardFrontBuf = new byte[idcardFrontIn.available()];
-		idcardFrontIn.read(idcardFrontBuf);
-		idcardFrontIn.close();
+		byte[] idcardFrontBuf = getImgBytes(idcardFront);
 
 		Part idcardBack = req.getPart("idcardBack");
-		InputStream idcardBackIn = idcardBack.getInputStream();
-		byte[] idcardBackBuf = new byte[idcardBackIn.available()];
-		idcardBackIn.read(idcardBackBuf);
-		idcardBackIn.close();
+		byte[] idcardBackBuf = getImgBytes(idcardBack);
 
 		Part accountImg = req.getPart("accountImg");
-		InputStream accountImgIn = accountImg.getInputStream();
-		byte[] accountImgBuf = new byte[accountImgIn.available()];
-		accountImgIn.read(accountImgBuf);
-		accountImgIn.close();
+		byte[] accountImgBuf = getImgBytes(accountImg);
 
 		// 判斷有無錯誤資訊，有的話輸出以Json格式輸出到前端
 		if (errorMsg.size() > 0) {
@@ -203,5 +195,13 @@ public class SellerController extends HttpServlet {
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			return "";
 		}
+	}
+
+	private byte[] getImgBytes(Part part) throws IOException {
+		InputStream in = part.getInputStream();
+		byte[] buf = new byte[in.available()];
+		in.read(buf);
+		in.close();
+		return buf;
 	}
 }

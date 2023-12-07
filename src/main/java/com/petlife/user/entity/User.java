@@ -1,4 +1,4 @@
-package com.petlife.member.entity;
+package com.petlife.user.entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -14,15 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-
 import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
 
 @Entity
 @Table(name = "user")
-public class Member {
+public class User {
 	@Id
 	@Column(name = "user_id", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,10 +82,10 @@ public class Member {
 	@Expose
 	private Timestamp userCreateTime;
 
-	public Member() {
+	public User() {
 	}
 
-	public Member(String userAcct, String userPwd, String userName, String userNickName, Date birthday, String address,
+	public User(String userAcct, String userPwd, String userName, String userNickName, Date birthday, String address,
 			String phoneNum, Boolean gender) {
 		super();
 		this.userAcct = userAcct;
@@ -100,7 +98,7 @@ public class Member {
 		this.gender = gender;
 	}
 
-	public Member(Integer userId, String userAcct, String userPwd, String userName, String userNickName,
+	public User(Integer userId, String userAcct, String userPwd, String userName, String userNickName,
 			Integer userPwdErrTimes, Date birthday, String address, String phoneNum, Boolean gender, byte[] headshot,
 			AcctState acctState, AcctType acctType, Timestamp userCreateTime) {
 		super();
@@ -245,7 +243,7 @@ public class Member {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Member other = (Member) obj;
+		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
 	}
 

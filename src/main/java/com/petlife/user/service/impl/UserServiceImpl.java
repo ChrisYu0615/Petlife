@@ -1,21 +1,21 @@
-package com.petlife.member.service.impl;
+package com.petlife.user.service.impl;
 
 import java.util.List;
 
-import com.petlife.member.dao.MemberDAO;
-import com.petlife.member.dao.impl.MemberDAOImpl2;
-import com.petlife.member.entity.Member;
-import com.petlife.member.service.MemberServeice;
+import com.petlife.user.dao.UserDAO;
+import com.petlife.user.dao.impl.UserDAOImpl2;
+import com.petlife.user.entity.User;
+import com.petlife.user.service.UserServeice;
 
-public class MemberServiceImpl implements MemberServeice {
-	private MemberDAO dao;
+public class UserServiceImpl implements UserServeice {
+	private UserDAO dao;
 
-	public MemberServiceImpl() {
-		dao = new MemberDAOImpl2();
+	public UserServiceImpl() {
+		dao = new UserDAOImpl2();
 	}
 
 	@Override
-	public Member addUser(Member user) {
+	public User addUser(User user) {
 		Integer id = dao.add(user);
 		user = dao.findByPK(id);
 //		return dao.add(user);
@@ -50,17 +50,17 @@ public class MemberServiceImpl implements MemberServeice {
 	}
 
 	@Override
-	public Integer updateUser(Member user) {
+	public Integer updateUser(User user) {
 		return dao.update(user);
 	}
 
 	@Override
-	public Member getUserByUserId(Integer userId) {
+	public User getUserByUserId(Integer userId) {
 		return dao.findByPK(userId);
 	}
 
 	@Override
-	public List<Member> getAllUsers() {
+	public List<User> getAllUsers() {
 		return dao.getAll();
 	}
 

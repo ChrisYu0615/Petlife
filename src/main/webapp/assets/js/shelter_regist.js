@@ -25,19 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 密碼顯示切換功能
     var passwordInput = document.getElementById('password');
-    var comfirmPasswordInput = document.getElementById('confirm-password');
-
     var showPasswordCheckbox = document.getElementById('showPassword');
 
     showPasswordCheckbox.addEventListener('change', function () {
         if (showPasswordCheckbox.checked) {
             // 顯示密碼
             passwordInput.type = 'text';
-            comfirmPasswordInput.type = 'text';
         } else {
             // 隱藏密碼
             passwordInput.type = 'password';
-            comfirmPasswordInput.type = 'password';
         }
     });
 
@@ -73,16 +69,101 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
 
     // 照片上傳預覽
-    const shelterImg = document.getElementById('shelter-img');
-    const shelterImgPreview = document.getElementById('shelter-img-preview');
+    // const shelterImg = document.getElementById('shelter-img');
+    // const shelterImgPreview = document.getElementById('shelter-img-preview');
 
-    shelterImg.addEventListener('change', function () {
-        if (shelterImg.files && shelterImg.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                shelterImgPreview.src = e.target.result;
-            };
-            reader.readAsDataURL(shelterImg.files[0]);
-        }
-    });
+    // shelterImg.addEventListener('change', function () {
+    //     if (shelterImg.files && shelterImg.files[0]) {
+    //         const reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             shelterImgPreview.src = e.target.result;
+    //         };
+    //         reader.readAsDataURL(shelterImg.files[0]);
+    //     }
+    // });
+    
+    // 前端驗證區塊
+    var verifyFlag = true;
+	
+	// 使用ajax判斷會員帳號是否重複
+	var userAccount = document.getElementById("useraccount");
+	userAccount.addEventListener("blur", function() {
+		document.getElementById("verify_useraccount").innerHTML = "";
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					let verifyResult = xhr.responseText;
+					document.getElementById("verify_useraccount").innerHTML = xhr.responseText;
+					if (verifyResult.includes("帳號重複")) {
+						$("#btn_regist").prop("disabled", true);
+					} else {
+						$("#btn_regist").prop("disabled", true);
+					}
+				} else {
+					alert(xhr.status);
+				}
+			}
+		}
+		xhr.open("POST", "/Petlife/shelter/shelter.do", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		var userAccountVal = document.getElementById("useraccount").value;
+		xhr.send("action=verify&useraccount=" + userAccountVal);
+	});
+	
+	// 針對輸入框輸入後blur事件，輸入任何字後就會把錯誤訊息消除
+	$("#useraccount").blur(function() {
+		if ($.trim($("#useraccount").val()) != "") {
+			$("#verify_useraccount").html("");
+		}
+	});
+
+	$("#authencode").blur(function() {
+		if ($.trim($("#authencode").val()) != "") {
+			$("#verify_authencode").html("");
+		}
+	});
+
+	$("#password").blur(function() {
+		if ($.trim($("#password").val()) != "") {
+			$("#verify_password").html("");
+		}
+	});
+
+	$("#user_in_charge").blur(function() {
+		if ($.trim($("#user_in_charge").val()) != "") {
+			$("#verify_user_in_charge").html("");
+		}
+	});
+
+	$("#sheltername").blur(function() {
+		if ($.trim($("#sheltername").val()) != "") {
+			$("#verify_sheltername").html("");
+		}
+	});
+
+	$("#phone").blur(function() {
+		if ($.trim($("#phone").val()) != "") {
+			$("#verify_phone").html("");
+		}
+	});
+
+	$("#county").blur(function() {
+		if ($.trim($("#county").val()) != "") {
+			$("#verify_county").html("");
+		}
+	});
+
+	$("#district").blur(function() {
+		if ($.trim($("#district").val()) != "") {
+			$("#verify_district").html("");
+		}
+	});
+
+	$("#address").blur(function() {
+		if ($.trim($("#address").val()) != "") {
+			$("#verify_address").html("");
+		}
+	});
+	
 });
