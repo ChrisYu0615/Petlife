@@ -150,7 +150,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User findUserByUserAccount(String userAccount) {
+	public User findUserByUserAccount(String userAcct) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByUserAccountAndPassword(String userAcct, String userPwd) {
 		// TODO Auto-generated method stub
 		return null;
 	}
