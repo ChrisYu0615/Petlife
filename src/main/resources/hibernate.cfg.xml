@@ -8,6 +8,7 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/petlife?serverTimezone=Asia/Taipei</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">abc123</property>
+
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- 使用資料庫連線池配置 -->

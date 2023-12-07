@@ -4,10 +4,18 @@ import java.util.List;
 
 import com.petlife.forum.entity.Article;
 public interface ArticleDAO {
-	int add(Article article);
-	int update(Article article);
-	int delete(Integer articleId);
-	Article findByPK(Integer articleId);
+	public Integer add(Article article);
+	
+	public Integer update(Article article);
+	
+	public Integer delete(Integer articleId);
+	
+	public Article findByPK(Integer articleId);
+	
 	List<Article> getAll();
+	
+//	public Long getTotal();
+   //搜尋文章功能
+	public List<Article> searchByKeyword(String keyword);
 }
 
