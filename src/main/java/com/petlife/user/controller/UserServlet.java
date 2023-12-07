@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.petlife.user.service.UserServeice;
 import com.petlife.user.service.impl.UserServiceImpl;
 
 @WebServlet("/user/user.do")
+@MultipartConfig
 public class UserServlet extends HttpServlet {
 	private UserServeice userServeice;
 
@@ -48,8 +50,8 @@ public class UserServlet extends HttpServlet {
 		case "getAuthenCode":
 			forwardPath = getAuthenCode(req, resp);
 			break;
-		case "delete":
-			forwardPath = deleteUser(req, resp);
+		case "userLogin":
+			forwardPath = userLogin(req, resp);
 			break;
 		case "update":
 			forwardPath = updateUser(req, resp);
@@ -67,7 +69,7 @@ public class UserServlet extends HttpServlet {
 			break;
 		}
 		// dispatcher路徑是從專案開始，forwardPath要加/
-		if (!forwardPath.isEmpty()) {
+		if (!("".equals(forwardPath))) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, resp);
 		}
@@ -244,9 +246,44 @@ public class UserServlet extends HttpServlet {
 		return "";
 	}
 
-	private String deleteUser(HttpServletRequest req, HttpServletResponse resp) {
-		userServeice.deleteUser(null);
-		return "";
+	// 登入判斷
+	private String userLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		req.setCharacterEncoding("UTF-8");
+
+		String userAcct = req.getParameter("account");
+		String userPwd = req.getParameter("password");
+
+		resp.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		// 檢查要登入的帳號是否存在
+		if (userServeice.exisUserAccount(userAcct)) {
+			// 存在的話檢查帳密是否存在，並回傳帳號目前狀態
+			Integer checkLogin = userServeice.userLogin(userAcct, userPwd);
+			// 登入成功，檢查帳號的狀態
+			switch (checkLogin) {
+			case 1:
+				out.print(1);
+				break;
+			case 2:
+				out.print(2);
+				break;
+			case 3:
+				out.print(3);
+				break;
+			default:
+				out.print(0);
+				User user = userServeice.getUserByUserId(checkLogin);
+				System.out.println(user);
+				// 登入成功要轉發或重導?
+				req.setAttribute("user", user);
+				return "";
+			}
+			return "";
+		} else {
+			// 登入失敗：帳號不存在
+			out.print(-1);
+			return "";
+		}
 	}
 
 	private String updateUser(HttpServletRequest req, HttpServletResponse resp) {

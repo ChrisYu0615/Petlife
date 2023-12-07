@@ -1,6 +1,8 @@
-<%@page import="com.petlife.articlejdbc.ArticleDAO"%>
+<%@page import="com.petlife.forum.dao.ArticleDAO"%>
+<%@page import="com.petlife.forum.dao.impl.ArticleDAOImpl"%>
+<%@page import="com.petlife.forum.entity.Article"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.petlife.articlejdbc.*"%>
+
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%

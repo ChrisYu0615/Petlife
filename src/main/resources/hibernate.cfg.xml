@@ -38,5 +38,9 @@
         <mapping class="com.petlife.mall.entity.Comm" />
         <mapping class="com.petlife.user.entity.User" />
         <mapping class="com.petlife.seller.entity.Seller" />
+        <mapping class="com.petlife.pet.entity.Pet"/>
+        <mapping class="com.petlife.pet.entity.PetVariety"/>
+        <mapping class="com.petlife.pet.entity.PetPhoto"/>
+        <mapping class="com.petlife.shelter.entity.Shelter"/>
 	</session-factory>
 </hibernate-configuration>

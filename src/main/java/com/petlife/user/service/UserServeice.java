@@ -20,10 +20,12 @@ public interface UserServeice {
 
 	// 查(多個)
 	List<User> getAllUsers();
-	
+
 	int getPageTotal();
 
 	boolean existUserNickname(String userNickname);
-	
-	boolean exisUserAccount(String userAccount);
+
+	boolean exisUserAccount(String userAcct);
+
+	Integer userLogin(String userAcct, String userPwd);
 }
