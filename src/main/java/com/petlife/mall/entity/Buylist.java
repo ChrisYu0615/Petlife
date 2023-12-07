@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.petlife.admin.entity.Coupon;
+import com.petlife.member.entity.Member;
 import com.petlife.seller.entity.Seller;
-import com.petlife.user.entity.User;
 
 @Entity
 @Table(name = "buylist")
@@ -22,7 +22,7 @@ public class Buylist {
 
 	@ManyToOne   //user_id
     @JoinColumn(name = "user_id" ,referencedColumnName = "user_id")
-    private User user;
+    private Member user;
 	
 	@ManyToOne   //seller_id
     @JoinColumn(name = "seller_id" ,referencedColumnName = "seller_id")
@@ -70,11 +70,11 @@ public class Buylist {
 		this.buylistId = buylistId;
 	}
 
-	public User getUser() {
+	public Member getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Member user) {
 		this.user = user;
 	}
 

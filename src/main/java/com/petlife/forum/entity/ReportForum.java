@@ -1,7 +1,6 @@
 package com.petlife.forum.entity;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.oracle.wls.shaded.org.apache.xpath.functions.FuncFalse;
 import com.petlife.admin.entity.Admin;
-import com.petlife.user.entity.User;
+import com.petlife.member.entity.Member;
 
 @Entity
 @Table(name = "report_forum")
@@ -27,7 +27,7 @@ public class ReportForum {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false)
 	@Expose
-    private User user;
+    private Member user;
 
     @ManyToOne
     @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false, insertable = false)
@@ -66,7 +66,7 @@ public class ReportForum {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReportForum(Integer reportForumId, User user, Article article, Comment comment, ReportType reportType,
+	public ReportForum(Integer reportForumId, Member user, Article article, Comment comment, ReportType reportType,
 			Timestamp reportForumTime, String reportForumReason, Admin admin, String adminReply,
 			Timestamp adminReplyTime) {
 		super();
@@ -90,11 +90,11 @@ public class ReportForum {
 		this.reportForumId = reportForumId;
 	}
 
-	public User getUser() {
+	public Member getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Member user) {
 		this.user = user;
 	}
 

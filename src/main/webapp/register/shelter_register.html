@@ -2,194 +2,199 @@
 <html lang="zh-TW">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>收容所會員註冊</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>收容所會員註冊</title>
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Style CSS-->
-<link rel="stylesheet" href="../assets/css/style.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="../assets/css/fontawesome.all.min.css">
-<!-- icheck bootstrap -->
-<link rel="stylesheet"
-	href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="../assets/css/adminlte.min.css">
-<!-- 引入Bootstrap-datepicker CSS -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="../assets/css/regist.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Style CSS-->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/css/adminlte.min.css">
+    <!-- 引入Bootstrap-datepicker CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="../assets/css/regist.css">
 </head>
 
 <body>
-	<!-- preloader Area -->
-	<div id="preloader">
-		<div id="status">
-			<img src="../assets/img/loader.gif" alt="img">
-		</div>
-	</div>
+    <!-- preloader Area -->
+    <div id="preloader">
+        <div id="status">
+            <img src="../assets/img/loader.gif" alt="img">
+        </div>
+    </div>
 
-	<div class="headerPage"></div>
+    <div class="headerPage"></div>
 
-	<!-- Main content -->
-	<section class="content">
-		<div class="container-fluid">
-			<div class="row justify-content-around">
-				<!-- left column -->
-				<div class="col-md-5">
-					<!-- general form elements -->
-					<div class="card card-warning">
-						<div class="row card-header">
-							<div class="col"></div>
-							<h2 class="col-auto">
-								<img src="../assets/img/favicon.png" alt="">收容所會員註冊
-							</h2>
-							<div class="col"></div>
-						</div>
-						<!-- /.card-header -->
-						<!-- form start -->
-						<form action="#" method="get">
-							<div class="card-body">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <!-- left column -->
+                <div class="col-md-5">
+                    <!-- general form elements -->
+                    <div class="card card-warning">
+                        <div class="row card-header">
+                            <div class="col"></div>
+                            <h2 class="col-auto"><img src="../assets/img/favicon.png" alt="">收容所會員註冊</h2>
+                            <div class="col"></div>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="#" method="get">
+                            <div class="card-body">
 
-								<div class="form-group mb-3">
-									<label for="useraccount" class="form-label">會員帳號(Email)
-										<span class="must_insert">*</span>
-									</label> <input type="email" class="form-control" id="useraccount"
-										name="useraccount" placeholder="請輸入Email"> <span
-										class="verify_result" id="verify_useraccount"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="useraccount" class="form-label">會員帳號(Email)
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="email" class="form-control" id="useraccount" name="useraccount"
+                                        placeholder="請輸入Email">
+                                </div>
 
-								<div class="form-group mb-3">
-									<label for="authencode" class="form-label">輸入驗證碼 <span
-										class="must_insert">*</span>
-									</label>
-									<div class="input-group">
-										<input type="text" class="form-control" name="authencode"
-											id="authencode" placeholder="請輸入驗證碼">
-										<div class="input-group-append">
-											<button class="btn btn-primary" type="button"
-												id="getauthencode">獲取驗證碼</button>
-										</div>
-									</div>
-									<span class="verify_result" id="verify_authencode"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="authencode" class="form-label">輸入驗證碼
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="authencode" id="authencode"
+                                            placeholder="請輸入驗證碼">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button"
+                                                id="getauthencode">獲取驗證碼</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<div class="form-group mb-3">
-									<label for="password" class="form-label">密碼 <span
-										class="must_insert">*</span>
-									</label> <input type="password" class="form-control" id="password"
-										name="password" placeholder="請輸入密碼"> <span
-										class="verify_result" id="verify_password"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="password" class="form-label">密碼
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="請輸入密碼">
+                                </div>
 
-								<div class="form-check mb-3">
-									<input class="form-check-input" type="checkbox"
-										id="showPassword"> <label class="form-check-label"
-										for="showPassword"> 顯示密碼 </label>
-								</div>
+                                <!-- <div class="form-group mb-3">
+                                    <label for="confirm-password" class="form-label">確認密碼
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="password" class="form-control" id="confirm-password"
+                                        name="confirm-password" placeholder="請再次輸入密碼">
+                                </div> -->
 
-								<div class="form-group mb-3">
-									<label for="user_in_charge" class="form-label">負責人姓名 <span
-										class="must_insert">*</span>
-									</label> <input type="text" class="form-control" id="user_in_charge"
-										name="user_in_charge" placeholder="請輸入姓名"> <span
-										class="verify_result" id="verify_user_in_charge"></span>
-								</div>
 
-								<div class="form-group mb-3">
-									<label for="sheltername" class="form-label">收容所名稱 <span
-										class="must_insert">*</span>
-									</label> <input type="text" class="form-control" id="sheltername"
-										name="sheltername" placeholder="請輸入暱稱">
-								</div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="showPassword">
+                                    <label class="form-check-label" for="showPassword">
+                                        顯示密碼
+                                    </label>
+                                </div>
 
-								<div class="form-group mb-3">
-									<label for="phone" class="form-label">電話號碼 <span
-										class="must_insert">*</span>
-									</label> <input type="tel" class="form-control" id="phone" name="phone"
-										placeholder="請輸入手機號碼"> <span class="verify_result"
-										id="verify_phone"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="username" class="form-label">負責人姓名
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="請輸入姓名">
+                                </div>
 
-								<div class="row">
-									<div class="form-group col-auto">
-										<label for="county" class="form-label">縣市 <span
-											class="must_insert">*</span>
-										</label> <br> <select class="form-select" id="county"
-											name="country">
-										</select>
-									</div>
-									<div class="form-group col-auto offset-1">
-										<label for="district" class="form-label">行政區 <span
-											class="must_insert">*</span>
-										</label> <br> <select class="form-select" id="district"
-											name="district">
-											<option value="">選擇行政區</option>
-										</select>
-									</div>
-								</div>
-								<div class="mb-3">
-									<span class="verify_result" id="verify_county"></span> <br>
-									<span class="verify_result" id="verify_district"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="sheltername" class="form-label">收容所名稱
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="sheltername" name="sheltername"
+                                        placeholder="請輸入暱稱">
+                                </div>
 
-								<div class="form-group mb-3">
-									<label for="address" class="form-label">地址 <span
-										class="must_insert">*</span>
-									</label> <input type="text" class="form-control" id="address"
-										name="address" placeholder="請輸入詳細地址"> <span
-										class="verify_result" id="verify_address"></span>
-								</div>
+                                <div class="form-group mb-3">
+                                    <label for="phone" class="form-label">電話號碼
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="tel" class="form-control" id="phone" name="phone"
+                                        placeholder="請輸入手機號碼">
+                                </div>
 
-								<!-- <div class="row"> -->
-								<!--   <div class="form-group col-md-6"> -->
-								<!--     <label for="shelter-img" class="form-label">請上傳證明資料 -->
-								<!--       <span class="must_insert">*</span> -->
-								<!--     </label> -->
-								<!--     <input type="file" class="form-control-sm" id="shelter-img" name="shelter-img" -->
-								<!--     accept="image/*"> -->
-								<!--     <img class="image-preview" id="shelter-img-preview" src="" alt="" -->
-								<!--     style="width: 250px;"> -->
-								<!--    </div> -->
-								<!--  </div> -->
+                                <div class="row">
+                                    <div class="form-group col-auto">
+                                        <label for="county" class="form-label">縣市
+                                            <span class="must_insert">*</span>
+                                        </label>
+                                        <br>
+                                        <select class="form-select" id="county" name="country">
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-auto offset-1">
+                                        <label for="district" class="form-label">行政區
+                                            <span class="must_insert">*</span>
+                                        </label>
+                                        <br>
+                                        <select class="form-select" id="district" name="district">
+                                            <option value="">選擇行政區</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-							</div>
-							<!-- /.card-body -->
+                                <div class="form-group mb-3">
+                                    <label for="address" class="form-label">地址
+                                        <span class="must_insert">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        placeholder="請輸入詳細地址">
+                                </div>
 
-							<div class="row card-footer">
-								<div class="col"></div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="shelter-img" class="form-label">請上傳證明資料
+                                            <span class="must_insert">*</span>
+                                        </label>
+                                        <input type="file" class="form-control-sm" id="shelter-img" name="shelter-img"
+                                            accept="image/*">
+                                        <img class="image-preview" id="shelter-img-preview" src="" alt=""
+                                            style="width: 250px;">
+                                    </div>
+                                </div>
 
-								<div class="col-auto">
-									<button type="submit" class="btn btn-primary" id="btn_regist">註冊</button>
-								</div>
+                            </div>
+                            <!-- /.card-body -->
 
-								<div class="col-auto offset-1">
-									<button type="button" class="btn btn-warning" id="btn_cancel">取消</button>
-								</div>
+                            <div class="row card-footer">
+                                <div class="col"></div>
 
-								<div class="col"></div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-	</section>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary" id="btn_regist">註冊</button>
+                                </div>
 
-	<div class="footerPage"></div>
-	<!-- /.card -->
-	<!-- jQuery -->
-	<script src="../assets/js/jquery.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="../dist/js/adminlte.min.js"></script>
-	<!-- 引入Bootstrap-datepicker JavaScript -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.zh-TW.min.js"></script>
-	<script src="../assets/js/shelter_regist.js"></script>
+                                <div class="col-auto offset-1">
+                                    <button type="button" class="btn btn-warning" id="btn_cancel">取消</button>
+                                </div>
+
+                                <div class="col"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <div class="footerPage"></div>
+    <!-- /.card -->
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
+    <!-- 引入Bootstrap-datepicker JavaScript -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.zh-TW.min.js"></script>
+    <script src="../assets/js/shelter_regist.js"></script>
 </body>
 
 </html>

@@ -21,8 +21,9 @@ public class Advertisement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer advertisementId;
 
-	@Column(name = "ad_title")
-	private String advertisementTitle;
+	@ManyToOne
+	@JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
+	private Admin admin;
 
 	@Column(name = "ad_img", columnDefinition = "longblob")
 	private byte[] advertisementImg;
@@ -39,11 +40,11 @@ public class Advertisement {
 	public Advertisement() {
 	}
 
-	public Advertisement(Integer advertisementId, String advertisementTitle, byte[] advertisementImg,
-			String advertisementContent, Date startDate, Date endDate) {
+	public Advertisement(Integer advertisementId, Admin admin, byte[] advertisementImg, String advertisementContent,
+			Date startDate, Date endDate) {
 		super();
 		this.advertisementId = advertisementId;
-		this.advertisementTitle = advertisementTitle;
+		this.admin = admin;
 		this.advertisementImg = advertisementImg;
 		this.advertisementContent = advertisementContent;
 		this.startDate = startDate;
@@ -58,12 +59,12 @@ public class Advertisement {
 		this.advertisementId = advertisementId;
 	}
 
-	public String getAdvertisementTitle() {
-		return advertisementTitle;
+	public Admin getAdmin() {
+		return admin;
 	}
 
-	public void setAdvertisementTitle(String advertisementTitle) {
-		this.advertisementTitle = advertisementTitle;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
 	public byte[] getAdvertisementImg() {
@@ -117,7 +118,7 @@ public class Advertisement {
 
 	@Override
 	public String toString() {
-		return "Advertisement [advertisementId=" + advertisementId + ", advertisementTitle=" + advertisementTitle
+		return "Advertisement [advertisementId=" + advertisementId + ", admin=" + admin.getAdminNickname()
 				+ ", advertisementImg=" + Arrays.toString(advertisementImg) + ", advertisementContent="
 				+ advertisementContent + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}

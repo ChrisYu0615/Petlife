@@ -1,7 +1,6 @@
 package com.petlife.forum.entity;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.user.entity.User;
+import com.oracle.wls.shaded.org.apache.bcel.generic.DALOAD;
+import com.petlife.member.entity.Member;
 
 @Entity
 @Table(name = "comment")
@@ -25,7 +25,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false)
 	@Expose
-    private User user;
+    private Member user;
 
     @ManyToOne
     @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false, insertable = false)
@@ -43,7 +43,7 @@ public class Comment {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Comment(Integer commentId, User user, Article article, String commentText, Timestamp commentDatetime) {
+	public Comment(Integer commentId, Member user, Article article, String commentText, Timestamp commentDatetime) {
 		super();
 		this.commentId = commentId;
 		this.user = user;
@@ -60,11 +60,11 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public User getUser() {
+	public Member getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Member user) {
 		this.user = user;
 	}
 

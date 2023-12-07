@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-import com.petlife.user.entity.User;
+import com.petlife.member.entity.Member;
 
 @Entity
 @Table(name = "collect_article")
@@ -31,14 +31,14 @@ public class CollectArticle {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false)
 	@Expose
-    private User user;
+    private Member user;
 
 	public CollectArticle() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CollectArticle(Integer collectArticleId, Article article, User user) {
+	public CollectArticle(Integer collectArticleId, Article article, Member user) {
 		super();
 		this.collectArticleId = collectArticleId;
 		this.article = article;
@@ -61,11 +61,11 @@ public class CollectArticle {
 		this.article = article;
 	}
 
-	public User getUser() {
+	public Member getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Member user) {
 		this.user = user;
 	}
 
