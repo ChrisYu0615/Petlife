@@ -30,9 +30,6 @@ $(function() {
 			formData.append("account", userAcct);
 			formData.append("password", userPwd);
 
-			console.log(formData.get("account"));
-			console.log(formData.get("password"));
-
 			$.ajax({
 				url: "/Petlife/user/user.do?action=userLogin",           // 資料請求的網址
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
@@ -42,7 +39,6 @@ $(function() {
 				processData: false,
 				cache: false,
 				success: function(data) {      // request 成功取得回應後執行
-					console.log(data);
 					switch (data) {
 						case '-1':
 							alert("帳號不存在!!");

@@ -68,20 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		})
 		.catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
 
-	// 照片上傳預覽
-	// const shelterImg = document.getElementById('shelter-img');
-	// const shelterImgPreview = document.getElementById('shelter-img-preview');
-
-	// shelterImg.addEventListener('change', function () {
-	//     if (shelterImg.files && shelterImg.files[0]) {
-	//         const reader = new FileReader();
-	//         reader.onload = function (e) {
-	//             shelterImgPreview.src = e.target.result;
-	//         };
-	//         reader.readAsDataURL(shelterImg.files[0]);
-	//     }
-	// });
-
 	// 前端驗證區塊
 	var verifyFlag = true;
 
@@ -127,12 +113,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	$("#password").blur(function() {
 		if ($.trim($("#password").val()) != "") {
 			$("#verify_password").html("");
-		}
-	});
-
-	$("#user_in_charge").blur(function() {
-		if ($.trim($("#user_in_charge").val()) != "") {
-			$("#verify_user_in_charge").html("");
 		}
 	});
 
@@ -189,13 +169,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			$("#verify_password").html("");
 		}
 
-		if ($.trim($("#user_in_charge").val()) == "") {
-			$("#verify_user_in_charge").html("<font color='red'>請輸入負責人姓名!!</font>");
-			verifyFlag = false;
-		} else {
-			$("#verify_user_in_charge").html("");
-		}
-
 		if ($.trim($("#sheltername").val()) == "") {
 			$("#verify_sheltername").html("<font color='red'>請輸入收容所名稱!</font>");
 			verifyFlag = false;
@@ -237,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			let userAccount = $.trim($("#useraccount").val());
 			let authencode = $.trim($("#authencode").val());
 			let password = $.trim($("#password").val());
-			let userInCharge = $.trim($("#user_in_charge").val());
 			let shelterName = $.trim($("#sheltername").val());
 			let phone = $.trim($("#phone").val());
 			let country = $.trim($("#country").val());
@@ -248,7 +220,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			formData.append("shelteraccount", userAccount);
 			formData.append("authencode", authencode);
 			formData.append("password", password);
-			formData.append("userInCharge", userInCharge);
 			formData.append("shelterName", shelterName);
 			formData.append("phone", phone);
 			formData.append("country", country);
@@ -282,7 +253,4 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		};
 	});
-
-
-
 });

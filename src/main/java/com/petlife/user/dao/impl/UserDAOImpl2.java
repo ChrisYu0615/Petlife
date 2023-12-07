@@ -39,6 +39,7 @@ public class UserDAOImpl2 implements UserDAO {
 
 	@Override
 	public Integer update(User user) {
+		getSession().flush();
 		try {
 			getSession().update(user);
 			return 1;

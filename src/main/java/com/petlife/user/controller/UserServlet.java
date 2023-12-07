@@ -251,9 +251,7 @@ public class UserServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		String userAcct = req.getParameter("account");
-		System.out.println(userAcct);
 		String userPwd = req.getParameter("password");
-		System.out.println(userPwd);
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -286,7 +284,6 @@ public class UserServlet extends HttpServlet {
 			out.print(-1);
 			return "";
 		}
-
 	}
 
 	private String updateUser(HttpServletRequest req, HttpServletResponse resp) {

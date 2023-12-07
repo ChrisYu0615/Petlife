@@ -26,7 +26,7 @@ public class Shelter {
 	@Column(name = "shelter_id", updatable = false)
 	private Integer shelterId;
 	
-	@Column(name = "shelter_acct")
+	@Column(name = "shelter_acct", unique = true, updatable = false)
 	private String shelterAcct;
 	
 	@Column(name = "shelter_pwd")
