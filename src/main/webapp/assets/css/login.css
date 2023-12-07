@@ -13,10 +13,21 @@ div.identity_select div label {
     font-size: 14px;
 }
 
-p.mb-1,
-p.mb-0 {
+p.mb-1 a {
     font-size: 14px;
     font-weight: 600;
+    color: rgb(89, 105, 222);
+}
+
+img#top_logo{
+	margin: 0;
+}
+
+
+
+
+div#login_menu {
+    margin: 40px 0;
 }
 
 button.btn-primary {
@@ -28,4 +39,9 @@ button.btn-warning {
     background-color: #F4980E;
     color: white;
     font-weight: bold;
+}
+
+span.verify_result {
+	font-size: 14px;
+	font-weight: bold;
 }

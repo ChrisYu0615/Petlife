@@ -2,6 +2,7 @@ package com.petlife.user.service.impl;
 
 import java.util.List;
 
+import com.petlife.admin.entity.AcctState;
 import com.petlife.user.dao.UserDAO;
 import com.petlife.user.dao.impl.UserDAOImpl2;
 import com.petlife.user.entity.User;
@@ -18,31 +19,8 @@ public class UserServiceImpl implements UserServeice {
 	public User addUser(User user) {
 		Integer id = dao.add(user);
 		user = dao.findByPK(id);
-//		return dao.add(user);
 		return user;
 	}
-
-	// 測試Json寫法()用於取得註冊成功的會員資料
-//	@Override
-//	public User registUser(User user) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//
-//		try {
-//			session.beginTransaction();
-//
-//			Integer id = dao.add(user);
-//			user = dao.findByPK(id);
-//
-//			session.getTransaction().commit();
-//			return user;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		} finally {
-//			HibernateUtil.shutdown();
-//		}
-//		return null;
-//	}
 
 	@Override
 	public Integer deleteUser(Integer userId) {
@@ -78,11 +56,40 @@ public class UserServiceImpl implements UserServeice {
 	}
 
 	@Override
-	public boolean exisUserAccount(String userAccount) {
-		if (dao.findUserByUserAccount(userAccount) != null) {
+	public boolean exisUserAccount(String userAcct) {
+		if (dao.findUserByUserAccount(userAcct) != null) {
 			return true;
 		}
 		return false;
 	}
 
+	@Override
+	public Integer userLogin(String userAcct, String userPwd) {
+		User user = dao.findUserByUserAccountAndPassword(userAcct, userPwd);
+		if (user != null) {
+			// 登入成功(帳密一樣)，回傳帳號狀態
+			Integer userAcctState = user.getAcctState().getAcctStateId();
+			if (userAcctState == 0) {
+				return user.getUserId();
+			}
+			return userAcctState;
+		} else {
+			// 登入失敗，表示密碼錯誤，更新會員密碼錯誤次數
+			user = dao.findUserByUserAccount(userAcct);
+			Integer pwdErrTimes = user.getUserPwdErrTimes() + 1;
+			// 判斷會員目前錯誤次數是否超過或等於5次，如果是就更新會員狀態
+			if (pwdErrTimes >= 5) {
+				AcctState acctState = new AcctState(2, "密碼錯誤多次");
+				user.setAcctState(acctState);
+				;
+				dao.update(user);
+				return user.getAcctState().getAcctStateId();
+				// 如果錯誤次數未達5次，就更新密碼錯誤次數
+			} else {
+				user.setUserPwdErrTimes(pwdErrTimes);
+				dao.update(user);
+				return 3;
+			}
+		}
+	}
 }

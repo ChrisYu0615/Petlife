@@ -51,7 +51,7 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form action="#" method="get">
+						<form action="/Petlife/shelter/shelter.do" method="post">
 							<div class="card-body">
 
 								<div class="form-group mb-3">
@@ -103,7 +103,8 @@
 									<label for="sheltername" class="form-label">收容所名稱 <span
 										class="must_insert">*</span>
 									</label> <input type="text" class="form-control" id="sheltername"
-										name="sheltername" placeholder="請輸入暱稱">
+										name="sheltername" placeholder="請輸入暱稱"> <span
+										class="verify_result" id="verify_sheltername"></span>
 								</div>
 
 								<div class="form-group mb-3">
@@ -163,7 +164,7 @@
 								<div class="col"></div>
 
 								<div class="col-auto">
-									<button type="submit" class="btn btn-primary" id="btn_regist">註冊</button>
+									<button type="button" class="btn btn-primary" id="btn_regist">註冊</button>
 								</div>
 
 								<div class="col-auto offset-1">

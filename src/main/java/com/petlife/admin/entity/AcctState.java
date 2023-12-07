@@ -36,6 +36,12 @@ public class AcctState {
 	public AcctState() {
 	}
 
+	public AcctState(Integer acctStateId, String acctStateType) {
+		super();
+		this.acctStateId = acctStateId;
+		this.acctStateType = acctStateType;
+	}
+
 	public AcctState(Integer acctStateId, String acctStateType, Set<User> users, Set<Admin> admins) {
 		super();
 		this.acctStateId = acctStateId;
