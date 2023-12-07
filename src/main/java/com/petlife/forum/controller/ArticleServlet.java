@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.petlife.forum.entity.Article;
 import com.petlife.forum.service.ArticleService;
 
-@WebServlet("/art.do")
+@WebServlet("/art/art.do")
 public class ArticleServlet extends HttpServlet {
  // 一個 servlet 實體對應一個 service 實體
  private ArticleService articleService;
