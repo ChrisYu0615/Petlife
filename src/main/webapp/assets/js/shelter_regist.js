@@ -1,90 +1,90 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 	$(".headerPage").load("../components/header.html");
 	$(".footerPage").load("../components/footer.html");
 
-    // 添加獲取驗證碼按鈕的點擊事件處理程序
-    var getauthencode_btn = document.getElementById('getauthencode');
-    getauthencode_btn.addEventListener('click', function () {
-        // 禁用按鈕
-        getauthencode_btn.disabled = true;
+	// 添加獲取驗證碼按鈕的點擊事件處理程序
+	var getauthencode_btn = document.getElementById('getauthencode');
+	getauthencode_btn.addEventListener('click', function() {
+		// 禁用按鈕
+		getauthencode_btn.disabled = true;
 
-        // 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
-        var count = 60;
-        var countdown = setInterval(function () {
-            if (count > 0) {
-                getauthencode_btn.textContent = count + ' 秒後可再次取得';
-                count--;
-            } else {
-                // 啟用按鈕
-                getauthencode_btn.disabled = false;
-                getauthencode_btn.textContent = '取得驗證碼';
-                clearInterval(countdown);
-            }
-        }, 1000);
-    });
+		// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
+		var count = 60;
+		var countdown = setInterval(function() {
+			if (count > 0) {
+				getauthencode_btn.textContent = count + ' 秒後可再次取得';
+				count--;
+			} else {
+				// 啟用按鈕
+				getauthencode_btn.disabled = false;
+				getauthencode_btn.textContent = '取得驗證碼';
+				clearInterval(countdown);
+			}
+		}, 1000);
+	});
 
-    // 密碼顯示切換功能
-    var passwordInput = document.getElementById('password');
-    var showPasswordCheckbox = document.getElementById('showPassword');
+	// 密碼顯示切換功能
+	var passwordInput = document.getElementById('password');
+	var showPasswordCheckbox = document.getElementById('showPassword');
 
-    showPasswordCheckbox.addEventListener('change', function () {
-        if (showPasswordCheckbox.checked) {
-            // 顯示密碼
-            passwordInput.type = 'text';
-        } else {
-            // 隱藏密碼
-            passwordInput.type = 'password';
-        }
-    });
+	showPasswordCheckbox.addEventListener('change', function() {
+		if (showPasswordCheckbox.checked) {
+			// 顯示密碼
+			passwordInput.type = 'text';
+		} else {
+			// 隱藏密碼
+			passwordInput.type = 'password';
+		}
+	});
 
-    // 使用Fetch API載入JSON檔案，讀取縣市的所有選項
-    fetch('../assets/json/cities.json')
-        .then(response => response.json())
-        .then(data => {
-            var countySelect = document.getElementById('county');
-            for (var city in data) {
-                var option = document.createElement('option');
-                option.value = city;
-                option.textContent = city;
-                countySelect.appendChild(option);
-            }
+	// 使用Fetch API載入JSON檔案，讀取縣市的所有選項
+	fetch('../assets/json/cities.json')
+		.then(response => response.json())
+		.then(data => {
+			var countySelect = document.getElementById('county');
+			for (var city in data) {
+				var option = document.createElement('option');
+				option.value = city;
+				option.textContent = city;
+				countySelect.appendChild(option);
+			}
 
-            // 在選擇縣市時會自動對應到該縣市有的行政區
-            countySelect.addEventListener('change', function () {
-                var selectedCity = countySelect.value;
-                var districtSelect = document.getElementById('district');
-                districtSelect.innerHTML = ''; // 清空行政區選項
+			// 在選擇縣市時會自動對應到該縣市有的行政區
+			countySelect.addEventListener('change', function() {
+				var selectedCity = countySelect.value;
+				var districtSelect = document.getElementById('district');
+				districtSelect.innerHTML = ''; // 清空行政區選項
 
-                if (selectedCity in data) {
-                    var districts = data[selectedCity];
-                    for (var i = 0; i < districts.length; i++) {
-                        var districtOption = document.createElement('option');
-                        districtOption.value = districts[i];
-                        districtOption.textContent = districts[i];
-                        districtSelect.appendChild(districtOption);
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
+				if (selectedCity in data) {
+					var districts = data[selectedCity];
+					for (var i = 0; i < districts.length; i++) {
+						var districtOption = document.createElement('option');
+						districtOption.value = districts[i];
+						districtOption.textContent = districts[i];
+						districtSelect.appendChild(districtOption);
+					}
+				}
+			});
+		})
+		.catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
 
-    // 照片上傳預覽
-    // const shelterImg = document.getElementById('shelter-img');
-    // const shelterImgPreview = document.getElementById('shelter-img-preview');
+	// 照片上傳預覽
+	// const shelterImg = document.getElementById('shelter-img');
+	// const shelterImgPreview = document.getElementById('shelter-img-preview');
 
-    // shelterImg.addEventListener('change', function () {
-    //     if (shelterImg.files && shelterImg.files[0]) {
-    //         const reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             shelterImgPreview.src = e.target.result;
-    //         };
-    //         reader.readAsDataURL(shelterImg.files[0]);
-    //     }
-    // });
-    
-    // 前端驗證區塊
-    var verifyFlag = true;
-	
+	// shelterImg.addEventListener('change', function () {
+	//     if (shelterImg.files && shelterImg.files[0]) {
+	//         const reader = new FileReader();
+	//         reader.onload = function (e) {
+	//             shelterImgPreview.src = e.target.result;
+	//         };
+	//         reader.readAsDataURL(shelterImg.files[0]);
+	//     }
+	// });
+
+	// 前端驗證區塊
+	var verifyFlag = true;
+
 	// 使用ajax判斷會員帳號是否重複
 	var userAccount = document.getElementById("useraccount");
 	userAccount.addEventListener("blur", function() {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		var userAccountVal = document.getElementById("useraccount").value;
 		xhr.send("action=verify&useraccount=" + userAccountVal);
 	});
-	
+
 	// 針對輸入框輸入後blur事件，輸入任何字後就會把錯誤訊息消除
 	$("#useraccount").blur(function() {
 		if ($.trim($("#useraccount").val()) != "") {
@@ -165,5 +165,124 @@ document.addEventListener("DOMContentLoaded", function () {
 			$("#verify_address").html("");
 		}
 	});
-	
+
+
+	// 當表單提交時，驗證有無欄位沒有輸入
+	$("#btn_regist").on("click", function() {
+		verifyFlag = true
+		if ($.trim($("#useraccount").val()) == "") {
+			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
+			verifyFlag = false;
+		}
+
+		if ($.trim($("#authencode").val()) == "") {
+			$("#verify_authencode").html("<font color='red'>請輸入驗證碼!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_authencode").html("");
+		}
+
+		if ($.trim($("#password").val()) == "") {
+			$("#verify_password").html("<font color='red'>請輸入密碼!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_password").html("");
+		}
+
+		if ($.trim($("#user_in_charge").val()) == "") {
+			$("#verify_user_in_charge").html("<font color='red'>請輸入負責人姓名!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_user_in_charge").html("");
+		}
+
+		if ($.trim($("#sheltername").val()) == "") {
+			$("#verify_sheltername").html("<font color='red'>請輸入收容所名稱!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_sheltername").html("");
+		}
+
+		if ($.trim($("#phone").val()) == "") {
+			$("#verify_phone").html("<font color='red'>請輸入電話號碼!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_phone").html("");
+		}
+
+		if ($.trim($("#county").val()) == "選擇縣市") {
+			$("#verify_county").html("<font color='red'>請選擇縣市!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_county").html("");
+		}
+
+		if ($.trim($("#district").val()) == "") {
+			$("#verify_district").html("<font color='red'>請選擇行政區!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_district").html("");
+		}
+
+		if ($.trim($("#address").val()) == "") {
+			$("#verify_address").html("<font color='red'>請輸入住址!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_address").html("");
+		}
+
+		if (verifyFlag == false) {
+			$("html, body").scrollTop(0);
+		} else {
+			let userAccount = $.trim($("#useraccount").val());
+			let authencode = $.trim($("#authencode").val());
+			let password = $.trim($("#password").val());
+			let userInCharge = $.trim($("#user_in_charge").val());
+			let shelterName = $.trim($("#sheltername").val());
+			let phone = $.trim($("#phone").val());
+			let country = $.trim($("#country").val());
+			let district = $.trim($("#district").val());
+			let address = $.trim($("#address").val());
+
+			let formData = new FormData();
+			formData.append("shelteraccount", userAccount);
+			formData.append("authencode", authencode);
+			formData.append("password", password);
+			formData.append("userInCharge", userInCharge);
+			formData.append("shelterName", shelterName);
+			formData.append("phone", phone);
+			formData.append("country", country);
+			formData.append("district", district);
+			formData.append("address", address);
+
+			$.ajax({
+				url: "/Petlife/shelter/shelter.do?action=shelterRegister",           // 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+				contentType: true,
+				success: function(data) {      // request 成功取得回應後執行
+					console.log(data);
+					if ($.trim(data.shelterPwdErr).length != 0) {
+						$("#verify_password").html(`<font color='red'>${data.shelterPwdErr}</font>`);
+					}
+					if ($.trim(data.userInChargeErr).length != 0) {
+						$("#verify_user_in_charge").html(`<font color='red'>${data.userInChargeErr}</font>`);
+					}
+					if ($.trim(data.shelterNameErr).length != 0) {
+						$("#verify_sheltername").html(`<font color='red'>${data.shelterNameErr}</font>`);
+					}
+					if ($.trim(data.shelterPhoneNumErr).length != 0) {
+						$("#verify_phone").html(`<font color='red'>${data.shelterPhoneNumErr}</font>`);
+					}
+					if ($.trim(data.addressErr).length != 0) {
+						$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+					}
+				}
+			});
+		};
+	});
+
+
+
 });

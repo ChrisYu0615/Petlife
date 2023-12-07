@@ -41,8 +41,13 @@ public class AcctState {
 	public AcctState() {
 	}
 
-	public AcctState(Integer acctStateId, String acctStateType, Set<User> users, Set<Admin> admins,
-			Set<Shelter> shelters) {
+	public AcctState(Integer acctStateId, String acctStateType) {
+		super();
+		this.acctStateId = acctStateId;
+		this.acctStateType = acctStateType;
+	}
+
+	public AcctState(Integer acctStateId, String acctStateType, Set<User> users, Set<Admin> admins, Set<Shelter> shelters) {
 		super();
 		this.acctStateId = acctStateId;
 		this.acctStateType = acctStateType;
@@ -50,7 +55,6 @@ public class AcctState {
 		this.admins = admins;
 		this.shelters = shelters;
 	}
-
 
 
 	public Integer getAcctStateId() {

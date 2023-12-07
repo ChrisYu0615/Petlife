@@ -295,17 +295,17 @@ $(function() {
 
 		} else {
 			let userData = {
-				useraccount: $("#useraccount").val(),
-				authencode: $("#authencode").val(),
-				password: $("#password").val(),
-				username: $("#username").val(),
-				nickname: $("#nickname").val(),
-				gender: $("input[name='gender']:checked").val(),
-				birthdate: $("#birthdate").val(),
-				phone: $("#phone").val(),
-				country: $("#county").val(),
-				district: $("#district").val(),
-				address: $("#address").val()
+				useraccount: $.trim($("#useraccount").val()),
+				authencode: $.trim($("#authencode").val()),
+				password: $.trim($("#password").val()),
+				username: $.trim($("#username").val()),
+				nickname: $.trim($("#nickname").val()),
+				gender: $.trim($("input[name='gender']:checked").val()),
+				birthdate: $.trim($("#birthdate").val()),
+				phone: $.trim($("#phone").val()),
+				country: $.trim($("#county").val()),
+				district: $.trim($("#district").val()),
+				address: $.trim($("#address").val())
 			};
 
 			console.log(userData);

@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	var verifyFlag = true;
 	var verifyAcct = true;
 	var verifyShopname = true;
-	
+
 	// 使用ajax判斷賣場名稱是否重複
 	var shopname = document.getElementById("shopname");
 	shopname.addEventListener("blur", function() {
@@ -328,6 +328,13 @@ document.addEventListener("DOMContentLoaded", function() {
 			$("#verify_username").html("");
 		}
 
+		if ($.trim($("#seller_idenfication").val()) == "") {
+			$("#verify_seller_idenfication").html("<font color='red'>請輸入身分證字號!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_seller_idenfication").html("");
+		}
+
 		if ($("input[name='gender']:checked").length == 0) {
 			$("#verify_gender").html("<font color='red'>請選擇性別!!</font>");
 			verifyFlag = false;
@@ -409,20 +416,20 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (verifyFlag == false) {
 			$("html, body").scrollTop(0);
 		} else {
-			let userAccount = $("#useraccount").val();
-			let authencode = $("#authencode").val();
-			let password = $("#password").val();
-			let username = $("#username").val();
-			let sellerIdenfication = $("#seller_idenfication").val();
-			let shopname = $("#shopname").val();
-			let gender = $("input[name='gender']:checked").val();
-			let birthdate = $("#birthdate").val();
-			let phone = $("#phone").val();
-			let country = $("#county").val();
-			let district = $("#district").val();
-			let address = $("#address").val();
-			let bankcode = $("#bankcode").val();
-			let bankAccount = $("#bankaccount").val();
+			let userAccount = $.trim($("#useraccount").val());
+			let authencode = $.trim($("#authencode").val());
+			let password = $.trim($("#password").val());
+			let username = $.trim($("#username").val());
+			let sellerIdenfication = $.trim($("#seller_idenfication").val());
+			let shopname = $.trim($("#shopname").val());
+			let gender = $.trim($("input[name='gender']:checked").val());
+			let birthdate = $.trim($("#birthdate").val());
+			let phone = $.trim($("#phone").val());
+			let country = $.trim($("#county").val());
+			let district = $.trim($("#district").val());
+			let address = $.trim($("#address").val());
+			let bankcode = $.trim($("#bankcode").val());
+			let bankAccount = $.trim($("#bankaccount").val());
 			let idcardFront = $("#idcard-front")[0].files[0];
 			let idcardBack = $("#idcard-back")[0].files[0];
 			let accountImg = $("#account-img")[0].files[0];
