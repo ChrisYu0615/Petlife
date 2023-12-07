@@ -70,6 +70,8 @@ public class UserServiceImpl implements UserServeice {
 			// 登入成功(帳密一樣)，回傳帳號狀態
 			Integer userAcctState = user.getAcctState().getAcctStateId();
 			if (userAcctState == 0) {
+				user.setUserPwdErrTimes(0);
+				dao.update(user);
 				return user.getUserId();
 			}
 			return userAcctState;
@@ -77,16 +79,15 @@ public class UserServiceImpl implements UserServeice {
 			// 登入失敗，表示密碼錯誤，更新會員密碼錯誤次數
 			user = dao.findUserByUserAccount(userAcct);
 			Integer pwdErrTimes = user.getUserPwdErrTimes() + 1;
+			user.setUserPwdErrTimes(pwdErrTimes);
 			// 判斷會員目前錯誤次數是否超過或等於5次，如果是就更新會員狀態
 			if (pwdErrTimes >= 5) {
 				AcctState acctState = new AcctState(2, "密碼錯誤多次");
 				user.setAcctState(acctState);
-				;
 				dao.update(user);
 				return user.getAcctState().getAcctStateId();
 				// 如果錯誤次數未達5次，就更新密碼錯誤次數
 			} else {
-				user.setUserPwdErrTimes(pwdErrTimes);
 				dao.update(user);
 				return 3;
 			}
