@@ -3,57 +3,88 @@ package com.petlife.forum.dao.impl;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import com.petlife.forum.dao.CommentDAO;
 import com.petlife.forum.entity.Comment;
 import com.petlife.util.HibernateUtil;
 
 public class CommentDAOImpl implements CommentDAO {
-    private SessionFactory factory;
-
-    public CommentDAOImpl() {
-        factory = HibernateUtil.getSessionFactory();
-    }
-
-    private Session getSession() {
-        return factory.getCurrentSession();
-    }
 
     @Override
-    public Integer add(Comment comment) {
-        Integer id = (Integer) getSession().save(comment);
-        return id;
-    }
-
-    @Override
-    public Integer delete(Integer commentId) {
-        Comment comment = getSession().get(Comment.class, commentId);
-        if (comment != null) {
-            getSession().delete(comment);
-            return 1;
-        } else {
+    public int add(Comment comment) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Integer id = (Integer) session.save(comment);
+            session.getTransaction().commit();
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
             return -1;
         }
     }
 
     @Override
-    public Integer update(Comment comment) {
+    public int update(Comment comment) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
-            getSession().update(comment);
+            session.beginTransaction();
+            session.update(comment);
+            session.getTransaction().commit();
             return 1;
         } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return -1;
+        }
+    }
+
+    @Override
+    public int delete(Integer commentId) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Comment comment = session.get(Comment.class, commentId);
+            if (comment != null) {
+                session.delete(comment);
+            }
+            session.getTransaction().commit();
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
             return -1;
         }
     }
 
     @Override
     public Comment findByPK(Integer commentId) {
-        return getSession().get(Comment.class, commentId);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Comment comment = session.get(Comment.class, commentId);
+            session.getTransaction().commit();
+            return comment;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 
     @Override
     public List<Comment> getAll() {
-        return getSession().createQuery("from Comment", Comment.class).getResultList();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            List<Comment> list = session.createQuery("from Comment", Comment.class).list();
+            session.getTransaction().commit();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 }

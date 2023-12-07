@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		}, 1000);
 	});
 
+	// 限制生日只能選到當前日期
+	var nowDate = new Date();
+	var year = nowDate.getFullYear();
+	var month = nowDate.getMonth + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : (nowDate.getMonth() + 1);
+	var date = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+	$("#birthdate").attr("max", year + "-" + month + "-" + date);
+
 	// 密碼顯示切換功能
 	var passwordInput = document.getElementById('password');
 
@@ -130,34 +137,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// 前端驗證區塊
 	var verifyFlag = true;
-
+	var verifyAcct = true;
+	var verifyShopname = true;
+	
 	// 使用ajax判斷賣場名稱是否重複
 	var shopname = document.getElementById("shopname");
 	shopname.addEventListener("blur", function() {
 		document.getElementById("verify_shopname").innerHTML = "";
-		console.log("發送ajax請求");
-
 		var xhr = new XMLHttpRequest();
-
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
 					document.getElementById("verify_shopname").innerHTML = xhr.responseText;
 					if (verifyResult.includes("暱稱重複")) {
-						verifyFlag = false;
+						verifyShopname = false;
+						$("#btn_regist").prop("disabled", true);
+					} else {
+						verifyShopname = true;
+						if (verifyAcct == true && verifyShopname == true) {
+							$("#btn_regist").prop("disabled", false);
+						}
 					}
-					console.log(xhr.responseText);
 				} else {
 					alert(xhr.status);
 				}
 			}
 		}
-
 		xhr.open("POST", "/Petlife/seller/seller.do", true);
-
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
 		var shopnameval = document.getElementById("shopname").value;
 		xhr.send("action=verify&shopname=" + shopnameval);
 	});
@@ -166,29 +174,28 @@ document.addEventListener("DOMContentLoaded", function() {
 	var userAccount = document.getElementById("useraccount");
 	userAccount.addEventListener("blur", function() {
 		document.getElementById("verify_useraccount").innerHTML = "";
-		console.log("發送ajax請求");
-
 		var xhr = new XMLHttpRequest();
-
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
 					document.getElementById("verify_useraccount").innerHTML = xhr.responseText;
 					if (verifyResult.includes("帳號重複")) {
-						verifyFlag = false;
+						verifyAcct = false;
+						$("#btn_regist").prop("disabled", true);
+					} else {
+						verifyAcct = true;
+						if (verifyAcct == true && verifyShopname == true) {
+							$("#btn_regist").prop("disabled", false);
+						}
 					}
-					console.log(xhr.responseText);
 				} else {
 					alert(xhr.status);
 				}
 			}
 		}
-
 		xhr.open("POST", "/Petlife/seller/seller.do", true);
-
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
 		var userAccountVal = document.getElementById("useraccount").value;
 		xhr.send("action=verify&selleraccount=" + userAccountVal);
 	});
@@ -294,8 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 	// 當表單提交時，驗證有無欄位沒有輸入
-	$("#regist_form").submit(function(event) {
-		verifyFlag = true;
+	$("#btn_regist").on("click", function() {
 		if ($.trim($("#useraccount").val()) == "") {
 			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
 			verifyFlag = false;
@@ -401,9 +407,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		if (verifyFlag == false) {
-			event.preventDefault();
+			$("html, body").scrollTop(0);
 		} else {
-			event.preventDefault();
 			let userAccount = $("#useraccount").val();
 			let authencode = $("#authencode").val();
 			let password = $("#password").val();

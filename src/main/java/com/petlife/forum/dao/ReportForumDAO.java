@@ -3,13 +3,9 @@ import java.util.List;
 
 import com.petlife.forum.entity.ReportForum;
 public interface ReportForumDAO {
-	public Integer add(ReportForum reportForum);
-	
-	public Integer update(ReportForum reportForum);
-	
-	public Integer delete(Integer repotForumId);
-	
-	public ReportForum findByPK(Integer repotForumId);
-	
+	int add(ReportForum reportForum);
+	int update(ReportForum reportForum);
+	int delete(Integer repotForumId);
+	ReportForum findByPK(Integer repotForumId);
 	List<ReportForum> getAll();
 }

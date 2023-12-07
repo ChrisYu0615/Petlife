@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petlife.forum.entity.Article;
 import com.petlife.forum.service.ArticleService;
-import com.petlife.forum.service.impl.ArticleServiceImpl;
 
 @WebServlet("/art.do")
 public class ArticleServlet extends HttpServlet {
@@ -23,7 +22,7 @@ public class ArticleServlet extends HttpServlet {
 
  @Override
  public void init() throws ServletException {
-  articleService = new ArticleServiceImpl();
+  articleService = new ArticleService();
  }
  
  @Override
@@ -91,8 +90,8 @@ String str = req.getParameter("articleId");
 
 /*************************** 2.開始查詢資料 *****************************************/
 //  CouponService coupoService = new CouponService();
-  articleService = new ArticleServiceImpl();
-  Article article = articleService.getArticleByArticleId(articleId);
+  articleService = new ArticleService();
+  Article article = articleService.getOneArticle(articleId);
 
   if (article == null) {
    errorMsgs.add("查無資料");
@@ -109,7 +108,7 @@ return "/article/listOneCoupon.jsp";
  
  private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
   Integer articleId = Integer.valueOf(req.getParameter("articleId"));
-  Article article = articleService.getArticleByArticleId(articleId);
+  Article article = articleService.getOneArticle(articleId);
 
   req.setAttribute("article", article);
   return "/article/update_article_input.jsp";
@@ -173,7 +172,7 @@ return "/article/listOneCoupon.jsp";
 
 /*************************** 2.開始修改資料 *****************************************/
 articleService.updateArticle(article);
-req.setAttribute("article", articleService.getArticleByArticleId(articleId));
+req.setAttribute("article", articleService.getOneArticle(articleId));
 
 /*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 req.setAttribute("article", article); // 資料庫update成功後,正確的的manage物件,存入req

@@ -7,19 +7,10 @@ import com.petlife.forum.entity.ArticleImg;
 
 public interface ArticleImgDAO {
 
-	public Integer add(ArticleImg articleImg);
-	
-	public Integer update(ArticleImg articleImg);
-	
-	public Integer delete(Integer articleImgId);
-	
-	public ArticleImg findByPK(Integer articleImgId);
-	
-	public List<ArticleImg> getAll();
-
-	List<ArticleImg> getImgsByArticleId(Integer articleId);
-
-
+    int add(ArticleImg articleImg);
+    int update(ArticleImg articleImg);
+    int delete(Integer articleImgId);
+    ArticleImg findByPK(Integer articleImgId);
+    List<ArticleImg> getAll();
      
-	
     }

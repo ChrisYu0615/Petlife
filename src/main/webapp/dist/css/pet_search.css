@@ -1,0 +1,250 @@
+*{
+    box-sizing: border-box;
+    /* font-size: 20px; */
+}
+
+
+/* search */
+h1 {
+    position: relative;
+     left: 50%;
+     text-align: center;
+     width: 700px;
+     /* border: 1px solid red; */
+     border-radius: 50px;
+     background-color: lightblue;
+     box-shadow: 5px 5px 5px rgb(153, 151, 151);
+ }
+ div.search_pet{
+    /* border: 1px red solid; */
+   position:relative;
+    /* top: 150%; */
+    left: 50%;
+    width: 700px;
+    margin-top: 20px;
+    background-color: #FFF2CC;
+    border-radius: 30px;
+    box-shadow: 5px 5px 5px lightgray;
+
+ }
+ p{
+    padding-left: 10px;
+    display: inline;
+ }
+
+span.mar,div.search_two{
+    /* border: 1px solid black; */
+    margin: 2% 6%;
+    display: inline-block;
+    width: 220px;
+    background-color: white;
+    border-radius: 25px;
+    /* margin: 10px 0px; */
+}
+select.pet_variety{
+    width: 125px;
+    display: inline;
+    height: 27px;
+    border-radius: 30px;
+    /* border: 1px solid black; */
+}
+label.pet_num,label.come_in_date_start,label.come_in_date_end{
+    display: inline;
+    /* border: 1px solid orange; */
+    width: 100px;
+    margin-left: 10px;
+}
+
+input#pet_num{
+    display: inline;
+    width:130px ;
+    height: 27px;
+    
+}
+
+div.search_thr,div.search_four{
+    /* border: 1px solid black; */
+    margin: 2% 6%;
+    display: inline-block;
+    width: 500px;
+    background-color: white;
+    border-radius: 30px;
+}
+input#come_in_date_start,input#come_in_date_end,input#adopt_date_start,input#adopt_date_end{
+    display: inline;
+    width: 140px;
+    height: 27px;
+}
+label.come_in_date_end,label.adopt_date_end{
+    margin-left: 16px;
+}
+span.search_thr{
+    /* border: 1px solid purple; */
+    /* margin-left: 30px; */
+    padding-left: 10px;
+}
+div.search_button_search{
+    position: absolute;
+    top: 65%;
+    right: 2%;
+}
+div.search_button_clear{
+    position: absolute;
+    top: 65%;
+    right: 12%;
+   
+}
+button.search_button_clear{
+    background-color: lightgrey;
+    border: 0px;
+}
+div.search_icon{
+    display: inline;
+    position: absolute;
+    top: 3%;
+    left: 2%;
+    /* border: 1px solid orange; */
+}
+
+/* edit_but */
+div.edit_button{
+    /* border: 1px solid red; */
+    display: inline-block;
+    /* box-shadow: 3px 3px 3px lightgrey; */
+    position: relative;
+    top: 20px;
+    left: 50%;
+    width: 700px;
+    
+}
+button.edit_button{
+    color:white;
+    width: 80px;
+    font-size: 16px;
+    margin-left: 600px;
+    
+}
+
+/* logo */
+img.brand-image{
+    background-color: antiquewhite;
+   
+}
+.brand-link .brand-image {
+    margin-left: 0rem;
+}
+/* edit_list */
+div.edit_list{
+        width: 750px;
+        /* border: 1px solid red; */
+        display: inline-block;
+        margin-top: 5%;
+        margin-left: 47%;
+        background-color: lightgray;
+        height: 32px;
+        border-radius: 25px;
+        box-shadow: 2px 2px 2px #FFF2CC;
+}
+span.edit_list{
+    /* border: 1px solid black; */
+    display: inline-block;
+    margin-left: 10px;
+    padding-left: 8px;
+    padding-top: 5px;
+}
+/* list_num */
+
+
+/* 品種調整 */
+select{
+    padding-left: 10px;
+}
+
+span.space{
+    /* border: 1px solid orange; */
+    display: inline-block;
+    width:70px;
+}
+
+img.logo{
+    z-index: 3;
+}
+
+/* 表格 */
+table.table{
+    border: 0px;
+}
+
+div.fixed-table-body{
+    position: relative;
+    left: 50%;
+    width: 800px;
+    margin-top: 40px;
+  
+}
+
+th.tb_header{
+    width: 120px;
+    text-align: center;
+    background-color: lightgray;
+    /* border: 1px solid blue; */
+    
+}
+
+
+tr{
+    /* border: 1px solid black; */
+    display: block;
+    margin: 5px 0;
+    width: 600px;
+   
+}
+tr.tb_con{
+    background-color: #FFF2CC;
+    border-radius: 25px;
+    width: 710px;
+    /* height: 30px; */
+}
+td.tb_con{  
+    width: 100px;
+    text-align: center;
+    padding: 0px 10px;
+
+}
+div.float-left{
+    display: none;
+}
+div.float-right{
+  
+    position: relative;
+    left: 25%;
+}
+
+button#insert:hover{
+    cursor: pointer;
+}
+#myTable tr td:first-child{
+	cursor: pointer;
+	background-color: #E7BCDE;
+	border-radius: 25px 0px 0px 25px;
+}
+#update_form{
+	display:inline-block;
+/* 	border:1px solid red; */
+	position: relative;
+    left: 45%;
+	
+}
+/* 調整thead 每隔寬度 */
+div.th-inner {
+	width:100px;
+}
+#update_pet{
+	position: relative;
+    left: 5%;
+    
+}
+.back{
+	text-decoration:none;
+	color:white;
+}

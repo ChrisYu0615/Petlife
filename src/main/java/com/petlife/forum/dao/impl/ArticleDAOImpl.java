@@ -1,71 +1,95 @@
 package com.petlife.forum.dao.impl;
 
+
+
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import com.petlife.forum.dao.ArticleDAO;
 import com.petlife.forum.entity.Article;
 import com.petlife.util.HibernateUtil;
-
 public class ArticleDAOImpl implements ArticleDAO {
-    private SessionFactory factory;
 
-    public ArticleDAOImpl() {
-        factory = HibernateUtil.getSessionFactory();
-    }
+	@Override
+	public int add(Article article) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Integer id = (Integer) session.save(article);
+			session.getTransaction().commit();
+			return id;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return -1;
+	}
+		
+	
 
-    private Session getSession() {
-        return factory.getCurrentSession();
-    }
+	@Override
+	public int update(Article article) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			session.update(article);
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return -1;
+	}	
+//
+	@Override
+	public int delete(Integer articleId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Article article = session.get(Article.class, articleId);
+			if (article != null) {
+				session.delete(article);
+			}
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return -1;
+		
+	}
 
-    @Override
-    public Integer add(Article article) {
-        Integer id = (Integer) getSession().save(article);
-        return id;
-    }
+	@Override
+	public Article findByPK(Integer articleId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Article article = session.get(Article.class, articleId);
+			session.getTransaction().commit();
+			return article;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
 
-    @Override
-    public Integer delete(Integer articleId) {
-        Article article = getSession().get(Article.class, articleId);
-        if (article != null) {
-            getSession().delete(article);
-            return 1;
-        } else {
-            return -1;
-        }
-    }
+	@Override
+	public List<Article> getAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<Article> list = session.createQuery("from Article", Article.class).list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return null;
+	}
 
-    @Override
-    public Integer update(Article article) {
-        try {
-            getSession().update(article);
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    @Override
-    public Article findByPK(Integer articleId) {
-        return getSession().get(Article.class, articleId);
-    }
-
-    @Override
-    public List<Article> getAll() {
-        return getSession().createQuery("from Article", Article.class).getResultList();
-    }
-//關鍵字搜尋
-    @Override
-    public List<Article> searchByKeyword(String keyword) {
-        String hql = "from Article where article_name like :keyword or article_content like :keyword";
-        Query<Article> query = getSession().createQuery(hql, Article.class);
-        query.setParameter("keyword", "%" + keyword + "%");
-        return query.getResultList();
-    }
-
-    // 其他可能的方法
-    // ...
 }

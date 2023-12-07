@@ -7,13 +7,10 @@ import com.petlife.forum.entity.Comment;
 
 public interface CommentDAO {
 
-	public Integer add(Comment comment);
-	
-	public Integer update(Comment comment); 
-	
-	public Integer delete(Integer commentId); 
-	
-    public Comment findByPK(Integer commentId);
+    int add(Comment comment);
+    int update(Comment comment); 
+    int delete(Integer commentId); 
+    Comment findByPK(Integer commentId);
 
     public List<Comment> getAll();
 }
