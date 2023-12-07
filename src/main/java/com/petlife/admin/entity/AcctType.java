@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.petlife.user.entity.User;
+import com.petlife.shelter.entity.Shelter;
 
 @Entity
 @Table(name = "acct_type")
@@ -32,17 +33,26 @@ public class AcctType {
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
 	@OrderBy("admin_id asc")
 	private Set<Admin> admins;
+	
+	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
+	@OrderBy("shelterId asc")
+	private Set<Shelter> shelters;
 
 	public AcctType() {
 	}
 
-	public AcctType(Integer acctTypeId, String acctType, Set<User> users, Set<Admin> admins) {
+
+
+	public AcctType(Integer acctTypeId, String acctType, Set<User> users, Set<Admin> admins, Set<Shelter> shelters) {
 		super();
 		this.acctTypeId = acctTypeId;
 		this.acctType = acctType;
 		this.users = users;
 		this.admins = admins;
+		this.shelters = shelters;
 	}
+
+
 
 	public Integer getAcctTypeId() {
 		return acctTypeId;
@@ -76,9 +86,27 @@ public class AcctType {
 		this.admins = admins;
 	}
 
+	
+	
+	public Set<Shelter> getShelters() {
+		return shelters;
+	}
+
+
+
+	public void setShelters(Set<Shelter> shelters) {
+		this.shelters = shelters;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "AcctType [acctTypeId=" + acctTypeId + ", acctType=" + acctType + ", users=" + users + ", admins="
-				+ admins + "]";
+				+ admins + ", shelters=" + shelters + "]";
 	}
+
+
+	
+
 }
