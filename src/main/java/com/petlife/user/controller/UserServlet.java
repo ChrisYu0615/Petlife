@@ -21,6 +21,10 @@ import com.google.gson.reflect.TypeToken;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.UserServeice;
 import com.petlife.user.service.impl.UserServiceImpl;
+import com.petlife.util.MailService;
+import com.petlife.util.RandomAuthenCode;
+
+import redis.clients.jedis.Jedis;
 
 @WebServlet("/user/user.do")
 @MultipartConfig
@@ -48,7 +52,7 @@ public class UserServlet extends HttpServlet {
 			forwardPath = userRegist(req, resp);
 			break;
 		case "getAuthenCode":
-			forwardPath = getAuthenCode(req, resp);
+			getAuthenCode(req, resp);
 			break;
 		case "userLogin":
 			forwardPath = userLogin(req, resp);
@@ -63,7 +67,7 @@ public class UserServlet extends HttpServlet {
 			forwardPath = getAllUsers(req, resp);
 			break;
 		case "verify":
-			forwardPath = authencation(req, resp);
+			authencation(req, resp);
 		default:
 			forwardPath = "";
 			break;
@@ -77,9 +81,9 @@ public class UserServlet extends HttpServlet {
 	}
 
 	// 驗證帳號與暱稱是否可以使用
-	private String authencation(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void authencation(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String userNickname = req.getParameter("nickname");
-		String userAccount = req.getParameter("useraccount");
+		String userAcct = req.getParameter("useraccount");
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -94,12 +98,12 @@ public class UserServlet extends HttpServlet {
 			}
 		}
 
-		if (userAccount != null && userAccount.length() != 0) {
+		if (userAcct != null && userAcct.length() != 0) {
 			String userAcctReg = "^[A-Za-z0-9-_\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-			if (!userAccount.matches(userAcctReg)) {
+			if (!userAcct.matches(userAcctReg)) {
 				out.print("<font color='red'>信箱格式不符!!</font>");
 			} else {
-				boolean checkUserAccount = userServeice.exisUserAccount(userAccount);
+				boolean checkUserAccount = userServeice.exisUserAccount(userAcct);
 
 				if (checkUserAccount) {
 					out.print("<font color='red'>帳號重複!!</font>");
@@ -108,7 +112,6 @@ public class UserServlet extends HttpServlet {
 				}
 			}
 		}
-		return "";
 	}
 
 	// 註冊會員程序
@@ -141,8 +144,16 @@ public class UserServlet extends HttpServlet {
 		// 已經用ajax先檢查了(帳號)
 		String userAcct = registerUserData.get("useraccount");
 
-		// 驗證碼晚點寫
+		// 驗證驗證碼
 		String authenCode = registerUserData.get("authencode");
+		String authenCodeFromJedis = RandomAuthenCode.getAuthenCode("Member", userAcct);
+		if (authenCodeFromJedis == null) {
+			errorMsg.put("userAuthenCodeErr", "請先取得驗證碼!!");
+		} else {
+			if (!authenCode.equals(authenCodeFromJedis)) {
+				errorMsg.put("userAuthenCodeErr", "驗證碼輸入錯誤");
+			}
+		}
 
 		// 驗證密碼
 		String userPwd = registerUserData.get("password");
@@ -202,48 +213,26 @@ public class UserServlet extends HttpServlet {
 			User user = new User(userAcct, userPwd, userName, userNickname, userBirthday, userAddress, userPhoneNum,
 					userGender);
 			user = userServeice.addUser(user);
+
+			// 寄信表示註冊成功
+			MailService.memberRegisterSuccess(user.getUserAcct());
+
+			// 把user資訊放到Session中
 			req.getSession().setAttribute("user", user);
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			return "";
 		}
-
-		// 這裡是驗證碼正確而且暱稱不重複的情況
-		// 使用jsp返回
-
-		// 返回資料庫查詢的物件
-//			user = userServeice.registUser(user);
-		// 返回json物件
-//			if (user != null) {
-//				System.out.println(user);
-//				System.out.println("註冊成功!!，以下是會員Json");
-
-//				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-//						.setDateFormat("yyyy-MM-dd HH:mm:ss")
-//						.setPrettyPrinting()
-//						.create();
-//				String userJson = gson.toJson(user);
-//				System.out.println(userJson);
-//				PrintWriter out = resp.getWriter();
-//				out.write(userJson);
-//			} else {
-//				System.out.println("註冊失敗!!");
-//			}
-//			return "";
-		// 請求重定向
-//				try {
-//					System.out.println("註冊會員成功!!");
-//					resp.sendRedirect(req.getContextPath() + "/listOneEmp.jsp");
-//					return "";
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				return "";
 	}
 
 	// 取得隨機驗證碼並寄信給該用戶
-	private String getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
-		userServeice.deleteUser(null);
-		return "";
+	private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
+		String userAcct = req.getParameter("useraccount");
+
+		// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
+		String authenCode = RandomAuthenCode.setAuthenCode("Member", userAcct);
+
+		// 寄信給該註冊帳號
+		MailService.sendAuthenCode(userAcct, authenCode);
 	}
 
 	// 登入判斷

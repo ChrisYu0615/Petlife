@@ -20,6 +20,8 @@ import com.google.gson.Gson;
 import com.petlife.seller.entity.Seller;
 import com.petlife.seller.service.SellerService;
 import com.petlife.seller.service.SellerServiceImpl;
+import com.petlife.util.MailService;
+import com.petlife.util.RandomAuthenCode;
 
 @WebServlet("/seller/seller.do")
 @MultipartConfig
@@ -47,7 +49,10 @@ public class SellerController extends HttpServlet {
 			forwardPath = sellerRegister(req, resp);
 			break;
 		case "verify":
-			forwardPath = authencation(req, resp);
+			authencation(req, resp);
+			break;
+		case "getAuthenCode":
+			getAuthenCode(req, resp);
 			break;
 		default:
 			forwardPath = "";
@@ -61,9 +66,9 @@ public class SellerController extends HttpServlet {
 	}
 
 	// 驗證帳號與暱稱是否可以使用
-	private String authencation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void authencation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String sellerShopname = req.getParameter("shopname");
-		String sellerAccount = req.getParameter("selleraccount");
+		String sellerAcct = req.getParameter("selleraccount");
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -78,12 +83,12 @@ public class SellerController extends HttpServlet {
 			}
 		}
 
-		if (sellerAccount != null && sellerAccount.length() != 0) {
+		if (sellerAcct != null && sellerAcct.length() != 0) {
 			String sellerAcctReg = "^[A-Za-z0-9-_\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
-			if (!sellerAccount.matches(sellerAcctReg)) {
+			if (!sellerAcct.matches(sellerAcctReg)) {
 				out.print("<font color='red'>信箱格式不符!!</font>");
 			} else {
-				boolean checkSellerAccount = sellerService.existSellerAccount(sellerAccount);
+				boolean checkSellerAccount = sellerService.existSellerAccount(sellerAcct);
 
 				if (checkSellerAccount) {
 					out.print("<font color='red'>帳號重複!!</font>");
@@ -92,21 +97,29 @@ public class SellerController extends HttpServlet {
 				}
 			}
 		}
-		return "";
 	}
 
 	// 註冊賣家程序
 	private String sellerRegister(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		req.setCharacterEncoding("UTF-8");
 
 		// 驗證使用者註冊的資料，使用Map裝入(有錯誤的話)
 		Map<String, String> errorMsg = new HashMap<>();
 
 		// 已經用ajax先檢查了(帳號)
-		String sellerAccount = req.getParameter("selleraccount");
+		String sellerAcct = req.getParameter("selleraccount");
 
-		// 驗證碼晚點寫
+		// 驗證驗證碼
 		String authenCode = req.getParameter("authencode");
+		String authenCodeFromJedis = RandomAuthenCode.getAuthenCode("Seller", sellerAcct);
+		if (authenCodeFromJedis == null) {
+			errorMsg.put("sellerAuthenCodeErr", "請先取得驗證碼!!");
+		} else {
+			if (!authenCode.equals(authenCodeFromJedis)) {
+				errorMsg.put("sellerAuthenCodeErr", "驗證碼輸入錯誤");
+			}
+		}
 
 		// 驗證密碼
 		String sellerPwd = req.getParameter("password");
@@ -187,14 +200,30 @@ public class SellerController extends HttpServlet {
 			return "";
 		} else {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
-			Seller seller = new Seller(sellerAccount, sellerPwd, sellerName, sellerIdentification, sellerShopname,
+			Seller seller = new Seller(sellerAcct, sellerPwd, sellerName, sellerIdentification, sellerShopname,
 					sellerBirthday, sellerGender, sellerAddress, sellerPhone, bankCode, bankAccount, idcardFrontBuf,
 					idcardBackBuf, accountImgBuf);
 			seller = sellerService.addSeller(seller);
+
+			// 寄信表示註冊成功
+			MailService.registerSuccess(seller.getSellerAcct());
+
+			// 把seller資訊放到Session中
 			req.getSession().setAttribute("seller", seller);
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			return "";
 		}
+	}
+
+	// 取得隨機驗證碼並寄信給該用戶
+	private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
+		String sellerAcct = req.getParameter("selleraccount");
+
+		// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
+		String authenCode = RandomAuthenCode.setAuthenCode("Seller", sellerAcct);
+
+		// 寄信給該註冊帳號
+		MailService.sendAuthenCode(sellerAcct, authenCode);
 	}
 
 	private byte[] getImgBytes(Part part) throws IOException {

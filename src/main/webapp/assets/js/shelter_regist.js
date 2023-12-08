@@ -5,22 +5,52 @@ document.addEventListener("DOMContentLoaded", function() {
 	// 添加獲取驗證碼按鈕的點擊事件處理程序
 	var getauthencode_btn = document.getElementById('getauthencode');
 	getauthencode_btn.addEventListener('click', function() {
-		// 禁用按鈕
-		getauthencode_btn.disabled = true;
 
-		// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
-		var count = 60;
-		var countdown = setInterval(function() {
-			if (count > 0) {
-				getauthencode_btn.textContent = count + ' 秒後可再次取得';
-				count--;
+		if ($.trim($("#shelteraccount").val()) == "") {
+			alert("請先輸入您的帳號才能獲取驗證碼!!");
+			return;
+		} else {
+			if ($.trim($("#verify_shelteraccount").text()) == "帳號重複!!") {
+				alert("請先檢查帳號重複問題!!");
+				return;
 			} else {
-				// 啟用按鈕
-				getauthencode_btn.disabled = false;
-				getauthencode_btn.textContent = '取得驗證碼';
-				clearInterval(countdown);
+				// 禁用按鈕
+				getauthencode_btn.disabled = true;
+
+				// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
+				var count = 60;
+				var countdown = setInterval(function() {
+					if (count > 0) {
+						getauthencode_btn.textContent = count + ' 秒後可再次取得';
+						count--;
+					} else {
+						// 啟用按鈕
+						getauthencode_btn.disabled = false;
+						getauthencode_btn.textContent = '取得驗證碼';
+						clearInterval(countdown);
+					}
+				}, 1000);
+
+				let shelterAcct = $.trim($("#shelteraccount").val());
+				let formData = new FormData();
+				formData.append("shelteraccount", shelterAcct);
+
+				// 發送ajax到後端
+				$.ajax({
+					url: "/Petlife/shelter/shelter.do?action=getAuthenCode",           // 資料請求的網址
+					type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+					data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+					dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+					contentType: false,
+					processData: false,
+					catch: false,
+					success: function(data) {      // request 成功取得回應後執行
+						console.log("成功");
+						console.log(data);
+					}
+				});
 			}
-		}, 1000);
+		}
 	});
 
 	// 密碼顯示切換功能
@@ -235,21 +265,22 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					console.log(data);
-					if ($.trim(data.shelterPwdErr).length != 0) {
-						$("#verify_password").html(`<font color='red'>${data.shelterPwdErr}</font>`);
-						$("html, body").scrollTop(0);
-					}
-					if ($.trim(data.shelterNameErr).length != 0) {
-						$("#verify_sheltername").html(`<font color='red'>${data.shelterNameErr}</font>`);
-						$("html, body").scrollTop(0);
-					}
-					if ($.trim(data.shelterPhoneNumErr).length != 0) {
-						$("#verify_phone").html(`<font color='red'>${data.shelterPhoneNumErr}</font>`);
-						$("html, body").scrollTop(0);
-					}
-					if ($.trim(data.addressErr).length != 0) {
-						$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+					if (data != null) {
+						if ($.trim(data.shelterPwdErr).length != 0) {
+							$("#verify_password").html(`<font color='red'>${data.shelterPwdErr}</font>`);
+						}
+						if ($.trim(data.shelterAuthenCodeErr).length != 0) {
+							$("#verify_authencode").html(`<font color='red'>${data.shelterAuthenCodeErr}</font>`);
+						}
+						if ($.trim(data.shelterNameErr).length != 0) {
+							$("#verify_sheltername").html(`<font color='red'>${data.shelterNameErr}</font>`);
+						}
+						if ($.trim(data.shelterPhoneNumErr).length != 0) {
+							$("#verify_phone").html(`<font color='red'>${data.shelterPhoneNumErr}</font>`);
+						}
+						if ($.trim(data.addressErr).length != 0) {
+							$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+						}
 						$("html, body").scrollTop(0);
 					}
 				}
