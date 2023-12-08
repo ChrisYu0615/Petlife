@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -28,6 +29,8 @@ import com.google.gson.JsonParser;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
+import com.petlife.util.MailService;
+import com.petlife.util.RandomAuthenCode;
 
 @WebServlet("/shelter/shelter.do")
 @MultipartConfig
@@ -66,7 +69,10 @@ public class ShelterServlet extends HttpServlet {
 			forwardPath = shelterRegister(req, res);
 			break;
 		case "verify":
-			forwardPath = authencation(req, res);
+			authencation(req, res);
+			break;
+		case "getAuthenCode":
+			getAuthenCode(req, res);
 			break;
 		default:
 			forwardPath = "/index.jsp";
@@ -160,8 +166,8 @@ public class ShelterServlet extends HttpServlet {
 
 	}
 
-	// 驗證帳號與暱稱是否可以使用
-	private String authencation(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	// 驗證帳號是否可以使用
+	private void authencation(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String shelterAcct = req.getParameter("shelteraccount");
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
@@ -179,18 +185,38 @@ public class ShelterServlet extends HttpServlet {
 				}
 			}
 		}
-		return "";
 	}
+	
+	// 取得隨機驗證碼並寄信給該用戶
+		private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
+			String shelterAcct = req.getParameter("shelteraccount");
 
-	private String shelterRegister(HttpServletRequest req, HttpServletResponse res) {
+			// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
+			String authenCode = RandomAuthenCode.setAuthenCode("Shelter", shelterAcct);
+
+			// 寄信給該註冊帳號
+			MailService.sendAuthenCode(shelterAcct, authenCode);
+		}
+
+	private String shelterRegister(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException {
+		req.setCharacterEncoding("UTF-8");
+
 		// 驗證使用者註冊的資料，使用Map裝入(有錯誤的話)
 		Map<String, String> errorMsg = new HashMap<>();
 
 		// 已經用ajax先檢查了(帳號)
 		String shelterAcct = req.getParameter("shelteraccount");
 
-		// 驗證碼晚點寫
-		String authencode = req.getParameter("authencode");
+		// 驗證驗證碼
+		String authenCode = req.getParameter("authencode");
+		String authenCodeFromJedis = RandomAuthenCode.getAuthenCode("Shelter", shelterAcct);
+		if (authenCodeFromJedis == null) {
+			errorMsg.put("shelterAuthenCodeErr", "請先取得驗證碼!!");
+		} else {
+			if (!authenCode.equals(authenCodeFromJedis)) {
+				errorMsg.put("shelterAuthenCodeErr", "驗證碼輸入錯誤");
+			}
+		}
 
 		// 驗證密碼
 		String shelterPwd = req.getParameter("password");
@@ -243,8 +269,12 @@ public class ShelterServlet extends HttpServlet {
 
 			Shelter shelter = new Shelter(shelterAcct, shelterPwd, shelterName, shelterPhoneNum, shelterAddress,
 					shelterLng, shelterLat);
-
 			shelter = shelterService.addShelter(shelter);
+			
+			// 寄信表示註冊成功
+			MailService.registerSuccess(shelter.getShelterAcct());	
+			
+			// 把shelter資訊放到Session中
 			req.getSession().setAttribute("shelter", shelter);
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			return "";

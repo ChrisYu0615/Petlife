@@ -5,22 +5,52 @@ document.addEventListener("DOMContentLoaded", function() {
 	// 添加獲取驗證碼按鈕的點擊事件處理程序
 	var getauthencode_btn = document.getElementById('getauthencode');
 	getauthencode_btn.addEventListener('click', function() {
-		// 禁用按鈕
-		getauthencode_btn.disabled = true;
 
-		// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
-		var count = 60;
-		var countdown = setInterval(function() {
-			if (count > 0) {
-				getauthencode_btn.textContent = count + ' 秒後可再次取得';
-				count--;
+		if ($.trim($("#useraccount").val()) == "") {
+			alert("請先輸入您的帳號才能獲取驗證碼!!");
+			return;
+		} else {
+			if ($.trim($("#verify_useraccount").text()) == "帳號重複!!") {
+				alert("請先檢查帳號重複問題!!");
+				return;
 			} else {
-				// 啟用按鈕
-				getauthencode_btn.disabled = false;
-				getauthencode_btn.textContent = '取得驗證碼';
-				clearInterval(countdown);
+				// 禁用按鈕
+				getauthencode_btn.disabled = true;
+
+				// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
+				var count = 60;
+				var countdown = setInterval(function() {
+					if (count > 0) {
+						getauthencode_btn.textContent = count + ' 秒後可再次取得';
+						count--;
+					} else {
+						// 啟用按鈕
+						getauthencode_btn.disabled = false;
+						getauthencode_btn.textContent = '取得驗證碼';
+						clearInterval(countdown);
+					}
+				}, 1000);
+
+				let sellerAcct = $.trim($("#useraccount").val());
+				let formData = new FormData();
+				formData.append("selleraccount", sellerAcct);
+
+				// 發送ajax到後端
+				$.ajax({
+					url: "/Petlife/seller/seller.do?action=getAuthenCode",           // 資料請求的網址
+					type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+					data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+					dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+					contentType: false,
+					processData: false,
+					catch: false,
+					success: function(data) {      // request 成功取得回應後執行
+						console.log("成功");
+						console.log(data);
+					}
+				});
 			}
-		}, 1000);
+		}
 	});
 
 	// 限制生日只能選到當前日期
@@ -462,27 +492,32 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					console.log(data);
-					if ($.trim(data.sellerPwdErr).length != 0) {
-						$("#verify_password").html(`<font color='red'>${data.sellerPwdErr}</font>`);
-					}
-					if ($.trim(data.sellerNameErr).length != 0) {
-						$("#verify_username").html(`<font color='red'>${data.sellerNameErr}</font>`);
-					}
-					if ($.trim(data.sellerIdentificationErr).length != 0) {
-						$("#verify_seller_idenfication").html(`<font color='red'>${data.sellerIdentificationErr}</font>`);
-					}
-					if ($.trim(data.sellerBirthdayErr).length != 0) {
-						$("#verify_birthdate").html(`<font color='red'>${data.sellerBirthdayErr}</font>`);
-					}
-					if ($.trim(data.sellerPhoneNumErr).length != 0) {
-						$("#verify_phone").html(`<font color='red'>${data.sellerPhoneNumErr}</font>`);
-					}
-					if ($.trim(data.addressErr).length != 0) {
-						$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
-					}
-					if ($.trim(data.bankAccountErr).length != 0) {
-						$("#verify_bankaccount").html(`<font color='red'>${data.bankAccountErr}</font>`);
+					if (data != null) {
+						if ($.trim(data.sellerPwdErr).length != 0) {
+							$("#verify_password").html(`<font color='red'>${data.sellerPwdErr}</font>`);
+						}
+						if ($.trim(data.sellerNameErr).length != 0) {
+							$("#verify_username").html(`<font color='red'>${data.sellerNameErr}</font>`);
+						}
+						if ($.trim(data.sellerAuthenCodeErr).length != 0) {
+							$("#verify_authencode").html(`<font color='red'>${data.sellerAuthenCodeErr}</font>`);
+						}
+						if ($.trim(data.sellerIdentificationErr).length != 0) {
+							$("#verify_seller_idenfication").html(`<font color='red'>${data.sellerIdentificationErr}</font>`);
+						}
+						if ($.trim(data.sellerBirthdayErr).length != 0) {
+							$("#verify_birthdate").html(`<font color='red'>${data.sellerBirthdayErr}</font>`);
+						}
+						if ($.trim(data.sellerPhoneNumErr).length != 0) {
+							$("#verify_phone").html(`<font color='red'>${data.sellerPhoneNumErr}</font>`);
+						}
+						if ($.trim(data.addressErr).length != 0) {
+							$("#verify_address").html(`<font color='red'>${data.addressErr}</font>`);
+						}
+						if ($.trim(data.bankAccountErr).length != 0) {
+							$("#verify_bankaccount").html(`<font color='red'>${data.bankAccountErr}</font>`);
+						}
+						$("html, body").scrollTop(0);
 					}
 				}
 			});
