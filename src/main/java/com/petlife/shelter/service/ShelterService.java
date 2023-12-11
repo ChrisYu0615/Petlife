@@ -6,20 +6,25 @@ import java.util.Map;
 import com.petlife.shelter.entity.Shelter;
 
 public interface ShelterService {
-	
+
 	Shelter addShelter(Shelter shelter);
-	
+
 	Shelter updateShelter(Shelter shelter);
-	
+
 //	void deleteShelter(Integer shelter);
-	
+
 	Shelter getShelterByShelterId(Integer shelterId);
-	
+
 	List<Shelter> getAllShelters(int currentPage);
-	
+
 	int getPageTotal();
-	
+
 	List<Shelter> getSheltersByCompositeQuery(Map<String, String[]> map);
+
+	boolean existShelterAccount(String shelterAcct);
+
+	// 會員登入
+	Map<String, Integer> shelterLogin(String shelterAcct, String shelterPwd);
 	
-	boolean exisShelterAccount(String shelterAcct);
+	String getNewPwd(String shelterAcct);
 }

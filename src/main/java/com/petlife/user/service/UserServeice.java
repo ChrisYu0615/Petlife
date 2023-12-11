@@ -1,6 +1,7 @@
 package com.petlife.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.petlife.user.entity.User;
 
@@ -21,11 +22,12 @@ public interface UserServeice {
 	// 查(多個)
 	List<User> getAllUsers();
 
-	int getPageTotal();
-
 	boolean existUserNickname(String userNickname);
 
 	boolean exisUserAccount(String userAcct);
 
-	Integer userLogin(String userAcct, String userPwd);
+	// 會員登入
+	Map<String, Integer> userLogin(String userAcct, String userPwd);
+
+	String getNewPwd(String userAcct);
 }

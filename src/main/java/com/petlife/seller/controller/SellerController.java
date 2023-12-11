@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 import com.petlife.seller.entity.Seller;
 import com.petlife.seller.service.SellerService;
-import com.petlife.seller.service.SellerServiceImpl;
+import com.petlife.seller.service.impl.SellerServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
 
@@ -46,13 +46,16 @@ public class SellerController extends HttpServlet {
 		String forwardPath = "";
 		switch (action) {
 		case "sellerRegister":
-			forwardPath = sellerRegister(req, resp);
+			sellerRegister(req, resp);
 			break;
 		case "verify":
 			authencation(req, resp);
 			break;
 		case "getAuthenCode":
 			getAuthenCode(req, resp);
+			break;
+		case "forgetPwd":
+			setNewPassword(req, resp);
 			break;
 		default:
 			forwardPath = "";
@@ -100,10 +103,8 @@ public class SellerController extends HttpServlet {
 	}
 
 	// 註冊賣家程序
-	private String sellerRegister(HttpServletRequest req, HttpServletResponse resp)
+	private void sellerRegister(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		req.setCharacterEncoding("UTF-8");
-
 		// 驗證使用者註冊的資料，使用Map裝入(有錯誤的話)
 		Map<String, String> errorMsg = new HashMap<>();
 
@@ -189,15 +190,14 @@ public class SellerController extends HttpServlet {
 		Part accountImg = req.getPart("accountImg");
 		byte[] accountImgBuf = getImgBytes(accountImg);
 
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
 		// 判斷有無錯誤資訊，有的話輸出以Json格式輸出到前端
-		if (errorMsg.size() > 0) {
-			resp.setContentType("application/json; charset=UTF-8");
+		if (errorMsg.size() > 0) {			
 			Gson gson = new Gson();
 			String errorMsgJson = gson.toJson(errorMsg);
-
-			PrintWriter out = resp.getWriter();
+	
 			out.print(errorMsgJson);
-			return "";
 		} else {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
 			Seller seller = new Seller(sellerAcct, sellerPwd, sellerName, sellerIdentification, sellerShopname,
@@ -205,25 +205,68 @@ public class SellerController extends HttpServlet {
 					idcardBackBuf, accountImgBuf);
 			seller = sellerService.addSeller(seller);
 
-			// 寄信表示註冊成功
-			MailService.registerSuccess(seller.getSellerAcct());
-
 			// 把seller資訊放到Session中
 			req.getSession().setAttribute("seller", seller);
 			// 這裡要重導還是轉發，目的地應該是首頁?
-			return "";
+			Gson gson = new Gson();
+			String redirectPath = gson.toJson(req.getContextPath() + "/index.html");
+			out.print(redirectPath);
+
+			// 寄信表示註冊成功
+			MailService.memberRegisterSuccess(sellerAcct);
 		}
 	}
 
 	// 取得隨機驗證碼並寄信給該用戶
 	private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
 		String sellerAcct = req.getParameter("selleraccount");
+		String value = req.getParameter("value");
+		String memberType = "newPwd".equals(value) ? "SellerNewPwd" : "Seller";
 
 		// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
-		String authenCode = RandomAuthenCode.setAuthenCode("Seller", sellerAcct);
+		String authenCode = RandomAuthenCode.setAuthenCode(memberType, sellerAcct);
 
 		// 寄信給該註冊帳號
 		MailService.sendAuthenCode(sellerAcct, authenCode);
+	}
+	
+	
+	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String sellerAcct = req.getParameter("account");
+		String authenCode = req.getParameter("authencode");
+
+		Map<String, String> errorMsg = new HashMap<>();
+		resp.setContentType("application/json; charset=UTF-8");
+		Gson gson = new Gson();
+		PrintWriter out = resp.getWriter();
+		if (!sellerService.existSellerAccount(sellerAcct)) {
+			errorMsg.put("accountErr", "帳號不存在!!");
+			String errorMsgJson = gson.toJson(errorMsg);
+			System.out.println(errorMsgJson);
+			out.print(errorMsgJson);
+			return;
+		}
+
+		String authenCodeFromJedis = RandomAuthenCode.getAuthenCode("SellerNewPwd", sellerAcct);
+		if (authenCodeFromJedis == null) {
+			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
+		} else {
+			if (!authenCode.equals(authenCodeFromJedis)) {
+				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
+			}
+		}
+
+		if (errorMsg.size() > 0) {
+			String errorMsgJson = gson.toJson(errorMsg);
+			System.out.println(errorMsgJson);
+			out.print(errorMsgJson);
+		} else {
+			String result = sellerService.getNewPwd(sellerAcct);
+			Map<String, String> successMsg = new HashMap<>();
+			successMsg.put("success", result);
+
+			out.print(gson.toJson(successMsg));
+		}
 	}
 
 	private byte[] getImgBytes(Part part) throws IOException {

@@ -17,6 +17,7 @@ public interface ShelterDAO {
 	Shelter getByName(String shelterName);
 	Shelter getByAddress(String shelterAddress);
 	Shelter getByAccount(String shelterAcct);
+	Shelter getByAccountAndPassword(String shelterAcct, String shelterPwd);
 	
 	List<Shelter> getAll();
 	

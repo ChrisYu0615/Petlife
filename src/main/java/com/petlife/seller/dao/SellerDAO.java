@@ -21,7 +21,8 @@ public interface SellerDAO {
 	Seller findSellerBySellerShopname(String shopname);
 	
 	Seller findSellerBySellerAccount(String sellerAccount);
-	
+
+	Seller findSellerBySellerAccountAndPassword(String sellerAcct, String sellerPwd);
 	
 //	List<Buyliststate> getByCompositeQuery(Map<String, String> map);
 

@@ -50,6 +50,7 @@ h3.main_header {
     font-weight: bolder;
 }
 
+
 div#delete_content {
     border: 1px black solid;
     background-color: #FEFAE0;
@@ -109,7 +110,7 @@ div.order_item {
 }
 
 .btn-secondary {
-    font-weight: bold ;
+    font-weight: bold;
     border: 0;
 }
 
@@ -120,25 +121,25 @@ div.order_item {
     border: 0;
 }
 
-button#likes{
+button#likes {
     font-size: 16px !important;
     font-weight: 400 !important;
 }
 
-section#our_shop_main{
+section#our_shop_main {
     padding: 50px 0;
 }
 
-div#main_content{
+div#main_content {
     padding: 20px;
 }
 
-h3#mamber_center_title{
+h3#mamber_center_title {
     font-size: 20px;
     background-color: #FFD966 !important;
 }
 
-h3#sidebar_title{
+h3#sidebar_title {
     font-size: 20px;
 }
 

@@ -44,9 +44,10 @@
 					<b>後臺管理登入</b>
 				</p>
 
-				<form action="#" method="get">
+				<form method="post">
 					<fieldset>
 
+						<span id="verify_identity"></span>
 						<div class="identity_select">
 							<div class="col-auto">
 								<b>登入身分：</b>
@@ -68,18 +69,21 @@
 							</div>
 						</div>
 
+						<span id="verify_account"></span>
 						<div class="input-group mb-3">
 							<input type="email" class="form-control" name="useraccount"
-								placeholder="會員帳號">
+								id="useraccount" placeholder="會員帳號">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-solid fa-user"></span>
 								</div>
 							</div>
 						</div>
+
+						<span id="verify_password"></span>
 						<div class="input-group mb-3">
 							<input type="password" class="form-control" name="userpassword"
-								placeholder="會員密碼">
+								id="userpassword" placeholder="會員密碼">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-lock"></span>
@@ -95,7 +99,8 @@
 							</div>
 							<!-- /.col -->
 							<div class="col-3">
-								<button type="submit" class="btn btn-primary btn-block">登入</button>
+								<button type="button" class="btn btn-primary btn-block"
+									id="btn_login">登入</button>
 							</div>
 							<!-- /.col -->
 						</div>
@@ -129,7 +134,7 @@
 	<script src="../assets/js/jquery.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="../dist/js/adminlte.min.js"></script>
-	<script src="../assets/js/login.js"></script>
+	<script src="../assets/js/backend_login.js"></script>
 </body>
 
 </html>

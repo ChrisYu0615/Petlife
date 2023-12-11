@@ -1,6 +1,7 @@
 package com.petlife.seller.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.petlife.seller.entity.Seller;
 
@@ -26,5 +27,8 @@ public interface SellerService {
 	
 	// 查(多個)
 	List<Seller> getAllSellers();
+
+	Map<String, Integer> sellerLogin(String sellerAcct, String sellerPwd);
 	
+	String getNewPwd(String sellerAcct);
 }

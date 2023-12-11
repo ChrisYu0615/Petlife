@@ -1,12 +1,16 @@
 package com.petlife.user.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.petlife.admin.entity.AcctState;
 import com.petlife.user.dao.UserDAO;
 import com.petlife.user.dao.impl.UserDAOImpl2;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.UserServeice;
+import com.petlife.util.MailService;
+import com.petlife.util.RandomPassword;
 
 public class UserServiceImpl implements UserServeice {
 	private UserDAO dao;
@@ -43,11 +47,6 @@ public class UserServiceImpl implements UserServeice {
 	}
 
 	@Override
-	public int getPageTotal() {
-		return 0;
-	}
-
-	@Override
 	public boolean existUserNickname(String userNickName) {
 		if (dao.findUserByUserNickname(userNickName) != null) {
 			return true;
@@ -64,17 +63,20 @@ public class UserServiceImpl implements UserServeice {
 	}
 
 	@Override
-	public Integer userLogin(String userAcct, String userPwd) {
+	public Map<String, Integer> userLogin(String userAcct, String userPwd) {
+		Map<String, Integer> loginStatus = new HashMap<>();
 		User user = dao.findUserByUserAccountAndPassword(userAcct, userPwd);
 		if (user != null) {
-			// 登入成功(帳密一樣)，回傳帳號狀態
+			// 登入成功，取得該帳號的帳號狀態
 			Integer userAcctState = user.getAcctState().getAcctStateId();
+			loginStatus.put("acctState", userAcctState);
 			if (userAcctState == 0) {
+				// 帳號狀態為0代表該帳號處於可使用狀態，將密碼錯誤次數更新為0
+				// 並取得該會員ID
 				user.setUserPwdErrTimes(0);
 				dao.update(user);
-				return user.getUserId();
+				loginStatus.put("userId", user.getUserId());
 			}
-			return userAcctState;
 		} else {
 			// 登入失敗，表示密碼錯誤，更新會員密碼錯誤次數
 			user = dao.findUserByUserAccount(userAcct);
@@ -85,12 +87,30 @@ public class UserServiceImpl implements UserServeice {
 				AcctState acctState = new AcctState(2, "密碼錯誤多次");
 				user.setAcctState(acctState);
 				dao.update(user);
-				return user.getAcctState().getAcctStateId();
+				loginStatus.put("acctState", user.getAcctState().getAcctStateId());
 				// 如果錯誤次數未達5次，就更新密碼錯誤次數
 			} else {
 				dao.update(user);
-				return 3;
+				loginStatus.put("acctState", 5);
 			}
 		}
+		return loginStatus;
+	}
+
+	@Override
+	public String getNewPwd(String userAcct) {
+		User user = dao.findUserByUserAccount(userAcct);
+		Integer acctStateId = user.getAcctState().getAcctStateId();
+		if (acctStateId == 0 || acctStateId == 2) {
+			String newPassword = RandomPassword.getNewPassword();
+			user.setUserPwd(newPassword);
+			user.setAcctState(new AcctState(0, "可使用"));
+			user.setUserPwdErrTimes(0);
+			dao.update(user);
+			// 寄信表示變更成功
+			MailService.getNewPassword(userAcct, newPassword);
+			return "密碼變更成功!!請至您的信箱查看";
+		}
+		return "帳號處於停權或未審核狀態，請和管理員聯繫!!";
 	}
 }
