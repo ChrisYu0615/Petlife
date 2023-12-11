@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 
 		// 取得Session
 		HttpSession session = req.getSession();
-		Object account = session.getAttribute("accoount");
+		Object account = session.getAttribute("account");
 
 		// 沒有取得登入資訊(重導至登入頁面)
 		if (account == null) {
