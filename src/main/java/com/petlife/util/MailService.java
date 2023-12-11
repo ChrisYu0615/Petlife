@@ -68,7 +68,7 @@ public class MailService {
 		String subject = "寵愛生活-驗證碼通知";
 		// 內容
 		String messageText = "您好，驗證碼如下：" + authenCode + "，請於10分鐘內輸入!!";
-		
+
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);
 	}
@@ -89,25 +89,21 @@ public class MailService {
 		// 主旨
 		String subject = "寵愛生活-註冊會員通知";
 		// 內容
-		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!，如有疑問都可以寄信向我們反映，謝謝!!";
+		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!\\n，如有疑問都可以寄信向我們反映，謝謝!!";
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);
 	}
 
 	// 發送新密碼信
-	public static void getNewPassword(String account) {
-
-		String to = "ixlogic.wu@gmail.com";
-
-		String subject = "密碼通知";
-
-		String ch_name = "peter1";
-		String passRandom = "111";
-		String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" + " (已經啟用)";
+	public static void getNewPassword(String account, String newPassword) {
+		// 主旨
+		String subject = "寵愛生活-密碼變更通知";
+		// 內容
+		String messageText = "Hello! " + account + "\n" + "請謹記此密碼: " + newPassword + "\n" + "請於登入後盡速變更，謝謝!!";
 
 		MailService mailService = new MailService();
-		mailService.sendMail(to, subject, messageText);
+		mailService.sendMail(account, subject, messageText);
 	}
 
 }

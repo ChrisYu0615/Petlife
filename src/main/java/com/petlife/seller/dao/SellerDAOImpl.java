@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.petlife.seller.entity.Seller;
+import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 
 public class SellerDAOImpl implements SellerDAO {
@@ -37,6 +38,7 @@ public class SellerDAOImpl implements SellerDAO {
 
 	@Override
 	public Integer update(Seller seller) {
+		getSession().flush();
 		try {
 			getSession().update(seller);
 			return 1;
@@ -79,4 +81,15 @@ public class SellerDAOImpl implements SellerDAO {
 		return null;
 	}
 
+	@Override
+	public Seller findSellerBySellerAccountAndPassword(String sellerAcct, String sellerPwd) {
+		List<Seller> sellers = getSession()
+				.createQuery("from Seller where sellerAcct=:sellerAcct and sellerPwd=:sellerPwd", Seller.class)
+				.setParameter("sellerAcct", sellerAcct).setParameter("sellerPwd", sellerPwd).getResultList();
+
+		if (sellers.size() > 0) {
+			return sellers.get(0);
+		}
+		return null;
+	}
 }

@@ -47,23 +47,12 @@ div.main_item {
     padding: 0 10px;
 }
 
-button.btn_option {
-    width: 100%;
-    text-align: start;
-    border: 0px;
-    background-color: transparent;
-    color: black;
-    padding: 15px 0px;
-    font-size: 18px;
-    font-weight: normal;
-}
-
 #preview {
     display: inline-block;
 }
 
 #preview img.preview_img {
-    border: 1px solid black;
+    border: 1px solid lightgray;
     width: 160px;
     height: 160px;
     position: relative;
@@ -71,21 +60,16 @@ button.btn_option {
 }
 
 div.main_form {
-    text-align: right;
     padding: 20px;
 }
 
-div.select_form {
-    /* padding-left: 105px; */
-    text-align: start;
-}
-
 button#addCards {
+    font-size: 12px;
     border: 0;
 }
 
 div.sidebar_select a {
-    font-size: 18px;
+    font-size: 16px;
     margin: 15px 0;
     font-weight: 400;
     color: var(--black-color);
@@ -96,6 +80,7 @@ li.list-group-item a {
 }
 
 div input.main_input {
+    /* border: 0; */
     width: 220px;
 }
 
@@ -103,15 +88,21 @@ input#p_file {
     display: none;
 }
 
+input.form-control{
+    height: 50px;
+}
+
 .btn-primary {
-    background-color: #2B8BC1;
-    font-weight: bold;
+    background-color: #2B8BC1 !important;
+    font-weight: bold !important;
+    border: 0 !important;
 }
 
 .btn-warning {
-    background-color: #F4980E;
-    color: white;
-    font-weight: bold;
+    background-color: #F4980E !important;
+    color: white !important;
+    font-weight: bold !important;
+    border: 0 !important;
 }
 
 div.check_area {
@@ -127,15 +118,19 @@ div.creditcard {
     /* padding-left: 105px; */
 }
 
-div.creditcard ul li {
-    width: 220px;
+ul.cardList li.card {
+    border: 0;
+    background-color: transparent;
+    font-size: 14px !important;
+    display: inline-block;
+    text-align:justify;
+    width: 200px;
 }
 
-div.creditcard ul li button.btn_delete_card {
+button.btn_delete_card {
     border: 0;
     background-color: transparent;
     color: #2B8BC1;
-    margin-left: 50px;
     text-decoration: underline;
 }
 
@@ -163,4 +158,50 @@ div.creditcard ul li button.btn_delete_card {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+button#likes{
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
+
+section#our_shop_main{
+    padding: 50px 0;
+}
+
+h3#mamber_center_title{
+    font-size: 20px;
+    background-color: #FFD966 !important;
+}
+
+h3#sidebar_title{
+    font-size: 20px;
+}
+
+table#user_profile{
+    border-collapse: collapse ;
+    margin-left: 30px;
+}
+
+th.profile_title,td.profile_content{
+    /* border: 1px solid lightgray; */
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+th.profile_title{
+    width: 300px;
+    background-color: #FEFAE0;    
+}
+
+td.profile_content{
+    text-align: center ;
+    width: 700px;
+    background-color: white;
+}
+
+div#sidebar_wrapper{
+    margin-left: 50px;
+    width: 341.28px;
 }

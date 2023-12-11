@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Where;
 
+import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.dao.ShelterDAO;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.util.HibernateUtil;
@@ -42,6 +43,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 
 	@Override
 	public int update(Shelter entity) {
+		getSession().flush();
 		try {
 			getSession().update(entity);
 			System.out.println("修改DAO");
@@ -66,7 +68,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 
 	@Override
 	public Shelter getById(Integer shelterId) {
-//		getSession().clear();
+		getSession().clear();
 //		return getSession().get(Shelter.class, id);
 		System.out.println(shelterId);
 		Shelter Shelter = getSession().createQuery("from Shelter where shelterId =" + shelterId, Shelter.class)
@@ -86,7 +88,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public Shelter getByAccount(String shelterAcct) {
 		List<Shelter> shelters = getSession().createQuery("from Shelter where shelterAcct=:shelterAcct", Shelter.class)
@@ -141,5 +143,17 @@ public class ShelterDAOImpl implements ShelterDAO {
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Shelter", Long.class).uniqueResult();
+	}
+
+	@Override
+	public Shelter getByAccountAndPassword(String shelterAcct, String shelterPwd) {
+		List<Shelter> shelters = getSession()
+				.createQuery("from Shelter where shelterAcct=:shelterAcct and shelterPwd=:shelterPwd", Shelter.class)
+				.setParameter("shelterAcct", shelterAcct).setParameter("shelterPwd", shelterPwd).getResultList();
+
+		if (shelters.size() > 0) {
+			return shelters.get(0);
+		}
+		return null;
 	}
 }

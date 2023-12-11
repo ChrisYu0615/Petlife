@@ -31,6 +31,7 @@ import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
+import com.petlife.util.RandomPassword;
 
 @WebServlet("/shelter/shelter.do")
 @MultipartConfig
@@ -66,13 +67,16 @@ public class ShelterServlet extends HttpServlet {
 			forwardPath = getUpdateShelter(req, res);
 			break;
 		case "shelterRegister":
-			forwardPath = shelterRegister(req, res);
+			shelterRegister(req, res);
 			break;
 		case "verify":
 			authencation(req, res);
 			break;
 		case "getAuthenCode":
 			getAuthenCode(req, res);
+			break;
+		case "forgetPwd":
+			setNewPassword(req, res);
 			break;
 		default:
 			forwardPath = "/index.jsp";
@@ -177,7 +181,7 @@ public class ShelterServlet extends HttpServlet {
 			if (!shelterAcct.matches(shelterAcctReg)) {
 				out.print("<font color='red'>信箱格式不符!!</font>");
 			} else {
-				boolean checkShelterAccount = shelterService.exisShelterAccount(shelterAcct);
+				boolean checkShelterAccount = shelterService.existShelterAccount(shelterAcct);
 				if (checkShelterAccount) {
 					out.print("<font color='red'>帳號重複!!</font>");
 				} else {
@@ -186,21 +190,21 @@ public class ShelterServlet extends HttpServlet {
 			}
 		}
 	}
-	
+
 	// 取得隨機驗證碼並寄信給該用戶
-		private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
-			String shelterAcct = req.getParameter("shelteraccount");
+	private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {
+		String shelterAcct = req.getParameter("shelteraccount");
+		String value = req.getParameter("value");
+		String memberType = "newPwd".equals(value) ? "ShelterNewPwd" : "Shelter";
 
-			// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
-			String authenCode = RandomAuthenCode.setAuthenCode("Shelter", shelterAcct);
+		// 取得儲存在redis當中的驗證碼(效期只有10分鐘)
+		String authenCode = RandomAuthenCode.setAuthenCode(memberType, shelterAcct);
 
-			// 寄信給該註冊帳號
-			MailService.sendAuthenCode(shelterAcct, authenCode);
-		}
+		// 寄信給該註冊帳號
+		MailService.sendAuthenCode(shelterAcct, authenCode);
+	}
 
-	private String shelterRegister(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException {
-		req.setCharacterEncoding("UTF-8");
-
+	private void shelterRegister(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException {
 		// 驗證使用者註冊的資料，使用Map裝入(有錯誤的話)
 		Map<String, String> errorMsg = new HashMap<>();
 
@@ -249,18 +253,18 @@ public class ShelterServlet extends HttpServlet {
 			shelterAddress = req.getParameter("country") + req.getParameter("district") + shelterAddress;
 		}
 
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out;
+		// 如果有錯誤資訊就回傳前端
 		if (errorMsg.size() > 0) {
-			res.setContentType("application/json; charset=UTF-8");
 			Gson gson = new Gson();
 			String errorMsgJson = gson.toJson(errorMsg);
-			PrintWriter out;
 			try {
 				out = res.getWriter();
 				out.print(errorMsgJson);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return "";
 		} else {
 			// 取得地址的經緯度資訊
 			Map<String, Double> location = addressToLatitudeAndLongitude(shelterAddress);
@@ -270,14 +274,22 @@ public class ShelterServlet extends HttpServlet {
 			Shelter shelter = new Shelter(shelterAcct, shelterPwd, shelterName, shelterPhoneNum, shelterAddress,
 					shelterLng, shelterLat);
 			shelter = shelterService.addShelter(shelter);
-			
-			// 寄信表示註冊成功
-			MailService.registerSuccess(shelter.getShelterAcct());	
-			
+
 			// 把shelter資訊放到Session中
 			req.getSession().setAttribute("shelter", shelter);
+
 			// 這裡要重導還是轉發，目的地應該是首頁?
-			return "";
+			Gson gson = new Gson();
+			String redirectPath = gson.toJson(req.getContextPath() + "/index.html");
+			try {
+				out = res.getWriter();
+				out.print(redirectPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			// 寄信表示註冊成功
+			MailService.registerSuccess(shelterAcct);
 		}
 	}
 
@@ -334,6 +346,46 @@ public class ShelterServlet extends HttpServlet {
 		}
 
 		return location;
+	}
+	
+	private void setNewPassword(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String shelterAcct = req.getParameter("account");
+		System.out.println(shelterAcct);
+		String authenCode = req.getParameter("authencode");
+		System.out.println(authenCode);
+
+		Map<String, String> errorMsg = new HashMap<>();
+		res.setContentType("application/json; charset=UTF-8");
+		Gson gson = new Gson();
+		PrintWriter out = res.getWriter();
+		if (!shelterService.existShelterAccount(shelterAcct)) {
+			errorMsg.put("accountErr", "帳號不存在!!");
+			String errorMsgJson = gson.toJson(errorMsg);
+			System.out.println(errorMsgJson);
+			out.print(errorMsgJson);
+			return;
+		}
+
+		String authenCodeFromJedis = RandomAuthenCode.getAuthenCode("ShelterNewPwd", shelterAcct);
+		if (authenCodeFromJedis == null) {
+			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
+		} else {
+			if (!authenCode.equals(authenCodeFromJedis)) {
+				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
+			}
+		}
+
+		if (errorMsg.size() > 0) {
+			String errorMsgJson = gson.toJson(errorMsg);
+			System.out.println(errorMsgJson);
+			out.print(errorMsgJson);
+		} else {
+			String result = shelterService.getNewPwd(shelterAcct);
+			Map<String, String> successMsg = new HashMap<>();
+			successMsg.put("success", result);
+
+			out.print(gson.toJson(successMsg));
+		}
 	}
 
 	@Override

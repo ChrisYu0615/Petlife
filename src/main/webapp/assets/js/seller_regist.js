@@ -164,6 +164,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 
+	// 按下取消按鈕(直接返回首頁)
+	$("#btn_cancel").on("click", function() {
+		window.location.href = "/Petlife/index.html";
+	});
 
 	// 前端驗證區塊
 	var verifyFlag = true;
@@ -492,7 +496,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					if (data != null) {
+					if (data.endsWith("html")) {
+						redirectPage(data);
+						return;
+					}
+					else if (data != null) {
 						if ($.trim(data.sellerPwdErr).length != 0) {
 							$("#verify_password").html(`<font color='red'>${data.sellerPwdErr}</font>`);
 						}
@@ -521,6 +529,10 @@ document.addEventListener("DOMContentLoaded", function() {
 					}
 				}
 			});
+
 		};
 	});
 });
+function redirectPage(newUrl) {
+	window.location.href = newUrl;
+}

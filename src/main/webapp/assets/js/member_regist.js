@@ -106,6 +106,10 @@ $(function() {
 		})
 		.catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
 
+	// 按下取消按鈕(直接返回首頁)
+	$("#btn_cancel").on("click", function() {
+		window.location.href = "/Petlife/index.html";
+	});
 
 	// 前端驗證區塊
 	var verifyFlag = true;
@@ -347,7 +351,11 @@ $(function() {
 				data: JSON.stringify(userData),             // 將物件資料(不用雙引號) 傳送到指定的 url
 				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
 				success: function(data) {      // request 成功取得回應後執行
-					if (data != null) {
+					if (data.endsWith("html")) {
+						redirectPage(data);
+						return;
+					}
+					else if (data != null) {
 						if ($.trim(data.userNameErr).length != 0) {
 							$("#verify_username").html(`<font color='red'>${data.userNameErr}</font>`);
 						}
@@ -369,6 +377,8 @@ $(function() {
 			});
 		}
 	});
-
 });
+function redirectPage(newUrl) {
+	window.location.href = newUrl;
+}
 

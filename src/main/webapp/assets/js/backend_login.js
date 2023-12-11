@@ -7,6 +7,13 @@ $(function() {
 
 	$("#btn_login").on("click", function() {
 		loginFlag = true;
+		if ($("input[name='identity']:checked").length == 0) {
+			$("#verify_identity").html("<font color='red'>請選擇登入身分!!</font>");
+			verifyFlag = false;
+		} else {
+			$("#verify_identity").html("");
+		}
+
 		if ($.trim($("#useraccount").val()) == "") {
 			loginFlag = false;
 			$("#verify_account").html("<font color='red'>請輸入登入帳號!!</font>");
@@ -21,46 +28,71 @@ $(function() {
 			$("#verify_password").html("");
 		}
 
+
 		if (loginFlag == true) {
+			let identity = $("input[name='identity']:checked").val();
+			let url;
+			switch (identity) {
+				case '0':
+					url = "/Petlife/login/login.do?action=adminLogin";
+					break;
+				case '2':
+					url = "/Petlife/login/login.do?action=sellerLogin";
+					break;
+				case '3':
+					url = "/Petlife/login/login.do?action=shelterLogin";
+					break;
+			}
+
 			console.log("正確，開始ajax");
-			let userAcct = $.trim($("#useraccount").val());
-			let userPwd = $.trim($("#userpassword").val());
+			let loginAcct = $.trim($("#useraccount").val());
+			let loginPwd = $.trim($("#userpassword").val());
 
 			let formData = new FormData();
-			formData.append("account", userAcct);
-			formData.append("password", userPwd);
+			formData.append("account", loginAcct);
+			formData.append("password", loginPwd);
 
 			$.ajax({
-				url: "/Petlife/user/user.do?action=userLogin",           // 資料請求的網址
+				url: url,           // 資料請求的網址
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 				data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
 				dataType: "html",             // 預期會接收到回傳資料的格式： json | xml | html
 				contentType: false,
 				processData: false,
 				cache: false,
-				success: function(data) {      // request 成功取得回應後執行
+				success: function(data) {// request 成功取得回應後執行
 					switch (data) {
-						case '-1':
+						case '帳號不存在':
 							alert("帳號不存在!!");
 							break;
-						case '0':
-							alert("登入成功!!");
-							break;
-						case '1':
+						case '停權':
 							alert("帳號已被停權，請和管理員聯繫!!");
 							break;
-						case '2':
+						case '密碼錯誤已達5次':
 							alert("密碼錯誤次數已達5次，請重新設置密碼!!");
 							break;
-						case '3':
+						case '待補件':
+							alert("當前帳號尚未遞交補件資料，無法登入!!");
+							break;
+						case '待審核':
+							alert("當前帳號還未經管理員審核，無法登入!!");
+							break;
+						case '密碼錯誤未達5次':
 							alert("密碼錯誤!!");
+							break;
+						default:
+							redirectPage(data);
 							break;
 					}
 				}, error: function(error) {
 					// 處理錯誤
 					console.error(error);
 				}
+
 			});
 		}
 	});
 })
+function redirectPage(newUrl) {
+	window.location.href = newUrl;
+}

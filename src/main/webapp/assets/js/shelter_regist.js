@@ -98,6 +98,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		})
 		.catch(error => console.error('縣市行政區JSON檔案載入失敗：', error));
 
+	// 按下取消按鈕(直接返回首頁)
+	$("#btn_cancel").on("click", function() {
+		window.location.href = "/Petlife/index.html";
+	});
+
 	// 前端驗證區塊
 	var verifyFlag = true;
 
@@ -256,6 +261,16 @@ document.addEventListener("DOMContentLoaded", function() {
 			formData.append("district", district);
 			formData.append("address", address);
 
+			console.log($(location).attr("hash"));
+			console.log($(location).attr("host"));
+			console.log($(location).attr("hostname"));
+			console.log($(location).attr("href"));
+			console.log($(location).attr("origin"));
+			console.log($(location).attr("pathname"));
+			console.log($(location).attr("port"));
+			console.log($(location).attr("protocol"));
+			console.log($(location).attr("search"));
+
 			$.ajax({
 				url: "/Petlife/shelter/shelter.do?action=shelterRegister",           // 資料請求的網址
 				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
@@ -265,7 +280,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					if (data != null) {
+					if (data.endsWith("html")) {
+						redirectPage(data);
+						return;
+					}
+					else if (data != null) {
 						if ($.trim(data.shelterPwdErr).length != 0) {
 							$("#verify_password").html(`<font color='red'>${data.shelterPwdErr}</font>`);
 						}
@@ -288,3 +307,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		};
 	});
 });
+function redirectPage(newUrl) {
+	window.location.href = newUrl;
+}
