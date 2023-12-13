@@ -1,5 +1,6 @@
 package com.petlife.mall.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -45,8 +46,8 @@ public class Buylist {
 	@Column(name = "seller_evaluate_time")
 	private Timestamp sellerEvaluateTime;
 	
-	@Column(name = "buylist_amount")
-	private int buylistAmount;
+	@Column(name = "buylist_amount", columnDefinition = "Decimal")
+	private BigDecimal buylistAmount;
 	
 	@Column(name = "buylist_date")
 	private Timestamp buylistDate;
@@ -126,11 +127,11 @@ public class Buylist {
 		this.sellerEvaluateTime = sellerEvaluateTime;
 	}
 
-	public int getBuylistAmount() {
+	public BigDecimal getBuylistAmount() {
 		return buylistAmount;
 	}
 
-	public void setBuylistAmount(int buylistAmount) {
+	public void setBuylistAmount(BigDecimal buylistAmount) {
 		this.buylistAmount = buylistAmount;
 	}
 
