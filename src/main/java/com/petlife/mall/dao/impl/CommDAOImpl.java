@@ -72,9 +72,7 @@ public class CommDAOImpl implements CommDAO{
 //	}
 
 	@Override
-	public List<Comm> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comm> getAll() {		
+		return getSession().createQuery("FROM Comm", Comm.class).list();
 	}
-	
 }
