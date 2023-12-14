@@ -1,50 +1,53 @@
+<%-- <%@ page language="java" contentType="text/html; charset=BIG5" pageEncoding="UTF-8"%> --%>
+<%@page import="com.petlife.admin.service.impl.CouponServiceImpl"%>
+<%@page import="com.petlife.admin.service.CouponService"%>
 <%@page import="com.petlife.admin.entity.Coupon"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ page import="com.petlife.coupon.*"%> --%>
+<%@ page import="java.util.*"%>
+<%@page import="com.petlife.admin.*"%>
+
 
 <%
-//見com.emp.controller.EmpServlet.java第238行存入req的coupon物件 (此為輸入格式有錯誤時的coupon物件)
-Coupon coupon = (Coupon) request.getAttribute("coupon");
+CouponService couponSvc = new CouponServiceImpl();
+List<Coupon> list = couponSvc.getAllCoupons();
+pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
 <style>
-table#table-1 {
+  table#table-1 {
 	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
+    border: 2px solid black;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
 </style>
 
 <style>
-table {
-	width: 450px;
+  table {
+	width: 800px;
 	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
-th, td {
-	padding: 1px;
-}
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+    border: 1px solid #CCCCFF;
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -176,119 +179,86 @@ th, td {
 			</section>
 
 			<!-- Main content -->
-			<table id="table-1">
-		<tr>
-			<td>
-				<h3>優惠券新增 - addCoupon.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<a href='addCoupon.jsp'><button type="button"
+											class="btn btn-primary" id="btn_addcoupon"
+											data-bs-toggle="modal" data-bs-target="#add_coupon">新增優惠碼</button></a>
+								</div>
+								<!-- /.card-header -->
+								<table id="table-1">
+									<tr>
+										<td>
+											<h3>所有優惠券資料</h3>
+											<h4>
+												<a href="select_page.jsp"><img src="images/back1.gif"
+													width="100" height="32" border="0">回首頁</a>
+											</h4>
+										</td>
+									</tr>
+								</table>
 
-	<h3>資料新增:</h3>
+								<table>
+									<tr>
+										<th>優惠碼編號</th>
+										<th>優惠碼名稱</th>
+										<th>優惠碼敘述</th>
+										<th>使用條件</th>
+										<th>開始時間</th>
+										<th>結束時間</th>
+										<th>折扣金額</th>
+										<th>修改</th>
+										<th>刪除</th>
+									</tr>
+									<%@ include file="page1.file"%>
+									<c:forEach var="coupon" items="${list}" begin="<%=pageIndex%>"
+										end="<%=pageIndex+rowsPerPage-1%>">
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-
-	<FORM METHOD="post" ACTION="coupon.do" name="form1"
-		onsubmit="return validateForm();">
-		<table>
-
-			<!-- 			<tr> -->
-			<!-- 				<td>優惠碼ID名稱:</td> -->
-			<!-- 				<td><input type="text" name="couponId" -->
-			<%-- 					value="<%=(coupon == null) ? "" : coupon.getCouponId()%>" --%>
-			<!-- 					size="45" readonly /></td> -->
-			<!-- 			</tr> -->
-			<tr>
-				<td>優惠碼名稱:</td>
-				<td><input type="TEXT" name="couponName" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>優惠碼敘述:</td>
-				<td><input type="TEXT" name="couponContent" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>使用條件:</td>
-				<td><input name="conditionsOfUse" id="f_date1" type="text"
-					size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>開始時間:</td>
-				<td><input type="TEXT" name="startDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
-
-			<tr>
-				<td>結束時間:</td>
-				<td><input type="TEXT" name="endDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
-
-			<tr>
-				<td>折扣金額:</td>
-				<td><input type="TEXT" name="discountAmount" size="45"  required/></td>
-			</tr>
-
-
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
-
-
-<script>
-function validateForm() {
-    var couponName = document.forms["form1"]["couponName"].value;
-    var startDate = document.forms["form1"]["startDate"].value;
-    var endDate = document.forms["form1"]["endDate"].value;
-
-    // 檢查是否為空
-    if (couponName.trim() == "") {
-        alert("請填寫優惠碼名稱。");
-        return false; // 取消form提交
-    }
-
-    // 新增檢查優惠碼名稱長度是否大於2個字
-    if (couponName.trim().length <= 2) {
-        alert("優惠碼名稱長度必須大於2個字。");
-        return false; // 取消form提交
-    }
-
-    // 檢查日期格式
-    var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
-
-    if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
-        alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
-        return false;
-    }
-
-    // 檢查 endDate 是否在 startDate 之後
-    var startTimestamp = new Date(startDate.replace(" ", "T")).getTime();
-    var endTimestamp = new Date(endDate.replace(" ", "T")).getTime();
-
-    if (endTimestamp <= startTimestamp) {
-        alert("結束日期必須在開始日期之後。");
-        return false;
-    }
-
-    return true; // 允許form提交
-}
-
-</script>
-
+										<tr>
+											<td>${coupon.couponId}</td>
+											<td>${coupon.couponName}</td>
+											<td>${coupon.couponContent}</td>
+											<td>${coupon.conditionsOfUse}</td>
+											<td>${coupon.startDate}</td>
+											<td>${coupon.endDate}</td>
+											<td>${coupon.discountAmount}</td>
+											<td>
+												<FORM METHOD="post"
+													ACTION="<%=request.getContextPath()%>/coupon/coupon.do"
+													style="margin-bottom: 0px;">
+													<input type="submit" value="修改"> <input
+														type="hidden" name="couponId" value="${coupon.couponId}">
+													<input type="hidden" name="action"
+														value="getOne_For_Update">
+												</FORM>
+											</td>
+											<td>
+												<FORM METHOD="post"
+													ACTION="<%=request.getContextPath()%>/coupon/coupon.do"
+													style="margin-bottom: 0px;">
+													<input type="submit" value="刪除"> <input
+														type="hidden" name="couponId" value="${coupon.couponId}">
+													<input type="hidden" name="action" value="delete">
+												</FORM>
+											</td>
+										</tr>
+									</c:forEach>
+								</table>
+								<%@ include file="page2.file"%>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->

@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,11 +14,12 @@ import javax.persistence.Table;
 public class Coupon {
 	@Id
 	@Column(name = "coupon_id", updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer couponId;
 
-	@Column(name = "coupon_name", columnDefinition = "char")
+	@Column(name = "coupon_name")
 	private String couponName;
-	@Column(name = "coupon_content", columnDefinition = "char")
+	@Column(name = "coupon_content")
 	private String couponContent;
 	@Column(name = "conditions_of_use")
 	private Integer conditionsOfUse;
