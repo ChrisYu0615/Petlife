@@ -38,7 +38,7 @@ public class Buylist {
     private Coupon coupon;
 	
 	@Column(name = "seller_rating_stars")
-	private double sellerRatingStars;
+	private Double sellerRatingStars;
 	
 	@Column(name = "seller_evaluate_narrative",columnDefinition = "LONGTEXT")
 	private String sellerEvaluateNarrative;
@@ -103,11 +103,11 @@ public class Buylist {
 		this.coupon = coupon;
 	}
 
-	public double getSellerRatingStars() {
+	public Double getSellerRatingStars() {
 		return sellerRatingStars;
 	}
 
-	public void setSellerRatingStars(double sellerRatingStars) {
+	public void setSellerRatingStars(Double sellerRatingStars) {
 		this.sellerRatingStars = sellerRatingStars;
 	}
 

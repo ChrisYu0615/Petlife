@@ -1,50 +1,33 @@
 <%@page import="com.petlife.admin.entity.Coupon"%>
+<%@page import="com.petlife.admin.service.impl.CouponServiceImpl"%>
+<%@page import="com.petlife.admin.service.CouponService"%>
+<%@page import="com.petlife.admin.entity.Coupon"%>
+<%@page import="com.petlife.admin.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ page import="com.petlife.coupon.*"%> --%>
-
-<%
-//見com.emp.controller.EmpServlet.java第238行存入req的coupon物件 (此為輸入格式有錯誤時的coupon物件)
-Coupon coupon = (Coupon) request.getAttribute("coupon");
-%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
+  table#table-1 {
 	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
-th, td {
-	padding: 1px;
-}
+	background-color: #CCCCFF;
+	margin-top: 5px;
+	margin-bottom: 10px;
+    border: 3px ridge Gray;
+    height: 80px;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,117 +160,71 @@ th, td {
 
 			<!-- Main content -->
 			<table id="table-1">
-		<tr>
-			<td>
-				<h3>優惠券新增 - addCoupon.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+   <tr><td><h3>優惠碼首頁</h3><h4>Coupon: Home</h4></td></tr>
+</table>
 
-	<h3>資料新增:</h3>
+<h3>資料查詢:</h3>
+	
+<!-- 錯誤表列 -->
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+	    <c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<ul>
+  <li><a href='listAllCoupon.jsp'>List</a> all Coupons.  <br><br></li>
+  
+  
+  <li>
+    <FORM METHOD="post" ACTION="coupon.do" >
+        <b>輸入優惠券編號:</b>
+        <input type="text" name="couponId">
+        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="submit" value="送出">
+    </FORM>
+  </li>
 
-	<FORM METHOD="post" ACTION="coupon.do" name="form1"
-		onsubmit="return validateForm();">
-		<table>
-
-			<!-- 			<tr> -->
-			<!-- 				<td>優惠碼ID名稱:</td> -->
-			<!-- 				<td><input type="text" name="couponId" -->
-			<%-- 					value="<%=(coupon == null) ? "" : coupon.getCouponId()%>" --%>
-			<!-- 					size="45" readonly /></td> -->
-			<!-- 			</tr> -->
-			<tr>
-				<td>優惠碼名稱:</td>
-				<td><input type="TEXT" name="couponName" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>優惠碼敘述:</td>
-				<td><input type="TEXT" name="couponContent" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>使用條件:</td>
-				<td><input name="conditionsOfUse" id="f_date1" type="text"
-					size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>開始時間:</td>
-				<td><input type="TEXT" name="startDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
-
-			<tr>
-				<td>結束時間:</td>
-				<td><input type="TEXT" name="endDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
-
-			<tr>
-				<td>折扣金額:</td>
-				<td><input type="TEXT" name="discountAmount" size="45"  required/></td>
-			</tr>
+  <jsp:useBean id="couponSvc" scope="page" class="com.petlife.admin.service.impl.CouponServiceImpl" />
+  <li>
+     <FORM METHOD="post" ACTION="coupon.do" >
+       <b>選擇優惠券編號:</b>
+       <select size="1" name="couponId">
+         <c:forEach var="coupon" items="${couponSvc.getAllCoupons()}" > 
+          <option value="${coupon.couponId}">${coupon.couponId}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="submit" value="送出">
+    </FORM>
+  </li>
+  
+  <li>
+     <FORM METHOD="post" ACTION="coupon.do" >
+       <b>選擇優惠券名稱:</b>
+       <select size="1" name="couponId">
+         <c:forEach var="coupon" items="${couponSvc.getAllCoupons()}" > 
+          <option value="${coupon.couponId}">${coupon.couponName}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="submit" value="送出">
+     </FORM>
+  </li>
+</ul>
 
 
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
+<h3>優惠碼管理</h3>
+
+<ul>
+  <li><a href='addCoupon.jsp'>Add</a> a new Coupon.</li>
+</ul>
 
 
-<script>
-function validateForm() {
-    var couponName = document.forms["form1"]["couponName"].value;
-    var startDate = document.forms["form1"]["startDate"].value;
-    var endDate = document.forms["form1"]["endDate"].value;
 
-    // 檢查是否為空
-    if (couponName.trim() == "") {
-        alert("請填寫優惠碼名稱。");
-        return false; // 取消form提交
-    }
-
-    // 新增檢查優惠碼名稱長度是否大於2個字
-    if (couponName.trim().length <= 2) {
-        alert("優惠碼名稱長度必須大於2個字。");
-        return false; // 取消form提交
-    }
-
-    // 檢查日期格式
-    var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
-
-    if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
-        alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
-        return false;
-    }
-
-    // 檢查 endDate 是否在 startDate 之後
-    var startTimestamp = new Date(startDate.replace(" ", "T")).getTime();
-    var endTimestamp = new Date(endDate.replace(" ", "T")).getTime();
-
-    if (endTimestamp <= startTimestamp) {
-        alert("結束日期必須在開始日期之後。");
-        return false;
-    }
-
-    return true; // 允許form提交
-}
-
-</script>
 
 			<!-- /.content -->
 		</div>
