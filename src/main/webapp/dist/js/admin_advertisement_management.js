@@ -246,14 +246,165 @@ $(function () {
         });
     });
 
+
+    // 照片上傳預覽(新增)
+    const newAdvertisementImg = document.getElementById('new_advertisement_img');
+    const newAdvertisementImgPreview = document.getElementById('new_advertisement_img_preview');
+    newAdvertisementImg.addEventListener('change', function () {
+        if (newAdvertisementImg.files && newAdvertisementImg.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                newAdvertisementImgPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(newAdvertisementImg.files[0]);
+        }
+    });
+
+    // 照片上傳預覽(修改)
+    const advertisementImg = document.getElementById('advertisement_img');
+    const advertisementImgPreview = document.getElementById('advertisement_img_preview');
+    advertisementImg.addEventListener('change', function () {
+        if (advertisementImg.files && advertisementImg.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                advertisementImgPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(advertisementImg.files[0]);
+        }
+    });
+
+    // 前端驗證區塊(新增)
+    var insertFlag = true;
+    $("#add_advertisementForm").submit(function (event) {
+        insertFlag = true;
+        let adTitle = $.trim($("#new_advertisement_name").val());
+        let adContent = $.trim($("#new_advertisement_content").val());
+        let adImg = $.trim($("#new_advertisement_img").val());
+        let adStartDate = $.trim($("#new_advertisement_stardate").val());
+        let adEndDate = $.trim($("#new_advertisement_enddate").val());
+
+        if (adTitle.val() == '' || adTitle != null) {
+            insertFlag = false;
+            $("#verify_new_advertisement_name").html(`<font color="red">請輸入廣告標題!!</font>`);
+        } else {
+            $("#verify_new_advertisement_name").html("");
+        }
+
+        if (adContent.val() == '' || adContent != null) {
+            insertFlag = false;
+            $("#verify_new_advertisement_content").html(`<font color="red">請輸入廣告內容!!</font>`);
+        } else {
+            $("#verify_new_advertisement_content").html("");
+        }
+
+        if (adImg.val() == '' || adImg != null) {
+            insertFlag = false;
+            $("#verify_new_advertisement_img").html(`<font color="red">請上傳廣告圖片!!</font>`);
+        }
+
+        if (adStartDate.val() == '' || adStartDate != null) {
+            insertFlag = false;
+            $("#verify_new_advertisement_stardate").html(`<font color="red">請選擇上架日期!!</font>`);
+        }
+
+        if (adEndDate.val() == '' || adEndDate != null) {
+            insertFlag = false;
+            $("#verify_new_advertisement_ednddate").html(`<font color="red">請選擇下架日期!!</font>`);
+        }
+
+        if (insertFlag == false) {
+            event.preventDefault();
+            $("html, body").scrollTop(0);
+        }
+    });
+
+
+    // 前端驗證區塊(修改)
+    var modifyFlag = true;
+    $("#modify_advertisementForm").submit(function (event) {
+        modifyFlag = true;
+        let adTitle = $.trim($("#advertisement_name").val());
+        let adContent = $.trim($("#advertisement_content").val());
+        let adImg = $.trim($("#advertisement_img"));
+        let adStartDate = $.trim($("#advertisement_stardate").val());
+        let adEndDate = $.trim($("#advertisement_enddate").val());
+        let adImgBase64 = $("#advertisement_img_preview").attr('src').split(',')[1];
+
+        if (adTitle.val() == '' || adTitle == null) {
+            modifyFlag = false;
+            $("#verify_advertisement_name").html(`<font color="red">請輸入廣告標題!!</font>`);
+        } else {
+            $("#verify_advertisement_name").html("");
+        }
+
+        if (adContent.val() == '' || adContent == null) {
+            modifyFlag = false;
+            $("#verify_advertisement_content").html(`<font color="red">請輸入廣告內容!!</font>`);
+        } else {
+            $("#verify_advertisement_content").html("");
+        }
+
+        if (adImg.val() == '' || adImg == null) {
+            $("#advertisement_img_base64").val(adImgBase64);
+        }
+
+        if (adStartDate.val() == '' || adStartDate == null) {
+            modifyFlag = false;
+            $("#verify_advertisement_stardate").html(`<font color="red">請選擇上架日期!!</font>`);
+        }
+
+        if (adEndDate.val() == '' || adEndDate == null) {
+            modifyFlag = false;
+            $("#verify_advertisement_ednddate").html(`<font color="red">請選擇下架日期!!</font>`);
+        }
+
+        if (modifyFlag == false) {
+            event.preventDefault();
+            $("html, body").scrollTop(0);
+        }
+    });
+
+
+    // 修改(使用ajax)
+    var modifyFlag = true;
+    $(".btn_check").on("click", function () {
+        let advertisementId = $(this).val();
+        console.log(advertisementId);
+        $("#advertisement_Id").val(advertisementId);
+
+        let formData = new FormData();
+        let url = "/Petlife/advertisement/advertisement.do?action=getOne&advertisementId=" + advertisementId;
+        formData.append("advertisementId", advertisementId);
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                console.log("成功!!");
+                $("#advertisement_id").val(data.ad.advertisementId
+                );
+                $("#advertisement_name").val(data.ad.advertisementTitle);
+                $("#advertisement_content").val(data.ad.advertisementContent);
+
+                $("#advertisement_img_preview").attr('src', 'data:image/jpeg;base64,' + data.adImg);
+
+                if (data.ad.adStatus == true) {
+                    $("#launched").prop("checked", true);
+                }
+                else {
+                    $("#unlaunched").prop("checked", true);
+                }
+                $("#advertisement_stardate").val(data.ad.startDate);
+                $("#advertisement_enddate").val(data.ad.endDate);
+            }
+        });
+
+    });
 })
 
-// 刪除文章的函數
-function checkCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('check Coupon with ID: ' + coupon_id);
-}
-function deleteCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('delete Coupon with ID: ' + coupon_id);
-}

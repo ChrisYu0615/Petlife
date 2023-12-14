@@ -35,6 +35,8 @@ public class ShelterServiceImpl implements ShelterService {
 		dao.insert(shelter);
 		return shelter;
 	}
+	
+	
 
 	@Override
 	public Shelter updateShelter(Shelter shelter) {
@@ -143,5 +145,16 @@ public class ShelterServiceImpl implements ShelterService {
 			return "密碼變更成功!!請至您的信箱查看";
 		}
 		return "帳號處於停權或未審核狀態，請和管理員聯繫!!";
+	}
+
+	@Override
+	public List<Shelter> getAllShelters(String... conditions) {
+		return dao.getAll(conditions);
+	}
+
+	@Override
+	public Integer deleteShelter(Integer shelterId) {
+		dao.delete(shelterId);
+		return null;
 	}
 }

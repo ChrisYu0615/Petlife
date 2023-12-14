@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -17,9 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.petlife.admin.dao.AcctStateDAO;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.entity.AcctState;
 import com.petlife.seller.entity.Seller;
 import com.petlife.seller.service.SellerService;
 import com.petlife.seller.service.impl.SellerServiceImpl;
+import com.petlife.user.entity.User;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
 
@@ -57,6 +66,21 @@ public class SellerController extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, resp);
 			break;
+		case "getAll":
+			forwardPath = getAllSellers(req, resp);
+			break;
+		case "getOne":
+			getOneSeller(req, resp);
+			break;
+		case "suspend_Seller":
+			forwardPath = suspendSeller(req, resp);
+			break;
+		case "recover_Seller":
+			forwardPath = recoverSeller(req, resp);
+			break;
+		case "verify_Seller":
+			forwardPath = verifySeller(req, resp);
+			break;
 		default:
 			forwardPath = "";
 			break;
@@ -66,6 +90,65 @@ public class SellerController extends HttpServlet {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, resp);
 		}
+	}
+
+	private String verifySeller(HttpServletRequest req, HttpServletResponse resp) {
+		Integer SellerId = Integer.valueOf(req.getParameter("memberId"));
+		String selectValue = req.getParameter("sellerReviewResult");
+		String reason = req.getParameter("reason");
+		Seller seller = sellerService.getSellerBySellerId(SellerId);
+		switch (selectValue) {
+		case "1":
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctState acctState = acctStateDAO.findByPK(0);
+			seller.setAcctState(acctState);
+			MailService.verifySuccess(seller.getSellerAcct());
+			sellerService.updateSeller(seller);
+			break;
+		case "2":
+			sellerService.deleteSeller(SellerId);
+			MailService.verifyfailed(seller.getSellerAcct(), reason);
+			break;
+		}
+		
+		return "/admin/admin.do?action=getAllMembers&condition=unverified";
+	}
+
+	private void getOneSeller(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Integer sellerId = Integer.valueOf(req.getParameter("memberId"));
+		Seller seller = sellerService.getSellerBySellerId(sellerId);
+		// 裝賣家的驗證照片(轉成Base64方便Json傳送)
+		List<String> sellerImgs = new ArrayList<>();
+		sellerImgs.add(Base64.getEncoder().encodeToString(seller.getIdFront()));
+		sellerImgs.add(Base64.getEncoder().encodeToString(seller.getIdBack()));
+		sellerImgs.add(Base64.getEncoder().encodeToString(seller.getBankAcctImg()));
+
+		Map<String, Object> sellerData = new HashMap<>();
+		sellerData.put("seller", seller);
+		sellerData.put("imgs", sellerImgs);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("yyyy-MM-dd")
+				.excludeFieldsWithoutExposeAnnotation().create();
+		String sellerDataJson = gson.toJson(sellerData);
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		out.print(sellerDataJson);
+	}
+
+	private String recoverSeller(HttpServletRequest req, HttpServletResponse resp) {
+		Integer sellerId = Integer.parseInt(req.getParameter("memberId"));
+		Seller seller = sellerService.getSellerBySellerId(sellerId);
+		seller.setAcctState(new AcctState(0, "可使用"));
+		sellerService.updateSeller(seller);
+		return "/seller/seller.do?action=getAll&condition=verified";
+	}
+
+	private String suspendSeller(HttpServletRequest req, HttpServletResponse resp) {
+		Integer sellerId = Integer.parseInt(req.getParameter("memberId"));
+		Seller seller = sellerService.getSellerBySellerId(sellerId);
+		seller.setAcctState(new AcctState(1, "停權"));
+		sellerService.updateSeller(seller);
+		return "/seller/seller.do?action=getAll&condition=verified";
 	}
 
 	// 驗證帳號與暱稱是否可以使用
@@ -103,8 +186,7 @@ public class SellerController extends HttpServlet {
 	}
 
 	// 註冊賣家程序
-	private void sellerRegister(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	private void sellerRegister(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		// 驗證使用者註冊的資料，使用Map裝入(有錯誤的話)
 		Map<String, String> errorMsg = new HashMap<>();
 
@@ -193,10 +275,10 @@ public class SellerController extends HttpServlet {
 		resp.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		// 判斷有無錯誤資訊，有的話輸出以Json格式輸出到前端
-		if (errorMsg.size() > 0) {			
+		if (errorMsg.size() > 0) {
 			Gson gson = new Gson();
 			String errorMsgJson = gson.toJson(errorMsg);
-	
+
 			out.print(errorMsgJson);
 		} else {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
@@ -213,7 +295,7 @@ public class SellerController extends HttpServlet {
 			out.print(redirectPath);
 
 			// 寄信表示註冊成功
-			MailService.memberRegisterSuccess(sellerAcct);
+			MailService.registerSuccess(sellerAcct);
 		}
 	}
 
@@ -229,8 +311,7 @@ public class SellerController extends HttpServlet {
 		// 寄信給該註冊帳號
 		MailService.sendAuthenCode(sellerAcct, authenCode);
 	}
-	
-	
+
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String sellerAcct = req.getParameter("account");
 		String authenCode = req.getParameter("authencode");
@@ -267,6 +348,18 @@ public class SellerController extends HttpServlet {
 
 			out.print(gson.toJson(successMsg));
 		}
+	}
+
+	private String getAllSellers(HttpServletRequest req, HttpServletResponse resp) {
+		List<Seller> sellerList = new ArrayList<>();
+		String condition = req.getParameter("condition");
+		if (condition != null) {
+			sellerList = sellerService.getAllSellers(condition);
+		} else {
+			sellerList = sellerService.getAllSellers();
+		}
+		req.setAttribute("getAllSellers", sellerList);
+		return "/admin/seller_management.jsp";
 	}
 
 	private byte[] getImgBytes(Part part) throws IOException {

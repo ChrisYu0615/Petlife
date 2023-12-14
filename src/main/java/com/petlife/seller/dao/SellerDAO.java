@@ -16,7 +16,7 @@ public interface SellerDAO {
 	
 	Seller findByPK(Integer sellerId);
 	
-	List<Seller> getAll();
+	List<Seller> getAll(String... conditions);
 	
 	Seller findSellerBySellerShopname(String shopname);
 	
