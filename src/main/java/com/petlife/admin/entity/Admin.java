@@ -148,7 +148,7 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + ", adminAcct=" + adminAcct + ", adminPwd=" + adminPwd + ", adminNickname="
-				+ adminNickname + ", adminPwdErrTimes=" + adminPwdErrTimes + ", acctState=" + acctState + ", acctType="
-				+ acctType + ", adminCreateTime=" + adminCreateTime + "]";
+				+ adminNickname + ", adminPwdErrTimes=" + adminPwdErrTimes + ", acctState=" + acctState.getAcctStateType() + ", acctType="
+				+ acctType.getAcctType() + ", adminCreateTime=" + adminCreateTime + "]";
 	}
 }

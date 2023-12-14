@@ -261,14 +261,14 @@ public class LoginServlet extends HttpServlet {
 					String location = (String) session.getAttribute("location");
 					if (location != null) {
 						session.removeAttribute("location");
-						out.print(req.getContextPath() + "/index.html");
+						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/user/user.do?action=getAll");
 						return;
 					}
 				} catch (Exception ignore) {
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/user/user.do?action=getAll");
 				}
 				break;
 			case 1:

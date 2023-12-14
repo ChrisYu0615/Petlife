@@ -3,6 +3,7 @@ package com.petlife.admin.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.petlife.admin.service.AdminService;
 import com.petlife.admin.service.impl.AdminServiceImpl;
+import com.petlife.seller.entity.Seller;
+import com.petlife.seller.service.SellerService;
+import com.petlife.seller.service.impl.SellerServiceImpl;
+import com.petlife.shelter.entity.Shelter;
+import com.petlife.shelter.service.ShelterService;
+import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
 
@@ -33,7 +40,7 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
@@ -51,6 +58,9 @@ public class AdminServlet extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, resp);
 			break;
+		case "getAllMembers":
+			forwardPath = getAllMembers(req, resp);
+			break;
 		default:
 			forwardPath = "";
 			break;
@@ -59,6 +69,24 @@ public class AdminServlet extends HttpServlet {
 		if (!forwardPath.isEmpty()) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, resp);
+		}
+	}
+
+	private String getAllMembers(HttpServletRequest req, HttpServletResponse resp) {
+		String conditions = req.getParameter("condition");
+		// 取得全部未審核的會員，使用Member DTO去裝
+		if (conditions != null && conditions.length() > 0) {
+			ShelterService shelterService = new ShelterServiceImpl();
+			List<Shelter> shelterList = shelterService.getAllShelters(conditions);
+			SellerService sellerService = new SellerServiceImpl();
+			List<Seller> sellerList = sellerService.getAllSellers(conditions);
+
+			req.setAttribute("getAllShelters", shelterList);
+			req.setAttribute("getAllSellers", sellerList);
+			return "/admin/unverify_member_management.jsp";
+		} else {
+			// 取得全部已審核的會員，使用Member DTO去裝
+			return "";
 		}
 	}
 
@@ -72,9 +100,9 @@ public class AdminServlet extends HttpServlet {
 
 		// 寄信給該註冊帳號
 		MailService.sendAuthenCode(adminAcct, authenCode);
-		
+
 	}
-	
+
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String adminAcct = req.getParameter("account");
 		System.out.println(adminAcct);
@@ -117,13 +145,12 @@ public class AdminServlet extends HttpServlet {
 
 	private void authencation(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void adminRegister(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
