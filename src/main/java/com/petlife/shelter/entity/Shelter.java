@@ -1,5 +1,6 @@
 package com.petlife.shelter.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
@@ -9,15 +10,18 @@ import javax.persistence.Table;
 import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
+import com.petlife.pet.entity.Pet;
 
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "shelter")
@@ -81,6 +85,13 @@ public class Shelter {
 	@JoinColumn(name = "acct_state_id", referencedColumnName = "acct_state_id", insertable = false)
 	@Expose
 	private AcctState acctState;
+	
+	@OneToMany(mappedBy = "Sheltername", cascade = CascadeType.ALL)
+	private Set<Pet> pets;
+	
+	@OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+	private Set<Reservation> reservations;
+	
 	
 	
 	public Shelter(String shelterAcct, String shelterPwd, String shelterName, String shelterPhoneNum, 

@@ -8,7 +8,7 @@ div.res_one{
     margin-top: 30px;
 }
 /* 選擇日期 */
-input#start_date, input#end_date{
+input#search_start, input#search_end{
     display: inline-block;
     width: 150px;
     /* border: 1px solid red; */
@@ -38,10 +38,10 @@ button.btn{
 
 span.button{
     position: relative;
-    left: 75%;
+     left: 68%;
     margin-top: 20px;
     display: inline-block;
-    width: 490px;
+    width: 585px;
     background-color: #F3EEEA;
     border-radius: 15px;
     /* border: 1px solid red; */
@@ -82,6 +82,7 @@ button.res.on{
 /* table 裡面按鈕 */
 button.put_on,button.delete{
     width: 80px;
+    margin:0px;
 }
 
 
