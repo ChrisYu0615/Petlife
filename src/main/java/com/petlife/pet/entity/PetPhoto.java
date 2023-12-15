@@ -12,6 +12,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.google.gson.annotations.Expose;
+
+
+
 
 @Entity
 @Table(name = "pet_photo")
@@ -19,17 +23,31 @@ public class PetPhoto implements java.io.Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pet_photo_id", updatable = false)
+	@Expose
 	private Integer photoId;
 
 	
 	@Column(name = "pet_photo" ,columnDefinition = "longblob" )
 	private byte[] petPhoto;
 	
+	@Column(name = "pet_id", updatable = false, insertable = false)
+	@Expose
+	private Integer petId;
+	
 	@ManyToOne
 	//            自己的欄位名稱-> 對應到哪一個欄位
 	@JoinColumn(name = "pet_id", referencedColumnName = "pet_id")
 	// 代表會去dept 去找deptnoname   ,原本是EMP emp
 	private Pet pet;
+	
+
+	public Integer getPetId() {
+		return petId;
+	}
+
+	public void setPetId(Integer petId) {
+		this.petId = petId;
+	}
 
 	public Integer getPhotoId() {
 		return photoId;
@@ -38,7 +56,7 @@ public class PetPhoto implements java.io.Serializable  {
 	public void setPhotoId(Integer photoId) {
 		this.photoId = photoId;
 	}
-
+	
 	public byte[] getPetPhoto() {
 		return petPhoto;
 	}

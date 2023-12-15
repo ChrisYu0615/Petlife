@@ -1,7 +1,11 @@
 package com.petlife.pet.entity;
 
+
+
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,13 +20,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-
-
+import com.petlife.shelter.entity.Reservation;
+import com.petlife.shelter.entity.Shelter;
 
 
 @Entity
@@ -32,68 +35,92 @@ public class Pet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pet_id", updatable = false)
+	@Expose
 	private Integer id;
 
 //	@ManyToOne
 //	@JoinColumn(name = "shelter_id", referencedColumnName = "shelter_id",insertable = false)
 //	private Shelter shelterId
 	@Column(name = "shelter_id")
+	@Expose
 	private Integer shelterId;
 
 	@Column(name = "pet_gender")
 	@Convert(converter = GenderConverter.class)
+	@Expose
 	private String petGender;
 
 	@Column(name = "pet_variety_id")
-	private Integer petVarietyId;
+	@Expose
+	private Integer petVariety;
 
 	@Column(name = "pet_ligation")
 	@Convert(converter = PetLigationConverter.class)
+	@Expose
 	private String petLigation;
 
 
 	@Column(name = "pet_color")
+	@Expose
 	private String petColor;
 
 	@Column(name = "adopt")
+	@Expose
 	private Boolean adopt;
 
 	@Column(name = "pet_content")
+	@Expose
 	private String petContent;
 
 	@Column(name = "come_in_date")
+	@Expose
 	private Date comeInDate;
 
 	@Column(name = "pet_cage")
+	@Expose
 	private String petCage;
 
 	@Column(name = "pet_num")
+	@Expose
 	private String petNum;
 
 	@Column(name = "adopted")
+	@Expose
 	private Boolean adopted;
 
-//	@ManyToOne
-//	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false)
-//	private User userId
 	@Column(name = "user_id")
+	@Expose
 	private String userId;
 
 	@Column(name = "adopt_date")
+	@Expose
 	private Date adoptDate;
 	
 
 	@Column(name = "pet_keyin_date", updatable = false, insertable = false)
+	@Expose
 	private Timestamp petKeyinDate;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "pet_variety_id", referencedColumnName = "pet_variety_id",updatable = false, insertable = false)
+	@Expose
 	private PetVariety variety;
+	
+	@ManyToOne
+	@JoinColumn(name = "shelter_id", referencedColumnName = "shelter_id",updatable = false, insertable = false)
+	@Expose
+	private Shelter Sheltername;
 
 
 	@OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
 	@OrderBy("pet_photo_id asc")
-	private Set<PetPhoto> petPhotos;
+	@Expose
+	private List<PetPhoto> petPhotos = new ArrayList<PetPhoto>();
+	
+
+	@OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+	private Set<Reservation> reservations;
+
 
 	public Pet(Integer shelterId, String petGender, Integer petVariety, String petLigation, String petColor,
 			Boolean adopt, String petContent, Date comeInDate, String petCage, String petNum, Boolean adopted,
@@ -101,7 +128,7 @@ public class Pet {
 		super();
 		this.shelterId = shelterId;
 		this.petGender = petGender;
-		this.petVarietyId = petVariety;
+		this.petVariety = petVariety;
 		this.petLigation = petLigation;
 		this.petColor = petColor;
 		this.adopt = adopt;
@@ -126,7 +153,7 @@ public class Pet {
 		this.id = id;
 		this.shelterId = shelterId;
 		this.petGender = petGender;
-		this.petVarietyId = petVariety;
+		this.petVariety = petVariety;
 		this.petLigation = petLigation;
 		this.petColor = petColor;
 		this.adopt = adopt;
@@ -139,6 +166,14 @@ public class Pet {
 		this.adoptDate = adoptDate;
 	}
 
+	public Shelter getSheltername() {
+		return Sheltername;
+	}
+
+	public void setSheltername(Shelter sheltername) {
+		Sheltername = sheltername;
+	}
+
 	public PetVariety getVariety() {
 		return variety;
 	}
@@ -147,24 +182,26 @@ public class Pet {
 		this.variety = variety;
 	}
 
+
+	
 	public Integer getPetVariety() {
-		return petVarietyId;
+		return petVariety;
 	}
 
 	public void setPetVariety(Integer petVariety) {
-		this.petVarietyId = petVariety;
-	}
-
-	public Set<PetPhoto> getPetPhotos() {
-		return petPhotos;
-	}
-
-	public void setPetPhotos(Set<PetPhoto> petPhotos) {
-		this.petPhotos = petPhotos;
+		this.petVariety = petVariety;
 	}
 
 	public Integer getId() {
 		return id;
+	}
+
+	public List<PetPhoto> getPetPhotos() {
+		return petPhotos;
+	}
+
+	public void setPetPhotos(List<PetPhoto> petPhotos) {
+		this.petPhotos = petPhotos;
 	}
 
 	public void setId(Integer id) {
@@ -293,3 +330,4 @@ public class Pet {
 
 
 }
+

@@ -25,8 +25,12 @@ import com.petlife.pet.entity.Pet;
 import com.petlife.pet.entity.PetPhoto;
 import com.petlife.pet.service.PetPhotoService;
 import com.petlife.pet.service.PetService;
+import com.petlife.pet.service.PetVarietyService;
 import com.petlife.pet.serviceimpl.PetPhotoServiceImpl;
 import com.petlife.pet.serviceimpl.PetServiceImpl;
+import com.petlife.shelter.service.ShelterService;
+
+
 
 
 
@@ -40,7 +44,9 @@ public class PetServlet extends HttpServlet {
 	}
 
 	private PetService petService;
+	private PetVarietyService petVarietyService;
 	private PetPhotoService petPhotoService;
+	private ShelterService shelterService;
 
 	@Override
 	public void init() throws ServletException {
@@ -64,6 +70,9 @@ public class PetServlet extends HttpServlet {
 		switch (action) {
 		case "insert":
 			forwardPath = insert(req, res);
+			break;
+		case "getPetById"://for test
+			forwardPath = getPetById(req, res, jsonNode);
 			break;
 		case "getPetListAsync":
 			forwardPath = getPetListAsync(req, res, jsonNode);
@@ -91,15 +100,17 @@ public class PetServlet extends HttpServlet {
 		}
 	}
 	
-	private String update_put(HttpServletRequest req, HttpServletResponse res) {
+	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
+		Pet pet = petService.getOnePet(Id);
 		Integer shelterId =300000002;
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		String petLigation = req.getParameter("petLigation").trim();
 		String petColor = req.getParameter("petColor").trim();
 		Boolean adopt = Boolean.valueOf(req.getParameter("adopt"));
-		String pet_content = req.getParameter("pet_content").trim();
+		System.out.println(adopt);
+		String pet_content = req.getParameter("petContent").trim();
 		java.sql.Date comeInDate = null;
 		comeInDate = java.sql.Date.valueOf(req.getParameter("comeInDate"));
 		String petCage = req.getParameter("petCage").trim();
@@ -113,28 +124,58 @@ public class PetServlet extends HttpServlet {
 			System.out.println(req.getParameter("adopt_date"));
 			adoptDate = java.sql.Date.valueOf(req.getParameter("adopt_date"));
 		}
+		pet.setShelterId(shelterId);
+		pet.setPetGender(petGender);
+		pet.setPetVariety(petVarietyId);
+		pet.setPetLigation(petLigation);
+		pet.setPetColor(petColor);
+		pet.setAdopt(adopt);
+		pet.setPetContent(pet_content);
+		pet.setComeInDate(comeInDate);
+		pet.setPetCage(petCage);
+		pet.setPetNum(petNum);
+		pet.setAdopted(adopted);
+		pet.setUserId(userId);
+		pet.setAdoptDate(adoptDate);
 		
-		Pet pet =new Pet(Id,shelterId,petGender,petVarietyId,petLigation,petColor,adopt,pet_content,comeInDate,petCage,petNum,adopted,userId,adoptDate);
-		
-		
-		try {
+		if(pet.getPetPhotos().size() != 0) {
 			
-			System.out.println("1");
+		}
+		try {
 			petService.updatePet(pet);
+			req.setAttribute("pet", pet);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}   
+		return "/petjsp/petUpdate_put.jsp";
+	}
+	
+	private String getPetById(HttpServletRequest req, HttpServletResponse res, JsonNode node) throws IOException {
+		try {
+			System.out.println("PetServlet: getById Entry");
+			Integer Id = Integer.valueOf(req.getParameter("id"));
+			Pet pet = petService.getOnePet(Id);
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+					.setPrettyPrinting().create();
+			res.setContentType("application/json;charset=UTF-8");
+			res.getWriter().println(gson.toJson(pet));
+		} catch (Exception e) {
+			res.resetBuffer();
+			res.setContentType("application/json;charset=UTF-8");
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
+			res.getWriter().write(e.getMessage());
 		}
-		return "/test/pet_search.html";
-		
+
+		return "";
 	}
 
+
 	private String update(HttpServletRequest req, HttpServletResponse res) {
-//		System.out.println(req.getParameter("rowId"));
 		Integer Id = Integer.valueOf(req.getParameter("rowId"));
 		Pet pet = petService.getOnePet(Id);
 		req.setAttribute("pet", pet);
 
-		return "/emp/petUpdate.jsp";
+		return "/petjsp/petUpdate.jsp";
 	}
 
 	// insert 資料庫
@@ -161,11 +202,12 @@ public class PetServlet extends HttpServlet {
 			adopt_date = java.sql.Date.valueOf(req.getParameter("adopt_date"));
 		}
 
-
 		pet = new Pet(shelterId, petGender, petVarietyId, petLigation, petColor, adopt, pet_content, comeInDate,
 				petCage, petNum, adopted, userId, adopt_date);
+		
+		pet.setVariety(petVarietyService.getOnePetVariety(petVarietyId));
+		pet.setSheltername(shelterService.getShelterByShelterId(shelterId));
 		// 準備集合抓取照片
-		List<PetPhoto> photoList = new ArrayList<PetPhoto>();
 		for (Part part : req.getParts()) {
 			if (!part.getName().equals("petphoto"))
 				continue;
@@ -179,21 +221,20 @@ public class PetServlet extends HttpServlet {
 				PetPhoto petPhoto = new PetPhoto();
 				petPhoto.setPet(pet);
 				petPhoto.setPetPhoto(petPhoto_byte);
-				photoList.add(petPhoto);
+				pet.getPetPhotos().add(petPhoto);
 			}
 		}
 
 		try {
 			pet = petService.addPet(pet);
-			for (PetPhoto petPhoto : photoList) {
-				petPhotoService.addPetPhoto(petPhoto);
-			}
+			req.setAttribute("pet", pet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "/petjsp/pet_insert.jsp";
 
 	}
+		
 	
 	private String readJsonRequest(HttpServletRequest request) throws IOException {
 		System.out.println("readJsonRequest Entry");
