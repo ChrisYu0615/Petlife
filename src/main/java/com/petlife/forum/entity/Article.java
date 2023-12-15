@@ -26,12 +26,15 @@ public class Article  {
 	private Integer articleId;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
 	@Expose
     private User user;
 	
+//	@Column(name="forum_art_id")
+//	private Integer forumId;
+	
 	@ManyToOne
-	@JoinColumn(name = "forum_art_id", referencedColumnName = "forum_id", nullable= false, insertable = false)
+	@JoinColumn(name = "forum_art_id", referencedColumnName = "forum_id", nullable= false)
 	@Expose
 	private Forum forum;	
 	
