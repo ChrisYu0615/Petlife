@@ -1,5 +1,6 @@
 package com.petlife.shelter.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petlife.shelter.entity.Reservation;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ReservationService;
@@ -35,6 +40,15 @@ public class ReservationServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		String jsonRequest = "";
+		if (req.getContentType() != null && req.getContentType().startsWith("application/json")) {
+			// Request to JSON
+			jsonRequest = readJsonRequest(req);
+        }
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode jsonNode = objectMapper.readTree(jsonRequest);
+
+	
 		String action = req.getParameter("action");
 		String forwardPath = "";
 		System.out.println(action);
@@ -47,6 +61,12 @@ public class ReservationServlet extends HttpServlet {
 				break;
 			case "insert":
 				forwardPath = getAddReservation(req, res);
+				break;
+			case "getById"://for test
+				forwardPath = getReservationById(req, res, jsonNode);
+				break;
+			case "update":
+				forwardPath = update(req,res);
 				break;
 //			case "getOneToUpdate":
 //				forwardPath = getOneToUpdateShelter(req,res);
@@ -63,20 +83,18 @@ public class ReservationServlet extends HttpServlet {
 		dispatcher.forward(req, res);
 	}
 	
-	// 還沒完成(2023/12/13)
+	// 更新過1215詩涵
 	private String getCompositeReservationQuery(HttpServletRequest req, HttpServletResponse res) {
 
+		System.out.println("ReservationServlet: getCompositePetsQuery Entry");
+		
 		Map<String, String[]> map = req.getParameterMap();
-				
+
 		if (map != null) {
 			List<Reservation> reservationList = reservationService.getResByCompositeQuery(map);
-			System.out.println("複合查詢Controller");
 			req.setAttribute("reservationList", reservationList);
-		} else {
-			System.out.println("查詢空值列全部");
-			return"/index.jsp";
-		}
-		return "/shelter/listCompositeQueryReservation.jsp";
+		} 
+		return "/petjsp/listAllres.jsp";
 	}
 
 	private String getAllReservations(HttpServletRequest req, HttpServletResponse res) {
@@ -84,6 +102,45 @@ public class ReservationServlet extends HttpServlet {
 		req.setAttribute("reservationList", reservationList);
 		
 		return "/shelter/listAllReservation.jsp";
+	}
+	//增加1215詩涵
+	private String getReservationById(HttpServletRequest req, HttpServletResponse res, JsonNode jsonNode) throws ServletException, IOException {
+		
+		try {
+			System.out.println("ReservationServlet: getPetById Entry");
+			Integer Id = Integer.valueOf(req.getParameter("id"));
+			Reservation reservation = reservationService.getResByResType(Id);
+			req.setAttribute("reservation", reservation);
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+					.setPrettyPrinting().create();
+			res.setContentType("application/json;charset=UTF-8");
+			res.getWriter().println(gson.toJson(reservation));
+		} catch (Exception e) {
+			res.resetBuffer();
+			res.setContentType("application/json;charset=UTF-8");
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
+			res.getWriter().write(e.getMessage());
+		}
+
+		return "";
+	}
+	//增加1215詩涵
+	private String update(HttpServletRequest req, HttpServletResponse res) {
+		
+		System.out.println("ReservationServlet: update Entry");
+		Integer Id=Integer.valueOf(req.getParameter("resId"));
+		System.out.println(Id);
+		
+		Reservation reservation = reservationService.getResByResType(Id);
+		
+		Integer resType=Integer.valueOf(req.getParameter("resType"));
+		reservation.setResId(Id);
+		reservation.setResTypeId(resType);
+		System.out.println(resType);
+		reservationService.updateRes(reservation);
+		req.setAttribute("reservation", reservation);
+		return "/petjsp/pet_res.jsp";
+		
 	}
 	
 	private String getAddReservation(HttpServletRequest req, HttpServletResponse res) {
@@ -101,6 +158,19 @@ public class ReservationServlet extends HttpServlet {
 		req.setAttribute("reservation", reservation);
 		return "/shelter/reservation.do?action=getAll";
 		
+	}
+	private String readJsonRequest(HttpServletRequest request) throws IOException {
+		System.out.println("readJsonRequest Entry");
+		StringBuilder stringBuilder = new StringBuilder();
+		BufferedReader bufferedReader = request.getReader();
+
+		String line;
+		while ((line = bufferedReader.readLine()) != null) {
+			stringBuilder.append(line);
+		}
+		
+		System.out.println(stringBuilder.toString());
+		return stringBuilder.toString();
 	}
 	
 

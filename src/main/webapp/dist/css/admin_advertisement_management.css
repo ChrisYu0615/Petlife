@@ -1,0 +1,67 @@
+/* logo */
+img.brand-image{
+    background-color: antiquewhite;
+   
+}
+.brand-link .brand-image {
+    margin-left: 0rem;
+}
+
+li.list-group-item{
+    border: 0;
+}
+
+.btn-primary {
+    background-color: #2B8BC1 !important;
+    font-weight: bold;
+    border: 0;
+    margin: 5px;
+}
+
+.btn-danger {
+    font-weight: bold;
+    border: 0;
+    margin: 5px;
+}
+
+.btn-secondary {
+    font-weight: bold;
+    border: 0;
+}
+
+.btn-warning {
+    background-color: #F4980E !important;
+    color: white !important;
+    font-weight: bold;
+    border: 0;
+}
+
+div#delete_content {
+    border: 1px black solid;
+    background-color: #FEFAE0;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+    padding-top: 60px;
+    color: red;
+    height: 150px;
+}
+
+h5#checkModalLabel,
+h5#deleteModalLabel {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+
+div.modal-header {
+    background-color: #FFD966;
+}
+
+div.row.modal-footer {
+    margin: 0;
+}
+
+input#advertisement_img{
+    height: 40px;
+}

@@ -89,7 +89,7 @@ public class MailService {
 		// 主旨
 		String subject = "寵愛生活-註冊會員通知";
 		// 內容
-		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!\\n，如有疑問都可以寄信向我們反映，謝謝!!";
+		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!"+"\n"+"如有疑問都可以寄信向我們反映，謝謝!!";
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);
@@ -101,6 +101,28 @@ public class MailService {
 		String subject = "寵愛生活-密碼變更通知";
 		// 內容
 		String messageText = "Hello! " + account + "\n" + "請謹記此密碼: " + newPassword + "\n" + "請於登入後盡速變更，謝謝!!";
+
+		MailService mailService = new MailService();
+		mailService.sendMail(account, subject, messageText);
+	}
+
+	// 發送驗證成功信(賣家/收容所會員)
+	public static void verifySuccess(String account) {
+		// 主旨
+		String subject = "寵愛生活-驗證會員通知";
+		// 內容
+		String messageText = "您的帳戶已經管理員驗證後並啟用，於登入後即可開始體驗網站服務!!";
+
+		MailService mailService = new MailService();
+		mailService.sendMail(account, subject, messageText);
+	}
+
+	// 發送驗證失敗成功信(賣家/收容所會員)
+	public static void verifyfailed(String account, String failedMsg) {
+		// 主旨
+		String subject = "寵愛生活-驗證會員通知";
+		// 內容
+		String messageText = "您的帳戶因管理員認定不符，已被取消註冊，如有問題可以向管理員聯繫，謝謝!!"+"\n"+"以下為原因："+"\n" + failedMsg;
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);

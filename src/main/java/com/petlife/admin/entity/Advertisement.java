@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.oracle.wls.shaded.org.apache.xpath.functions.FuncFalse;
+
 @Entity
 @Table(name = "ad")
 public class Advertisement {
@@ -27,6 +29,9 @@ public class Advertisement {
 	@Column(name = "ad_img", columnDefinition = "longblob")
 	private byte[] advertisementImg;
 
+	@Column(name = "ad_status", insertable = false)
+	private boolean adStatus;
+
 	@Column(name = "ad_content", columnDefinition = "longtext")
 	private String advertisementContent;
 
@@ -39,12 +44,23 @@ public class Advertisement {
 	public Advertisement() {
 	}
 
-	public Advertisement(Integer advertisementId, String advertisementTitle, byte[] advertisementImg,
+	public Advertisement(String advertisementTitle, byte[] advertisementImg, String advertisementContent,
+			Date startDate, Date endDate) {
+		super();
+		this.advertisementTitle = advertisementTitle;
+		this.advertisementImg = advertisementImg;
+		this.advertisementContent = advertisementContent;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public Advertisement(Integer advertisementId, String advertisementTitle, byte[] advertisementImg, boolean adStatus,
 			String advertisementContent, Date startDate, Date endDate) {
 		super();
 		this.advertisementId = advertisementId;
 		this.advertisementTitle = advertisementTitle;
 		this.advertisementImg = advertisementImg;
+		this.adStatus = adStatus;
 		this.advertisementContent = advertisementContent;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -72,6 +88,14 @@ public class Advertisement {
 
 	public void setAdvertisementImg(byte[] advertisementImg) {
 		this.advertisementImg = advertisementImg;
+	}
+
+	public boolean isAdStatus() {
+		return adStatus;
+	}
+
+	public void setAdStatus(boolean adStatus) {
+		this.adStatus = adStatus;
 	}
 
 	public String getAdvertisementContent() {
@@ -118,8 +142,9 @@ public class Advertisement {
 	@Override
 	public String toString() {
 		return "Advertisement [advertisementId=" + advertisementId + ", advertisementTitle=" + advertisementTitle
-				+ ", advertisementImg=" + Arrays.toString(advertisementImg) + ", advertisementContent="
-				+ advertisementContent + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ ", advertisementImg=" + Arrays.toString(advertisementImg) + ", adStatus=" + adStatus
+				+ ", advertisementContent=" + advertisementContent + ", startDate=" + startDate + ", endDate=" + endDate
+				+ "]";
 	}
 
 }

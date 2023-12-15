@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.petlife.admin.dao.AcctStateDAO;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.entity.AcctState;
+import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
@@ -54,6 +60,9 @@ public class ShelterServlet extends HttpServlet {
 		case "getAll":
 			forwardPath = getAllShelters(req, res);
 			break;
+		case"getOne":
+			getOneShelter(res,req);
+			break;
 		case "compositeQuery":
 			forwardPath = getCompositeSheltersQuery(req, res);
 			break;
@@ -78,6 +87,21 @@ public class ShelterServlet extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, res);
 			break;
+		case "suspend_Shelter":
+			forwardPath = suspendShelter(req, res);
+			break;
+		case "recover_Shelter":
+			forwardPath = recoverShelter(req, res);
+			break;
+		case "verify_Shelter":
+			forwardPath = verifyShelter(req, res);
+			break;
+		case "update_forward":
+			forwardPath = update_forward(req, res);
+			break;
+		case "update_put":
+			forwardPath = update_put(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -87,6 +111,97 @@ public class ShelterServlet extends HttpServlet {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, res);
 		}
+	}
+//1215修改 詩涵
+	private String getUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
+		Integer shelterId = 300000002;
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		req.setAttribute("shelter", shelter);
+		return "/petjsp/shelter_update.jsp";
+	}
+	//1215新增 詩涵
+		private String update_forward(HttpServletRequest req, HttpServletResponse res) {
+			System.out.println("ShelterServlet: update_forward Entry");
+			Integer shelterId = 300000002;
+			Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+			req.setAttribute("shelter", shelter);
+			System.out.println("ShelterServlet: update_forward End");
+			return "/petjsp/shelter_update_put.jsp";
+			}
+
+//1215新增 詩涵
+	private String update_put(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("ShelterServlet: update_put Entry");
+		Integer shelterId = 300000002;
+		String shelterName = req.getParameter("shelterName").trim();
+		String shelterAcct = req.getParameter("shelterAcct").trim();
+		String password = req.getParameter("password").trim();
+		String shelterPhoneNum = req.getParameter("shelterPhoneNum").trim();
+		String shelterAddress = req.getParameter("shelterAddress").trim();
+		String shelterIntroduction = req.getParameter("shelterIntroduction").trim();
+		
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		shelter.setShelterId(shelterId);
+		shelter.setShelterName(shelterName);
+		shelter.setShelterAcct(shelterAcct);
+		shelter.setShelterPwd(password);
+		shelter.setShelterPhoneNum(shelterPhoneNum);
+		shelter.setShelterAddress(shelterAddress);
+		shelter.setShelterIntroduction(shelterIntroduction);
+		
+		shelter = shelterService.updateShelter(shelter);
+		req.setAttribute("shelter", shelter);
+		return "/petjsp/shelter_update.jsp";
+		}
+
+	private String verifyShelter(HttpServletRequest req, HttpServletResponse res) {
+		Integer ShelterId = Integer.valueOf(req.getParameter("memberId"));
+		String selectValue = req.getParameter("shelterReviewResult");
+		String reason = req.getParameter("reason");
+		Shelter shelter = shelterService.getShelterByShelterId(ShelterId);
+		switch (selectValue) {
+		case "1":
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctState acctState = acctStateDAO.findByPK(0);
+			shelter.setAcctState(acctState);
+			MailService.verifySuccess(shelter.getShelterAcct());
+			shelterService.updateShelter(shelter);
+			break;
+		case "2":
+			shelterService.deleteShelter(ShelterId);
+			MailService.verifyfailed(shelter.getShelterAcct(), reason);
+			break;
+		}
+		
+		return "/admin/admin.do?action=getAllMembers&condition=unverified";
+	}
+
+	private void getOneShelter(HttpServletResponse res, HttpServletRequest req) throws IOException {
+		Integer shelterId = Integer.valueOf(req.getParameter("memberId"));
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("yyyy-MM-dd")
+				.excludeFieldsWithoutExposeAnnotation().create();
+		String shelterJson = gson.toJson(shelter);
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.print(shelterJson);
+	}
+
+	private String suspendShelter(HttpServletRequest req, HttpServletResponse res) {
+		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		shelter.setAcctState(new AcctState(1, "停權"));
+		shelterService.updateShelter(shelter);
+		return "/shelter/shelter.do?action=getAll&condition=verified";
+	}
+
+	private String recoverShelter(HttpServletRequest req, HttpServletResponse res) {
+		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		shelter.setAcctState(new AcctState(0, "可使用"));
+		shelterService.updateShelter(shelter);
+		return "/shelter/shelter.do?action=getAll&condition=verified";
 	}
 
 	private String getCompositeSheltersQuery(HttpServletRequest req, HttpServletResponse res) {
@@ -104,6 +219,24 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 	private String getAllShelters(HttpServletRequest req, HttpServletResponse res) {
+		String condition = req.getParameter("condition");
+
+		if (condition != null && condition.length() > 0) {
+			String forwardPath = "";
+			switch (condition) {
+			case "verified":
+				forwardPath = "/admin/shelter_management.jsp";
+				break;
+			case "unverified":
+				forwardPath = "/admin/uncheck_member_management.jsp";
+				break;
+			}
+			List<Shelter> shelterList = new ArrayList<>();
+			shelterList = shelterService.getAllShelters(condition);
+			req.setAttribute("getAllShelters", shelterList);
+			return forwardPath;
+		}
+
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 
@@ -139,25 +272,6 @@ public class ShelterServlet extends HttpServlet {
 		req.setAttribute("shelter", shelter);
 		return "/shelter/shelter.do?action=getAll";
 
-	}
-
-	private String getUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
-
-		String shelterAcct = req.getParameter("shelterAcct");
-		String shelterPwd = req.getParameter("shelterPwd");
-		String shelterName = req.getParameter("shelterName");
-		String shelterPhoneNum = req.getParameter("shelterPhoneNum");
-		String shelterAddress = req.getParameter("shelterAddress");
-		String shelterIntroduction = req.getParameter("shelterIntroduction");
-		Double shelterLng = Double.valueOf(req.getParameter("shelterLng"));
-		Double shelterLat = Double.valueOf(req.getParameter("shelterLat"));
-
-		Shelter shelter = new Shelter(shelterAcct, shelterPwd, shelterName, shelterPhoneNum, shelterAddress,
-				shelterIntroduction, shelterLng, shelterLat);
-		System.out.println("修改1");
-		shelter = shelterService.updateShelter(shelter);
-		req.setAttribute("shelter", shelter);
-		return "/shelter/shelter.do?action=getAll";
 	}
 
 	private String getOneToUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
@@ -347,7 +461,7 @@ public class ShelterServlet extends HttpServlet {
 
 		return location;
 	}
-	
+
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String shelterAcct = req.getParameter("account");
 		System.out.println(shelterAcct);

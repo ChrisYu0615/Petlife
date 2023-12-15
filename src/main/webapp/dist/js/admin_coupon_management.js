@@ -1,27 +1,7 @@
 $(function () {
     $(document).ready(function () {
         $('#myTable').DataTable({
-            "ajax": {
-                "url": "../assets/json/coupon.json", // 請替換為你的JSON檔案路徑
-                "dataSrc": "" // 表示JSON數據的根節點為空
-            }, "columns": [
-                { "data": "coupon_id" },
-                { "data": "coupon_name" },
-                { "data": "coupon_content" },
-                { "data": "coupon_restrict" },
-                { "data": "coupon_amount" },
-                { "data": "coupon_startdate" },
-                { "data": "coupon_enddate" },
-                {
-                    "data": null,
-                    "render": function (data, type, row) {
-                        // 在這裡可以自定義操作按鈕的HTML
-                        return '<button class="btn-sm btn-primary" onclick = "checkCoupon(' + row.coupon_id + ')" data-bs-toggle="modal" data-bs-target="#check_coupon">修改</button>' +
-                            '<button class="btn-sm btn-danger" onclick = "deleteCoupon(' + row.coupon_id + ')" data-bs-toggle="modal" data-bs-target="#delete_coupon">刪除</button>';
-                    }
-                }
-            ],
-            "orderClasses": false,
+            orderClasses: false,
             responsive: true,
             // 中文化
             "language": {

@@ -3,6 +3,7 @@ package com.petlife.seller.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
 
@@ -23,71 +25,93 @@ public class Seller {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "seller_id")
+	@Expose
 	private int sellerId;
 
 	@Column(name = "seller_acct")
+	@Expose
 	private String sellerAcct;
 
 	@Column(name = "seller_pwd")
+	@Expose
 	private String sellerPwd;
 
 	@Column(name = "seller_name")
+	@Expose
 	private String sellerName;
 
 	@Column(name = "seller_nickname")
+	@Expose
 	private String sellerNickname;
 
 	@Column(name = "id", columnDefinition = "char")
+	@Expose
 	private String id;
 
 	@Column(name = "birthday")
+	@Expose
 	private Date birthday;
 
 	@Column(name = "gender", updatable = false)
+	@Expose
 	private Boolean gender;
 
 	@Column(name = "seller_address")
+	@Expose
 	private String sellerAddress;
 
 	@Column(name = "phone_num", columnDefinition = "char")
+	@Expose
 	private String phoneNum;
 
 	@Column(name = "head_shot", columnDefinition = "LONGBLOB")
+	@Expose
 	private byte[] headShot;
 
 	@ManyToOne
 	@JoinColumn(name = "acct_state_id", referencedColumnName = "acct_state_id", insertable = false)
+	@Expose
 	private AcctState acctState;
 
 	@Column(name = "accumula_start")
-	private double accumulaStart;
+	@Expose
+	private Double accumulaStart;
 
 	@Column(name = "accumula_people")
-	private int accumulaPeople;
+	@Expose
+	private Integer accumulaPeople;
 
 	@ManyToOne
 	@JoinColumn(name = "acct_type_id", updatable = false, columnDefinition = "TINYINT", insertable = false)
+	@Expose
 	private AcctType acctType;
 
 	@Column(name = "swift_code")
+	@Expose
 	private String swiftCode;
 
 	@Column(name = "bank_acct")
+	@Expose
 	private String bankAcct;
 
 	@Column(name = "id_front", columnDefinition = "LONGBLOB")
+	@Expose
 	private byte[] idFront;
 
 	@Column(name = "id_back", columnDefinition = "LONGBLOB")
+	@Expose
 	private byte[] idBack;
 
 	@Column(name = "bank_acct_img", columnDefinition = "LONGBLOB")
+	@Expose
 	private byte[] bankAcctImg;
 
 	@Column(name = "seller_create_time", insertable = false)
+	@Expose
 	private Timestamp sellerCreateTime;
 
 	@Column(name = "seller_pwd_err_times", columnDefinition = "TINYINT", insertable = false)
+	@Expose
 	private Integer sellerPwdErrTimes;
 
 	public Seller() {
@@ -323,16 +347,21 @@ public class Seller {
 //    @OneToMany(mappedBy = "buylist",cascade = CascadeType.ALL)
 //    	private Set<Buylist> buylists;
 //    //要記得改回來
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(sellerId);
+	}
 
 	@Override
-	public String toString() {
-		return "Seller [sellerId=" + sellerId + ", sellerAcct=" + sellerAcct + ", sellerPwd=" + sellerPwd
-				+ ", sellerName=" + sellerName + ", sellerNickname=" + sellerNickname + ", id=" + id + ", birthday="
-				+ birthday + ", gender=" + gender + ", sellerAddress=" + sellerAddress + ", phoneNum=" + phoneNum
-				+ ", headShot=" + Arrays.toString(headShot) + ", acctState=" + acctState + ", accumulaStart="
-				+ accumulaStart + ", accumulaPeople=" + accumulaPeople + ", acctType=" + acctType + ", swiftCode="
-				+ swiftCode + ", bankAcct=" + bankAcct + ", idFront=" + Arrays.toString(idFront) + ", idBack="
-				+ Arrays.toString(idBack) + ", bankAcctImg=" + Arrays.toString(bankAcctImg) + ", sellerCreateTime="
-				+ sellerCreateTime + ", sellerPwdErrTimes=" + sellerPwdErrTimes + "]";
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Seller other = (Seller) obj;
+		return sellerId == other.sellerId;
 	}
 }

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.petlife.admin.entity.AcctState;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.UserServeice;
 import com.petlife.user.service.impl.UserServiceImpl;
@@ -39,7 +41,7 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+		doPost(req, resp);
 	}
 
 	@Override
@@ -61,6 +63,12 @@ public class UserServlet extends HttpServlet {
 		case "update":
 			forwardPath = updateUser(req, resp);
 			break;
+		case "suspend_User":
+			forwardPath = suspendUser(req, resp);
+			break;
+		case "recover_User":
+			forwardPath = recoverUser(req, resp);
+			break;
 		case "getOneByPK":
 			forwardPath = getUserByPK(req, resp);
 			break;
@@ -79,6 +87,22 @@ public class UserServlet extends HttpServlet {
 			dispatcher.forward(req, resp);
 		}
 
+	}
+
+	private String recoverUser(HttpServletRequest req, HttpServletResponse resp) {
+		Integer userId = Integer.parseInt(req.getParameter("memberId"));
+		User user = userServeice.getUserByUserId(userId);
+		user.setAcctState(new AcctState(0,"可使用"));
+		userServeice.updateUser(user);
+		return "/user/user.do?action=getAll";
+	}
+
+	private String suspendUser(HttpServletRequest req, HttpServletResponse resp) {
+		Integer userId = Integer.parseInt(req.getParameter("memberId"));
+		User user = userServeice.getUserByUserId(userId);
+		user.setAcctState(new AcctState(1,"停權"));
+		userServeice.updateUser(user);
+		return "/user/user.do?action=getAll";
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -288,7 +312,8 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private String getAllUsers(HttpServletRequest req, HttpServletResponse resp) {
-		userServeice.getAllUsers();
-		return "";
+		List<User> userList = userServeice.getAllUsers();
+		req.setAttribute("getAllUsers", userList);
+		return "/admin/member_management.jsp";
 	}
 }

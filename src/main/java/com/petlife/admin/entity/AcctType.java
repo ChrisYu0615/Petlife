@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.petlife.user.entity.User;
+import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 
 @Entity
@@ -31,8 +32,12 @@ public class AcctType {
 	private Set<User> users;
 
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
-	@OrderBy("admin_id asc")
+	@OrderBy("seller_id asc")
 	private Set<Admin> admins;
+	
+	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
+	@OrderBy("admin_id asc")
+	private Set<Seller> sellers;
 	
 	@OneToMany(mappedBy = "acctType", cascade = CascadeType.ALL)
 	@OrderBy("shelterId asc")

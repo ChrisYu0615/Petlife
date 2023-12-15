@@ -43,8 +43,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<Seller> getAllSellers() {
-		return dao.getAll();
+	public List<Seller> getAllSellers(String... conditions) {
+		return dao.getAll(conditions);
 	}
 
 	// 查詢賣家賣場名稱是否重複

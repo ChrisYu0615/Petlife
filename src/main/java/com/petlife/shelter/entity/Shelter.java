@@ -1,22 +1,27 @@
 package com.petlife.shelter.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
+import com.petlife.pet.entity.Pet;
 
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "shelter")
@@ -24,50 +29,69 @@ public class Shelter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "shelter_id", updatable = false)
+	@Expose
 	private Integer shelterId;
 	
 	@Column(name = "shelter_acct", unique = true, updatable = false)
+	@Expose
 	private String shelterAcct;
 	
 	@Column(name = "shelter_pwd")
+	@Expose
 	private String shelterPwd;
 	
 	@Column(name = "shelter_name")
+	@Expose
 	private String shelterName;
 
-	@Column(name = "shelter_create_time", insertable = false)	
+	@Column(name = "shelter_create_time", insertable = false)
+	@Expose
 	private Timestamp shelterCreateTime;
 	
 	@Column(name = "shelter_pwd_err_times",columnDefinition="tinyint", insertable = false)
+	@Expose
 	private Integer shelterPwdErrTimes;
 	
 	@Column(name = "shelter_phone_num")
+	@Expose
 	private String shelterPhoneNum;
 	
 	@Column(name = "shelter_address")
+	@Expose
 	private String shelterAddress;
 	
 	@Column(name = "shelter_photo",columnDefinition="longblob")
+	@Expose
 	private byte[] shelterPhoto;
 	
 	@Column(name = "shelter_introduction",columnDefinition="longtext")
+	@Expose
 	private String shelterIntroduction;
 	
 	@ManyToOne
 	@JoinColumn(name = "acct_type_id", referencedColumnName = "acct_type_id", insertable = false)
+	@Expose
 	private AcctType acctType;
 	
 	@Column(name = "shelter_lng")
+	@Expose
 	private Double shelterLng;
 	
-	
 	@Column(name = "shelter_lat")
+	@Expose
 	private Double shelterLat;
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "acct_state_id", referencedColumnName = "acct_state_id", insertable = false)
+	@Expose
 	private AcctState acctState;
+	
+	@OneToMany(mappedBy = "Sheltername", cascade = CascadeType.ALL)
+	private Set<Pet> pets;
+	
+	@OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+	private Set<Reservation> reservations;
+	
 	
 	
 	public Shelter(String shelterAcct, String shelterPwd, String shelterName, String shelterPhoneNum, 
