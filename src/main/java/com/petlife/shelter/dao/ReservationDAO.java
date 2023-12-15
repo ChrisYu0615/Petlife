@@ -9,7 +9,7 @@ public interface ReservationDAO {
 	
 	int insert(Reservation entity);
 	
-	int update(Reservation entity);
+	Reservation update(Reservation entity);
 	
 	int delete(Integer id);
 	

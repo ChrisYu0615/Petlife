@@ -11,7 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+import com.petlife.pet.entity.Pet;
 import com.petlife.shelter.entity.Shelter;
+import com.petlife.user.entity.User;
 
 import java.sql.Timestamp;
 
@@ -28,27 +31,39 @@ public class Reservation {
 	@JoinColumn(name = "shelter_id", referencedColumnName = "shelter_id")
 	private Shelter shelter;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "shelter_booking_id", referencedColumnName = "shelter_booking_id", insertable = false, updatable = false)
-//	private ShelterBooking shelterBooking;
+
 	@Column(name="shelter_booking_id", updatable = false)
 	private Integer shelterBookingId;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-//	private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+	@Expose
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "pet_id", referencedColumnName = "pet_id", insertable = false, updatable = false)
+	@Expose
+	private Pet pet;
+	
+	@ManyToOne
+	@JoinColumn(name = "shelter_booking_id", referencedColumnName = "shelter_booking_id", insertable = false, updatable = false)
+	@Expose
+	private ShelterBooking shelterBooking;
+	
+
 	@Column(name = "user_id", updatable = false)
 	private Integer userId;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "pet_id", referencedColumnName = "pet_id", insertable = false, updatable = false)
-//	private Pet pet;
+
 	@Column(name = "pet_id", updatable = false)
 	private Integer petId;
 	
 	@ManyToOne
 	@JoinColumn(name = "res_type_id", referencedColumnName = "res_type_id", updatable = false, insertable = false)
 	private ResType resType;
+	
+	@Column(name = "res_type_id", insertable = false, updatable = true)
+	private Integer resTypeId;
 	
 	@Column(name = "res_keyin_date", insertable = false, updatable = false)
 	private Timestamp resKeyinDate;
@@ -82,6 +97,54 @@ public class Reservation {
 		this.petId = petId;
 		this.resType = resType;
 		this.resKeyinDate = resKeyinDate;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	public Pet getPet() {
+		return pet;
+	}
+
+
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+
+
+
+	public ShelterBooking getShelterBooking() {
+		return shelterBooking;
+	}
+
+
+
+	public void setShelterBooking(ShelterBooking shelterBooking) {
+		this.shelterBooking = shelterBooking;
+	}
+
+
+
+	public Integer getResTypeId() {
+		return resTypeId;
+	}
+
+
+
+	public void setResTypeId(Integer resTypeId) {
+		this.resTypeId = resTypeId;
 	}
 
 

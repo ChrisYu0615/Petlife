@@ -10,15 +10,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "res_type")
 public class ResType {
 	
 	@Id
 	@Column(name = "res_type_id", updatable = false)
+	@Expose
 	private Integer resTypeId;
 	
 	@Column(name = "res_con")
+	@Expose
 	private String resCon;
 	
 	@OneToMany(mappedBy = "resType",  cascade = CascadeType.ALL)
