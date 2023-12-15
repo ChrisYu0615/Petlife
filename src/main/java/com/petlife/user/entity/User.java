@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
+import com.petlife.shelter.entity.Reservation;
+
 
 @Entity
 @Table(name = "user")
@@ -81,6 +86,9 @@ public class User {
 	@Column(name = "user_create_time", updatable = false, insertable = false)
 	@Expose
 	private Timestamp userCreateTime;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Reservation> reservations;
 
 	public User() {
 	}
@@ -228,6 +236,15 @@ public class User {
 
 	public void setUserCreateTime(Timestamp userCreateTime) {
 		this.userCreateTime = userCreateTime;
+	}
+	
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	@Override
