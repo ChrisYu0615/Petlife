@@ -10,24 +10,26 @@
 
 <head>
 <style>
-  table#table-1 {
+table#table-1 {
 	width: 450px;
 	background-color: #CCCCFF;
 	margin-top: 5px;
 	margin-bottom: 10px;
-    border: 3px ridge Gray;
-    height: 80px;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+	border: 3px ridge Gray;
+	height: 80px;
+	text-align: center;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -118,8 +120,8 @@
 						</a></li>
 
 
-						<li class="nav-item"><a href="select_page.jsp" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a href="select_page.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
@@ -160,68 +162,68 @@
 
 			<!-- Main content -->
 			<table id="table-1">
-   <tr><td><h3>優惠碼首頁</h3><h4>Coupon: Home</h4></td></tr>
-</table>
+				<tr>
+					<td><h3>優惠碼首頁</h3>
+						<h4>Coupon: Home</h4></td>
+				</tr>
+			</table>
 
-<h3>資料查詢:</h3>
-	
-<!-- 錯誤表列 -->
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-	    <c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+			<h3>資料查詢:</h3>
 
-<ul>
-  <li><a href='listAllCoupon.jsp'>List</a> all Coupons.  <br><br></li>
-  
-  
-  <li>
-    <FORM METHOD="post" ACTION="coupon.do" >
-        <b>輸入優惠券編號:</b>
-        <input type="text" name="couponId">
-        <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="送出">
-    </FORM>
-  </li>
+			<!-- 錯誤表列 -->
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
 
-  <jsp:useBean id="couponSvc" scope="page" class="com.petlife.admin.service.impl.CouponServiceImpl" />
-  <li>
-     <FORM METHOD="post" ACTION="coupon.do" >
-       <b>選擇優惠券編號:</b>
-       <select size="1" name="couponId">
-         <c:forEach var="coupon" items="${couponSvc.getAllCoupons()}" > 
-          <option value="${coupon.couponId}">${coupon.couponId}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-    </FORM>
-  </li>
-  
-  <li>
-     <FORM METHOD="post" ACTION="coupon.do" >
-       <b>選擇優惠券名稱:</b>
-       <select size="1" name="couponId">
-         <c:forEach var="coupon" items="${couponSvc.getAllCoupons()}" > 
-          <option value="${coupon.couponId}">${coupon.couponName}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-     </FORM>
-  </li>
-</ul>
+			<ul>
+				<li><a href='listAllCoupon.jsp'>List</a> all Coupons. <br>
+				<br></li>
 
 
-<h3>優惠碼管理</h3>
+				<li>
+					<FORM METHOD="post" ACTION="coupon.do">
+						<b>輸入優惠券編號:</b> <input type="text" name="couponId"> <input
+							type="hidden" name="action" value="getOne_For_Display"> <input
+							type="submit" value="送出">
+					</FORM>
+				</li>
 
-<ul>
-  <li><a href='addCoupon.jsp'>Add</a> a new Coupon.</li>
-</ul>
+				<jsp:useBean id="couponSvc" scope="page"
+					class="com.petlife.admin.service.impl.CouponServiceImpl" />
+				<li>
+					<FORM METHOD="post" ACTION="coupon.do">
+						<b>選擇優惠券編號:</b> <select size="1" name="couponId">
+							<c:forEach var="coupon" items="${couponSvc.getAllCoupons()}">
+								<option value="${coupon.couponId}">${coupon.couponId}
+							</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<input type="submit" value="送出">
+					</FORM>
+				</li>
+
+				<li>
+					<FORM METHOD="post" ACTION="coupon.do">
+						<b>選擇優惠券名稱:</b> <select size="1" name="couponId">
+							<c:forEach var="coupon" items="${couponSvc.getAllCoupons()}">
+								<option value="${coupon.couponId}">${coupon.couponName}
+							</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<input type="submit" value="送出">
+					</FORM>
+				</li>
+			</ul>
+
+
+			<h3>優惠碼管理</h3>
+
+			<ul>
+				<li><a href='addCoupon.jsp'>Add</a> a new Coupon.</li>
+			</ul>
 
 
 
