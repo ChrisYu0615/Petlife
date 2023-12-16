@@ -1,6 +1,7 @@
 package com.petlife.mall.entity;
 
 import java.math.BigDecimal;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -9,14 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-//import javax.persistence.ManyToOne;
-//import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-//import com.petlife.seller.Seller;
+import com.petlife.seller.entity.Seller;
 
 @Entity
 @Table(name = "comm")
@@ -28,14 +28,14 @@ public class Comm {
 	private Integer commId;
 
 //	Seller 等隊友弄好才能使用
-//	@ManyToOne
-//	@JoinColumn(name = "seller_id")
-//	@Expose
-//	private Seller sellerId;
-
-	@Column(name = "seller_id", updatable = true)
+	@ManyToOne
+	@JoinColumn(name = "seller_id")
 	@Expose
-	private Integer sellerId;
+	private Seller seller;
+
+//	@Column(name = "seller_id", updatable = true)
+//	@Expose
+//	private Integer sellerId;
 
 	@Column(name = "comm_name", updatable = true)
 	@Expose
@@ -86,12 +86,12 @@ public class Comm {
 	public Comm() {
 	}
 
-	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
+	public Comm(Integer commId, Seller seller, String commName, String commDesc, Integer commState,
 			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
 			BigDecimal commOnsalePrice, Integer commViewCount) {
 		super();
 		this.commId = commId;
-		this.sellerId = sellerId;
+		this.seller = seller;
 		this.commName = commName;
 		this.commDesc = commDesc;
 		this.commState = commState;
@@ -111,12 +111,12 @@ public class Comm {
 		this.commId = commId;
 	}
 	
-	public Integer getSellerId() {
-		return sellerId;
+	public Seller getseller() {
+		return seller;
 	}
 
-	public void setSellerId(Integer sellerId) {
-		this.sellerId = sellerId;
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
 	public String getCommName() {
@@ -223,7 +223,7 @@ public class Comm {
 	public String toString() {
 	    return "Comm{" +
 	           "commId=" + commId +
-	           ", sellerId=" + sellerId +
+	           ", seller=" + seller+
 	           ", commName='" + commName + '\'' +
 	           ", commDesc='" + commDesc + '\'' +
 	           ", commState=" + commState +
