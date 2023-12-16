@@ -135,8 +135,8 @@ th, td {
 						</a></li>
 
 
-						<li class="nav-item"><a href="select_page.jsp" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a href="select_page.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
@@ -177,117 +177,120 @@ th, td {
 
 			<!-- Main content -->
 			<table id="table-1">
-		<tr>
-			<td>
-				<h3>優惠券新增 - addCoupon.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+				<tr>
+					<td>
+						<h3>優惠券新增 - addCoupon.jsp</h3>
+					</td>
+					<td>
+						<h4>
+							<a href="select_page.jsp"><img src="images/tomcat.png"
+								width="100" height="100" border="0">回首頁</a>
+						</h4>
+					</td>
+				</tr>
+			</table>
 
-	<h3>資料新增:</h3>
+			<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+			<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
 
-	<FORM METHOD="post" ACTION="coupon.do" name="form1"
-		onsubmit="return validateForm();">
-		<table>
+			<FORM METHOD="post" ACTION="coupon.do" name="form1"
+				onsubmit="return validateForm();">
+				<table>
 
-			<!-- 			<tr> -->
-			<!-- 				<td>優惠碼ID名稱:</td> -->
-			<!-- 				<td><input type="text" name="couponId" -->
-			<%-- 					value="<%=(coupon == null) ? "" : coupon.getCouponId()%>" --%>
-			<!-- 					size="45" readonly /></td> -->
-			<!-- 			</tr> -->
-			<tr>
-				<td>優惠碼名稱:</td>
-				<td><input type="TEXT" name="couponName" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>優惠碼敘述:</td>
-				<td><input type="TEXT" name="couponContent" size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>使用條件:</td>
-				<td><input name="conditionsOfUse" id="f_date1" type="text"
-					size="45"  required/></td>
-			</tr>
-			<tr>
-				<td>開始時間:</td>
-				<td><input type="TEXT" name="startDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
+					<!-- 			<tr> -->
+					<!-- 				<td>優惠碼ID名稱:</td> -->
+					<!-- 				<td><input type="text" name="couponId" -->
+					<%-- 					value="<%=(coupon == null) ? "" : coupon.getCouponId()%>" --%>
+					<!-- 					size="45" readonly /></td> -->
+					<!-- 			</tr> -->
+					<tr>
+						<td>優惠碼名稱:</td>
+						<td><input type="TEXT" name="couponName" size="45" required /></td>
+					</tr>
+					<tr>
+						<td>優惠碼敘述:</td>
+						<td><input type="TEXT" name="couponContent" size="45"
+							required /></td>
+					</tr>
+					<tr>
+						<td>使用條件:</td>
+						<td><input name="conditionsOfUse" id="f_date1" type="text"
+							size="45" required /></td>
+					</tr>
+					<tr>
+						<td>開始時間:</td>
+						<td><input type="TEXT" name="startDate" size="45" required />
+							<div>YYYY-MM-DD HH:mm:ss</div></td>
+					</tr>
 
-			<tr>
-				<td>結束時間:</td>
-				<td><input type="TEXT" name="endDate" size="45"  required/>
-				<div>YYYY-MM-DD HH:mm:ss</div></td>
-			</tr>
+					<tr>
+						<td>結束時間:</td>
+						<td><input type="TEXT" name="endDate" size="45" required />
+							<div>YYYY-MM-DD HH:mm:ss</div></td>
+					</tr>
 
-			<tr>
-				<td>折扣金額:</td>
-				<td><input type="TEXT" name="discountAmount" size="45"  required/></td>
-			</tr>
-
-
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
+					<tr>
+						<td>折扣金額:</td>
+						<td><input type="TEXT" name="discountAmount" size="45"
+							required /></td>
+					</tr>
 
 
-<script>
-function validateForm() {
-    var couponName = document.forms["form1"]["couponName"].value;
-    var startDate = document.forms["form1"]["startDate"].value;
-    var endDate = document.forms["form1"]["endDate"].value;
+				</table>
+				<br> <input type="hidden" name="action" value="insert">
+				<input type="submit" value="送出新增">
+			</FORM>
 
-    // 檢查是否為空
-    if (couponName.trim() == "") {
-        alert("請填寫優惠碼名稱。");
-        return false; // 取消form提交
-    }
 
-    // 新增檢查優惠碼名稱長度是否大於2個字
-    if (couponName.trim().length <= 2) {
-        alert("優惠碼名稱長度必須大於2個字。");
-        return false; // 取消form提交
-    }
+			<script>
+				function validateForm() {
+					var couponName = document.forms["form1"]["couponName"].value;
+					var startDate = document.forms["form1"]["startDate"].value;
+					var endDate = document.forms["form1"]["endDate"].value;
 
-    // 檢查日期格式
-    var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
+					// 檢查是否為空
+					if (couponName.trim() == "") {
+						alert("請填寫優惠碼名稱。");
+						return false; // 取消form提交
+					}
 
-    if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
-        alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
-        return false;
-    }
+					// 新增檢查優惠碼名稱長度是否大於2個字
+					if (couponName.trim().length <= 2) {
+						alert("優惠碼名稱長度必須大於2個字。");
+						return false; // 取消form提交
+					}
 
-    // 檢查 endDate 是否在 startDate 之後
-    var startTimestamp = new Date(startDate.replace(" ", "T")).getTime();
-    var endTimestamp = new Date(endDate.replace(" ", "T")).getTime();
+					// 檢查日期格式
+					var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
 
-    if (endTimestamp <= startTimestamp) {
-        alert("結束日期必須在開始日期之後。");
-        return false;
-    }
+					if (!dateRegex.test(startDate) || !dateRegex.test(endDate)) {
+						alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
+						return false;
+					}
 
-    return true; // 允許form提交
-}
+					// 檢查 endDate 是否在 startDate 之後
+					var startTimestamp = new Date(startDate.replace(" ", "T"))
+							.getTime();
+					var endTimestamp = new Date(endDate.replace(" ", "T"))
+							.getTime();
 
-</script>
+					if (endTimestamp <= startTimestamp) {
+						alert("結束日期必須在開始日期之後。");
+						return false;
+					}
+
+					return true; // 允許form提交
+				}
+			</script>
 
 			<!-- /.content -->
 		</div>

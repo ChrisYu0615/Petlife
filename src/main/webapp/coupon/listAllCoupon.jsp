@@ -18,36 +18,40 @@ pageContext.setAttribute("list", list);
 
 <head>
 <style>
-  table#table-1 {
+table#table-1 {
 	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+	border: 2px solid black;
+	text-align: center;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
 </style>
 
 <style>
-  table {
+table {
 	width: 800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
+}
+
+table, th, td {
+	border: 1px solid #CCCCFF;
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,8 +142,8 @@ pageContext.setAttribute("list", list);
 						</a></li>
 
 
-						<li class="nav-item"><a href="select_page.jsp" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a href="select_page.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>Àu´f½XºÞ²z</p>
 						</a></li>
 

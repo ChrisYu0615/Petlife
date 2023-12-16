@@ -56,4 +56,19 @@ public class BuylistDAOImpl implements BuylistDAO {
 		return getSession().createQuery("from Buylist", Buylist.class).getResultList();
 	}
 
+
+	@Override
+	public List<Buylist> getBuylistsByState(Integer buylistState) {
+	    try {
+	        Session session = getSession();
+	        List<Buylist> buylists = session.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
+	                .setParameter("state", buylistState)
+	                .getResultList();
+	        return buylists;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
 }
