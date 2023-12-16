@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petlife.forum.entity.Article;
 import com.petlife.forum.service.ArticleService;
-import com.petlife.forum.service.ForumService;
 import com.petlife.forum.service.impl.ArticleServiceImpl;
-import com.petlife.forum.service.impl.ForumServiceImpl;
 
 @WebServlet("/art/art.do")
 public class ArticleServlet extends HttpServlet {
