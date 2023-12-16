@@ -40,8 +40,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin getAdminByAdminId(Integer adminId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByPK(adminId);
 	}
 
 	@Override
@@ -92,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return loginStatus;
 	}
-	
+
 	@Override
 	public String getNewPwd(String adminAcct) {
 		Admin admin = dao.findByAdminAccount(adminAcct);

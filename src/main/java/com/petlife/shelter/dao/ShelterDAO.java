@@ -19,7 +19,7 @@ public interface ShelterDAO {
 	Shelter getByAccount(String shelterAcct);
 	Shelter getByAccountAndPassword(String shelterAcct, String shelterPwd);
 	
-	List<Shelter> getAll();
+	List<Shelter> getAll(String ... conditions);
 	
 	List<Shelter> getByCompositeQuery(Map<String, String> map);
 	

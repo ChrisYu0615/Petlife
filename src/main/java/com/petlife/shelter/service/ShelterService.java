@@ -12,11 +12,14 @@ public interface ShelterService {
 	Shelter updateShelter(Shelter shelter);
 
 //	void deleteShelter(Integer shelter);
+	Integer deleteShelter(Integer shelterId);
 
 	Shelter getShelterByShelterId(Integer shelterId);
 
 	List<Shelter> getAllShelters(int currentPage);
 
+	List<Shelter> getAllShelters(String... conditions);
+	
 	int getPageTotal();
 
 	List<Shelter> getSheltersByCompositeQuery(Map<String, String[]> map);

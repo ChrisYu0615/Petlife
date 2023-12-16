@@ -40,4 +40,9 @@ public class BuylistServiceImpl implements BuylistService {
 	public List<Buylist> getAllBuylists() {
 		return dao.getAll();
 	}
+
+	@Override
+	public List<Buylist> getBuylistsByState(Integer buylistState) {
+        return dao.getBuylistsByState(buylistState);
+    }
 }

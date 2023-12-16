@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -34,11 +36,11 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
-
 		<!-- 上方Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -46,68 +48,20 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"></li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<!-- <a href="test.html" class="nav-link"></a> -->
+				</li>
 			</ul>
+
 			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 			</ul>
 		</nav>
+		</div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
-				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
-				<span class="brand-text font-weight-light">PetLife後臺管理</span>
-			</a>
-
-			<!-- Sidebar -->
-			<div class="sidebar">
-				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="../dist/img/login_user1.png"
-							class="img-circle elevation-2" alt="User Image">
-					</div>
-					<div class="info">
-						<a href="#" class="d-block">ooo,你好</a>
-					</div>
-				</div>
-
-				<!-- Sidebar Menu -->
-				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column"
-						data-widget="treeview" role="menu" data-accordion="false">
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-pencil-alt"></i>
-								<p>編輯基本資料</p>
-						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-paw"></i>
-								<p>收容動物管理</p>
-						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-								<i class="far fa-calendar-plus"></i>
-								<p>日曆功能</p>
-						</a></li>
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-dog"></i>
-								<p>預約管理</p>
-						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-sign-out-alt"></i>
-								<p>登出</p>
-						</a></li>
-					</ul>
-				</nav>
-				<!-- /.sidebar-menu -->
-			</div>
-			<!-- /.sidebar -->
-		</aside>
+		<%@ include file="sidebar.jsp"%>
 
 		<!-- //這邊塞主內容文字 -->
 		<!-- Main content -->
@@ -115,13 +69,13 @@
 			<div class="container-fluid">
 				<!-- <div class="row"> -->
 				<div class="col-lg-6">
-					<span id ="update_form"></span>
+					<span id="update_form"></span>
 					<!-- <div class="card"> -->
 					<!-- <div class="card-body"> -->
 					<h1>篩選收容動物條件</h1>
 
-					<form action="/HelloHibernateEx/project/pet.do" class="from"
-						method="post">
+					<form id="search" action="/HelloHibernateEx/project/pet.do"
+						class="from" method="post">
 						<!-- 第一行  -->
 						<div class="search_pet">
 
@@ -129,14 +83,14 @@
 								<p>種類:</p>
 
 								<div class="form-check form-check-inline">
-									<input class="form-check-input pet_type" type="radio" name="type"
-										id="pet_type_dog" value="狗" > <label
-										class="form-check-label " for="pet_type_dog">犬</label>
+									<input class="form-check-input pet_type" type="radio"
+										name="type" id="pet_type_dog" value="狗"> <label
+										class="form-check-label " for="pet_type_dog">狗</label>
 								</div>
 
 								<div class="form-check form-check-inline">
-									<input class="form-check-input pet_type" type="radio" name="type"
-										id="pet_type_cat" value="貓"> <label
+									<input class="form-check-input pet_type" type="radio"
+										name="type" id="pet_type_cat" value="貓"> <label
 										class="form-check-label " for="pet_type_cat">貓</label>
 								</div>
 							</span>
@@ -163,7 +117,8 @@
 								<p>品種:</p>
 
 								<select class="form-select form-select-sm pet_variety"
-									aria-label=".form-select-sm example" name="petVarietyId" id="petVarietyId">
+									aria-label=".form-select-sm example" name="petVarietyId"
+									id="petVarietyId">
 									<option selected>請先選擇種類</option>
 								</select>
 							</div>
@@ -223,19 +178,13 @@
 						<div class="edit_button">
 							<button type="button" class="btn btn-warning btn-sm edit_button"
 								id="insert">
-								<a href="petfrom.html" class="insert"
+								<a href="pet_from.jsp" class="insert"
 									style="color: white; text-decoration: none;">上架</a>
 							</button>
 						</div>
 					</form>
 					<div id="result">
-<!-- 						<table data-toggle="table" data-sortable="true" -->
-<!-- 							data-sort-class="table-active" data-pagination="true" -->
-<!-- 							data-search="false" data-show-search-clear-button="false" -->
-<!-- 							data-show-refresh="false" data-show-toggle="false" -->
-<!-- 							data-show-columns="false" data-show-columns-toggle-all="true" -->
-<!-- 							class="table table-sm  table-borderless" id="myTable"> -->
-<!-- 						</table> -->
+
 					</div>
 				</div>
 			</div>
@@ -244,28 +193,31 @@
 		<!-- ./wrapper -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 			crossorigin="anonymous"></script>
-<!-- 		<script -->
-<!-- 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" -->
-<!-- 			crossorigin="anonymous"></script> -->
-<!-- 		<script -->
-<!-- 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
-<!-- 			crossorigin="anonymous"></script> -->
+<!-- 				<script -->
+<!-- 					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" -->
+<!-- 					crossorigin="anonymous"></script> -->
+<!-- 				<script -->
+<!-- 					src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
+<!-- 					crossorigin="anonymous"></script> -->
 		<script
 			src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
 
-<!-- 		<script src="../plugins/jquery/jquery.min.js"></script> -->
-        <!-- jQuery UI 1.11.4 -->
-<!--         <script src="../plugins/jquery-ui/jquery-ui.min.js"></script> -->
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<!--         <script>
+<!-- 				<script src="../plugins/jquery/jquery.min.js"></script> -->
+		<!-- jQuery UI 1.11.4 -->
+<!-- 		        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script> -->
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<!--         <script>
    $.widget.bridge('uibutton', $.ui.button)
         </script> -->
-        <!-- Bootstrap 4 -->
-<!--         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-        <!-- overlayScrollbars -->
-        <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="../dist/js/adminlte.js"></script>
-        <script src="../dist/js/search.js"></script>
+		<!-- Bootstrap 4 -->
+		<!--         <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+		<!-- overlayScrollbars -->
+		<script
+			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="../dist/js/adminlte.js"></script>
+		<script src="../dist/js/search.js"></script>
+		
+
 </body>
 </html>
