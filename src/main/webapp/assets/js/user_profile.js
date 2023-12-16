@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    $(".headerPage").load("../component/header.html");
-    $(".footerPage").load("../component/footer.html");
+    $(".headerPage").load("../components/header.html");
+    $(".footerPage").load("../components/footer.html");
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
