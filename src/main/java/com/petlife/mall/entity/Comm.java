@@ -96,6 +96,7 @@ public class Comm {
 		this.commStock = commStock;
 		this.commPrice = commPrice;
 		this.commOnsalePrice = commOnsalePrice;
+		this.commViewCount = commViewCount;
 	}
 
 	public Integer getCommId() {

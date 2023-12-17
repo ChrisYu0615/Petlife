@@ -1,5 +1,6 @@
 package com.petlife.mall.service.impl;
 
+import java.awt.print.PrinterGraphics;
 import java.util.List;
 
 import com.petlife.mall.dao.CommDAO;
@@ -23,6 +24,7 @@ public class CommServiceImpl implements CommService{
 	// 加商品是不是要由嘉仁寫R???
 	@Override
 	public Integer add(Comm comm) {
+		commDAO.add(comm);
 		return 1;
 	}
 	
