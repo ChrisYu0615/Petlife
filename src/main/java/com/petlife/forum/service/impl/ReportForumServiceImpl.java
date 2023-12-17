@@ -39,8 +39,8 @@ public class ReportForumServiceImpl implements ReportForumService {
     }
 
     @Override
-    public List<ReportForum> getAllReportForums() {
-        return reportForumDao.getAll();
+    public List<ReportForum> getAllReportForums(String ... conditions) {
+        return reportForumDao.getAll(conditions);
     }
 
     // 可能的其他方法

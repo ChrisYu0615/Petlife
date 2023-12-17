@@ -60,7 +60,7 @@
 
                  
 
-                        <form action="/HelloHibernateEx/project/pet.do" class="from" method="post" enctype="multipart/form-data"id="pet_form" >
+                        <form action="${pageContext.request.contextPath}/project/pet.do" class="from" method="post" enctype="multipart/form-data"id="pet_form" >
                         
                         <!--   收容所到時后關起來,種類打開  -->
                         <span id="showForm"></span>
@@ -199,7 +199,7 @@
                         <div class="button">
                             <button type="submit" class="btn btn-primary put_on btn-sm" id="submit_btn">確認上架</button>
                             <input type="hidden" name="action" value="insert">
-                            <a href="../emp/pet_search.jsp">
+                            <a href="pet_search.jsp">
                             <button type="button" class="btn btn-warning btn-sm delete" id="back_page">取消</button>
                        		</a>
                         </div>

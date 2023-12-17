@@ -78,7 +78,7 @@ Admin admin = (Admin) session.getAttribute("account");
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<span class="d-block"><%=admin.getAdminNickname()%>管理員，你好</span>
+						<span class="d-block" id="admin_name"><%=admin.getAdminNickname()%>管理員，你好</span>
 					</div>
 				</div>
 

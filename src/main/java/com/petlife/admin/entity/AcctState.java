@@ -1,5 +1,6 @@
 package com.petlife.admin.entity;
 
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -102,6 +103,23 @@ public class AcctState {
 
 	public void setShelters(Set<Shelter> shelters) {
 		this.shelters = shelters;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(acctStateId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AcctState other = (AcctState) obj;
+		return Objects.equals(acctStateId, other.acctStateId);
 	}
 
 	@Override

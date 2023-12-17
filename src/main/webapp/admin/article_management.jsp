@@ -82,11 +82,11 @@ Admin admin = (Admin) session.getAttribute("account");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
 								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
 								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
@@ -102,7 +102,7 @@ Admin admin = (Admin) session.getAttribute("account");
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements" class="nav-link"> <i
 								class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
@@ -225,8 +225,8 @@ Admin admin = (Admin) session.getAttribute("account");
 								<div class="card-header">
 									<ul class="list-group list-group-horizontal-sm">
 										<li class="list-group-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles">全部文章列表</a></li>
-										<li class="list-group-item"><a href="">待處理檢舉</a></li>
-										<li class="list-group-item"><a href="">已處理檢舉</a></li>
+										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply">待處理檢舉</a></li>
+										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied">已處理檢舉</a></li>
 									</ul>
 									<!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
 								</div>
@@ -254,8 +254,8 @@ Admin admin = (Admin) session.getAttribute("account");
 													<td>${article.state? "上架中":"已下架"}</td>
 													<td><fmt:formatDate value="${article.updateTime}"
 															pattern="yyyy-MM-dd HH:mm:ss" /></td>
-													<td><button class="btn-sm btn-primary"
-															value="${article.articleId}">查看</button>
+													<td>
+														<button class="btn-sm btn-primary" value="${article.articleId}">查看</button>
                                                         <c:choose>
                                                             <c:when test="${article.state}">
 														        <button class="btn-sm btn-danger btn_remove"

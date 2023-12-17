@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "admin")
 public class Admin {
@@ -23,6 +25,7 @@ public class Admin {
 	@Id
 	@Column(name = "admin_id", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer adminId;
 
 	@Column(name = "admin_acct", unique = true, updatable = false)
@@ -32,6 +35,7 @@ public class Admin {
 	private String adminPwd;
 
 	@Column(name = "admin_nickname")
+	@Expose
 	private String adminNickname;
 
 	@Column(name = "admin_pwd_err_times", columnDefinition = "tinyint", insertable = false)

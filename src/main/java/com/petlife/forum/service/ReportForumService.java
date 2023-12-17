@@ -18,5 +18,5 @@ public interface ReportForumService {
     ReportForum getReportForumById(Integer reportForumId);
 
     // 獲取所有檢舉
-    List<ReportForum> getAllReportForums();
+    List<ReportForum> getAllReportForums(String...conditions);
 }

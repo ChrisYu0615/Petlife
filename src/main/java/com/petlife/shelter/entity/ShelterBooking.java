@@ -1,8 +1,6 @@
 package com.petlife.shelter.entity;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Set;
 
