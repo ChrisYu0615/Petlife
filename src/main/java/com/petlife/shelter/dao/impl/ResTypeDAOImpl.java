@@ -1,4 +1,4 @@
-package petlife.shelter.dao;
+package com.petlife.shelter.dao.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import petlife.shelter.entity.ResType;
-import petlife.shelter.entity.Reservation;
-import petlife.shelter.util.HibernateUtil;
+import com.petlife.shelter.dao.ResTypeDAO;
+import com.petlife.shelter.entity.ResType;
+import com.petlife.util.HibernateUtil;
+
+
 
 public class ResTypeDAOImpl implements ResTypeDAO {
 	

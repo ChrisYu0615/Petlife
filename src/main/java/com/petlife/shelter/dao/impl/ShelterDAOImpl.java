@@ -66,16 +66,14 @@ public class ShelterDAOImpl implements ShelterDAO {
 			return -1;
 		}
 	}
-
+//1215更新 詩涵
 	@Override
 	public Shelter getById(Integer shelterId) {
-		getSession().clear();
-//		return getSession().get(Shelter.class, id);
+		System.out.println("ShelterDAOImpl: getById Entry");
 		System.out.println(shelterId);
 		Shelter Shelter = getSession().createQuery("from Shelter where shelterId =" + shelterId, Shelter.class)
 				.uniqueResult();
 		return Shelter;
-
 	}
 
 	@Override

@@ -63,3 +63,7 @@ div.modal-header {
 div.row.modal-footer {
     margin: 0;
 }
+
+span#admin_name {
+	color: #c2c7d0;
+}

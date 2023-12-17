@@ -11,5 +11,5 @@ public interface ReportForumDAO {
 	
 	public ReportForum findByPK(Integer repotForumId);
 	
-	List<ReportForum> getAll();
+	List<ReportForum> getAll(String ... conditions);
 }

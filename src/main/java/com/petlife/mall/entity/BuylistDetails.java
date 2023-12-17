@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "buylist_details")
 public class BuylistDetails {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "buylist_details_id", updatable = false)
 	private Integer buylistDetailsId;
 
@@ -32,7 +35,7 @@ public class BuylistDetails {
 	private Integer buylistDetailsPurchaseAmount;
 
 	@Column(name = "member_rating_stars")
-	private double memberRatingStars;
+	private Double memberRatingStars;
 
 	@Column(name = "buyer_evaluate_narrative", columnDefinition = "LONGTEXT")
 	private String buyerEvaluateNarrative;
@@ -49,7 +52,7 @@ public class BuylistDetails {
 	}
 
 	public BuylistDetails(Integer buylistDetailsId, Buylist buylist, Comm comm, BigDecimal buylistDetailsPrice,
-			Integer buylistDetailsPurchaseAmount, double memberRatingStars, String buyerEvaluateNarrative,
+			Integer buylistDetailsPurchaseAmount, Double memberRatingStars, String buyerEvaluateNarrative,
 			Timestamp buyerEvaluateTime, String returnReasons) {
 		super();
 		this.buylistDetailsId = buylistDetailsId;
@@ -103,11 +106,11 @@ public class BuylistDetails {
 		this.buylistDetailsPurchaseAmount = buylistDetailsPurchaseAmount;
 	}
 
-	public double getMemberRatingStars() {
+	public Double getMemberRatingStars() {
 		return memberRatingStars;
 	}
 
-	public void setMemberRatingStars(double memberRatingStars) {
+	public void setMemberRatingStars(Double memberRatingStars) {
 		this.memberRatingStars = memberRatingStars;
 	}
 

@@ -22,7 +22,6 @@ public class PetServiceImpl implements PetService {
 	
 	public Pet  addPet(Pet pet) {
 		dao.insert(pet);
-		System.out.println("yes");
 		return pet;
 	}
 	@Override
@@ -32,8 +31,6 @@ public class PetServiceImpl implements PetService {
 	}
 	@Override
 	public Pet updatePet(Pet pet) {
-		// TODO Auto-generated method stub
-		System.out.println("2");
 		return dao.update(pet);
 	}
 	@Override

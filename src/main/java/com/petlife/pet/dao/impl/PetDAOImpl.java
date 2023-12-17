@@ -36,10 +36,9 @@ public class PetDAOImpl implements Idao<Pet> {
 	@Override
 	public int insert(Pet pet) {
 		try {
-			getSession().save(pet);
-			System.out.println("no");
-
-			return 1;
+			Session session = getSession();
+			session.save(pet);
+			return pet.getId();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			getSession().getTransaction().rollback();
@@ -69,7 +68,8 @@ public class PetDAOImpl implements Idao<Pet> {
 	@Override
 	public Pet getById(Integer id) {
 		try {
-			System.out.println(id);
+			System.out.println("PetDAOImpl: Entry");
+			System.out.println("PetDAOImpl: id = " + id);
 			Pet pet = getSession().createQuery("from Pet where id =" + id, Pet.class).uniqueResult();
 			return pet;
 		} catch (Exception e) {
@@ -89,7 +89,7 @@ public class PetDAOImpl implements Idao<Pet> {
 	@Override
 	public List<Pet> getByCompositeQuery(Map<String, String> map) {
 		try {
-			System.out.println("getByCompositeQuery Entry");
+			System.out.println("PetDAOImpl: getByCompositeQuery Entry");
 			if (map.size() == 0) {
 				return getAll();
 			}
@@ -98,14 +98,9 @@ public class PetDAOImpl implements Idao<Pet> {
 			Root<Pet> root = criteria.from(Pet.class);
 
 			List<Predicate> predicates = new ArrayList<>();
-//			if (map.containsKey("start_comin_date") && map.containsKey("end_comin_date"))
-//				predicates.add(builder.between(root.get("comeInDate"), Date.valueOf(map.get("start_comin_date")), Date.valueOf(map.get("end_comin_date"))));
-//
-//			if (map.containsKey("start_adopt_date") && map.containsKey("end_adopt_date"))
-//				predicates.add(builder.between(root.get("adoptDate"), new BigDecimal(map.get("start_adopt_date")), new BigDecimal(map.get("end_adopt_date"))));
-			
+	
 			for (Map.Entry<String, String> row : map.entrySet()) {
-				System.out.println(row.getKey()+ " : " + row.getValue());
+				System.out.println("PetDAOImpl: " + row.getKey()+ " : " + row.getValue());
 				// 種類
 				if ("type".equals(row.getKey())) {
 					predicates.add(builder.equal(root.get("type"), row.getValue()));
@@ -116,7 +111,7 @@ public class PetDAOImpl implements Idao<Pet> {
 				}
 				// 品種
 				if ("petVarietyId".equals(row.getKey())) {
-					predicates.add(builder.equal(root.get("petVarietyId"), row.getValue()));
+					predicates.add(builder.equal(root.get("petVariety"), row.getValue()));
 				}
 				// 收容編號
 				if ("petNum".equals(row.getKey())) {

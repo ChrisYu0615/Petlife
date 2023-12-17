@@ -1,0 +1,88 @@
+/* logo */
+img.brand-image {
+	background-color: antiquewhite;
+}
+
+.brand-link .brand-image {
+	margin-left: 0rem;
+}
+
+li.list-group-item {
+	border: 0;
+}
+
+.btn-primary {
+	background-color: #2B8BC1 !important;
+	font-weight: bold;
+	border: 0;
+}
+
+.btn-danger {
+	font-weight: bold;
+	border: 0;
+}
+
+.btn-secondary {
+	font-weight: bold;
+	border: 0;
+}
+
+.btn-warning {
+	background-color: #F4980E !important;
+	color: white !important;
+	font-weight: bold;
+	border: 0;
+}
+
+div#modify_content {
+	border: 1px black solid;
+	background-color: #FEFAE0;
+	text-align: center;
+	font-size: 32px;
+	font-weight: bolder;
+	padding-top: 60px;
+	color: red;
+}
+
+h5#modifyModalLabel {
+	font-size: 24px;
+	font-weight: bolder;
+}
+
+div.delete_box {
+	height: 200px;
+}
+
+div.modal-header {
+	background-color: #FFD966;
+}
+
+div.row.modal-footer {
+	margin: 0;
+}
+
+#label_article_name, #label_article_category {
+	margin-bottom: 0px;
+}
+
+#div_article_name, #div_article_category {
+	display: flex;
+	align-items: center;
+}
+
+#select_article_category {
+	border: 1px lightgray solid;
+}
+
+#select_card_header {
+	margin: 0;
+	background-color: #FFD966 !important;
+}
+
+h5 {
+	margin-bottom: 0px;
+}
+
+span#admin_name {
+	color: #c2c7d0;
+}

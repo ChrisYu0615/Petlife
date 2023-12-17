@@ -65,3 +65,7 @@ div.row.modal-footer {
 input#advertisement_img{
     height: 40px;
 }
+
+span#admin_name {
+	color: #c2c7d0;
+}

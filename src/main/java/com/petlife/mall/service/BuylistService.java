@@ -20,4 +20,8 @@ public interface BuylistService {
 
 	// 查(多個)
 	List<Buylist> getAllBuylists();
+	
+	// 根據訂單狀態ID查詢
+    List<Buylist> getBuylistsByState(Integer buylistState);
 }
+

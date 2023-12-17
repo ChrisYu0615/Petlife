@@ -1,6 +1,7 @@
 package com.petlife.forum.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.petlife.forum.entity.Article;
 
@@ -23,6 +24,8 @@ public interface ArticleService {
     
     // 根據關鍵字搜尋文章
     List<Article> searchArticlesByKeyword(String keyword);
+
+	List<Article> getArticlesByCompositeQuery(Map<String, String[]> map);
 
     // 可能的其他方法
     // ...

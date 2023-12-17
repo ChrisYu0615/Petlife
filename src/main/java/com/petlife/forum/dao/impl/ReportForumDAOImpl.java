@@ -10,53 +10,58 @@ import com.petlife.forum.entity.ReportForum;
 import com.petlife.util.HibernateUtil;
 
 public class ReportForumDAOImpl implements ReportForumDAO {
-    private SessionFactory factory;
+	private SessionFactory factory;
 
-    public ReportForumDAOImpl() {
-        factory = HibernateUtil.getSessionFactory();
-    }
+	public ReportForumDAOImpl() {
+		factory = HibernateUtil.getSessionFactory();
+	}
 
-    private Session getSession() {
-        return factory.getCurrentSession();
-    }
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
 
-    @Override
-    public Integer add(ReportForum reportForum) {
-        try {
-            return (Integer) getSession().save(reportForum);
-        } catch (Exception e) {
-            return -1;
-        }
-    }
+	@Override
+	public Integer add(ReportForum reportForum) {
+		try {
+			return (Integer) getSession().save(reportForum);
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 
-    @Override
-    public Integer update(ReportForum reportForum) {
-        try {
-            getSession().update(reportForum);
-            return 1;
-        } catch (Exception e) {
-            return -1;
-        }
-    }
+	@Override
+	public Integer update(ReportForum reportForum) {
+		try {
+			getSession().update(reportForum);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 
-    @Override
-    public Integer delete(Integer reportForumId) {
-        ReportForum reportForum = getSession().get(ReportForum.class, reportForumId);
-        if (reportForum != null) {
-            getSession().delete(reportForum);
-            return 1;
-        } else {
-            return -1;
-        }
-    }
+	@Override
+	public Integer delete(Integer reportForumId) {
+		ReportForum reportForum = getSession().get(ReportForum.class, reportForumId);
+		if (reportForum != null) {
+			getSession().delete(reportForum);
+			return 1;
+		} else {
+			return -1;
+		}
+	}
 
-    @Override
-    public ReportForum findByPK(Integer reportForumId) {
-        return getSession().get(ReportForum.class, reportForumId);
-    }
+	@Override
+	public ReportForum findByPK(Integer reportForumId) {
+		return getSession().get(ReportForum.class, reportForumId);
+	}
 
-    @Override
-    public List<ReportForum> getAll() {
-        return getSession().createQuery("from ReportForum", ReportForum.class).getResultList();
-    }
+	@Override
+	public List<ReportForum> getAll(String... contidions) {
+		if(contidions!=null&&"unReply".equals(contidions[0])) {
+			return getSession().createQuery("from ReportForum where admin IS NULL", ReportForum.class).getResultList();
+		}else if(contidions!=null&&"replied".equals(contidions[0])) {			
+			return getSession().createQuery("from ReportForum where admin IS NOT NULL", ReportForum.class).getResultList();
+		}
+		return getSession().createQuery("from ReportForum", ReportForum.class).getResultList();
+	}
 }

@@ -22,20 +22,25 @@ import com.petlife.user.entity.User;
 public class Article  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //自增鍵
-	@Column(name = "article_id", updatable = false,insertable = false) // updatable = false --> updata SQL  不包括此欄位 
+	@Column(name = "article_id", updatable = false,insertable = false) // updatable = false --> updata SQL  不包括此欄位
+	@Expose
 	private Integer articleId;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
 	@Expose
     private User user;
 	
+//	@Column(name="forum_art_id")
+//	private Integer forumId;
+	
 	@ManyToOne
-	@JoinColumn(name = "forum_art_id", referencedColumnName = "forum_id", nullable= false, insertable = false)
+	@JoinColumn(name = "forum_art_id", referencedColumnName = "forum_id", nullable= false)
 	@Expose
 	private Forum forum;	
 	
 	@Column(name = "article_name")
+	@Expose
 	private String articleName;	
 	
 	@Column(name = "article_content",columnDefinition = "longtext", nullable = false)

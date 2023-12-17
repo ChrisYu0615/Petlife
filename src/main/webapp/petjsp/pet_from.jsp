@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,108 +24,27 @@
 	
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+  	<div class="wrapper">
+		<!-- 上方Navbar -->
+		<nav
+			class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- 上方左邊Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<!-- <a href="test.html" class="nav-link"></a> -->
+				</li>
+			</ul>
 
-        <!-- 上方Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- 上方左邊Left navbar links -->   
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <!-- <a href="test.html" class="nav-link"></a> -->
-                </li>
-            </ul>
+			<!-- 上方右邊Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+			</ul>
+		</nav>
+		<!-- /.navbar -->
 
-            <!-- 上方右邊Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-      
-            </ul>
-        </nav>
-        </div>
-        <!-- /.navbar -->
-
-
-
-
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="test.html" class="brand-link">
-                <img src="../dist/img/main_logo.png" alt="AdminLTE Logo" class="brand-image img-corners elevation-3"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">PetLife後臺管理</span>
-            </a>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="../dist/img/login_user1.png" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">OOO管理員，你好</a>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                        
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-pencil-alt"></i>
-                                <p>
-                                    編輯基本資料
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-paw"></i>
-                                <p>
-                                    收容動物管理
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <!-- <i class="nav-icon fas fa-copy"></i> -->
-                                <i class="far fa-calendar-plus"></i>
-                                <p>
-                                    日曆功能
-                                </p>
-                            </a>
-                        </li>
-         
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-dog"></i>
-                                <p>
-                                    預約管理
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <p>
-                                    登出
-                                </p>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
+		<!-- Main Sidebar Container -->
+		<%@ include file="sidebar.jsp"%>
 
         <!-- //這邊塞主內容文字 -->
         <!-- Main content -->
@@ -139,9 +60,10 @@
 
                  
 
-                        <form action="/HelloHibernateEx/project/pet.do" class="from" method="post" enctype="multipart/form-data"id="pet_form" >
+                        <form action="${pageContext.request.contextPath}/project/pet.do" class="from" method="post" enctype="multipart/form-data"id="pet_form" >
                         
                         <!--   收容所到時后關起來,種類打開  -->
+                        <span id="showForm"></span>
                         <div class="col ">
                                 <label>收容所:</label>
                                 <select class="form-select form-select-sm  select1" aria-label=".form-select-sm example" name="shelterId" id="shelterId">
@@ -155,24 +77,23 @@
 	                        
 	                   		<div class="col "> 
 	                              <label >種類:</label>                
-	                              <input class="form-check-input" type="radio" name="type" id="pet_type_dog" value="false">
+	                              <input class="form-check-input pet_type" type="radio" name="type" id="pet_type_dog" value="狗">
 	                          	  <label class="form-check-label" for="pet_type_dog" >犬</label> 
-	                              <input class="form-check-input" type="radio" name="type" id="pet_type_cat" value="true">
+	                              <input class="form-check-input pet_type" type="radio" name="type" id="pet_type_cat" value="貓">
 	                              <label class="form-check-label" for="pet_type_cat">貓</label> 
 	                              <span id="pet_type"></span>
 	                   		</div> 
 	                   
-	                       <div class="col ">
-                                <label>品種:</label>
-                                <select class="form-select form-select-sm  select1" aria-label=".form-select-sm example" name="petVarietyId" id="petVarietyId">
-                                    <option selected>請選擇品種</option>
-                                    <option value="1">貴賓犬</option>
-                                    <option value="2">哈士奇</option>
-                                    <option value="3">薩摩耶</option>
-                                    
-                                </select>
-                    				<span id="petVarietyId"></span>
-                            </div>
+						<div class="col">
+								 <label>品種:</label>
+
+								<select class="form-select form-select-sm pet_variety"
+									aria-label=".form-select-sm example" name="petVarietyId"
+									id="petVarietyId">
+									<option selected>請先選擇種類</option>
+								</select>
+								<span id="petVarietyId"></span> 
+							</div>
                     
                     
                               <div class="col">
@@ -242,9 +163,9 @@
                             </div>
                     
                         <div class="col">
-                            <label for="inputGroupFile02">照片:</label>
+                            <label for="inputGroupFile02">照片:</label><span>請選擇一 ~ 三張照片</span>
                             <input type="file" class="form-control"id="petphoto" multiple name="petphoto" >
-                        
+                        	<span id="petphoto"></span>
 
                         
                             <div class="pet_img"><span class="pet_img">預覽圖</span></div>
@@ -278,7 +199,9 @@
                         <div class="button">
                             <button type="submit" class="btn btn-primary put_on btn-sm" id="submit_btn">確認上架</button>
                             <input type="hidden" name="action" value="insert">
-                            <button type="button" class="btn btn-warning btn-sm delete">取消</button>
+                            <a href="pet_search.jsp">
+                            <button type="button" class="btn btn-warning btn-sm delete" id="back_page">取消</button>
+                       		</a>
                         </div>
                         </form>
                     </div>
@@ -324,6 +247,7 @@
                 };
             });       
 
-            </script>
+      
+</script>
 </body>
 </html>
