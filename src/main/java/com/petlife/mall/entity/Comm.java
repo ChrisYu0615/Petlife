@@ -28,14 +28,14 @@ public class Comm {
 	private Integer commId;
 
 //	Seller 等隊友弄好才能使用
-	@ManyToOne
-	@JoinColumn(name = "seller_id")
-	@Expose
-	private Seller seller;
-
-//	@Column(name = "seller_id", updatable = true)
+//	@ManyToOne
+//	@JoinColumn(name = "seller_id")
 //	@Expose
-//	private Integer sellerId;
+//	private Seller seller;
+
+	@Column(name = "seller_id", updatable = true)
+	@Expose
+	private Integer sellerId;
 
 	@Column(name = "comm_name", updatable = true)
 	@Expose
@@ -86,12 +86,12 @@ public class Comm {
 	public Comm() {
 	}
 
-	public Comm(Integer commId, Seller seller, String commName, String commDesc, Integer commState,
+	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
 			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
 			BigDecimal commOnsalePrice, Integer commViewCount) {
 		super();
 		this.commId = commId;
-		this.seller = seller;
+		this.sellerId = sellerId;
 		this.commName = commName;
 		this.commDesc = commDesc;
 		this.commState = commState;
@@ -111,12 +111,12 @@ public class Comm {
 		this.commId = commId;
 	}
 	
-	public Seller getseller() {
-		return seller;
+	public Integer getsellerId() {
+		return sellerId;
 	}
 
-	public void setSeller(Seller seller) {
-		this.seller = seller;
+	public void setSeller(Integer sellerId) {
+		this.sellerId = sellerId;
 	}
 
 	public String getCommName() {
@@ -223,7 +223,7 @@ public class Comm {
 	public String toString() {
 	    return "Comm{" +
 	           "commId=" + commId +
-	           ", seller=" + seller+
+	           ", seller=" + sellerId+
 	           ", commName='" + commName + '\'' +
 	           ", commDesc='" + commDesc + '\'' +
 	           ", commState=" + commState +
