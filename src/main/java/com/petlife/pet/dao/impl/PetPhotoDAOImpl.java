@@ -55,7 +55,15 @@ private SessionFactory factory;
 
 	@Override
 	public PetPhoto getById(Integer id) {
-		// TODO Auto-generated method stub
+		try {
+			System.out.println(id);
+			PetPhoto petPhoto = getSession().createQuery("from PetPhoto where photoId =" + id, PetPhoto.class).uniqueResult();
+			return petPhoto;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getMessage();
+			getSession().getTransaction().rollback();
+		}
 		return null;
 	}
 

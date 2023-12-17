@@ -1,4 +1,29 @@
+$(document).on("click", "input.pet_type", function() {
+	var type = $(this).val();
+	var dataURL = `../project/pet?action=getCompositePetVarietiesQueryAsync&type=${type}`
 
+	$.ajax({
+		url: dataURL,
+		method: "post",
+		async: false,
+		dataType: 'json',
+		success: res => {
+			var select = $('#petVarietyId');
+			select.empty();
+			$('<option>').val('請選擇品種').text('請選擇品種').appendTo(select);
+			for (var i = 0; i < res.length; i++) {
+				$('<option>').val(res[i].id).text(res[i].variety).appendTo(select);
+			}
+		}, error: function(jqXHR, textStatus, errorThrown) {
+			try {
+				console.log("Error code:", jqXHR.status);
+				console.log("Error message:", jqXHR.responseText);
+			} catch (e) {
+				console.error("Error parsing JSON response:", e);
+			}
+		},
+	});
+})
 
 
 //$(document).on("click", "#search_btn", function() {

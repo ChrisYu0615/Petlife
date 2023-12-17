@@ -54,6 +54,9 @@ public class PetVarietyServlet extends HttpServlet {
 		case "getCompositePetsQuery":
 			forwardPath = getCompositeEmpsQuery(req, res);
 			break;
+		case "getCompositePetVarietiesQueryAsync":
+			forwardPath = getCompositePetVarietiesQueryAsync(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -64,6 +67,35 @@ public class PetVarietyServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+	}
+	private String getCompositePetVarietiesQueryAsync(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		try {
+			System.out.println("PetVarietyServlet: getCompositePetVarietiesQueryAsync Entry");
+			String type = req.getParameter("type");
+			System.out.println("PetVarietyServlet: type = " + type);
+
+
+			Map<String, String[]> map = new HashMap<String, String[]>();
+			map.put("type", new String[] { type });
+
+			if (map != null) {
+				List<PetVariety> petVarietyList = petVarietyService.getByCompositeQuery(map);
+				Gson gson = new GsonBuilder()
+						.excludeFieldsWithoutExposeAnnotation()
+						.setPrettyPrinting().create();
+				res.setContentType("application/json;charset=UTF-8");
+				res.getWriter().println(gson.toJson(petVarietyList));
+			}
+		} catch (Exception e) {
+			res.resetBuffer();
+			res.setContentType("application/json;charset=UTF-8");
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+			res.getWriter().write(e.getMessage());
+		}
+
+		return "";
+
 	}
 
 // =======================insert=====================================
