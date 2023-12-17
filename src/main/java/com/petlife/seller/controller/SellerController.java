@@ -353,7 +353,7 @@ public class SellerController extends HttpServlet {
 	private String getAllSellers(HttpServletRequest req, HttpServletResponse resp) {
 		List<Seller> sellerList = new ArrayList<>();
 		String condition = req.getParameter("condition");
-		if (condition != null) {
+		if (condition != null && condition.length() > 0) {
 			sellerList = sellerService.getAllSellers(condition);
 		} else {
 			sellerList = sellerService.getAllSellers();

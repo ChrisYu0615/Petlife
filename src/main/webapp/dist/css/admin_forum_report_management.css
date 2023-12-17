@@ -15,13 +15,11 @@ li.list-group-item{
     background-color: #2B8BC1 !important;
     font-weight: bold;
     border: 0;
-    margin: 5px;
 }
 
 .btn-danger {
     font-weight: bold;
     border: 0;
-    margin: 5px;
 }
 
 .btn-secondary {
@@ -36,7 +34,9 @@ li.list-group-item{
     border: 0;
 }
 
-div#delete_content {
+
+div#suspend_content,
+div#resume_content {
     border: 1px black solid;
     background-color: #FEFAE0;
     text-align: center;
@@ -44,15 +44,17 @@ div#delete_content {
     font-weight: bolder;
     padding-top: 60px;
     color: red;
-    height: 150px;
 }
 
-h5#checkModalLabel,
-h5#deleteModalLabel {
+h5#replyModalLabel,
+h5#checkReplyModalLabel {
     font-size: 24px;
     font-weight: bolder;
 }
 
+div.delete_box {
+    height: 200px;
+}
 
 div.modal-header {
     background-color: #FFD966;
@@ -60,10 +62,6 @@ div.modal-header {
 
 div.row.modal-footer {
     margin: 0;
-}
-
-input#advertisement_img{
-    height: 40px;
 }
 
 span#admin_name {

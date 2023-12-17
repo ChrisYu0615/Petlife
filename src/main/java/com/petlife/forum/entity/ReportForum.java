@@ -1,6 +1,7 @@
 package com.petlife.forum.entity;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,58 +23,55 @@ public class ReportForum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_forum_id", updatable = false, insertable = false)
+    @Expose
     private Integer reportForumId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
 	@Expose
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false, insertable = false)
+    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false)
     @Expose
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "comment_id", referencedColumnName = "comment_id", nullable = false, insertable = false)
-    @Expose
-    private Comment comment;
-
-    @ManyToOne
-    @JoinColumn(name = "report_type_id",referencedColumnName = "report_type_id", nullable = false, insertable = false)
+    @JoinColumn(name = "report_type_id",referencedColumnName = "report_type_id")
     @Expose
     private ReportType reportType;
 
     @Column(name = "report_forum_time", nullable = false, insertable = false)
+    @Expose
     private Timestamp reportForumTime;
 
     @Column(name = "report_forum_reason", columnDefinition = "longtext")
+    @Expose
     private String reportForumReason;
 
     @ManyToOne	
-    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id", nullable = false)
-    @Expose
+    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
     private Admin admin;
 
     @Column(name = "admin_reply", columnDefinition = "longtext")
+    @Expose
     private String adminReply;
 
     @Column(name = "admin_reply_time")
+    @Expose
     private Timestamp adminReplyTime;
 
 	public ReportForum() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public ReportForum(Integer reportForumId, User user, Article article, Comment comment, ReportType reportType,
+	public ReportForum(Integer reportForumId, User user, Article article, ReportType reportType,
 			Timestamp reportForumTime, String reportForumReason, Admin admin, String adminReply,
 			Timestamp adminReplyTime) {
 		super();
 		this.reportForumId = reportForumId;
 		this.user = user;
 		this.article = article;
-		this.comment = comment;
 		this.reportType = reportType;
 		this.reportForumTime = reportForumTime;
 		this.reportForumReason = reportForumReason;
@@ -104,14 +102,6 @@ public class ReportForum {
 
 	public void setArticle(Article article) {
 		this.article = article;
-	}
-
-	public Comment getComment() {
-		return comment;
-	}
-
-	public void setComment(Comment comment) {
-		this.comment = comment;
 	}
 
 	public ReportType getReportType() {
@@ -162,5 +152,30 @@ public class ReportForum {
 		this.adminReplyTime = adminReplyTime;
 	}
 
-   
+	@Override
+	public int hashCode() {
+		return Objects.hash(reportForumId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ReportForum other = (ReportForum) obj;
+		return Objects.equals(reportForumId, other.reportForumId);
+	}
+
+	@Override
+	public String toString() {
+		return "ReportForum [reportForumId=" + reportForumId + ", user=" + user + ", article=" + article
+				+ ", reportType=" + reportType + ", reportForumTime=" + reportForumTime + ", reportForumReason="
+				+ reportForumReason + ", admin=" + admin + ", adminReply=" + adminReply + ", adminReplyTime="
+				+ adminReplyTime + "]";
+	}
+
+	
 }
