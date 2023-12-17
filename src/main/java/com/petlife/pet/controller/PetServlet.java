@@ -28,7 +28,10 @@ import com.petlife.pet.service.PetService;
 import com.petlife.pet.service.PetVarietyService;
 import com.petlife.pet.serviceimpl.PetPhotoServiceImpl;
 import com.petlife.pet.serviceimpl.PetServiceImpl;
+import com.petlife.pet.serviceimpl.PetVarietyServiceImpl;
 import com.petlife.shelter.service.ShelterService;
+import com.petlife.shelter.service.impl.ShelterServiceImpl;
+
 
 
 
@@ -51,7 +54,9 @@ public class PetServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		petService = new PetServiceImpl();
+		petVarietyService = new PetVarietyServiceImpl();
 		petPhotoService = new PetPhotoServiceImpl();
+		shelterService=new ShelterServiceImpl();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -110,7 +115,7 @@ public class PetServlet extends HttpServlet {
 		String petColor = req.getParameter("petColor").trim();
 		Boolean adopt = Boolean.valueOf(req.getParameter("adopt"));
 		System.out.println(adopt);
-		String pet_content = req.getParameter("petContent").trim();
+		String pet_content = req.getParameter("pet_content").trim();
 		java.sql.Date comeInDate = null;
 		comeInDate = java.sql.Date.valueOf(req.getParameter("comeInDate"));
 		String petCage = req.getParameter("petCage").trim();
@@ -180,11 +185,12 @@ public class PetServlet extends HttpServlet {
 
 	// insert 資料庫
 	private String insert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		System.out.println("insert Entry");
+		System.out.println("PetServlet :insert Entry");
 		Pet pet = new Pet();
 		Integer shelterId = Integer.valueOf(req.getParameter("shelterId").trim());
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
+		System.out.println(petVarietyId);
 		String petLigation = req.getParameter("petLigation").trim();
 		String petColor = req.getParameter("petColor").trim();
 		Boolean adopt = Boolean.valueOf(req.getParameter("adopt"));
@@ -204,7 +210,7 @@ public class PetServlet extends HttpServlet {
 
 		pet = new Pet(shelterId, petGender, petVarietyId, petLigation, petColor, adopt, pet_content, comeInDate,
 				petCage, petNum, adopted, userId, adopt_date);
-		
+		System.out.println(petVarietyId);
 		pet.setVariety(petVarietyService.getOnePetVariety(petVarietyId));
 		pet.setSheltername(shelterService.getShelterByShelterId(shelterId));
 		// 準備集合抓取照片

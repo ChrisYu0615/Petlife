@@ -20,6 +20,10 @@ public class PetPhotoServiceImpl implements PetPhotoService {
 		System.out.println("yes");
 		return Petphoto;
 	}
+	@Override
+	public PetPhoto getOnePet(Integer id) {
+		return dao.getById(id);
+	}
 
 	
 

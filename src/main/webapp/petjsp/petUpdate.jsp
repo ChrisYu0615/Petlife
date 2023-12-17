@@ -18,7 +18,7 @@
 
 
 <h1 id='update_pet'>修改收容寵物資料</h1>
-<form id="form_update" action="/HelloHibernateEx/project/pet.do" class="from" method="post">
+<form id="form_update" action="${pageContext.request.contextPath}/project/pet.do" class="from" method="post">
 
         <table id="mytable">
             <tbody>
@@ -130,12 +130,19 @@
         </tr>
     
 
-<!--         <tr id="pet_photo"> -->
-<!--             <td >照片:</td> -->
-<!--             <td> <input type="file" class="form-control"id="inputGroupFile02"  name=""></td> -->
-<%--             <td class="photo"> <input type="text" value="${Pet.getPetPhotos}"></td> --%>
+        <tr id="pet_photo">
+            <td >照片:</td>
+            <td> <input type="file" class="form-control"id="inputGroupFile02"  name=""></td>
+            <td class="photo"> 
+            <c:forEach var="photo"
+								items="${pet.petPhotos}">
+								<img
+									src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}"
+									width="100px">
+							</c:forEach>
+            </td>
 
-<!--         </tr> -->
+        </tr>
 
 
 		<tr >
@@ -178,7 +185,7 @@
         <input type="hidden" name="action" value="update_put">
         
         
-        <button type="button" class="btn btn-warning btn-sm delete"><a href="pet_search.html" style="text-decoration:none" class="back">取消</a></button>
+        <button type="button" class="btn btn-warning btn-sm delete"><a href="pet_search.jsp" style="text-decoration:none" class="back">取消</a></button>
     </div>
     </form>
 </body>
