@@ -1,7 +1,6 @@
 package com.petlife.mall.entity;
 
 import java.math.BigDecimal;
-
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -28,14 +27,10 @@ public class Comm {
 	private Integer commId;
 
 //	Seller 等隊友弄好才能使用
-//	@ManyToOne
-//	@JoinColumn(name = "seller_id")
 //	@Expose
-//	private Seller seller;
-
-	@Column(name = "seller_id", updatable = true)
-	@Expose
-	private Integer sellerId;
+	@ManyToOne // buylist_id
+	@JoinColumn(name = "seller_id", referencedColumnName = "seller_id")
+	private Seller seller;
 
 	@Column(name = "comm_name", updatable = true)
 	@Expose
@@ -86,12 +81,12 @@ public class Comm {
 	public Comm() {
 	}
 
-	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
+	public Comm(Integer commId, Seller seller, String commName, String commDesc, Integer commState,
 			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
 			BigDecimal commOnsalePrice, Integer commViewCount) {
 		super();
 		this.commId = commId;
-		this.sellerId = sellerId;
+		this.seller = seller;
 		this.commName = commName;
 		this.commDesc = commDesc;
 		this.commState = commState;
@@ -111,12 +106,12 @@ public class Comm {
 		this.commId = commId;
 	}
 	
-	public Integer getsellerId() {
-		return sellerId;
+	public Seller getseller() {
+		return seller;
 	}
 
-	public void setSeller(Integer sellerId) {
-		this.sellerId = sellerId;
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
 	public String getCommName() {
@@ -223,7 +218,7 @@ public class Comm {
 	public String toString() {
 	    return "Comm{" +
 	           "commId=" + commId +
-	           ", seller=" + sellerId+
+	           ", seller=" + seller+
 	           ", commName='" + commName + '\'' +
 	           ", commDesc='" + commDesc + '\'' +
 	           ", commState=" + commState +
