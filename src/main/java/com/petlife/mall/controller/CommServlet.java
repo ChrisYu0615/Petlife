@@ -258,8 +258,7 @@ public class CommServlet extends HttpServlet {
 		}
 
 ///*************************** 2.開始修改資料 *****************************************/
-		commService.update(comm);
-		req.setAttribute("comm", commService.findByPk(commId));
+		System.out.println(commService.update(comm));
 
 ///*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 		req.setAttribute("comm", comm); // 資料庫update成功後,正確的的manage物件,存入req
