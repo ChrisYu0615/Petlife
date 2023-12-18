@@ -21,13 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    p_file_el.addEventListener("change", function (e) {
-        if (this.files.length > 0) {
-            preview_img(this.files[0]);
-        } else {
-            // preview_el.innerHTML = '<span class="text"><img src="" alt="" class="preview_img rounded-circle"></span>';
-        }
-    });
+    // p_file_el.addEventListener("change", function (e) {
+    //     if (this.files.length > 0) {
+    //         preview_img(this.files[0]);
+    //     } else {
+    //         preview_el.innerHTML = '<span class="text"><img src="" alt="" class="preview_img rounded-circle"></span>';
+    //     }
+    // });
 
     $(document).on("click", "button.btn_delete_card", function (e) {
         $(this).closest("span").remove();

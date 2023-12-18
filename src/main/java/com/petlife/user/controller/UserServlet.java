@@ -1,7 +1,11 @@
 package com.petlife.user.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.Date;
@@ -11,11 +15,13 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,7 +66,7 @@ public class UserServlet extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, resp);
 			break;
-		case "update":
+		case "updateUserProfile":
 			forwardPath = updateUser(req, resp);
 			break;
 		case "suspend_User":
@@ -77,6 +83,10 @@ public class UserServlet extends HttpServlet {
 			break;
 		case "verify":
 			authencation(req, resp);
+			break;
+		case "getUserHeadshot":
+			getUserHeadshot(req, resp);
+			break;
 		default:
 			forwardPath = "";
 			break;
@@ -89,10 +99,63 @@ public class UserServlet extends HttpServlet {
 
 	}
 
+	private void getUserHeadshot(HttpServletRequest req, HttpServletResponse resp) {
+		Integer userId = Integer.parseInt(req.getParameter("userId"));
+		User user = userServeice.getUserByUserId(userId);
+		FileInputStream fis = null;
+		ServletOutputStream out = null;
+		byte[] headshot = user.getHeadshot();
+
+		resp.setContentType("image/png");
+
+		if (headshot != null && headshot.length > 0) {
+			try {
+				out = resp.getOutputStream();
+				out.write(headshot);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (out != null) {
+						out.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			try {
+				File file = new File(req.getServletContext().getRealPath("/dist/img/login_user1.png"));
+				fis = new FileInputStream(file);
+				byte[] buf = fis.readAllBytes();
+				out = resp.getOutputStream();
+				out.write(buf);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (fis != null) {
+						fis.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				try {
+					if (out != null) {
+						out.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	private String recoverUser(HttpServletRequest req, HttpServletResponse resp) {
 		Integer userId = Integer.parseInt(req.getParameter("memberId"));
 		User user = userServeice.getUserByUserId(userId);
-		user.setAcctState(new AcctState(0,"可使用"));
+		user.setAcctState(new AcctState(0, "可使用"));
 		userServeice.updateUser(user);
 		return "/user/user.do?action=getAll";
 	}
@@ -100,7 +163,7 @@ public class UserServlet extends HttpServlet {
 	private String suspendUser(HttpServletRequest req, HttpServletResponse resp) {
 		Integer userId = Integer.parseInt(req.getParameter("memberId"));
 		User user = userServeice.getUserByUserId(userId);
-		user.setAcctState(new AcctState(1,"停權"));
+		user.setAcctState(new AcctState(1, "停權"));
 		userServeice.updateUser(user);
 		return "/user/user.do?action=getAll";
 	}
@@ -147,21 +210,10 @@ public class UserServlet extends HttpServlet {
 
 	// 驗證帳號與暱稱是否可以使用
 	private void authencation(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String userNickname = req.getParameter("nickname");
 		String userAcct = req.getParameter("useraccount");
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-
-		if (userNickname != null && userNickname.length() != 0) {
-			boolean checkUserNickname = userServeice.existUserNickname(userNickname);
-
-			if (checkUserNickname) {
-				out.print("<font color='red'>暱稱重複!!</font>");
-			} else {
-				out.print("<font color='green'>暱稱可使用</font>");
-			}
-		}
 
 		if (userAcct != null && userAcct.length() != 0) {
 			String userAcctReg = "^[A-Za-z0-9-_\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
@@ -301,9 +353,43 @@ public class UserServlet extends HttpServlet {
 		MailService.sendAuthenCode(userAcct, authenCode);
 	}
 
-	private String updateUser(HttpServletRequest req, HttpServletResponse resp) {
-		userServeice.updateUser(null);
-		return "";
+	private String updateUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		Integer userId = Integer.valueOf(req.getParameter("userId").trim());
+
+		Part headshotPart = req.getPart("headshot");
+		byte[] headshot = getHeadshotBytes(headshotPart);
+		String userPwd = req.getParameter("password").trim();
+		String userName = req.getParameter("username").trim();
+		String userNickname = req.getParameter("nickname").trim();
+		boolean gender = Boolean.valueOf(req.getParameter("gender").trim());
+		Date birthdate = java.sql.Date.valueOf(req.getParameter("birthdate").trim());
+		String phone = req.getParameter("phone").trim();
+
+		String country = req.getParameter("country").trim();
+		String district = req.getParameter("district").trim();
+		String address = req.getParameter("address").trim();
+		address = country + district + address;
+
+		User user = userServeice.getUserByUserId(userId);
+		
+		if(headshot!=null&&headshot.length>0) {
+			user.setHeadshot(headshot);
+		}
+		
+		if (userPwd != null && userPwd.length() > 0) {
+			user.setUserPwd(userPwd);
+		}
+		user.setUserName(userName);
+		user.setUserNickName(userNickname);
+		user.setGender(gender);
+		user.setBirthday(birthdate);
+		user.setPhoneNum(phone);
+		user.setAddress(address);
+
+		userServeice.updateUser(user);
+
+		req.getSession().setAttribute("user", user);
+		return "/member_center/user_profile.jsp";
 	}
 
 	private String getUserByPK(HttpServletRequest req, HttpServletResponse resp) {
@@ -315,5 +401,26 @@ public class UserServlet extends HttpServlet {
 		List<User> userList = userServeice.getAllUsers();
 		req.setAttribute("getAllUsers", userList);
 		return "/admin/member_management.jsp";
+	}
+
+	private byte[] getHeadshotBytes(Part part) {
+		InputStream in = null;
+		byte[] buf = null;
+		try {
+			in = part.getInputStream();
+			buf = new byte[in.available()];
+			in.read(buf);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return buf;
 	}
 }

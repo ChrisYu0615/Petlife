@@ -68,7 +68,7 @@ public class BuylistServlet extends HttpServlet {
 			forwardPath = delete(req, res);
 			break; // 新加的break
 		default:
-			forwardPath = "/select_page.jsp";
+			forwardPath = "/buylist/select_page.jsp"; //2023/12/18
 		}
 
 		res.setContentType("text/html; charset=UTF-8");
