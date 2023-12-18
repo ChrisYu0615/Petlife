@@ -43,13 +43,13 @@ public class CommDAOImpl implements CommDAO{
 			getSession().update(comm);
 			return 1;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return -1;
 		}
 	}
 
 	@Override
 	public Comm findByPk(Integer commId) {
-		getSession().clear();
 		return getSession().get(Comm.class, commId);
 	}
 
