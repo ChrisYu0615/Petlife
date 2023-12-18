@@ -39,12 +39,54 @@
 	</filter-mapping>
 
 	<filter>
-		<filter-name>loginFilter</filter-name>
-		<filter-class>com.petlife.filter.LoginFilter</filter-class>
+		<filter-name>adminLoginFilter</filter-name>
+		<filter-class>com.petlife.filter.AdminLoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
+		<filter-name>adminLoginFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>userLoginFilter</filter-name>
+		<filter-class>com.petlife.filter.UserLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>userLoginFilter</filter-name>
+		<url-pattern>/member_center/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>shelterLoginFilter</filter-name>
+		<filter-class>com.petlife.filter.ShelterLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shelterLoginFilter</filter-name>
+		<url-pattern></url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+		<filter>
+		<filter-name>sellerLoginFilter</filter-name>
+		<filter-class>com.petlife.filter.SellerLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sellerLoginFilter</filter-name>
+		<url-pattern></url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

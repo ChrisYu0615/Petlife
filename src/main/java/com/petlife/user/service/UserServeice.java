@@ -22,8 +22,6 @@ public interface UserServeice {
 	// 查(多個)
 	List<User> getAllUsers();
 
-	boolean existUserNickname(String userNickname);
-
 	boolean exisUserAccount(String userAcct);
 
 	// 會員登入

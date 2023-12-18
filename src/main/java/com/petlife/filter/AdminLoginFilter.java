@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginFilter implements Filter {
+public class AdminLoginFilter implements Filter {
 	private FilterConfig filterConfig = null;
 
 	@Override
@@ -30,10 +30,10 @@ public class LoginFilter implements Filter {
 
 		// 取得Session
 		HttpSession session = req.getSession();
-		Object account = session.getAttribute("account");
+		Object admin = session.getAttribute("admin");
 
 		// 沒有取得登入資訊(重導至登入頁面)
-		if (account == null) {
+		if (admin == null) {
 			// 把目前頁面存放到session中
 			session.setAttribute("location", req.getRequestURI());
 			// 重導至登入頁面

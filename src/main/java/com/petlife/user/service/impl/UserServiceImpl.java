@@ -47,14 +47,6 @@ public class UserServiceImpl implements UserServeice {
 	}
 
 	@Override
-	public boolean existUserNickname(String userNickName) {
-		if (dao.findUserByUserNickname(userNickName) != null) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public boolean exisUserAccount(String userAcct) {
 		if (dao.findUserByUserAccount(userAcct) != null) {
 			return true;

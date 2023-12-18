@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
@@ -40,7 +41,7 @@ public class User {
 	@Expose
 	private String userPwd;
 
-	@Column(name = "user_name", updatable = false)
+	@Column(name = "user_name")
 	@Expose
 	private String userName;
 
@@ -52,7 +53,7 @@ public class User {
 	@Expose
 	private Integer userPwdErrTimes;
 
-	@Column(name = "birthday", updatable = false)
+	@Column(name = "birthday")
 	@Expose
 	private Date birthday;
 
@@ -64,7 +65,7 @@ public class User {
 	@Expose
 	private String phoneNum;
 
-	@Column(name = "gender", updatable = false)
+	@Column(name = "gender")
 	@Expose
 	private Boolean gender;
 
@@ -89,7 +90,11 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Reservation> reservations;
-
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OrderBy("credit_card_id asc")
+	private Set<CreditCard> creditCards;
+	
 	public User() {
 	}
 
@@ -108,7 +113,8 @@ public class User {
 
 	public User(Integer userId, String userAcct, String userPwd, String userName, String userNickName,
 			Integer userPwdErrTimes, Date birthday, String address, String phoneNum, Boolean gender, byte[] headshot,
-			AcctState acctState, AcctType acctType, Timestamp userCreateTime) {
+			AcctState acctState, AcctType acctType, Timestamp userCreateTime, Set<Reservation> reservations,
+			Set<CreditCard> creditCards) {
 		super();
 		this.userId = userId;
 		this.userAcct = userAcct;
@@ -124,6 +130,8 @@ public class User {
 		this.acctState = acctState;
 		this.acctType = acctType;
 		this.userCreateTime = userCreateTime;
+		this.reservations = reservations;
+		this.creditCards = creditCards;
 	}
 
 	public Integer getUserId() {
@@ -246,6 +254,14 @@ public class User {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+	
+	public Set<CreditCard> getCreditCards() {
+		return creditCards;
+	}
+
+	public void setCreditCards(Set<CreditCard> creditCards) {
+		this.creditCards = creditCards;
+	}
 
 	@Override
 	public int hashCode() {
@@ -269,8 +285,9 @@ public class User {
 		return "User [userId=" + userId + ", userAcct=" + userAcct + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNickName=" + userNickName + ", userPwdErrTimes=" + userPwdErrTimes + ", birthday=" + birthday
 				+ ", address=" + address + ", phoneNum=" + phoneNum + ", gender=" + gender + ", headshot="
-				+ Arrays.toString(headshot) + ", acctState=" + acctState.getAcctStateType() + ", acctType="
-				+ acctType.getAcctType() + ", userCreateTime=" + userCreateTime + "]";
+				+ Arrays.toString(headshot) + ", acctState=" + acctState.getAcctStateType() + ", acctType=" + acctType.getAcctType()
+				+ ", userCreateTime=" + userCreateTime + ", reservations=" + reservations.getClass() + ", creditCards="
+				+ creditCards.getClass() + "]";
 	}
 
 }

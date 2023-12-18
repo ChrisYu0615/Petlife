@@ -19,9 +19,6 @@ public interface SellerService {
 	// 查(單個)
 	Seller getSellerBySellerId(Integer sellerId);
 
-	// 查詢賣家賣場名稱是否重複
-	boolean existSellerShopname(String shopname);
-
 	// 查詢賣家帳號是否重複
 	boolean existSellerAccount(String sellerAccount);
 

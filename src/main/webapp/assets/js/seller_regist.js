@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	$(".headerPage").load("../components/header.html");
 	$(".footerPage").load("../components/footer.html");
 
 	// 添加獲取驗證碼按鈕的點擊事件處理程序
 	var getauthencode_btn = document.getElementById('getauthencode');
-	getauthencode_btn.addEventListener('click', function() {
+	getauthencode_btn.addEventListener('click', function () {
 
 		if ($.trim($("#useraccount").val()) == "") {
 			alert("請先輸入您的帳號才能獲取驗證碼!!");
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 				// 開始計時60秒，期間無法再次按下獲取驗證碼按鈕
 				var count = 60;
-				var countdown = setInterval(function() {
+				var countdown = setInterval(function () {
 					if (count > 0) {
 						getauthencode_btn.textContent = count + ' 秒後可再次取得';
 						count--;
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					contentType: false,
 					processData: false,
 					catch: false,
-					success: function(data) {      // request 成功取得回應後執行
+					success: function (data) {      // request 成功取得回應後執行
 						console.log("成功");
 						console.log(data);
 					}
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	var showPasswordCheckbox = document.getElementById('showPassword');
 
-	showPasswordCheckbox.addEventListener('change', function() {
+	showPasswordCheckbox.addEventListener('change', function () {
 		if (showPasswordCheckbox.checked) {
 			// 顯示密碼
 			passwordInput.type = 'text';
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 
 			// 在選擇縣市時會自動對應到該縣市有的行政區
-			countySelect.addEventListener('change', function() {
+			countySelect.addEventListener('change', function () {
 				var selectedCity = countySelect.value;
 				var districtSelect = document.getElementById('district');
 				districtSelect.innerHTML = ''; // 清空行政區選項
@@ -128,10 +128,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	const idcardFront = document.getElementById('idcard-front');
 	const idcardFrontPreview = document.getElementById('idcard-front-preview');
 
-	idcardFront.addEventListener('change', function() {
+	idcardFront.addEventListener('change', function () {
 		if (idcardFront.files && idcardFront.files[0]) {
 			const reader = new FileReader();
-			reader.onload = function(e) {
+			reader.onload = function (e) {
 				idcardFrontPreview.src = e.target.result;
 			};
 			reader.readAsDataURL(idcardFront.files[0]);
@@ -141,10 +141,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	const idcardBack = document.getElementById('idcard-back');
 	const idcardBackPreview = document.getElementById('idcard-back-preview');
 
-	idcardBack.addEventListener('change', function() {
+	idcardBack.addEventListener('change', function () {
 		if (idcardBack.files && idcardBack.files[0]) {
 			const reader = new FileReader();
-			reader.onload = function(e) {
+			reader.onload = function (e) {
 				idcardBackPreview.src = e.target.result;
 			};
 			reader.readAsDataURL(idcardBack.files[0]);
@@ -154,10 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	const accountImg = document.getElementById('account-img');
 	const accountImgPreview = document.getElementById('account-img-preview');
 
-	accountImg.addEventListener('change', function() {
+	accountImg.addEventListener('change', function () {
 		if (accountImg.files && accountImg.files[0]) {
 			const reader = new FileReader();
-			reader.onload = function(e) {
+			reader.onload = function (e) {
 				accountImgPreview.src = e.target.result;
 			};
 			reader.readAsDataURL(accountImg.files[0]);
@@ -165,63 +165,27 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	// 按下取消按鈕(直接返回首頁)
-	$("#btn_cancel").on("click", function() {
+	$("#btn_cancel").on("click", function () {
 		window.location.href = "/Petlife/index.html";
 	});
 
 	// 前端驗證區塊
 	var verifyFlag = true;
-	var verifyAcct = true;
-	var verifyShopname = true;
-
-	// 使用ajax判斷賣場名稱是否重複
-	var shopname = document.getElementById("shopname");
-	shopname.addEventListener("blur", function() {
-		document.getElementById("verify_shopname").innerHTML = "";
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					let verifyResult = xhr.responseText;
-					document.getElementById("verify_shopname").innerHTML = xhr.responseText;
-					if (verifyResult.includes("暱稱重複")) {
-						verifyShopname = false;
-						$("#btn_regist").prop("disabled", true);
-					} else {
-						verifyShopname = true;
-						if (verifyAcct == true && verifyShopname == true) {
-							$("#btn_regist").prop("disabled", false);
-						}
-					}
-				} else {
-					alert(xhr.status);
-				}
-			}
-		}
-		xhr.open("POST", "/Petlife/seller/seller.do", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		var shopnameval = document.getElementById("shopname").value;
-		xhr.send("action=verify&shopname=" + shopnameval);
-	});
 
 	// 使用ajax判斷會員帳號是否重複
 	var userAccount = document.getElementById("useraccount");
-	userAccount.addEventListener("blur", function() {
+	userAccount.addEventListener("blur", function () {
 		document.getElementById("verify_useraccount").innerHTML = "";
 		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4) {
 				if (xhr.status == 200) {
 					let verifyResult = xhr.responseText;
 					document.getElementById("verify_useraccount").innerHTML = xhr.responseText;
 					if (verifyResult.includes("帳號重複")) {
-						verifyAcct = false;
 						$("#btn_regist").prop("disabled", true);
 					} else {
-						verifyAcct = true;
-						if (verifyAcct == true && verifyShopname == true) {
-							$("#btn_regist").prop("disabled", false);
-						}
+						$("#btn_regist").prop("disabled", false);
 					}
 				} else {
 					alert(xhr.status);
@@ -236,97 +200,97 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 	// 針對輸入框輸入後blur事件，輸入任何字後就會把錯誤訊息消除
-	$("#useraccount").blur(function() {
+	$("#useraccount").blur(function () {
 		if ($.trim($("#useraccount").val()) != "") {
 			$("#verify_useraccount").html("");
 		}
 	});
 
-	$("#authencode").blur(function() {
+	$("#authencode").blur(function () {
 		if ($.trim($("#authencode").val()) != "") {
 			$("#verify_authencode").html("");
 		}
 	});
 
-	$("#password").blur(function() {
+	$("#password").blur(function () {
 		if ($.trim($("#password").val()) != "") {
 			$("#verify_password").html("");
 		}
 	});
 
-	$("#username").blur(function() {
+	$("#username").blur(function () {
 		if ($.trim($("#username").val()) != "") {
 			$("#verify_username").html("");
 		}
 	});
 
-	$("#shopname").blur(function() {
+	$("#shopname").blur(function () {
 		if ($.trim($("#shopname").val()) != "") {
 			$("#verify_shopname").html("");
 		}
 	});
 
-	$("#male,#female").blur(function() {
+	$("#male,#female").blur(function () {
 		if ($("input[name='gender']:checked").length > 0) {
 			$("#verify_gender").html("");
 		}
 	});
 
-	$("#birthdate").blur(function() {
+	$("#birthdate").blur(function () {
 		if ($.trim($("#birthdate").val()) != "") {
 			$("#verify_birthdate").html("");
 		}
 	});
 
-	$("#phone").blur(function() {
+	$("#phone").blur(function () {
 		if ($.trim($("#phone").val()) != "") {
 			$("#verify_phone").html("");
 		}
 	});
 
-	$("#county").blur(function() {
+	$("#county").blur(function () {
 		if ($.trim($("#county").val()) != "") {
 			$("#verify_county").html("");
 		}
 	});
 
-	$("#district").blur(function() {
+	$("#district").blur(function () {
 		if ($.trim($("#district").val()) != "") {
 			$("#verify_district").html("");
 		}
 	});
 
-	$("#address").blur(function() {
+	$("#address").blur(function () {
 		if ($.trim($("#address").val()) != "") {
 			$("#verify_address").html("");
 		}
 	});
 
-	$("#bankcode").blur(function() {
+	$("#bankcode").blur(function () {
 		if ($.trim($("#bankcode").val()) != "") {
 			$("#verify_bankcode").html("");
 		}
 	});
 
-	$("#bankaccount").blur(function() {
+	$("#bankaccount").blur(function () {
 		if ($.trim($("#bankaccount").val()) != "") {
 			$("#verify_bankaccount").html("");
 		}
 	});
 
-	$("#idcard-front").blur(function() {
+	$("#idcard-front").blur(function () {
 		if ($.trim($("#idcard-front").val()) != "") {
 			$("#verify_idcard-front").html("");
 		}
 	});
 
-	$("#idcard-back").blur(function() {
+	$("#idcard-back").blur(function () {
 		if ($.trim($("#idcard-back").val()) != "") {
 			$("#verify_idcard-back").html("");
 		}
 	});
 
-	$("#account-img").blur(function() {
+	$("#account-img").blur(function () {
 		if ($.trim($("#account-img").val()) != "") {
 			$("#verify_account-img").html("");
 		}
@@ -335,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 	// 當表單提交時，驗證有無欄位沒有輸入
-	$("#btn_regist").on("click", function() {
+	$("#btn_regist").on("click", function () {
 		if ($.trim($("#useraccount").val()) == "") {
 			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
 			verifyFlag = false;
@@ -495,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				contentType: false,
 				processData: false,
 				catch: false,
-				success: function(data) {      // request 成功取得回應後執行
+				success: function (data) {      // request 成功取得回應後執行
 					if (data.endsWith("html")) {
 						redirectPage(data);
 						return;
