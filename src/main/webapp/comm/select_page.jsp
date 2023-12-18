@@ -1,31 +1,22 @@
-<%-- <%@ page language="java" contentType="text/html; charset=BIG5" pageEncoding="UTF-8"%> --%>
-<%-- <%@page import="com.petlife.admin.service.impl.commServiceImpl"%> --%>
-<%-- <%@page import="com.petlife.admin.service.commService"%> --%>
-<%-- <%@page import="com.petlife.admin.entity.comm"%> --%>
 <%@page import="com.petlife.mall.entity.Comm"%>
 <%@page import="com.petlife.mall.service.impl.CommServiceImpl"%>
 <%@page import="com.petlife.mall.service.CommService"%>
-
-
+<%@page import="com.petlife.mall.entity.Comm"%>
+<%-- <%@page import="com.petlife.admin.*"%> --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@page import="com.petlife.admin.*"%>
-
-
-<%
-CommService commSvc = new CommServiceImpl();
-List<Comm> list = commSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
 <style>
 table#table-1 {
+	width: 450px;
 	background-color: #CCCCFF;
-	border: 2px solid black;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 3px ridge Gray;
+	height: 80px;
 	text-align: center;
 }
 
@@ -38,24 +29,6 @@ table#table-1 h4 {
 h4 {
 	color: blue;
 	display: inline;
-}
-</style>
-
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
 }
 </style>
 <meta charset="UTF-8">
@@ -188,96 +161,73 @@ th, td {
 			</section>
 
 			<!-- Main content -->
-			<section class="content">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header">
-									<a href='addcomm.jsp'><button type="button"
-											class="btn btn-primary" id="btn_addcomm"
-											data-bs-toggle="modal" data-bs-target="#add_comm">新增商品</button></a>
-								</div>
-								<!-- /.card-header -->
-								<table id="table-1">
-									<tr>
-										<td>
-											<h3>所有商品資料</h3>
-											<h4>
-												<a href="select_page.jsp"><img src="images/back1.gif"
-													width="100" height="32" border="0">回首頁</a>
-											</h4>
-										</td>
-									</tr>
-								</table>
+			<table id="table-1">
+				<tr>
+					<td><h3>商品首頁</h3>
+						<h4>Comm: Home</h4></td>
+				</tr>
+			</table>
 
-								<table>
-									<tr>
-										<th>商品ID</th>
-										<th>賣家ID</th>
-										<th>商品名稱</th>
-										<th>商品描述</th>
-										<th>商品狀態</th>
-										<th>上架時間</th>
-										<th>商品縮圖</th>
-										<th>商品分類ID</th>
-										<th>商品庫存量</th>
-										<th>商品價格</th>
-										<th>商品優惠價</th>
-										<th>瀏覽數</th>
-										<th>修改</th>
-										<th>刪除</th>
-									</tr>
-									<%@ include file="page1.file"%>
-									<c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
-										end="<%=pageIndex+rowsPerPage-1%>">
+			<h3>資料查詢:</h3>
 
-										<tr>
-											<td>${comm.commId}</td>
-											<td>${comm.seller.sellerId}</td>
-											<td>${comm.commName}</td>
-											<td>${comm.commDesc}</td>
-											<td>${comm.commState}</td>
-											<td>${comm.listDatetime}</td>
-											<td>${comm.commImg}</td>
-											<td>${comm.commCat.commCatId}</td>
-											<td>${comm.commStock}</td>
-											<td>${comm.commPrice}</td>
-											<td>${comm.commOnsalePrice}</td>
-											<td>${comm.commViewCount}</td>
-											<td>
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/comm/comm.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="修改"> <input
-														type="hidden" name="commId" value="${comm.commId}">
-													<input type="hidden" name="action"
-														value="getOne_For_Update">
-												</FORM>
-											</td>
-											<td>
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/comm/comm.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="刪除"> <input
-														type="hidden" name="commId" value="${comm.commId}">
-													<input type="hidden" name="action" value="delete">
-												</FORM>
-											</td>
-										</tr>
-									</c:forEach>
-								</table>
-								<%@ include file="page2.file"%>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
-						</div>
-						<!-- /.col -->
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.container-fluid -->
-			</section>
+			<!-- 錯誤表列 -->
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+
+			<ul>
+				<li><a href='listAllComm.jsp'>List</a> all Comms. <br>
+				<br></li>
+
+
+				<li>
+					<FORM METHOD="post" ACTION="comm.do">
+						<b>輸入商品編號:</b> <input type="text" name="commId"> <input
+							type="hidden" name="action" value="getOne_For_Display"> <input
+							type="submit" value="送出">
+					</FORM>
+				</li>
+
+				<jsp:useBean id="commSvc" scope="page"
+					class="com.petlife.mall.service.impl.CommServiceImpl" />
+				<li>
+					<FORM METHOD="post" ACTION="comm.do">
+						<b>選擇商品編號:</b> <select size="1" name="commId">
+							<c:forEach var="comm" items="${commSvc.getAll()}">
+								<option value="${comm.commId}">${comm.commId}
+							</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<input type="submit" value="送出">
+					</FORM>
+				</li>
+
+				<li>
+					<FORM METHOD="post" ACTION="comm.do">
+						<b>選擇商品名稱:</b> <select size="1" name="commId">
+							<c:forEach var="comm" items="${commSvc.getAll()}">
+								<option value="${comm.commId}">${comm.commName}
+							</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<input type="submit" value="送出">
+					</FORM>
+				</li>
+			</ul>
+
+
+			<h3>商品管理</h3>
+
+			<ul>
+				<li><a href='addComm.jsp'>Add</a> a new Comm.</li>
+			</ul>
+
+
+
+
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
