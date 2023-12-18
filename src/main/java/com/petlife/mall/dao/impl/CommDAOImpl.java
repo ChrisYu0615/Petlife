@@ -49,7 +49,6 @@ public class CommDAOImpl implements CommDAO{
 
 	@Override
 	public Comm findByPk(Integer commId) {
-//		getSession().clear();
 		return getSession().get(Comm.class, commId);
 	}
 
