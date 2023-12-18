@@ -47,15 +47,6 @@ public class SellerServiceImpl implements SellerService {
 		return dao.getAll(conditions);
 	}
 
-	// 查詢賣家賣場名稱是否重複
-	@Override
-	public boolean existSellerShopname(String shopname) {
-		if (dao.findSellerBySellerShopname(shopname) != null) {
-			return true;
-		}
-		return false;
-	}
-
 	// 查詢賣家帳號是否重複
 	@Override
 	public boolean existSellerAccount(String sellerAccount) {

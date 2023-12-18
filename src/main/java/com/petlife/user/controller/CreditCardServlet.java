@@ -23,6 +23,7 @@ import com.petlife.user.entity.CreditCard;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.CreditCardService;
 import com.petlife.user.service.impl.CreditCardServiceImpl;
+import com.petlife.user.service.impl.UserServiceImpl;
 
 @WebServlet("/creditcard/creditcard.do")
 public class CreditCardServlet extends HttpServlet {
@@ -188,31 +189,15 @@ public class CreditCardServlet extends HttpServlet {
 
 	// 3,新增
 	private String insert(HttpServletRequest req, HttpServletResponse res) {
-		// 錯誤處理
-
-		List<String> errorMsgs = new ArrayList<>();
-		req.setAttribute("errorMsgs", errorMsgs);
-//		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-
-		Integer creditCardId = Integer.parseInt(req.getParameter("creditCardId"));
-
-		Integer userId = Integer.parseInt(req.getParameter("user"));
-		String creditCardNumber = req.getParameter("creditCardNumber");
-		String creditCardHolderName = req.getParameter("creditCardHolderName");
+    //		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		// 錯誤處理用前端
-		Date creditCardExpirationDate = java.sql.Date.valueOf(req.getParameter("creditCardExpirationDate").trim());
-//		Date creditCardExpirationDate;
-//		try {
-//			creditCardExpirationDate = java.sql.Date.valueOf(req.getParameter("creditCardExpirationDate").trim());
-//		} catch (IllegalArgumentException e) {
-//			creditCardExpirationDate = new java.sql.Date(System.currentTimeMillis());
-//			errorMsgs.add("請輸入信用卡到期日!");
-//		}
-
+		Integer userId = Integer.parseInt(req.getParameter("userId"));
+		String creditCardNumber = req.getParameter("creditCardNum");
+		String creditCardHolderName = req.getParameter("creditCardName");
+		Date creditCardExpirationDate = java.sql.Date.valueOf(req.getParameter("creditCardExpirationDate").trim()+ "-01");
 		// ============================================
-
+		UserServiceImpl userServiceImpl = new UserServiceImpl();
 		CreditCard creditCard = new CreditCard();
-		creditCard.setCreditCardId(creditCardId);
 		User user = new User();
 		user.setUserId(userId);
 		creditCard.setUser(user);
@@ -231,7 +216,9 @@ public class CreditCardServlet extends HttpServlet {
 			System.out.println("2");
 			e.getMessage();
 		}
-		;
+		
+		user = userServiceImpl.getUserByUserId(userId);
+		req.getSession().setAttribute("account", user);
 
 //		if (creditCard.getCreditCardId() != null && creditCard.getCreditCardId() > 0) {
 //			System.out.println("新增成功2");
@@ -240,7 +227,7 @@ public class CreditCardServlet extends HttpServlet {
 //		}
 
 //		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-		return "/buylistdetails/select_page.jsp";
+		return "/member_center/user_profile.jsp";
 	}
 
 	// ===================================================

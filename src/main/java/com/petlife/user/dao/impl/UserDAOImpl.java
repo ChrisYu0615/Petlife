@@ -127,29 +127,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User findUserByUserNickname(String userNickname) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<User> user = session.createQuery("from User where userNickName=:userNickName", User.class)
-					.setParameter("userNickName", userNickname).getResultList();
-			session.getTransaction().commit();
-
-			if (user.size() > 0) {
-				return user.get(0);
-			}
-			return null;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
-	}
-
-	@Override
 	public User findUserByUserAccount(String userAcct) {
 		// TODO Auto-generated method stub
 		return null;

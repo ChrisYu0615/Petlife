@@ -116,37 +116,6 @@ $(function() {
 	var verifyAcct = true;
 	var verifyNickname = true;
 
-	// 使用ajax判斷暱稱是否重複
-	var nickname = document.getElementById("nickname");
-	nickname.addEventListener("blur", function() {
-		document.getElementById("verify_nickname").innerHTML = "";
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					let verifyResult = xhr.responseText;
-					document.getElementById("verify_nickname").innerHTML = xhr.responseText;
-					if (verifyResult.includes("暱稱重複")) {
-						verifyNickname = false;
-						$("#btn_regist").prop("disabled", true);
-					} else {
-						verifyNickname = true;
-						if (verifyAcct == true && verifyNickname == true) {
-							$("#btn_regist").prop("disabled", false);
-						}
-					}
-				} else {
-					alert(xhr.status);
-				}
-			}
-		}
-		xhr.open("POST", "/Petlife/user/user.do", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		var nicknameval = document.getElementById("nickname").value;
-		xhr.send("action=verify&nickname=" + nicknameval);
-	});
-
-
 	// 使用ajax判斷會員帳號是否重複
 	var userAccount = document.getElementById("useraccount");
 	userAccount.addEventListener("blur", function() {

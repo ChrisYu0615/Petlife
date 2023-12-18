@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
 				Integer userId = loginStatus.get("userId");
 				User user = userServeice.getUserByUserId(userId);
 				HttpSession session = req.getSession();
-				session.setAttribute("account", user);
+				session.setAttribute("user", user);
 				try {
 					String location = (String) session.getAttribute("location");
 					// 重導回登入前頁面
@@ -130,7 +130,7 @@ public class LoginServlet extends HttpServlet {
 				Integer sellerId = loginStatus.get("sellerId");
 				Seller seller = sellerService.getSellerBySellerId(sellerId);
 				HttpSession session = req.getSession();
-				session.setAttribute("account", seller);
+				session.setAttribute("seller", seller);
 				try {
 					String location = (String) session.getAttribute("location");
 					// 重導回登入前頁面
@@ -194,7 +194,7 @@ public class LoginServlet extends HttpServlet {
 				Integer shelterId = loginStatus.get("shelterId");
 				Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 				HttpSession session = req.getSession();
-				session.setAttribute("account", shelter);
+				session.setAttribute("shelter", shelter);
 				try {
 					String location = (String) session.getAttribute("location");
 					// 重導回登入前頁面
@@ -256,7 +256,7 @@ public class LoginServlet extends HttpServlet {
 				Integer adminId = loginStatus.get("adminId");
 				Admin admin = adminService.getAdminByAdminId(adminId);
 				HttpSession session = req.getSession();
-				session.setAttribute("account", admin);
+				session.setAttribute("admin", admin);
 				try {
 					String location = (String) session.getAttribute("location");
 					if (location != null) {
