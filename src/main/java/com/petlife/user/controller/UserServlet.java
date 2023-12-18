@@ -388,7 +388,7 @@ public class UserServlet extends HttpServlet {
 
 		userServeice.updateUser(user);
 
-		req.getSession().setAttribute("account", user);
+		req.getSession().setAttribute("user", user);
 		return "/member_center/user_profile.jsp";
 	}
 
