@@ -51,7 +51,8 @@ public class UserDAOImpl2 implements UserDAO {
 	@Override
 	public User findByPK(Integer userId) {
 		getSession().clear();
-		return getSession().get(User.class, userId);
+		return getSession().createQuery("from User u left join fetch u.creditCards where u.userId=:userId", User.class)
+				.setParameter("userId", userId).getSingleResult();
 	}
 
 	@Override
@@ -62,17 +63,6 @@ public class UserDAOImpl2 implements UserDAO {
 	@Override
 	public Long getTotal() {
 		return getSession().createQuery("select count(*) from User", Long.class).getSingleResult();
-	}
-
-	@Override
-	public User findUserByUserNickname(String userNickname) {
-		List<User> users = getSession().createQuery("from User where userNickName=:userNickName", User.class)
-				.setParameter("userNickName", userNickname).getResultList();
-
-		if (users.size() > 0) {
-			return users.get(0);
-		}
-		return null;
 	}
 
 	@Override
@@ -91,7 +81,7 @@ public class UserDAOImpl2 implements UserDAO {
 		List<User> users = getSession()
 				.createQuery("from User where userAcct=:userAcct and userPwd=:userPwd", User.class)
 				.setParameter("userAcct", userAcct).setParameter("userPwd", userPwd).getResultList();
-		
+
 		if (users.size() > 0) {
 			return users.get(0);
 		}

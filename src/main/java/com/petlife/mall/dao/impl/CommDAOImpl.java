@@ -43,6 +43,7 @@ public class CommDAOImpl implements CommDAO{
 			getSession().update(comm);
 			return 1;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return -1;
 		}
 	}

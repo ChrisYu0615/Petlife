@@ -53,8 +53,8 @@ div.main_item {
 
 #preview img.preview_img {
     border: 1px solid lightgray;
-    width: 160px;
-    height: 160px;
+    width: 180px;
+    height: 180px;
     position: relative;
     margin-bottom: 20px;
 }
@@ -63,7 +63,7 @@ div.main_form {
     padding: 20px;
 }
 
-button#addCards {
+button.addCards {
     font-size: 12px;
     border: 0;
 }
@@ -129,35 +129,9 @@ ul.cardList li.card {
 
 button.btn_delete_card {
     border: 0;
-    background-color: transparent;
-    color: #2B8BC1;
-    text-decoration: underline;
-}
-
-#lightbox {
-    /*   border: 1px solid red; */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: hsla(0, 0%, 0%, .5);
-
-    display: none;
-}
-
-/* 元素 article 置中及基本樣式 */
-#lightbox>article {
-    background-color: white;
-    width: 90%;
-    max-width: 800px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ddd;
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bolder;
+    font-size: 12px;
 }
 
 button#likes{
@@ -180,24 +154,24 @@ h3#sidebar_title{
 
 table#user_profile{
     border-collapse: collapse ;
-    margin-left: 30px;
+    border: 1px solid lightgray;
 }
 
 th.profile_title,td.profile_content{
     /* border: 1px solid lightgray; */
-    font-size: 16px;
+    font-size: 14px;
     padding: 10px;
     margin-bottom: 5px;
 }
 
 th.profile_title{
-    width: 300px;
-    background-color: #FEFAE0;    
+    width: 200px;
+    background-color: #FEFAE0;      
 }
 
 td.profile_content{
     text-align: center ;
-    width: 700px;
+    width: 300px;
     background-color: white;
 }
 
@@ -205,3 +179,29 @@ div#sidebar_wrapper{
     margin-left: 50px;
     width: 341.28px;
 }
+
+/* div.form-group.mb-3{
+    padding: 5px 30px;
+} */
+
+div.modal-header{
+    background-color: #FFD966 !important;
+}
+
+div.modal-header h5.modal-title{
+    font-weight: bolder;
+}
+
+
+td.delete{
+    width: 150px;
+}
+
+select#country,select#district{
+    background-color: white !important;
+}
+
+span.must_insert {
+	color: red;
+}
+

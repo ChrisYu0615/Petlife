@@ -214,15 +214,15 @@ div.button {
 					</div>
 
 					<div class="con">
-						<label>照片:</label> 
-						<span> 
-							<c:forEach var="photo"
-								items="${pet.petPhotos}">
-								<img
-									src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}"
-									width="100px">
-							</c:forEach>
-						</span>
+<!-- 						<label>照片:</label>  -->
+<!-- 						<span>  -->
+<%-- 							<c:forEach var="photo" --%>
+<%-- 								items="${pet.petPhotos}"> --%>
+<!-- 								<img -->
+<%-- 									src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}" --%>
+<!-- 									width="100px"> -->
+<%-- 							</c:forEach> --%>
+<!-- 						</span> -->
 					</div>
 
 					<h2>領養者資訊</h2>
@@ -246,8 +246,10 @@ div.button {
 			
 
 			<div class="button">
+			<a href="../petjsp/pet_search.jsp">
 				<button type="button" class="btn btn-primary put_on btn-sm"
-					id="submit_btn">確認返回</button>
+					>確認返回</button>
+					</a>
 			</div>
 			</form>
 		</div>

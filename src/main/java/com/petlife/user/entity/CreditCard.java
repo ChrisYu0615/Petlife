@@ -2,6 +2,7 @@ package com.petlife.user.entity;
 
 
 import java.sql.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class CreditCard {
 	@Column(name = "credit_card_id", updatable = false)
 	private Integer creditCardId;
 
-	@ManyToOne // buylist_id
+	@ManyToOne 
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 
@@ -98,6 +99,26 @@ public class CreditCard {
 
 	public void setCreditCardExpirationDate(Date creditCardExpirationDate) {
 		this.creditCardExpirationDate = creditCardExpirationDate;
+	}
+
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(creditCardId);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CreditCard other = (CreditCard) obj;
+		return Objects.equals(creditCardId, other.creditCardId);
 	}
 
 
