@@ -1,0 +1,19 @@
+package com.petlife.mall.service;
+
+import java.util.List;
+
+import com.petlife.mall.entity.Cart;
+
+public interface CartService {
+	//增
+	public Integer add(Cart cart);
+	//刪
+	public Integer delete(Integer cartId);
+	//改
+	public Integer update(Cart cart);
+	//查(單個)
+	public Cart findByPK(Integer cartId);
+	//查(多個)
+	public List<Cart> getAll();
+	public List<Cart> getAllByUserId(Integer userId);
+}
