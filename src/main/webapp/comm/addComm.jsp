@@ -1,17 +1,38 @@
-<%@page import="com.petlife.mall.entity.Comm"%>
-<!-- ä¿ç•™ Comm çš„å¼•ç”¨ -->
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.petlife.seller.entity.Seller"%>
+<%@page import="com.petlife.mall.entity.Buylist"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-Comm comm = (Comm) request.getAttribute("comm");
-%>
-<html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>å•†å“åœ–ç‰‡æ–°å¢ - addComm.jsp</title>
-<!-- é¡µé¢æ ‡é¢˜ä»ç„¶æ˜¯æ·»åŠ æ–‡ç« å›¾ç‰‡ -->
+<%-- <%@ page import="com.petlife.buylist.*"%> --%>
 
-<!-- é¡µé¢æ ·å¼ -->
+<%
+Seller seller = (Seller) session.getAttribute("seller");
+Buylist buylist = (Buylist) request.getAttribute("buylist");
+%>
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>©Ò¦³­q³æ½s¸¹¸ê®Æ</title>
+<!-- ÅıLoading, please wait®ø¥¢ -->
+<link rel="stylesheet" href="/buylist.css">
+
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="../plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="../https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet"
+	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -29,109 +50,522 @@ h4 {
 	color: blue;
 	display: inline;
 }
-
+</style>
+<style>
 table {
-	width: 450px;
+	width: 800px;
 	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 table, th, td {
-	border: 0px solid #CCCCFF;
+	border: 1px solid #CCCCFF;
 }
 
 th, td {
-	padding: 1px;
+	padding: 5px;
+	text-align: center;
 }
 </style>
+
 </head>
-<body bgcolor='white'>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>å•†å“æ–°å¢ - addComm.jsp</h3> <!-- æ ‡é¢˜ä»ç„¶ä¿ç•™ä¸ºæ–‡ç« å›¾ç‰‡ -->
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">å›é¦–é </a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
 
-	<h3>å•†å“è³‡æ–™æ–°å¢:</h3>
+		<!-- ¤W¤èNavbar -->
+		<nav
+			class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- ¤W¤è¥ªÃäLeft navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a
+					href="test.html" class="nav-link">Home</a></li>
+				<!-- ³o¬Ocontact bar -->
+				<!-- <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li> -->
+			</ul>
 
-	<!-- éŒ¯èª¤æç¤º -->
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">è¯·ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+			<!-- ¤W¤è¥kÃäRight navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+				<li class="nav-item"><a class="nav-link"
+					data-widget="navbar-search" href="#" role="button"> <i
+						class="fas fa-search"></i>
+				</a>
+					<div class="navbar-search-block">
+						<form class="form-inline">
+							<div class="input-group input-group-sm">
+								<input class="form-control form-control-navbar" type="search"
+									placeholder="Search" aria-label="Search">
+								<div class="input-group-append">
+									<button class="btn btn-navbar" type="submit">
+										<i class="fas fa-search"></i>
+									</button>
+									<button class="btn btn-navbar" type="button"
+										data-widget="navbar-search">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div></li>
+
+				<!-- ³oÃä¬O¤W¤è¥kÃä²á¤Ñ³qª¾¦C -->
+				<!-- Messages Dropdown Menu -->
+				<!-- <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item"> -->
+				<!-- Message Start -->
+				<!-- <div class="media">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
+                                    class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div> -->
+				<!-- Message End -->
+				<!-- </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item"> -->
+				<!-- Message Start -->
+				<!-- <div class="media">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
+                                    class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div> -->
+				<!-- Message End -->
+				<!-- </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item"> -->
+				<!-- Message Start -->
+				<!-- <div class="media">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
+                                    class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                        <span class="float-right text-sm text-warning"><i
+                                                class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div> -->
+				<!-- Message End -->
+				<!-- </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li> -->
+
+				<!-- ³o¸Ì¬O¤W¤è¥kÃä°T®§³qª¾¦C -->
+				<!-- Notifications Dropdown Menu -->
+				<li class="nav-item dropdown"><a class="nav-link"
+					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
+						class="badge badge-warning navbar-badge">15</span>
+				</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<span class="dropdown-item dropdown-header">15
+							Notifications</span>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i
+							class="fas fa-envelope mr-2"></i> 4 new messages <span
+							class="float-right text-muted text-sm">3 mins</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i
+							class="fas fa-users mr-2"></i> 8 friend requests <span
+							class="float-right text-muted text-sm">12 hours</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+							3 new reports <span class="float-right text-muted text-sm">2
+								days</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All
+							Notifications</a>
+					</div></li>
+
+				<!-- ³o­Ó¬O¤W¤è¥kÃä¥ş¿Ã¹õ¼Ò¦¡ -->
+				<li class="nav-item"><a class="nav-link"
+					data-widget="fullscreen" href="#" role="button"> <i
+						class="fas fa-expand-arrows-alt"></i>
+				</a></li>
+
+				<!-- ³o¸Ì¥i¥H°µµn¤J­×§ï©Îµn¥X¥\¯à -->
+				<li class="nav-item dropdown"><a class="nav-link dropdown"
+					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> <i
+						class="fas fa-solid fa-user"></i>
+				</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+						<a class="dropdown-item" href="/google">­×§ï±b¸¹¸ê°T</a> <a
+							class="dropdown-item" href="/yahoo">µn¥X</a>
+					</div></li>
+			</ul>
+		</nav>
+		<!-- /.navbar -->
 
 
-	<form method="post" action="comm.do" name="form1"
-		enctype="multipart/form-data">
-	
-		<table>
-			<!-- è¡¨å–®å­—æ®µ -->
-<!-- 			<tr> -->
-<!-- 				<td>å•†å“ID:</td> -->
-<!-- 				<td><input type="text" name="commId" -->
-<%-- 					value="${comm != null ? comm.comm.commId : ''}" size="45" /></td> --%>
-<!-- 			</tr> -->
-			<tr>
-				<td>è³£å®¶ID:</td>
-				<td><input type="text" name="seller" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“åç¨±:</td>
-				<td><input type="text" name="commName" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“æè¿°:</td>
-				<td><input type="text" name="commDesc" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“ç‹€æ…‹:</td>
-				<td><input type="text" name="commState" size="45" /></td>
-			</tr>
-			<tr>
-				<td>ä¸Šæ¶æ™‚é–“:</td>
-				<td><input type="text" name="listDatetime" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“ç¸®åœ–:</td>
-				<td><input type="file" name="commImg" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“åˆ†é¡ID:</td>
-				<td><input type="text" name="commCat" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“åº«å­˜é‡:</td>
-				<td><input type="text" name="commStock" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“åƒ¹æ ¼:</td>
-				<td><input type="text" name="commPrice" size="45" /></td>
-			</tr>
-			<tr>
-				<td>å•†å“å„ªæƒ åƒ¹:</td>
-				<td><input type="text" name="commOnsalePrice" size="45" /></td>
-			</tr>
-			<tr>
-				<td>ç€è¦½æ•¸:</td>
-				<td><input type="text" name="commViewCount" size="45" /></td>
-			</tr>
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="æäº¤æ–°å¢">
-	</form>
+
+
+
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Brand Logo -->
+			<a href="test.html" class="brand-link"> <img
+				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
+				class="brand-image img-corners elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">Ãd·R¥Í¬¡«á»OºŞ²z</span>
+			</a>
+
+			<!-- Sidebar -->
+			<div class="sidebar">
+				<!-- Sidebar user panel (optional) -->
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					<div class="image">
+						<img src="../dist/img/login_user1.png"
+							class="img-circle elevation-2" alt="User Image">
+					</div>
+					<div class="info">
+						<a href="#" class="d-block"><%=seller.getSellerName()%>½æ®a¡A§A¦n</a>
+					</div>
+				</div>
+
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column"
+						data-widget="treeview" role="menu" data-accordion="false">
+						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-solid fa-id-card"></i>
+								<p>³qª¾</p>
+						</a></li>
+						<!-- ¥H¤U¬O¥i¦ùÁYªº°¼ÃäÄæ -->
+						<li class="nav-item menu-open"><a href="#"
+							class="nav-link active"> <i
+								class="nav-icon fas fa-tachometer-alt"></i>
+								<p>
+									­q³æºŞ²z <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylist.jsp" class="nav-link active">
+										<i class="far fa-circle nav-icon"></i>
+										<p>©Ò¦³­q³æ</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>0:«İ¥I´Ú</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState1.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>1:«İ¥X³f</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState2.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>2:¹B°e¤¤</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState3.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>3:­q³æ¤w§¹¦¨</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState4.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>4:­q³æ¤w¨ú®ø</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState5.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>5:°h³f/°h´Ú</p>
+								</a></li>
+							</ul></li>
+						<!-- ========================================================== -->
+						<li class="nav-item"><a
+							href="../buylistdetails/listAllBuylistDetails.jsp"
+							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
+								<p>­q³æ°Ó«~²Ó¶µ</p>
+						</a></li>
+						<!-- ========================================================== -->
+
+						<li class="nav-item menu-open"><a href="#"
+							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
+								<p>
+									°Ó«~ºŞ²z <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="addComm.jsp"
+									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+										<p>¤W¬[°Ó«~</p>
+								</a></li>
+								<li class="nav-item"><a href="listAllComm.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>©Ò¦³°Ó«~</p>
+								</a></li>
+								<li class="nav-item"><a href="./index.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:³c°â¤¤</p>
+								</a></li>
+								<li class="nav-item"><a href="./index3.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>1:¯Ê³f¤¤</p>
+								</a></li>
+								<li class="nav-item"><a href="./index2.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>2:¤U¬[</p>
+								</a></li>
+								<li class="nav-item"><a href="./index2.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>3:¹H³W¤U¬[</p>
+								</a></li>
+							</ul></li>
+						<!-- ========================================================== -->
+
+
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>¹wÄı½æ³õ</p> -->
+						<!-- 						</a></li> -->
+
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
+						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
+						<!-- 								<p>½æ®a¼Æ¾Ú¤¤¤ß</p> -->
+						<!-- 						</a></li> -->
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-ad"></i>
+								<p>µn¥X</p>
+						</a></li>
+
+					</ul>
+				</nav>
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
+
+
+
+
+		<!-- ³oÃä¬O¥D¤º®e¤W¤èªº¤å¦r±Ô­z -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">°Ó«~ºŞ²z</h1>
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+								<!-- 								<li class="breadcrumb-item active">­q³æºŞ²z</li> -->
+							</ol>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+
+
+			<!-- //³oÃä¶ë¥D¤º®e¤å¦r -->
+			<!-- /.content-wrapper -->
+
+
+			<table id="table-1">
+				<tr>
+					<td>
+						<h3>°Ó«~·s¼W</h3>
+					</td>
+					<td>
+						<h4>
+							<a href="listAllBuylist.jsp"> <!-- 							<img src="images/tomcat.png" -->
+								<!-- 								width="100" height="100" border="0"> --> ¦^¥ş³¡°Ó«~­º­¶
+							</a>
+						</h4>
+					</td>
+				</tr>
+			</table>
+
+			<h3>°Ó«~·s¼W:</h3>
+
+			<%-- ¿ù»~ªí¦C --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+
+			<form method="post" action="comm.do" name="form1"
+				enctype="multipart/form-data">
+
+				<table>
+					<!-- ªí³æ¦r¬q -->
+					<!-- 			<tr> -->
+					<!-- 				<td>°Ó«~ID:</td> -->
+					<!-- 				<td><input type="text" name="commId" -->
+					<%-- 					value="${comm != null ? comm.comm.commId : ''}" size="45" /></td> --%>
+					<!-- 			</tr> -->
+					<tr>
+						<td>½æ®aID:</td>
+						<td><input type="text" name="seller" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~¦WºÙ:</td>
+						<td><input type="text" name="commName" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~´y­z:</td>
+						<td><input type="text" name="commDesc" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~ª¬ºA:</td>
+						<td><input type="text" name="commState" size="45" /></td>
+					</tr>
+					<tr>
+						<td>¤W¬[®É¶¡:</td>
+						<td><input type="text" name="listDatetime" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~ÁY¹Ï:</td>
+						<td><input type="file" name="commImg" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~¤ÀÃşID:</td>
+						<td><input type="text" name="commCat" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~®w¦s¶q:</td>
+						<td><input type="text" name="commStock" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~»ù®æ:</td>
+						<td><input type="text" name="commPrice" size="45" /></td>
+					</tr>
+					<tr>
+						<td>°Ó«~Àu´f»ù:</td>
+						<td><input type="text" name="commOnsalePrice" size="45" /></td>
+					</tr>
+					<tr>
+						<td>ÂsÄı¼Æ:</td>
+						<td><input type="text" name="commViewCount" size="45" /></td>
+					</tr>
+				</table>
+				<br> <input type="hidden" name="action" value="insert">
+				<input type="submit" value="´£¥æ·s¼W">
+			</form>
+			<script>
+			<!-- ±a¤J²{¦b®É¶¡¨ìbuylistDate -->
+    document.addEventListener('DOMContentLoaded', function () {
+        // Àò¨ú·í«e¤é´Á©M®É¶¡
+        var currentDateTime = new Date();
+
+        // ±N¤é´Á®æ¦¡¤Æ¬° "yyyy-MM-dd HH:mm:ss"¡A³o¸Ì¨Ï¥Î¤F¦Û©w¸qªº formatDate ¨ç¼Æ
+        var formattedDateTime = formatDate(currentDateTime);
+
+        // ±N®æ¦¡¤Æ«áªº¤é´Á®É¶¡³]¸m¨ì¿é¤J®Øªº­È¤¤
+        document.querySelector("input[name='buylistDate']").value = formattedDateTime;
+    });
+
+    // ¦Û©w¸qªº¤é´Á®æ¦¡¤Æ¨ç¼Æ
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+			<!-- /±a¤J²{¦b®É¶¡¨ìbuylistDate -->
+
+    function validateForm() {
+        var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
+        var buylistDate = document.forms["form1"]["buylistDate"].value;
+
+        // ÀË¬d¤é´Á®æ¦¡
+        var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
+
+        if (!dateRegex.test(sellerEvaluateTime)) {
+            alert("½Ğ¿é¤J¥¿½Tªº¤é´Á®æ¦¡¡]YYYY-MM-DD HH:mm:ss ©Î YYYY-MM-DD HH:mm:ss.S ©Î YYYY-MM-DD HH:mm:ss.SSS ©Î YYYY-MM-DD¡^¡C");
+            return false;
+        }
+
+        // ²K¥[±zªº¨ä¥Lªí³æÅçÃÒÅŞ¿è...
+
+        return true; // ¦pªG©Ò¦³ÅçÃÒ³£³q¹L¡Aªğ¦^ true¡F§_«hªğ¦^ false
+    }
+</script>
+
+
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+
+
+		</div>
+		<!-- ./wrapper -->
+
+
+		<!-- jQuery -->
+		<script src="../plugins/jquery/jquery.min.js"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button)
+		</script>
+		<!-- Bootstrap 4 -->
+		<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- overlayScrollbars -->
+		<script
+			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="../dist/js/adminlte.js"></script>
 </body>
+
 </html>

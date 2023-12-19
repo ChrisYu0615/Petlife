@@ -84,6 +84,7 @@ public class BuylistServlet extends HttpServlet {
 
 ///*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 		String str = req.getParameter("buylistId");
+		// sellerId
 
 		if (str == null || (str.trim()).length() == 0) {
 			errorMsgs.add("請輸入訂單編號");
@@ -108,7 +109,9 @@ public class BuylistServlet extends HttpServlet {
 //		BuylistService coupoService = new BuylistService();
 		buylistService = new BuylistServiceImpl();
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
-
+		//geyBySellerId(Integer sellerId)
+		// List<Buylist>    (from Buylist where sellerId=:sellerId).setParameter("sellerId,sellerId")
+		
 		if (buylist == null) {
 			errorMsgs.add("查無資料");
 		}
