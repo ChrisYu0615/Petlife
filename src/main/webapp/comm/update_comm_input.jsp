@@ -14,7 +14,7 @@ Comm comm = (Comm) request.getAttribute("comm");
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>訂單編號資料修改</title>
+<title>商品資料修改</title>
 <!-- 讓Loading, please wait消失 -->
 <link rel="stylesheet" href="/buylist.css">
 
@@ -272,7 +272,7 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylist.jsp"
+								<li class="nav-item"><a href="../buylist/listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>所有訂單</p>
 								</a></li>
@@ -400,10 +400,12 @@ th, td {
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>商品編號資料修改 - update_comm_input.jsp</h3>
+						<h3>商品資料修改</h3>
 						<h4>
-							<a href="select_page.jsp"><img src="images/back1.gif"
-								width="100" height="32" border="0">回首頁</a>
+							<a href="listAllComm.jsp">
+<!-- 							<img src="images/back1.gif" -->
+<!-- 								width="100" height="32" border="0"> -->
+								回全部商品首頁</a>
 						</h4>
 					</td>
 				</tr>

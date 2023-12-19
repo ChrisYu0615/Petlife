@@ -272,7 +272,7 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylist.jsp"
+								<li class="nav-item"><a href="../buylist/listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>所有訂單</p>
 								</a></li>
@@ -402,7 +402,7 @@ th, td {
 					<td>
 						<h3>商品資料</h3>
 						<h4>
-							<a href="select_page.jsp">
+							<a href="listAllComm.jsp">
 <!-- 							<img src="images/back1.gif" -->
 <!-- 								width="100" height="32" border="0"> -->
 								回全部商品首頁</a>
@@ -443,19 +443,19 @@ th, td {
 					<td><%=comm.getCommViewCount()%></td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+							ACTION="<%=request.getContextPath()%>/comm/comm.do"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改"> <input type="hidden"
-								name="buylistId" value="${buylist.buylistId}"> <input
+								name="commId" value="${comm.commId}"> <input
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+							ACTION="<%=request.getContextPath()%>/comm/comm.do"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="刪除"> <input type="hidden"
-								name="buylistId" value="${buylist.buylistId}"> <input
+								name="commId" value="${comm.commId}"> <input
 								type="hidden" name="action" value="delete">
 						</FORM>
 					</td>
