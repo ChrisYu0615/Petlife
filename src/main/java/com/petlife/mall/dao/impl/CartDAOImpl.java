@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.petlife.mall.dao.CartDAO;
-import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Cart;
 import com.petlife.util.HibernateUtil;
 
@@ -70,5 +69,4 @@ public class CartDAOImpl implements CartDAO {
 	        return null;
 	    }
 	}
-
 }
