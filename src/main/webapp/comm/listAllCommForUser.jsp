@@ -151,23 +151,16 @@ pageContext.setAttribute("list", list);
                                                 <p>${comm.commPrice}</p>
                                                 <h5>${comm.commOnsalePrice}</h5>
                                             </div>
-                                            <div class="shop_quent_wrapper">
-                                                <div class="shop_quentiy_item">
-                                                    <button><i class="fas fa-minus-circle"></i></button>
-                                                </div>
-                                                <div class="shop_quentiy_item_shows">
-                                                    <input type="number" value="1">
-                                                </div>
-                                                <div class="shop_quentiy_item">
-                                                    <button><i class="fas fa-plus-circle"></i></button>
-                                                </div>
-                                            </div>
-                                            <FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/comm/comm.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="修改">
-													<input type="hidden" name="commId" value="${comm.commId}">
-													<input type="hidden" name="action" value="getOne_For_Update">
+                                            
+                                            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/comm/comm.do" style="margin-bottom: 0px;">
+											    <div class="shop_quent_wrapper">
+											        <div class="shop_quentiy_item_shows">
+											            <input type="number" name="quantity" value="1" min="1">
+											        </div>
+											    </div>
+											    <input type="submit" value="加入購物車">
+											    <input type="hidden" name="commId" value="${comm.commId}">
+											    <input type="hidden" name="action" value="addToCart">
 											</FORM>
                                         </div>
                                     </div>
