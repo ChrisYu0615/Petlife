@@ -15,5 +15,5 @@ public interface CartDAO {
 	public Cart findByPK(Integer cartId);
 	//查(多個)
 	public List<Cart> getAll();
-	public List<Cart> getAllByUserId();
+	public List<Cart> getAllByUserId(Integer userId);
 }
