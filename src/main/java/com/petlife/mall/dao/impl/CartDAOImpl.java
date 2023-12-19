@@ -56,21 +56,6 @@ public class CartDAOImpl implements CartDAO {
 	public List<Cart> getAll() {
 		return getSession().createQuery("from Cart", Cart.class).getResultList();
 	}
-//
-//
-//	@Override
-//	public List<Buylist> getBuylistsByState(Integer buylistState) {
-//	    try {
-//	        Session session = getSession();
-//	        List<Buylist> buylists = session.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
-//	                .setParameter("state", buylistState)
-//	                .getResultList();
-//	        return buylists;
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	        return null;
-//	    }
-//	}
 	
 	@Override
 	public List<Cart> getAllByUserId(Integer userId) {
