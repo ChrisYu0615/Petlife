@@ -1,8 +1,5 @@
-<%@page import="com.petlife.forum.service.impl.ArticleServiceImpl"%>
 <%@page import="com.petlife.forum.service.impl.ArticleImgServiceImpl"%>
-<%@page import="com.petlife.forum.service.ArticleService"%>
 <%@page import="com.petlife.forum.service.ArticleImgService"%>
-<%@page import="com.petlife.forum.entity.Article"%>
 <%@page import="com.petlife.forum.entity.ArticleImg"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,15 +9,15 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ArticleService articleSvc = new ArticleServiceImpl();
-    List<Article> list = articleSvc.getAllArticle();
+    ArticleImgService articleImgSvc = new ArticleImgServiceImpl();
+    List<ArticleImg> list = articleImgSvc.getAllArticleImgs();
     pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有文章 - listAllArticle.jsp</title>
+<title>所有文章 - listAllarticleImgImg.jsp</title>
 
 <style>
   table#table-1 {
@@ -61,49 +58,37 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有文章資料 - listAllArticle.jsp</h3>
+		 <h3>所有文章圖片資料 - listAllarticleImgImg.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>文章編號</th>
-		<th>使用者ID</th>
-		<th>論壇ID</th>
-		<th>文章標題</th>
-		<th>文章內文</th>
-		<th>發文時間</th>
-		<th>點閱數</th>
-		<th>狀態</th>
-		<th>修改</th>
-		<th>刪除</th>
+		<th>文章圖片編號</th>
+		<th>文章ID</th>
+		<th>文章圖片</th>
+		
 	</tr>
 	<%@ include file="page1.file" %> 
 <%--   --%>
-	<c:forEach var="article" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
+	<c:forEach var="articleImg" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
 		
 		<tr>
-			<td>${article.articleId}</td>
-			<td>${article.user.userId}</td>
-			<td>${article.forum}</td>
-			<td>${article.articleName}</td>
-			<td>${article.articleContent}</td>
-			<td>${article.updateTime}</td> 
-			<td>${article.ctr}</td>
-			<td>${article.state}</td>
-			
+			<td>${articleImg.articleImgId}</td>
+			<td>${articleImg.article.articleId}</td>
+			<td>${articleImg.articleImg}</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="更新文章">
-			     <input type="hidden" name="articleId"  value="${article.articleId}">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/articleImg/articleImg.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="articleImgId"  value="${articleImg.articleImgId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="下架文章">
-			     <input type="hidden" name="articleId"  value="${article.articleId}">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/articleImg/articleImg.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="articleImgId"  value="${articleImg.articleImgId}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>

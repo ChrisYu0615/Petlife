@@ -51,14 +51,14 @@
   <li><a href='listAllArticle.jsp'>List</a> all Articles.  <br><br></li>
   
   
-<!--   <li> -->
-<!--     <FORM METHOD="post" ACTION="article.do" > -->
-<!--         <b>輸入文章編號:</b> -->
-<!--         <input type="text" name="articleId"> -->
-<!--         <input type="hidden" name="action" value="getOne_For_Display"> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--   </li> -->
+  <li>
+    <FORM METHOD="post" ACTION="article.do" >
+        <b>輸入文章編號:</b>
+        <input type="text" name="articleId">
+        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="submit" value="送出">
+    </FORM>
+  </li>
 
 <!--   <li> -->
 <!--     <FORM METHOD="post" ACTION="article.do" > -->
@@ -75,8 +75,8 @@
      <FORM METHOD="post" ACTION="article.do" >
        <b>選擇文章編號:</b>
        <select size="1" name="articleId">
-         <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 
-          <option value="${article.articleId}">${article.articleId}
+         <c:forEach var="article" items="${articleServiceImpl.all}" > 
+          <option value="${article.articleId}">${article.articleId}>
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -88,7 +88,7 @@
      <FORM METHOD="post" ACTION="article.do" >
        <b>選擇文章標題:</b>
        <select size="1" name="articleId">
-         <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 
+         <c:forEach var="coupon" items="${articleService.getAll()}" > 
           <option value="${article.articleId}">${article.articleName}
          </c:forEach>   
        </select>
@@ -99,7 +99,7 @@
 </ul>
 
 
-<h3>文章新增管理</h3>
+<h3>優惠碼管理</h3>
 
 <ul>
   <li><a href='addArticle.jsp'>Add</a> a new Article.</li>
