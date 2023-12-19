@@ -1,8 +1,10 @@
+<%@page import="com.petlife.seller.entity.Seller"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
+Seller seller = (Seller) session.getAttribute("seller");
 Buylist buylist = (Buylist) request.getAttribute("buylist"); //EmpServlet.java(Concroller), 存入req的empVO物件
 %>
 <!DOCTYPE html>
@@ -247,7 +249,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">OOO管理員，你好</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>賣家，你好</a>
 					</div>
 				</div>
 
@@ -270,8 +272,12 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+								<li class="nav-item"><a href="listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+										<p>所有訂單</p>
+								</a></li>
+								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>0:待付款</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState1.jsp"
@@ -302,6 +308,7 @@ th, td {
 								<p>訂單商品細項</p>
 						</a></li>
 						<!-- ========================================================== -->
+
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
@@ -309,40 +316,47 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./index.html"
+								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>出售中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index2.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>已下架</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>缺貨中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>上架商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllComm.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>所有商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:販售中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>1:缺貨中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>2:下架</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>3:違規下架</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>預覽賣場</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>預覽賣場</p> -->
+						<!-- 						</a></li> -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-								<i class="nav-icon fas fa-shopping-cart"></i>
-								<p>賣家數據中心</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
+						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
+						<!-- 								<p>賣家數據中心</p> -->
+						<!-- 						</a></li> -->
 						<li class="nav-item"><a href="#" class="nav-link"> <i
 								class="nav-icon fas fa-ad"></i>
 								<p>登出</p>
 						</a></li>
-
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -366,8 +380,8 @@ th, td {
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">訂單管理</li>
+								<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+								<!-- 								<li class="breadcrumb-item active">訂單管理</li> -->
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -388,8 +402,9 @@ th, td {
 					<td>
 						<h3>訂單資料</h3>
 						<h4>
-							<a href="select_page.jsp"><img src="images/back1.gif"
-								width="100" height="32" border="0">回首頁</a>
+							<a href="listAllBuylist.jsp"> <!-- 							<img src="images/back1.gif" -->
+								<!-- 								width="100" height="32" border="0"> --> 回所有訂單首頁
+							</a>
 						</h4>
 					</td>
 				</tr>
@@ -407,6 +422,8 @@ th, td {
 					<th>賣家評價時間</th>
 					<th>訂單金額</th>
 					<th>訂單建立時間</th>
+					<th>修改</th>
+					<th>刪除</th>
 				</tr>
 				<tr>
 					<td><%=buylist.getBuylistId()%></td>
@@ -419,6 +436,24 @@ th, td {
 					<td><%=buylist.getSellerEvaluateTime()%></td>
 					<td><%=buylist.getBuylistAmount()%></td>
 					<td><%=buylist.getBuylistDate()%></td>
+					<td>
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="修改"> <input type="hidden"
+								name="buylistId" value="${buylist.buylistId}"> <input
+								type="hidden" name="action" value="getOne_For_Update">
+						</FORM>
+					</td>
+					<td>
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="刪除"> <input type="hidden"
+								name="buylistId" value="${buylist.buylistId}"> <input
+								type="hidden" name="action" value="delete">
+						</FORM>
+					</td>
 				</tr>
 			</table>
 

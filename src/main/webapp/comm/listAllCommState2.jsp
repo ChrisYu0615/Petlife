@@ -1,7 +1,9 @@
+<%@page import="com.petlife.mall.service.impl.CommServiceImpl"%>
+<%@page import="com.petlife.mall.entity.Comm"%>
 <%@page import="com.petlife.seller.entity.Seller"%>
-<%@page import="com.petlife.mall.entity.Buylist"%>
-<%@page import="com.petlife.mall.service.BuylistService"%>
-<%@page import="com.petlife.mall.service.impl.BuylistServiceImpl"%>
+<%@page import="com.petlife.mall.service.CommService"%>
+
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -9,8 +11,8 @@
 
 <%
 Seller seller = (Seller) session.getAttribute("seller");
-BuylistService buylistSvc = new BuylistServiceImpl();
-List<Buylist> list = buylistSvc.getBuylistsByState(2);
+CommService commSvc = new CommServiceImpl();
+List<Comm> list = commSvc.getCommsByState(2);
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -277,32 +279,39 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylist.jsp"
-									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylist.jsp" class="nav-link active">
+										<i class="far fa-circle nav-icon"></i>
 										<p>所有訂單</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState0.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>0:待付款</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState1.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState1.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>1:待出貨</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState2.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState2.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>2:運送中</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState3.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState3.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>3:訂單已完成</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState4.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState4.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>4:訂單已取消</p>
 								</a></li>
-								<li class="nav-item"><a href="listAllBuylistState5.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState5.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>5:退貨/退款</p>
 								</a></li>
 							</ul></li>
@@ -321,27 +330,27 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="../comm/addComm.jsp"
+								<li class="nav-item"><a href="addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>上架商品</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllComm.jsp"
+								<li class="nav-item"><a href="listAllComm.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>所有商品</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
+								<li class="nav-item"><a href="listAllCommState0.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>0:販售中</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
+								<li class="nav-item"><a href="listAllCommState1.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>1:缺貨中</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
+								<li class="nav-item"><a href="listAllCommState2.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>2:下架</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
+								<li class="nav-item"><a href="listAllCommState3.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>3:違規下架</p>
 								</a></li>
@@ -381,7 +390,7 @@ th, td {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">訂單管理</h1>
+							<h1 class="m-0">商品管理</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
@@ -402,65 +411,99 @@ th, td {
 			<!-- //這邊塞主內容文字 -->
 			<!-- /.content-wrapper -->
 
-
+			<div class="card-header">
+				<a href='addComm.jsp'><button type="button"
+						class="btn btn-primary" id="btn_addcoupon" data-bs-toggle="modal"
+						data-bs-target="#add_coupon">新增商品</button></a>
+			</div>
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>所有訂單編號資料</h3>
+						<h3>所有商品資料</h3>
 						<h4>
-							<a href="listAllBuylist.jsp"> <!-- 							<img src="images/back1.gif" -->
-								<!-- 								width="100" height="32" border="0"> --> 回所有訂單首頁
-							</a>
+<!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
+<!-- 								width="100" height="32" border="0">回首頁</a> -->
 						</h4>
 					</td>
 				</tr>
 			</table>
+			<!-- ========================================================== -->
 
+			<FORM METHOD="post" ACTION="comm.do">
+				<b>輸入商品編號:</b> <input type="text" name="commId"> <input
+					type="hidden" name="action" value="getOne_For_Display"> <input
+					type="submit" value="送出">
+			</FORM>
+
+			<jsp:useBean id="commSv" scope="page"
+				class="com.petlife.mall.service.impl.CommServiceImpl" />
+			<FORM METHOD="post" ACTION="comm.do">
+				<b>選擇商品編號:</b> <select size="1" name="commId">
+					<c:forEach var="comm" items="${commSv.getAll()}">
+						<option value="${comm.commId}">${comm.commId}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+
+			<FORM METHOD="post" ACTION="comm.do">
+				<b>選擇商品名稱:</b> <select size="1" name="commId">
+					<c:forEach var="comm" items="${commSv.getAll()}">
+						<option value="${comm.commId}">${comm.commName}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+			<!-- ========================================================== -->
 			<table>
 				<tr>
-					<th>訂單編號ID</th>
-					<th>會員ID</th>
+					<th>商品ID</th>
 					<th>賣家ID</th>
-					<th>訂單狀態ID</th>
-					<th>優惠碼ID</th>
-					<th>賣家評價星等</th>
-					<th>賣家評價敘述</th>
-					<th>賣家評價時間</th>
-					<th>訂單金額</th>
-					<th>訂單建立時間</th>
+					<th>商品名稱</th>
+					<th>商品描述</th>
+					<th>商品狀態</th>
+					<th>上架時間</th>
+					<th>商品縮圖</th>
+					<th>商品分類ID</th>
+					<th>商品庫存量</th>
+					<th>商品價格</th>
+					<th>商品優惠價</th>
+					<th>瀏覽數</th>
 					<th>修改</th>
 					<th>刪除</th>
 				</tr>
 				<%@ include file="page1.file"%>
-				<c:forEach var="buylist" items="${list}" begin="<%=pageIndex%>"
+				<c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
 					end="<%=pageIndex+rowsPerPage-1%>">
 
 					<tr>
-						<td>${buylist.buylistId}</td>
-						<td>${buylist.user.userId}</td>
-						<td>${buylist.seller.sellerId}</td>
-						<td>${buylist.buylistState.buylistStateId}</td>
-						<td>${buylist.coupon.couponId}</td>
-						<td>${buylist.sellerRatingStars}</td>
-						<td>${buylist.sellerEvaluateNarrative}</td>
-						<td>${buylist.sellerEvaluateTime}</td>
-						<td>${buylist.buylistAmount}</td>
-						<td>${buylist.buylistDate}</td>
+						<td>${comm.commId}</td>
+						<td>${comm.seller.sellerId}</td>
+						<td>${comm.commName}</td>
+						<td>${comm.commDesc}</td>
+						<td>${comm.commState}</td>
+						<td>${comm.listDatetime}</td>
+						<td>${comm.commImg}</td>
+						<td>${comm.commCat.commCatId}</td>
+						<td>${comm.commStock}</td>
+						<td>${comm.commPrice}</td>
+						<td>${comm.commOnsalePrice}</td>
+						<td>${comm.commViewCount}</td>
 						<td>
 							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+								ACTION="<%=request.getContextPath()%>/comm/comm.do"
 								style="margin-bottom: 0px;">
 								<input type="submit" value="修改"> <input type="hidden"
-									name="buylistId" value="${buylist.buylistId}"> <input
+									name="commId" value="${comm.commId}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>
 						<td>
 							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
+								ACTION="<%=request.getContextPath()%>/comm/comm.do"
 								style="margin-bottom: 0px;">
 								<input type="submit" value="刪除"> <input type="hidden"
-									name="buylistId" value="${buylist.buylistId}"> <input
+									name="commId" value="${comm.commId}"> <input
 									type="hidden" name="action" value="delete">
 							</FORM>
 						</td>

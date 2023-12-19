@@ -2,6 +2,7 @@ package com.petlife.mall.service;
 
 import java.util.List;
 
+import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
 
 public interface CommService {
@@ -25,4 +26,7 @@ public interface CommService {
 		
 	// 查全部
 	public List<Comm> getAll();
+	
+	// 根據商品狀態查詢
+    List<Comm> getCommsByState(Integer commState);
 }
