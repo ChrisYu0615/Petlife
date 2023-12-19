@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.petlife.forum.dao.ForumDAO;
 import com.petlife.forum.entity.Forum;
@@ -55,5 +56,12 @@ public class ForumDAOImpl implements ForumDAO {
     @Override
     public List<Forum> getAll() {
         return getSession().createQuery("from Forum", Forum.class).getResultList();
+    }
+    
+    public Forum findForumBySortName(String sortName) {
+        Query<Forum> query = getSession().createQuery("from Forum where sortName = :sortName", Forum.class);
+        query.setParameter("sortName", sortName);
+        List<Forum> result = query.getResultList();
+        return result.isEmpty() ? null : result.get(0);
     }
 }

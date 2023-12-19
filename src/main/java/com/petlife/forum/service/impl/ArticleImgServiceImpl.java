@@ -35,8 +35,8 @@ public class ArticleImgServiceImpl implements ArticleImgService {
     }
 
     @Override
-    public ArticleImg getArticleImgByImgId(Integer articleImgId) {
-        return dao.findByPK(articleImgId);
+    public ArticleImg getArticleImgById(Integer articleId) {
+        return dao.findByPK(articleId);
     }
 
     @Override

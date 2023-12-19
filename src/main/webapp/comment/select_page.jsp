@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>IBM Article: Home</title>
+<title>IBM Comment: Home</title>
 
 <style>
   table#table-1 {
@@ -30,10 +30,10 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>IBM Article: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>IBM Comment: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM Article: Home</p>
+<p>This is the Home page for IBM Comment: Home</p>
 
 <h3>資料查詢:</h3>
 	
@@ -48,7 +48,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllArticle.jsp'>List</a> all Articles.  <br><br></li>
+  <li><a href='listAllComment.jsp'>List</a> all Comments.  <br><br></li>
   
   
 <!--   <li> -->
@@ -69,14 +69,14 @@
 <!--     </FORM> -->
 <!--   </li> -->
 
-  <jsp:useBean id="articleSvc" scope="page" class="com.petlife.forum.service.impl.ArticleServiceImpl" />
+  <jsp:useBean id="commentSvc" scope="page" class="com.petlife.forum.service.impl.CommentServiceImpl" />
    
   <li>
-     <FORM METHOD="post" ACTION="article.do" >
+     <FORM METHOD="post" ACTION="comment.do" >
        <b>選擇文章編號:</b>
-       <select size="1" name="articleId">
-         <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 
-          <option value="${article.articleId}">${article.articleId}
+       <select size="1" name="commentId">
+         <c:forEach var="comment" items="${commentSvc.getAllComments()}" > 
+          <option value="${comment.commentId}">${comment.commentId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -85,11 +85,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="article.do" >
+     <FORM METHOD="post" ACTION="comment.do" >
        <b>選擇文章標題:</b>
-       <select size="1" name="articleId">
-         <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 
-          <option value="${article.articleId}">${article.articleName}
+       <select size="1" name="commentId">
+         <c:forEach var="comment" items="${commentSvc.getAllComments()}" > 
+          <option value="${comment.commentId}">${comment.commentText}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -102,7 +102,7 @@
 <h3>文章新增管理</h3>
 
 <ul>
-  <li><a href='addArticle.jsp'>Add</a> a new Article.</li>
+  <li><a href='addComment.jsp'>Add</a> a new Comment.</li>
 </ul>
 
 </body>

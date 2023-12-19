@@ -1,5 +1,7 @@
 package com.petlife.forum.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -8,23 +10,31 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petlife.forum.entity.Article;
+import com.petlife.forum.entity.ArticleImg;
 import com.petlife.forum.service.ArticleService;
+import com.petlife.forum.service.ArticleImgService;
+import com.petlife.forum.service.impl.ArticleImgServiceImpl;
 import com.petlife.forum.service.impl.ArticleServiceImpl;
 
 @WebServlet("/art/art.do")
+@MultipartConfig
 public class ArticleServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private ArticleService articleService;
+	private ArticleImgService articleImgService;
 
 	@Override
 	public void init() throws ServletException {
 		articleService = new ArticleServiceImpl();
+		articleImgService = new ArticleImgServiceImpl();
 	}
 
 	@Override
@@ -36,17 +46,21 @@ public class ArticleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		res.setContentType("text/html; charset=UTF-8");
 		String forwardPath = "";
 		switch (action) {
 		case "getOne_For_Display":
 			// 來自selact_page.jsp
 			forwardPath = getOneDisplay(req, res);
+			break;
 		case "getOne_For_Update":
 			// 來自listAllCoupon.jsp
 			forwardPath = getOneUpdate(req, res);
+			break;
 		case "update":
 			// 來自update_coupon_input.jsp
 			forwardPath = update(req, res);
+			break;
 		case "insert":
 			// 來自listAllCoupon.jsp
 			forwardPath = insert(req, res);
@@ -64,13 +78,91 @@ public class ArticleServlet extends HttpServlet {
 		case "modifyArticleState":
 			forwardPath = modifyArticleState(req, res);
 			break;
+		case "getArticleById":
+			forwardPath = getArticleById(req, res);
+			break;
+		case "getArticleImgById":
+			getArticleImgById(req, res);
+			break;
 		default:
-			forwardPath = "/select_page.jsp";
+			forwardPath = "";
+			break;
 		}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
+		if (!forwardPath.isEmpty()) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
+	}
+
+	private void getArticleImgById(HttpServletRequest req, HttpServletResponse res) {
+		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
+		ArticleImg articleImg = articleImgService.getArticleImgById(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
+		byte[] artImg;
+		System.out.println(articleImg);
+		FileInputStream fis = null;
+		
+		ServletOutputStream out = null;
+		if (articleImg == null) {
+			artImg = null;
+		} else {
+			artImg = articleImg.getArticleImg();
+		}
+		
+		System.out.println(artImg);
+		res.setContentType("image/png");
+		if (artImg != null && artImg.length > 0) {
+			try {
+				out = res.getOutputStream();
+				out.write(artImg);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (out != null) {
+						out.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			try {
+				File file = new File(req.getServletContext().getRealPath("/dist/img/login_user1.png"));
+				fis = new FileInputStream(file);
+				byte[] buf = fis.readAllBytes();
+				out = res.getOutputStream();
+				out.write(buf);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (fis != null) {
+						fis.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				try {
+					if (out != null) {
+						out.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+//		req.setAttribute("articleImg", articleImg); //這裡會對應到 spec-blog的 <%Article article = (Article)request.getAttribute("article");%> 來設置他的值  注意名稱要對應到
+
+	}
+
+	private String getArticleById(HttpServletRequest req, HttpServletResponse res) {
+		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
+		Article article = articleService.getArticleByArticleId(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
+		req.setAttribute("article", article); // 這裡會對應到 spec-blog的 <%Article article =
+												// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
+		return "/article/spec-blog.jsp";
 	}
 
 	private String modifyArticleState(HttpServletRequest req, HttpServletResponse res) {
@@ -80,7 +172,7 @@ public class ArticleServlet extends HttpServlet {
 
 		if ("removeArticle".equals(value))
 			article.setState(false);
-		else if("uploadArticle".equals(value))
+		else if ("uploadArticle".equals(value))
 			article.setState(true);
 
 		articleService.updateArticle(article);
