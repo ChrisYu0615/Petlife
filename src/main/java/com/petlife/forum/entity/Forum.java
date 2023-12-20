@@ -1,10 +1,14 @@
 package com.petlife.forum.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +19,10 @@ public class Forum {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 自增鍵
     @Column(name = "forum_id", updatable = false, insertable = false ) // updatable = false --> update SQL 不包括此欄位
     private Integer forumId;
-
+    
+//    @OneToMany(mappedBy = forum,cascade = CascadeType.ALL)    
+//    private Set<Article> articles;
+    
     @Column(name = "sort_name")
     private String sortName;
 

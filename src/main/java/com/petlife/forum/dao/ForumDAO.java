@@ -12,5 +12,7 @@ public interface ForumDAO {
 	
     public Forum findByPK(Integer forumId);
     
+    public Forum findForumBySortName(String sortName);
+    
     List<Forum> getAll();
 }

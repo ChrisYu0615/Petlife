@@ -42,6 +42,11 @@ public class ForumServiceImpl implements ForumService {
     public List<Forum> getAllForums() {
         return dao.getAll();
     }
+    
+    @Override
+    public Forum findForumBySortName(String sortName) {
+        return dao.findForumBySortName(sortName);
+    }
 
     // 可能的其他方法
     // ...

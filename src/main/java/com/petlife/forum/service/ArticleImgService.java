@@ -16,7 +16,7 @@ public interface ArticleImgService {
     Integer updateArticleImg(ArticleImg articleImg);
 
     // 根據圖片ID查詢
-    ArticleImg getArticleImgByImgId(Integer articleImgId);
+    ArticleImg getArticleImgById(Integer articleId);
 
     // 獲得所有圖片
     List<ArticleImg> getAllArticleImgs();

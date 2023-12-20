@@ -19,6 +19,8 @@ public interface ForumService {
 
     // 獲得所有論壇
     public List<Forum> getAllForums();
+    //根據Sortname找論壇
+    public Forum findForumBySortName(String sortName);
    
     // 可能的其他方法
     // ...
