@@ -18,5 +18,6 @@ public interface BuylistDetailsService {
 	BuylistDetails getBuylistDetailsByBuylistDetailsId(Integer buylistDetailsId);
 
 	// 查(多個)
-	List<BuylistDetails> getAllBuylistDetailss();
+	List<BuylistDetails> getAllBuylistDetailss(Integer buylistId);
+	
 }

@@ -38,20 +38,16 @@ public class Comm {
 	private String commName;
 
 	@Column(name = "comm_desc", updatable = true, columnDefinition = "longtext")
-	@Expose
 	private String commDesc;
 
 	@Column(name = "comm_state", updatable = true, columnDefinition = "tinyint")
-	@Expose
 	private Integer commState;
 
 	@Column(name = "list_datetime", updatable = true)
-	@Expose
 	private Timestamp listDatetime;
 
 	@Lob // 告知為大型Object
 	@Column(name = "comm_img", updatable = true)
-	@Expose
 	private byte[] commImg;
 
 //	等做完商品分類表再回來
@@ -62,12 +58,10 @@ public class Comm {
 //	@Column(name = "comm_cat_id", updatable = true)
 	@ManyToOne
 	@JoinColumn(name = "comm_cat_id", referencedColumnName = "comm_cat_id")
-	@Expose
 //	private Integer commCatId;
 	private CommCat commCat;
 
 	@Column(name = "comm_stock", updatable = true)
-	@Expose
 	private Integer commStock;
 
 	@Column(name = "comm_price", updatable = true,columnDefinition = "Decimal")

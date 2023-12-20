@@ -52,23 +52,35 @@ public class BuylistDAOImpl implements BuylistDAO {
 	}
 
 	@Override
-	public List<Buylist> getAll() {
+	public List<Buylist> getAll(String memberId) {
+		switch (memberId.charAt(0)) {
+		case '1':
+			// 1開頭(一般會員)
+			Integer userId = Integer.valueOf(memberId);
+			return getSession().createQuery("from Buylist where user.userId=:userId", Buylist.class)
+					.setParameter("userId", userId).getResultList();
+		case '2':
+			// 2開頭(賣家會員)
+			Integer sellerId = Integer.valueOf(memberId);
+			return getSession().createQuery("from Buylist where seller.sellerId=:sellerId", Buylist.class)
+					.setParameter("sellerId", sellerId).getResultList();
+		}
+
 		return getSession().createQuery("from Buylist", Buylist.class).getResultList();
 	}
 
-
 	@Override
 	public List<Buylist> getBuylistsByState(Integer buylistState) {
-	    try {
-	        Session session = getSession();
-	        List<Buylist> buylists = session.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
-	                .setParameter("state", buylistState)
-	                .getResultList();
-	        return buylists;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return null;
-	    }
+		try {
+			Session session = getSession();
+			List<Buylist> buylists = session
+					.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
+					.setParameter("state", buylistState).getResultList();
+			return buylists;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

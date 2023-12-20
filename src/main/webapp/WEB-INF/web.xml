@@ -86,8 +86,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sellerLoginFilter</filter-name>
-		<url-pattern>/buylist/*</url-pattern>
-		<url-pattern>/buylistdetails/*</url-pattern>
+<!-- 		<url-pattern>/buylist/*</url-pattern> -->
+<!-- 		<url-pattern>/buylistdetails/*</url-pattern> -->
 		<url-pattern>/comm/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

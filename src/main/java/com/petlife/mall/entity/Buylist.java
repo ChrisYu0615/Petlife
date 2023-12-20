@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.Coupon;
 import com.petlife.seller.entity.Seller;
 import com.petlife.user.entity.User;
@@ -22,6 +23,7 @@ public class Buylist {
 	@Id
 	@Column(name = "buylist_id", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Integer buylistId;
 
 	@ManyToOne   //user_id
@@ -30,6 +32,7 @@ public class Buylist {
 	
 	@ManyToOne   //seller_id
     @JoinColumn(name = "seller_id" ,referencedColumnName = "seller_id")
+	@Expose
     private Seller seller;
 	
 	@ManyToOne   //buylist_state_id
@@ -50,6 +53,7 @@ public class Buylist {
 	private Timestamp sellerEvaluateTime;
 	
 	@Column(name = "buylist_amount", columnDefinition = "Decimal")
+	@Expose
 	private BigDecimal buylistAmount;
 	
 	@Column(name = "buylist_date")

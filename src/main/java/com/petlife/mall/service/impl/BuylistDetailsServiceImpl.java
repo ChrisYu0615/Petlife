@@ -37,7 +37,7 @@ public class BuylistDetailsServiceImpl implements BuylistDetailsService {
 	}
 
 	@Override
-	public List<BuylistDetails> getAllBuylistDetailss() {
-		return dao.getAll();
+	public List<BuylistDetails> getAllBuylistDetailss(Integer buylistId) {
+		return dao.getAll(buylistId);
 	}
 }

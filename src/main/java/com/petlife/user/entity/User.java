@@ -23,7 +23,6 @@ import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
 import com.petlife.shelter.entity.Reservation;
 
-
 @Entity
 @Table(name = "user")
 public class User {
@@ -45,7 +44,7 @@ public class User {
 	@Expose
 	private String userName;
 
-	@Column(name = "user_nickname", unique = true)
+	@Column(name = "user_nickname")
 	@Expose
 	private String userNickName;
 
@@ -72,6 +71,10 @@ public class User {
 	@Column(name = "headshot", columnDefinition = "longblob")
 	@Expose
 	private byte[] headshot;
+	
+	@Column(name = "user_report_count")
+	@Expose
+	private Integer userReportCount;
 
 	// 多方(ManyToOne預設)：fetch預設FetchType.EAGER -> 取得該物件時，也會立即讓關聯的物件也跟著取得
 	@ManyToOne
@@ -95,6 +98,7 @@ public class User {
 	@OrderBy("credit_card_id asc")
 	private Set<CreditCard> creditCards;
 	
+	
 	public User() {
 	}
 
@@ -113,8 +117,8 @@ public class User {
 
 	public User(Integer userId, String userAcct, String userPwd, String userName, String userNickName,
 			Integer userPwdErrTimes, Date birthday, String address, String phoneNum, Boolean gender, byte[] headshot,
-			AcctState acctState, AcctType acctType, Timestamp userCreateTime, Set<Reservation> reservations,
-			Set<CreditCard> creditCards) {
+			Integer userReportCount, AcctState acctState, AcctType acctType, Timestamp userCreateTime,
+			Set<Reservation> reservations, Set<CreditCard> creditCards) {
 		super();
 		this.userId = userId;
 		this.userAcct = userAcct;
@@ -127,6 +131,7 @@ public class User {
 		this.phoneNum = phoneNum;
 		this.gender = gender;
 		this.headshot = headshot;
+		this.userReportCount = userReportCount;
 		this.acctState = acctState;
 		this.acctType = acctType;
 		this.userCreateTime = userCreateTime;
@@ -221,6 +226,14 @@ public class User {
 	public void setHeadshot(byte[] headshot) {
 		this.headshot = headshot;
 	}
+	
+	public Integer getUserReportCount() {
+		return userReportCount;
+	}
+
+	public void setUserReportCount(Integer userReportCount) {
+		this.userReportCount = userReportCount;
+	}
 
 	public AcctState getAcctState() {
 		return acctState;
@@ -285,9 +298,9 @@ public class User {
 		return "User [userId=" + userId + ", userAcct=" + userAcct + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNickName=" + userNickName + ", userPwdErrTimes=" + userPwdErrTimes + ", birthday=" + birthday
 				+ ", address=" + address + ", phoneNum=" + phoneNum + ", gender=" + gender + ", headshot="
-				+ Arrays.toString(headshot) + ", acctState=" + acctState.getAcctStateType() + ", acctType=" + acctType.getAcctType()
-				+ ", userCreateTime=" + userCreateTime + ", reservations=" + reservations.getClass() + ", creditCards="
-				+ creditCards.getClass() + "]";
+				+ Arrays.toString(headshot) + ", userReportCount=" + userReportCount + ", acctState=" + acctState.getAcctStateType()
+				+ ", acctType=" + acctType.getAcctType() + ", userCreateTime=" + userCreateTime + ", reservations=" + reservations
+				+ ", creditCards=" + creditCards + "]";
 	}
 
 }

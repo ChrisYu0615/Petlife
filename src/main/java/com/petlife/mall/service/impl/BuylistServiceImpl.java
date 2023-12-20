@@ -37,8 +37,8 @@ public class BuylistServiceImpl implements BuylistService {
 	}
 
 	@Override
-	public List<Buylist> getAllBuylists() {
-		return dao.getAll();
+	public List<Buylist> getAllBuylists(String memberId) {
+		return dao.getAll(memberId);
 	}
 
 	@Override
