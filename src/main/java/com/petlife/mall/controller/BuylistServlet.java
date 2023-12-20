@@ -71,6 +71,7 @@ public class BuylistServlet extends HttpServlet {
 		case "insert":
 			// 來自listAllBuylist.jsp
 			forwardPath = insert(req, res);
+			System.out.println("=================================="+forwardPath+"=================================");
 			break;
 		case "delete":
 			// 來自listAllBuylist.jsp
@@ -86,10 +87,11 @@ public class BuylistServlet extends HttpServlet {
 			forwardPath = cancelBuylist(req, res);
 			break;
 		default:
-			forwardPath = "/buylist/select_page.jsp"; // 2023/12/18
+			forwardPath = "/buylist/listAllBuylist.jsp"; //2023/12/18
 			break;
 		}
 
+		System.out.println(forwardPath);
 		if (!forwardPath.isEmpty()) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, res);
@@ -154,7 +156,7 @@ public class BuylistServlet extends HttpServlet {
 			break;
 		case '2':
 			buylistList = buylistService.getAllBuylists(memberId);
-			forwardPath = "";
+			forwardPath = "/buylist/listAllBuylist.jsp";
 			break;
 		}
 		req.setAttribute("getAllBuylist", buylistList);
@@ -176,7 +178,7 @@ public class BuylistServlet extends HttpServlet {
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 		Integer buylistId = null;
@@ -187,7 +189,7 @@ public class BuylistServlet extends HttpServlet {
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 ///*************************** 2.開始查詢資料 *****************************************/
@@ -203,7 +205,7 @@ public class BuylistServlet extends HttpServlet {
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 ///*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
@@ -426,7 +428,7 @@ public class BuylistServlet extends HttpServlet {
 //		}
 
 //		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-		return "/buylist/select_page.jsp";
+		return "/buylist/listAllBuylist.jsp";
 	}
 
 	// ===================================================

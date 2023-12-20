@@ -20,4 +20,7 @@ public interface BuylistDetailsService {
 	// 查(多個)
 	List<BuylistDetails> getAllBuylistDetailss(Integer buylistId);
 	
+	public List<BuylistDetails> getAllBuylistDetailss() ;
+
+	
 }

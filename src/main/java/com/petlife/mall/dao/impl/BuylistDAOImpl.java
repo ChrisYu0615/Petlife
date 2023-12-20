@@ -83,4 +83,9 @@ public class BuylistDAOImpl implements BuylistDAO {
 		}
 	}
 
+	@Override
+	public List<Buylist> getAll() {
+		return getSession().createQuery("from Buylist ", Buylist.class).getResultList();
+	}
+
 }

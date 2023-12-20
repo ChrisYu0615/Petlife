@@ -441,7 +441,7 @@ th, td {
 					</tr>
 					<tr>
 						<td>½æ®aID:</td>
-						<td><input type="TEXT" name="seller" size="45" required /></td>
+						<td><input type="TEXT" name="seller" size="45" value="<%=seller.getSellerId()%>" required readonly/></td>
 					</tr>
 					<tr>
 						<td>­q³æª¬ºAID:</td>
