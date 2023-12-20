@@ -12,12 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "buylist_details")
 public class BuylistDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "buylist_details_id", updatable = false)
+	@Expose
 	private Integer buylistDetailsId;
 
 	@ManyToOne // buylist_id
@@ -26,12 +29,15 @@ public class BuylistDetails {
 
 	@ManyToOne // comm_id
 	@JoinColumn(name = "comm_id", referencedColumnName = "comm_id")
+	@Expose
 	private Comm comm;
 
 	@Column(name = "buylist_details_price",columnDefinition = "Decimal")
+	@Expose
 	private BigDecimal buylistDetailsPrice;
 
 	@Column(name = "buylist_details_purchase_amount")
+	@Expose
 	private Integer buylistDetailsPurchaseAmount;
 
 	@Column(name = "member_rating_stars")

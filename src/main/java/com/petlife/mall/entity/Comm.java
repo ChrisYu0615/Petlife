@@ -2,6 +2,7 @@ package com.petlife.mall.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,14 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-//import javax.persistence.ManyToOne;
-//import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-//import com.petlife.seller.Seller;
+import com.petlife.seller.entity.Seller;
 
 @Entity
 @Table(name = "comm")
@@ -28,34 +28,26 @@ public class Comm {
 	private Integer commId;
 
 //	Seller 等隊友弄好才能使用
-//	@ManyToOne
-//	@JoinColumn(name = "seller_id")
 //	@Expose
-//	private Seller sellerId;
-
-	@Column(name = "seller_id", updatable = true)
-	@Expose
-	private Integer sellerId;
+	@ManyToOne // buylist_id
+	@JoinColumn(name = "seller_id", referencedColumnName = "seller_id")
+	private Seller seller;
 
 	@Column(name = "comm_name", updatable = true)
 	@Expose
 	private String commName;
 
 	@Column(name = "comm_desc", updatable = true, columnDefinition = "longtext")
-	@Expose
 	private String commDesc;
 
 	@Column(name = "comm_state", updatable = true, columnDefinition = "tinyint")
-	@Expose
 	private Integer commState;
 
 	@Column(name = "list_datetime", updatable = true)
-	@Expose
 	private Timestamp listDatetime;
 
 	@Lob // 告知為大型Object
 	@Column(name = "comm_img", updatable = true)
-	@Expose
 	private byte[] commImg;
 
 //	等做完商品分類表再回來
@@ -63,12 +55,13 @@ public class Comm {
 //	@JoinColumn(name = "comm_cat_id")
 //	private CommCat commCatId;
 
-	@Column(name = "comm_cat_id", updatable = true)
-	@Expose
-	private Integer commCatId;
+//	@Column(name = "comm_cat_id", updatable = true)
+	@ManyToOne
+	@JoinColumn(name = "comm_cat_id", referencedColumnName = "comm_cat_id")
+//	private Integer commCatId;
+	private CommCat commCat;
 
 	@Column(name = "comm_stock", updatable = true)
-	@Expose
 	private Integer commStock;
 
 	@Column(name = "comm_price", updatable = true,columnDefinition = "Decimal")
@@ -84,39 +77,42 @@ public class Comm {
 	private Integer commViewCount;
 
 	public Comm() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Comm(Integer commId, Integer sellerId, String commName, String commDesc, Integer commState,
-			Timestamp listDatetime, byte[] commImg, Integer commCatId, Integer commStock, BigDecimal commPrice,
+	public Comm(Integer commId, Seller seller, String commName, String commDesc, Integer commState,
+			Timestamp listDatetime, byte[] commImg, CommCat commCat, Integer commStock, BigDecimal commPrice,
 			BigDecimal commOnsalePrice, Integer commViewCount) {
 		super();
 		this.commId = commId;
-		this.sellerId = sellerId;
+		this.seller = seller;
 		this.commName = commName;
 		this.commDesc = commDesc;
 		this.commState = commState;
 		this.listDatetime = listDatetime;
 		this.commImg = commImg;
-		this.commCatId = commCatId;
+		this.commCat = commCat;
 		this.commStock = commStock;
 		this.commPrice = commPrice;
 		this.commOnsalePrice = commOnsalePrice;
+		this.commViewCount = commViewCount;
 	}
 
 	public Integer getCommId() {
 		return commId;
 	}
-	
+
 	public void setCommId(Integer commId) {
 		this.commId = commId;
 	}
-	
-	public Integer getSellerId() {
-		return sellerId;
+
+	public Seller getSeller() {
+		return seller;
 	}
 
-	public void setSellerId(Integer sellerId) {
-		this.sellerId = sellerId;
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
 	public String getCommName() {
@@ -159,12 +155,12 @@ public class Comm {
 		this.commImg = commImg;
 	}
 
-	public Integer getCommCatId() {
-		return commCatId;
+	public CommCat getCommCat() {
+		return commCat;
 	}
 
-	public void setCommCatId(Integer commCatId) {
-		this.commCatId = commCatId;
+	public void setCommCat(CommCat commCat) {
+		this.commCat = commCat;
 	}
 
 	public Integer getCommStock() {
@@ -198,42 +194,14 @@ public class Comm {
 	public void setCommViewCount(Integer commViewCount) {
 		this.commViewCount = commViewCount;
 	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) {
-			return true;
-		}
-		if(obj == null) {
-			return false;
-		}
-		if(getClass() != obj.getClass()) {
-			return false;
-		}
-		Comm other = (Comm) obj;
-		return Objects.equals(commId, other.commId);
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(commId);
-	}
-	
+
 	@Override
 	public String toString() {
-	    return "Comm{" +
-	           "commId=" + commId +
-	           ", sellerId=" + sellerId +
-	           ", commName='" + commName + '\'' +
-	           ", commDesc='" + commDesc + '\'' +
-	           ", commState=" + commState +
-	           ", listDatetime=" + listDatetime +
-	           ", commImg=" + (commImg != null ? "Length: " + commImg.length : "null") +
-	           ", commCatId=" + commCatId +
-	           ", commStock=" + commStock +
-	           ", commPrice=" + commPrice +
-	           ", commOnsalePrice=" + commOnsalePrice +
-	           ", commViewCount=" + commViewCount +
-	           '}';
+		return "Comm [commId=" + commId + ", seller=" + seller + ", commName=" + commName + ", commDesc=" + commDesc
+				+ ", commState=" + commState + ", listDatetime=" + listDatetime + ", commImg="
+				+ Arrays.toString(commImg) + ", commCat=" + commCat + ", commStock=" + commStock + ", commPrice="
+				+ commPrice + ", commOnsalePrice=" + commOnsalePrice + ", commViewCount=" + commViewCount + "]";
 	}
+
+	
 }

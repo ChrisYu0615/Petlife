@@ -1,6 +1,9 @@
 <%@page import="com.petlife.forum.service.impl.ArticleServiceImpl"%>
+<%@page import="com.petlife.forum.service.impl.ArticleImgServiceImpl"%>
 <%@page import="com.petlife.forum.service.ArticleService"%>
+<%@page import="com.petlife.forum.service.ArticleImgService"%>
 <%@page import="com.petlife.forum.entity.Article"%>
+<%@page import="com.petlife.forum.entity.ArticleImg"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -9,15 +12,15 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ArticleService couponSvc = new ArticleServiceImpl();
-    List<Coupon> list = couponSvc.getAllCoupons();
+    ArticleService articleSvc = new ArticleServiceImpl();
+    List<Article> list = articleSvc.getAllArticle();
     pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有優惠券資料 - listAllCoupon.jsp</title>
+<title>所有文章 - listAllArticle.jsp</title>
 
 <style>
   table#table-1 {
@@ -58,44 +61,49 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有優惠券資料 - listAllCoupon.jsp</h3>
+		 <h3>所有文章資料 - listAllArticle.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>優惠碼編號</th>
-		<th>優惠碼名稱</th>
-		<th>優惠碼敘述</th>
-		<th>使用條件</th>
-		<th>開始時間</th>
-		<th>結束時間</th>
-		<th>折扣金額</th>
+		<th>文章編號</th>
+		<th>使用者ID</th>
+		<th>論壇ID</th>
+		<th>文章標題</th>
+		<th>文章內文</th>
+		<th>發文時間</th>
+		<th>點閱數</th>
+		<th>狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="coupon" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%--   --%>
+	<c:forEach var="article" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
 		
 		<tr>
-			<td>${coupon.couponId}</td>
-			<td>${coupon.couponName}</td>
-			<td>${coupon.couponContent}</td>
-			<td>${coupon.conditionsOfUse}</td>
-			<td>${coupon.startDate}</td>
-			<td>${coupon.endDate}</td> 
-			<td>${coupon.discountAmount}</td>
+			<td>${article.articleId}</td>
+			<td>${article.user.userId}</td>
+			<td>${article.forum}</td>
+			<td>${article.articleName}</td>
+			<td>${article.articleContent}</td>
+			<td>${article.updateTime}</td> 
+			<td>${article.ctr}</td>
+			<td>${article.state}</td>
+			
+			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/coupon/coupon.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="couponId"  value="${coupon.couponId}">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="更新文章">
+			     <input type="hidden" name="articleId"  value="${article.articleId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/coupon/coupon.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="couponId"  value="${coupon.couponId}">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="下架文章">
+			     <input type="hidden" name="articleId"  value="${article.articleId}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>

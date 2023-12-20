@@ -52,7 +52,7 @@
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料 - listOneEmp.jsp</h3>
+		 <h3>文章資料 - listOneEmp.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -71,15 +71,29 @@
 		<th>刪除</th>
 	</tr>
 	<tr>
-			<td>${article.articleId}</td>
-			<td>${article.userId}</td>
-			<td>${article.forumArtId}</td>
-			<td>${article.articleName}</td>
-			<td>${article.articlecontent}</td>
-			<td>${article.updateTime}</td>
-			<td>${article.ctr}</td> 
-			<td>${article.state}</td>
+			<td><%=article.getArticleId()%></td>
+			<td><%=article.getUser().getUserName()%></td>
+			<td><%=article.getForum()%></td>
+			<td><%=article.getArticleName()%></td>
+			<td><%=article.getArticleContent()%></td>
+			<td><%=article.getUpdateTime()%></td>
+			<td><%=article.getCtr()%></td> 
+			<td><%=article.getState()%></td>
+			
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="更新文章">
+			     <input type="hidden" name="articleId"  value="${article.articleId}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="下架文章">
+			     <input type="hidden" name="articleId"  value="${article.articleId}">
+			     <input type="hidden" name="action" value="delete"></FORM>
+			</td>
 	</tr>
+	
 </table>
 
 </body>

@@ -5,7 +5,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
-Admin admin = (Admin) session.getAttribute("account");
+Admin admin = (Admin) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html>
@@ -266,8 +266,6 @@ Admin admin = (Admin) session.getAttribute("account");
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="checkModalLabel">修改廣告資料</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="row modal-body delete_box">
 														<div class="form-group mb-3">

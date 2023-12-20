@@ -153,21 +153,10 @@ public class SellerController extends HttpServlet {
 
 	// 驗證帳號與暱稱是否可以使用
 	private void authencation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String sellerShopname = req.getParameter("shopname");
 		String sellerAcct = req.getParameter("selleraccount");
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-
-		if (sellerShopname != null && sellerShopname.length() != 0) {
-			boolean checkSellerShopname = sellerService.existSellerShopname(sellerShopname);
-
-			if (checkSellerShopname) {
-				out.print("<font color='red'>暱稱重複!!</font>");
-			} else {
-				out.print("<font color='green'>暱稱可使用</font>");
-			}
-		}
 
 		if (sellerAcct != null && sellerAcct.length() != 0) {
 			String sellerAcctReg = "^[A-Za-z0-9-_\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";

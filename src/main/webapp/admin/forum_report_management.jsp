@@ -6,7 +6,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
-Admin admin = (Admin) session.getAttribute("account");
+Admin admin = (Admin) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html>

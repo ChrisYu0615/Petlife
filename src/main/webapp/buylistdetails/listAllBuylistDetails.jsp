@@ -1,3 +1,4 @@
+<%@page import="com.petlife.seller.entity.Seller"%>
 <%@page import="com.petlife.mall.dao.*"%>
 <%@page import="com.petlife.mall.entity.BuylistDetails"%>
 <%@page import="com.petlife.mall.service.impl.BuylistDetailsServiceImpl"%>
@@ -10,6 +11,7 @@
 
 
 <%
+Seller seller = (Seller) session.getAttribute("seller");
 BuylistDetailsService buylistDetailsSvc = new BuylistDetailsServiceImpl();
 List<BuylistDetails> list = buylistDetailsSvc.getAllBuylistDetailss();
 pageContext.setAttribute("list", list);
@@ -255,7 +257,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">OOO管理員，你好</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>賣家，你好</a>
 					</div>
 				</div>
 
@@ -265,10 +267,10 @@ th, td {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>通知</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>通知</p> -->
+						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
@@ -279,8 +281,13 @@ th, td {
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a
-									href="../buylist/listAllBuylistState0.jsp"
-									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+									href="../buylist/listAllBuylist.jsp" class="nav-link active">
+										<i class="far fa-circle nav-icon"></i>
+										<p>所有訂單</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>0:待付款</p>
 								</a></li>
 								<li class="nav-item"><a
@@ -310,7 +317,8 @@ th, td {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-						<li class="nav-item"><a href="listAllBuylistDetails.jsp"
+						<li class="nav-item"><a
+							href="../buylistdetails/listAllBuylistDetails.jsp"
 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
 								<p>訂單商品細項</p>
 						</a></li>
@@ -323,41 +331,47 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./index.html"
+								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>出售中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index2.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>已下架</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>缺貨中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>上架商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllComm.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>所有商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:販售中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>1:缺貨中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>2:下架</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>3:違規下架</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>預覽賣場</p>
-						</a></li>
-						<!-- ========================================================== -->
 
 
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>預覽賣場</p> -->
+						<!-- 						</a></li> -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-								<i class="nav-icon fas fa-shopping-cart"></i>
-								<p>賣家數據中心</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
+						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
+						<!-- 								<p>賣家數據中心</p> -->
+						<!-- 						</a></li> -->
 						<li class="nav-item"><a href="#" class="nav-link"> <i
 								class="nav-icon fas fa-ad"></i>
 								<p>登出</p>
 						</a></li>
-
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -396,20 +410,56 @@ th, td {
 
 			<!-- //這邊塞主內容文字 -->
 			<!-- /.content-wrapper -->
-
+			<div class="card-header">
+				<a href='addBuylistDetails.jsp'><button type="button"
+						class="btn btn-primary" id="btn_addcoupon" data-bs-toggle="modal"
+						data-bs-target="#add_coupon">新增訂單細項</button></a>
+			</div>
 
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>所有訂單商品細項資料</h3>
-						<h4>
-							<a href="select_page.jsp"><img src="images/back1.gif"
-								width="100" height="32" border="0">回首頁</a>
-						</h4>
+						<h3>所有訂單商品細項資料</h3> <!-- 						<h4> --> <!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
+						<!-- 								width="100" height="32" border="0">回首頁</a> --> <!-- 						</h4> -->
 					</td>
 				</tr>
 			</table>
+			<!-- ====================== -->
 
+			<FORM METHOD="post" ACTION="buylistdetails.do">
+				<b>輸入訂單商品細項編號:</b> <input type="text" name="buylistDetailsId">
+				<input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+
+			<!-- id改為Sv防重複 -->
+			<jsp:useBean id="buylistDetailsSv" scope="page"
+				class="com.petlife.mall.service.impl.BuylistDetailsServiceImpl" />
+
+			<FORM METHOD="post" ACTION="buylistdetails.do">
+				<b>選擇訂單商品細項編號:</b> <select size="1" name="buylistDetailsId">
+					<c:forEach var="buylistDetails"
+						items="${buylistDetailsSv.getAllBuylistDetailss()}">
+						<option value="${buylistDetails.buylistDetailsId}">${buylistDetails.buylist.getBuylistId()}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+
+
+
+			<FORM METHOD="post" ACTION="buylistdetails.do">
+				<b>選擇商品ID:</b> <select size="1" name="buylistDetailsId">
+					<c:forEach var="buylistDetails"
+						items="${buylistDetailsSv.getAllBuylistDetailss()}">
+						<option value="${buylistDetails.buylistDetailsId}">${buylistDetails.comm.getCommId()}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+			<
+
+			<!-- ====================== -->
 			<table>
 				<tr>
 					<th>訂單商品細項ID</th>

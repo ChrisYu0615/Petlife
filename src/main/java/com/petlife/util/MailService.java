@@ -89,7 +89,7 @@ public class MailService {
 		// 主旨
 		String subject = "寵愛生活-註冊會員通知";
 		// 內容
-		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!"+"\n"+"如有疑問都可以寄信向我們反映，謝謝!!";
+		String messageText = "您已完成註冊會員程序，歡迎加入並成為我們的會員，待管理員審核您的資格後即可享受各種服務!!" + "\n" + "如有疑問都可以寄信向我們反映，謝謝!!";
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);
@@ -122,7 +122,18 @@ public class MailService {
 		// 主旨
 		String subject = "寵愛生活-驗證會員通知";
 		// 內容
-		String messageText = "您的帳戶因管理員認定不符，已被取消註冊，如有問題可以向管理員聯繫，謝謝!!"+"\n"+"以下為原因："+"\n" + failedMsg;
+		String messageText = "您的帳戶因管理員認定不符，已被取消註冊，如有問題可以向管理員聯繫，謝謝!!" + "\n" + "以下為原因：" + "\n" + failedMsg;
+
+		MailService mailService = new MailService();
+		mailService.sendMail(account, subject, messageText);
+	}
+
+	// 訂單被取消(發給賣家)
+	public static void cancelBuylist(Integer buylistId, String account, String cancelReason) {
+		// 主旨
+		String subject = "寵愛生活-訂單取消通知";
+		// 內容
+		String messageText = "您的訂單(編號" + buylistId + ")已被取消" + "\n" + "以下為原因：" + "\n" + cancelReason;
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);

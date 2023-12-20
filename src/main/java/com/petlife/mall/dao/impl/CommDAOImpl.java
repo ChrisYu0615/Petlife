@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 
 import com.petlife.mall.dao.CommDAO;
 import com.petlife.mall.entity.Comm;
+import com.petlife.mall.entity.Comm;
 import com.petlife.util.HibernateUtil;
 
 public class CommDAOImpl implements CommDAO{
@@ -43,13 +44,13 @@ public class CommDAOImpl implements CommDAO{
 			getSession().update(comm);
 			return 1;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return -1;
 		}
 	}
 
 	@Override
 	public Comm findByPk(Integer commId) {
-		getSession().clear();
 		return getSession().get(Comm.class, commId);
 	}
 
@@ -75,4 +76,18 @@ public class CommDAOImpl implements CommDAO{
 	public List<Comm> getAll() {		
 		return getSession().createQuery("FROM Comm", Comm.class).list();
 	}
+
+	@Override
+	public List<Comm> getCommsByState(Integer commState) {
+		try {
+	        Session session = getSession();
+	        List<Comm> comms = session.createQuery("from Comm where commState.commState = :state", Comm.class)
+	                .setParameter("state", commState)
+	                .getResultList();
+	        return comms;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	}
+}
 }

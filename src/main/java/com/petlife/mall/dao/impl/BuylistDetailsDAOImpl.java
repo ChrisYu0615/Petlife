@@ -56,4 +56,10 @@ public class BuylistDetailsDAOImpl implements BuylistDetailsDAO {
 		return getSession().createQuery("from BuylistDetails", BuylistDetails.class).getResultList();
 	}
 
+	@Override
+	public List<BuylistDetails> getAll(Integer buylistId) {
+		return getSession().createQuery("from BuylistDetails where buylist.buylistId=:buylistId", BuylistDetails.class)
+				.setParameter("buylistId", buylistId).getResultList();
+	}
+
 }

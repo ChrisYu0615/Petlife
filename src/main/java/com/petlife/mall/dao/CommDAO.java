@@ -2,6 +2,7 @@ package com.petlife.mall.dao;
 
 import java.util.List;
 
+import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
 
 public interface CommDAO {
@@ -25,4 +26,7 @@ public interface CommDAO {
 	
 	// 查全部
 	public List<Comm> getAll();
+	
+	//根據訂單狀態ID查詢
+	List<Comm> getCommsByState(Integer commState);
 }

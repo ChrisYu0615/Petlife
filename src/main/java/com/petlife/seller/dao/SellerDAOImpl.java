@@ -75,18 +75,6 @@ public class SellerDAOImpl implements SellerDAO {
 	}
 
 	@Override
-	public Seller findSellerBySellerShopname(String shopname) {
-		List<Seller> sellers = getSession()
-				.createQuery("from Seller where sellerNickname=:sellerNickname", Seller.class)
-				.setParameter("sellerNickname", shopname).getResultList();
-
-		if (sellers.size() > 0) {
-			return sellers.get(0);
-		}
-		return null;
-	}
-
-	@Override
 	public Seller findSellerBySellerAccount(String sellerAccount) {
 		List<Seller> sellers = getSession().createQuery("from Seller where sellerAcct=:sellerAcct", Seller.class)
 				.setParameter("sellerAcct", sellerAccount).getResultList();

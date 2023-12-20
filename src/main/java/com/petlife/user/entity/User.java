@@ -15,13 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.AcctType;
 import com.petlife.shelter.entity.Reservation;
-
 
 @Entity
 @Table(name = "user")
@@ -40,11 +40,11 @@ public class User {
 	@Expose
 	private String userPwd;
 
-	@Column(name = "user_name", updatable = false)
+	@Column(name = "user_name")
 	@Expose
 	private String userName;
 
-	@Column(name = "user_nickname", unique = true)
+	@Column(name = "user_nickname")
 	@Expose
 	private String userNickName;
 
@@ -52,7 +52,7 @@ public class User {
 	@Expose
 	private Integer userPwdErrTimes;
 
-	@Column(name = "birthday", updatable = false)
+	@Column(name = "birthday")
 	@Expose
 	private Date birthday;
 
@@ -64,13 +64,17 @@ public class User {
 	@Expose
 	private String phoneNum;
 
-	@Column(name = "gender", updatable = false)
+	@Column(name = "gender")
 	@Expose
 	private Boolean gender;
 
 	@Column(name = "headshot", columnDefinition = "longblob")
 	@Expose
 	private byte[] headshot;
+	
+	@Column(name = "user_report_count")
+	@Expose
+	private Integer userReportCount;
 
 	// 多方(ManyToOne預設)：fetch預設FetchType.EAGER -> 取得該物件時，也會立即讓關聯的物件也跟著取得
 	@ManyToOne
@@ -89,7 +93,12 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Reservation> reservations;
-
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OrderBy("credit_card_id asc")
+	private Set<CreditCard> creditCards;
+	
+	
 	public User() {
 	}
 
@@ -108,7 +117,8 @@ public class User {
 
 	public User(Integer userId, String userAcct, String userPwd, String userName, String userNickName,
 			Integer userPwdErrTimes, Date birthday, String address, String phoneNum, Boolean gender, byte[] headshot,
-			AcctState acctState, AcctType acctType, Timestamp userCreateTime) {
+			Integer userReportCount, AcctState acctState, AcctType acctType, Timestamp userCreateTime,
+			Set<Reservation> reservations, Set<CreditCard> creditCards) {
 		super();
 		this.userId = userId;
 		this.userAcct = userAcct;
@@ -121,9 +131,12 @@ public class User {
 		this.phoneNum = phoneNum;
 		this.gender = gender;
 		this.headshot = headshot;
+		this.userReportCount = userReportCount;
 		this.acctState = acctState;
 		this.acctType = acctType;
 		this.userCreateTime = userCreateTime;
+		this.reservations = reservations;
+		this.creditCards = creditCards;
 	}
 
 	public Integer getUserId() {
@@ -213,6 +226,14 @@ public class User {
 	public void setHeadshot(byte[] headshot) {
 		this.headshot = headshot;
 	}
+	
+	public Integer getUserReportCount() {
+		return userReportCount;
+	}
+
+	public void setUserReportCount(Integer userReportCount) {
+		this.userReportCount = userReportCount;
+	}
 
 	public AcctState getAcctState() {
 		return acctState;
@@ -246,6 +267,14 @@ public class User {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+	
+	public Set<CreditCard> getCreditCards() {
+		return creditCards;
+	}
+
+	public void setCreditCards(Set<CreditCard> creditCards) {
+		this.creditCards = creditCards;
+	}
 
 	@Override
 	public int hashCode() {
@@ -269,8 +298,9 @@ public class User {
 		return "User [userId=" + userId + ", userAcct=" + userAcct + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNickName=" + userNickName + ", userPwdErrTimes=" + userPwdErrTimes + ", birthday=" + birthday
 				+ ", address=" + address + ", phoneNum=" + phoneNum + ", gender=" + gender + ", headshot="
-				+ Arrays.toString(headshot) + ", acctState=" + acctState.getAcctStateType() + ", acctType="
-				+ acctType.getAcctType() + ", userCreateTime=" + userCreateTime + "]";
+				+ Arrays.toString(headshot) + ", userReportCount=" + userReportCount + ", acctState=" + acctState.getAcctStateType()
+				+ ", acctType=" + acctType.getAcctType() + ", userCreateTime=" + userCreateTime + ", reservations=" + reservations
+				+ ", creditCards=" + creditCards + "]";
 	}
 
 }
