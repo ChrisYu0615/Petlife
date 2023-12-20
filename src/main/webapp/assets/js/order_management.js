@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $(".headerPage").load("../component/header.html");
-    $(".footerPage").load("../component/footer.html");
+    $(".headerPage").load("../components/header.html");
+    $(".footerPage").load("../components/footer.html");
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
@@ -10,38 +10,8 @@ $(document).ready(function () {
     });
 
     $('#myTable').DataTable({
-        "ajax": {
-            "url": "../assets/json/orderlist.json", // 請替換為你的JSON檔案路徑
-            "dataSrc": "" // 表示JSON數據的根節點為空
-        }, "columns": [
-            { "data": "order_id" },
-            { "data": "order_name" },
-            { "data": "order_state" },
-            { "data": "total_amount" },
-            { "data": "pay_type" },
-            { "data": "create_time" },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    // 在這裡可以自定義操作按鈕的HTML
-                    if (data.order_state === "已完成") {
-                        return '<button class="btn-sm btn-secondary" id="btn_cancel" onclick = "cancelOrder(' + row.order_id + ')" data-bs-toggle="modal" data-bs-target="#cancel_order" disabled>取消</button> ' +
-                            '<button class="btn-sm btn-danger" id="btn_order" onclick = "rateOrder(' + row.order_id + ')" data-bs-toggle="modal" data-bs-target="#rate">評價</button><br>';
-
-                    } else {
-                        return '<button class="btn-sm btn-primary" id="btn_cancel" onclick = "cancelOrder(' + row.order_id + ')" data-bs-toggle="modal" data-bs-target="#cancel_order">取消</button> ' +
-                            '<button class="btn-sm btn-secondary" id="btn_order" onclick = "rateOrder(' + row.order_id + ')" data-bs-toggle="modal" data-bs-target="#rate" disabled>評價</button><br>';
-                    }
-                }
-            }
-        ],
         responsive: true,
-        "orderClasses": false,
-        "createdRow": function (row, data, dataIndex) {
-            // 在每一行创建后执行的逻辑
-            // 添加一个用于显示子行的标识 class
-            $(row).addClass('parent-row');
-        },
+        orderClasses: false,
         // 中文化
         "language": {
             "processing": "處理中...",
@@ -283,78 +253,123 @@ $(document).ready(function () {
             "thousands": ","
         }
     });
-});
 
+    $("#cancelReasonResult").change(function () {
+        var selectedValue = $(this).val();
+        var reasonTextarea = $("#cancelReasonTextarea");
 
-$('#myTable').on('click', '.parent-row', function () {
-    var tr = $(this);
-    var row = $('#myTable').DataTable().row(tr);
-
-    if (row.child.isShown()) {
-        // 关闭子行
-        row.child.hide();
-        tr.removeClass('shown');
-    } else {
-        // 打开子行
-        row.child(format(row.data())).show();
-        tr.addClass('shown');
-    }
-});
-
-function format(data) {
-
-    var productsHtml =
-        '<div class="row">' +
-        '<div class="col-2"><strong>商品名稱</strong></div>' +
-        '<div class="col-2 order_item"><strong>購買數量</strong></div>' +
-        '<div class="col-2 order_item"><strong>金額</strong></div>' +
-        '</div>';
-
-    for (var i = 0; i < data.products.length; i++) {
-        var product = data.products[i];
-        var btn_return;
-        // if (data.order_state != "已完成") {
-        //     btn_return = '<div class="col-2 offset-4 order_item"><button class="btn btn-secondary btn-sm return-btn" data-product-id="' + product.product_id + '" disabled>退貨</button></div>';
-        // }else{
-        //     btn_return ="";
-        // }
-        productsHtml +=
-            '<div class="row">' +
-            '<div class="col-2">' + product.product_name + '</div>' +
-            '<div class="col-2 order_item">' + product.quantity + '</div>' +
-            '<div class="col-2 order_item">' + product.amount + '</div>'
-            + /*btn_return +*/ '</div>';
-
-        // 添加商品之间的分隔线
-        if (i < data.products.length - 1) {
-            productsHtml += '<hr>';
+        if (selectedValue === "4") {
+            reasonTextarea.show();
+        } else {
+            reasonTextarea.hide();
         }
-    }
+    });
 
-    return productsHtml;
-}
+    $('.star').click(function () {
+        var rating = $(this).attr('data-star');
 
-// 退貨按鈕
-$('#myTable').on('click', '.return-btn', function () {
-    var productId = $(this).data('product-id');
-    console.log('Return Product with ID: ' + productId);
+        $('.star').removeClass('-on');
+
+        $(this).prevAll('.star').addClass('-on');
+        $(this).addClass('-on');
+
+        console.log('您的評分是：', rating);
+    });
+
+    $(".btn_check").on("click", function () {
+        let buylistId = $(this).val();
+        console.log(buylistId);
+
+        let url = "/Petlife/buylistdetails/buylistdetails.do?action=getBuylistDetailsById";
+
+        let formData = new FormData();
+        formData.append("buylistId", buylistId);
+        $.ajax({
+            url: url,// 資料請求的網址
+            type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+            data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+            dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {      // request 成功取得回應後執行
+                console.log(data);
+                console.log("成功!!");
+                $(".order_items").empty();
+                let html = "";
+                for (let i = 0; i < data.length; i++) {
+                    html += `<tr>
+                                    <td>${data[i].comm.commId}</td>
+                                    <td>${data[i].comm.commName}</td>
+                                    <td>${data[i].buylistDetailsPurchaseAmount}</td>
+                                    <td>${data[i].buylistDetailsPrice}</td>
+                                </tr>`;
+                }
+                $(".order_items").append(html);
+            }, error: function (xhr, status, error) {
+                console.log("發生錯誤!!");
+                console.log("錯誤訊息：" + error);
+                console.log("狀態碼：" + xhr.status);
+            }
+        });
+    });
+
+
+    $(".btn_cancel").on("click", function () {
+        let buylistId = $(this).val();
+        console.log(buylistId);
+
+        let url = "/Petlife/buylist/buylist.do?action=getOneBuylistById";
+
+        let formData = new FormData();
+        formData.append("buylistId", buylistId);
+        $.ajax({
+            url: url,// 資料請求的網址
+            type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+            data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+            dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {      // request 成功取得回應後執行
+                console.log(data);
+                console.log("成功!!");
+                $("#order_number").val(data.buylistId);
+                $("#shopname").val(data.seller.sellerNickname);
+                $("#order_amount").val(data.buylistAmount);
+                $('input[name="buylistId"]').val(buylistId);
+                $('input[name="sellerAcct"]').val(data.seller.sellerAcct);
+            }, error: function (xhr, status, error) {
+                console.log("發生錯誤!!");
+                console.log("錯誤訊息：" + error);
+                console.log("狀態碼：" + xhr.status);
+            }
+        });
+    });
+
+    $("#cancel_orderForm").submit(function (event) {
+        let cancelFlag = true;
+        let selectedValue = $.trim($("#cancelReasonResult").val());
+        console.log(selectedValue);
+
+        if (selectedValue.length == 0) {
+            cancelFlag = false;
+            $("#verify_cancelReason").html(`<font color='red'><b>請選擇取消訂單原因!!</font>`);
+        } else {
+            $("#verify_cancelReason").html("");
+        }
+
+        if (selectedValue === "4") {
+            if ($.trim($("#cancelReason").val()).length == 0) {
+                cancelFlag = false;
+                $("#verify_cancelReason").html(`<font color='red'><b>請輸入取消訂單原因!!</font>`);
+            } else {
+                $("#verify_cancelReason").html("");
+            }
+        }
+
+        if (cancelFlag == false) {
+            event.preventDefault();
+        }
+    })
 });
-
-
-
-$('#myTable').on('click', '#btn_order, #btn_cancel', function (e) {
-    e.stopPropagation();
-});
-
-
-// 取消訂單
-function cancelOrder(orderId) {
-    // 在這裡添加編輯文章的邏輯
-    console.log('Edit Article with ID: ' + orderId);
-}
-
-// 評價訂單
-function rateOrder(orderId) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('Delete Article with ID: ' + orderId);
-}
