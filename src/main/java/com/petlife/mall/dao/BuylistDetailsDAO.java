@@ -16,4 +16,7 @@ public interface BuylistDetailsDAO {
 	public BuylistDetails findByPK(Integer buylistDetailsId);
 	//查(多個)
 	public List<BuylistDetails> getAll(Integer buylistId);
+	
+	public List<BuylistDetails> getAll();
+
 }

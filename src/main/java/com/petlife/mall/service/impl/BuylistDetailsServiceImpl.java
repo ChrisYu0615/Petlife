@@ -35,6 +35,11 @@ public class BuylistDetailsServiceImpl implements BuylistDetailsService {
 	public BuylistDetails getBuylistDetailsByBuylistDetailsId(Integer buylistDetailsId) {
 		return dao.findByPK(buylistDetailsId);
 	}
+	
+	@Override
+	public List<BuylistDetails> getAllBuylistDetailss() {
+		return dao.getAll();
+	}
 
 	@Override
 	public List<BuylistDetails> getAllBuylistDetailss(Integer buylistId) {

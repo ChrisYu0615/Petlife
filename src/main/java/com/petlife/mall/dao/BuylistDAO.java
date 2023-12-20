@@ -15,6 +15,8 @@ public interface BuylistDAO {
 	public Buylist findByPK(Integer buylistId);
 	//查(多個)
 	public List<Buylist> getAll(String memberId);
+	
+	public List<Buylist> getAll();
 	//根據訂單狀態ID查詢
 	 List<Buylist> getBuylistsByState(Integer buylistState);
 	}
