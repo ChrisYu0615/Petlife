@@ -90,22 +90,12 @@ public class CartServlet extends HttpServlet{
 			User user = userDAOImpl2.findByPK(userId);
 			Comm comm = commDAOImpl.findByPk(commId);
 			
-			
-			
 	        cart.setUser(user);
 	        cart.setComm(comm);
 	        cart.setPurchasingAmout(purchasingAmount);
 	        
-	        System.out.println("=================");
-	        System.out.println(cart);
-	        System.out.println("=================");
-	        
 	        Integer id = cartDAOImpl.add(cart);
-	        
-	        
-//	        System.out.println("user" + user);
-//	        System.out.println("comm" + comm);
-//	        System.out.println("purchasingAmount" + purchasingAmount);
+	        System.out.println("已經新增cart_id: " + id);
 	        
 	        return "/comm/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
 		} catch (Exception e) {
