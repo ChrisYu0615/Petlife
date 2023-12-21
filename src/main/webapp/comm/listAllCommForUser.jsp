@@ -152,15 +152,16 @@ pageContext.setAttribute("list", list);
                                                 <h5>${comm.commOnsalePrice}</h5>
                                             </div>
                                             
-                                            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/comm/comm.do" style="margin-bottom: 0px;">
+                                            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cart/cart.do" style="margin-bottom: 0px;">
 											    <div class="shop_quent_wrapper">
 											        <div class="shop_quentiy_item_shows">
-											            <input type="number" name="quantity" value="1" min="1">
+											            <input type="number" name="purchasing_amount" value="1" min="1">
 											        </div>
 											    </div>
 											    <input type="submit" value="加入購物車">
+											    <input type="hidden" name="action" value="add_comm_to_cart">
 											    <input type="hidden" name="commId" value="${comm.commId}">
-											    <input type="hidden" name="action" value="addToCart">
+											    
 											</FORM>
                                         </div>
                                     </div>
