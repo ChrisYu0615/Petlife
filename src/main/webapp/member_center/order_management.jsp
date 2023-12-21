@@ -88,8 +88,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a
-											href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
+										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -97,7 +96,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-										<a href="/member_center/reserve_management.html">預約管理</a>
+                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -106,7 +105,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingFour">
 									<div class="row sidebar_select" id="article_manage">
-										<a href="/member_center/article_management.html">文章管理</a>
+										<a
+											href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles&userId=<%=user.getUserId()%>">文章管理</a>
 									</div>
 								</h2>
 							</div>

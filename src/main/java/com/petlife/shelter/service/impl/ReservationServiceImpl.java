@@ -45,6 +45,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Reservation> getAll() {
 		return dao.getAll();
 	}
+	
+	@Override
+	public List<Reservation> getAll(Integer userId) {
+		return dao.getAll(userId);
+	}
 
 	@Override
 	public List<Reservation> getResByCompositeQuery(Map<String, String[]> map) {

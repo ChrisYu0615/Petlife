@@ -65,7 +65,9 @@ User user = (User) session.getAttribute("user");
 				<div class="col-12 col-md-3">
 					<div class="sidebar_boxed_wrapper">
 						<div class="sidebar_common_heading">
-							<h3 id="sidebar_title"><a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a></h3>
+							<h3 id="sidebar_title">
+								<a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a>
+							</h3>
 						</div>
 
 						<!-- accordion -->
@@ -74,7 +76,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingOne">
 									<div class="row sidebar_select" id="user_profile">
-										<a href="<%=request.getContextPath()%>/member_center/change_user_profile.jsp">修改會員資料</a>
+										<a
+											href="<%=request.getContextPath()%>/member_center/change_user_profile.jsp">修改會員資料</a>
 									</div>
 								</h2>
 							</div>
@@ -83,7 +86,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a href="/member_center/order_management.html">訂單管理</a>
+										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -91,7 +94,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-										<a href="/member_center/reserve_management.html">預約管理</a>
+                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -100,7 +103,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingFour">
 									<div class="row sidebar_select" id="article_manage">
-										<a href="/member_center/article_management.html">文章管理</a>
+										<a
+											href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles&userId=<%=user.getUserId()%>">文章管理</a>
 									</div>
 								</h2>
 							</div>
