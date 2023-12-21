@@ -37,8 +37,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 <!-- my_css -->
-<link rel="stylesheet"
-	href="../dist/css/admin_advertisement_management.css">
+<link rel="stylesheet" href="../dist/css/coupon_management.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -84,9 +83,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a
-							href="<%=request.getContextPath()%>/user/user.do?action=getAll"
-							class="nav-link"> <i class="fas fa-solid fa-users"></i>
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
 						<li class="nav-item"><a href="#" class="nav-link"> <i
@@ -100,18 +98,18 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</a></li>
 
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a
-							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
-							class="nav-link"> <i class="fas fa-ad"></i>
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
 								class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
@@ -149,205 +147,210 @@ Admin admin = (Admin) session.getAttribute("admin");
 							<div class="card">
 								<div class="card-header">
 									<button type="button" class="btn btn-primary"
-										id="btn_addadvertisement" data-bs-toggle="modal"
-										data-bs-target="#add_advertisement">新增廣告</button>
+										id="btn_addcoupon" data-bs-toggle="modal"
+										data-bs-target="#add_coupon">新增優惠碼</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table">
 									<table id="myTable" class="display">
 										<thead>
 											<tr>
-												<th>廣告編號</th>
-												<th>廣告標題</th>
-												<th>廣告敘述</th>
-												<th>上架狀態</th>
+												<th>優惠碼編號</th>
+												<th>優惠碼名稱</th>
+												<th>優惠碼敘述</th>
+												<th>使用條件</th>
+												<th>折扣金額</th>
+												<th>優惠碼狀態</th>
 												<th>開始日期</th>
 												<th>結束日期</th>
 												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="ad" items="${getAllAdvertisements}">
+											<c:forEach var="coupon" items="${getAllCoupons}">
 												<tr>
-													<td>${ad.advertisementId}</td>
-													<td>${ad.advertisementTitle}</td>
-													<td>${ad.advertisementContent}</td>
-													<td>${ad.adStatus == true ? "上架中" : "已下架"}</td>
-													<td><fmt:formatDate value="${ad.startDate}"
+													<td>${coupon.couponId}</td>
+													<td>${coupon.couponName}</td>
+													<td>${coupon.couponContent}</td>
+													<td>${coupon.conditionsOfUse}</td>
+													<td>${coupon.discountAmount}</td>
+													<td>${coupon.couponState==true?"上架中" : "已下架"}</td>
+													<td><fmt:formatDate value="${coupon.startDate}"
 															pattern="yyyy-MM-dd" /></td>
-													<td><fmt:formatDate value="${ad.endDate}"
+													<td><fmt:formatDate value="${coupon.endDate}"
 															pattern="yyyy-MM-dd" /></td>
 													<td><button class="btn-sm btn-primary btn_check"
-															data-bs-toggle="modal"
-															data-bs-target="#check_advertisement" value="${ad.advertisementId}">查看</button></td>
+															data-bs-toggle="modal" data-bs-target="#check_coupon"
+															value="${coupon.couponId}">查看</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-								</div>
-								<!-- /.card-body -->
 
-									<!-- 新增廣告 -->
-									<form action="<%=request.getContextPath()%>/advertisement/advertisement.do" method="post" enctype="multipart/form-data" id="add_advertisementForm">
-										<div class="modal fade" id="add_advertisement" tabindex="-1"
+									<!-- 新增優惠碼 -->
+									<form action="<%=request.getContextPath()%>/coupon/coupon.do"
+										method="post">
+										<div class="modal fade" id="add_coupon" tabindex="-1"
 											aria-labelledby="checkModalLabel" aria-hidden="true">
 											<div
 												class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="checkModalLabel">新增廣告資料</h5>
+														<h5 class="modal-title" id="checkModalLabel">新增優惠碼資料</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<div class="row modal-body delete_box">
+													<div class="row modal-body">
 														<div class="form-group mb-3">
-															<label for="new_advertisement_name" class="form-label">廣告標題
+															<label for="new_coupon_name" class="form-label">優惠碼名稱
 															</label> <input type="text" class="form-control"
-																id="new_advertisement_name" name="advertisement_name"
-																placeholder="請輸入廣告名稱">
-															<span id="verify_new_advertisement_name"></span>
+																id="new_coupon_name" name="coupon_name"
+																placeholder="請輸入優惠碼名稱">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="new_advertisement_content" class="form-label">廣告敘述
+															<label for="new_coupon_content" class="form-label">優惠碼敘述
 															</label> <input type="text" class="form-control"
-																id="new_advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
-															<span id="verify_new_advertisement_content"></span>															
-														</div>
-
-														<div class="form-group col-md-6">
-															<label for="new_advertisement_img" class="form-label">廣告圖片
-															</label> <input type="file" class="form-control-sm"
-																id="new_advertisement_img" name="advertisement_img"
-																accept="image/*"> <img class="image-preview"
-																id="new_advertisement_img_preview" src="" alt=""
-																style="width: 300px;">
-															<span id="verify_new_advertisement_img"></span>															
+																id="new_coupon_content" name="coupon_content"
+																placeholder="請輸入優惠碼敘述">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="new_advertisement_stardate" class="form-label">開始日期
-															</label> <input type="date" class="form-control"
-																id="new_advertisement_stardate"
-																name="advertisement_stardate" placeholder="請輸入開始日期">
-															<span id="verify_new_advertisement_stardate"></span>															
+															<label for="new_coupon_restrict" class="form-label">使用條件
+															</label> <input type="text" class="form-control"
+																id="new_coupon_restrict" name="coupon_restrict"
+																placeholder="請輸入使用條件">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="new_advertisement_enddate" class="form-label">結束日期
+															<label for="new_coupon_amount" class="form-label">折扣金額
+															</label> <input type="text" class="form-control"
+																id="new_coupon_amount" name="coupon_amount"
+																placeholder="請輸入折扣金額">
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="new_coupon_stardate" class="form-label">開始日期
 															</label> <input type="date" class="form-control"
-																id="new_advertisement_enddate" name="advertisement_enddate"
+																id="new_coupon_stardate" name="coupon_stardate"
+																placeholder="選擇開始日期">
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="new_coupon_enddate" class="form-label">結束日期
+															</label> <input type="date" class="form-control"
+																id="new_coupon_enddate" name="coupon_enddate"
 																placeholder="選擇結束日期">
-															<span id="verify_new_advertisement_ednddate"></span>															
 														</div>
 													</div>
 
 													<div class="row modal-footer">
 														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger"
+														<button type="submit" class="col-auto btn btn-primary"
 															id="btn_save">儲存</button>
-															<input type=hidden name="action" value="addAdvertisement">
 														<button type="button" class="col-auto btn btn-secondary"
 															data-bs-dismiss="modal">取消</button>
 														<div class="col"></div>
+														<input type=hidden name="action" value="addCoupon">
 													</div>
 												</div>
 											</div>
 										</div>
 									</form>
 
-
-									<!-- 修改廣告 -->
-									<form action="<%=request.getContextPath()%>/advertisement/advertisement.do" method="post" enctype="multipart/form-data" id="modify_advertisementForm">
-										<div class="modal fade" id="check_advertisement" tabindex="-1"
-											aria-labelledby="checkModalLabel" aria-hidden="true">
+									<!-- 修改優惠碼 -->
+									<form action="<%=request.getContextPath()%>/coupon/coupon.do" method="post">
+										<div class="modal fade" id="check_coupon" tabindex="-1"
+											aria-labelledby="modifyModalLabel" aria-hidden="true">
 											<div
 												class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="checkModalLabel">修改廣告資料</h5>
+														<h5 class="modal-title" id="modifyModalLabel">修改優惠碼資料</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<div class="row modal-body delete_box">
+													<div class="row modal-body">
 														<div class="form-group mb-3">
-															<label for="advertisement_id" class="form-label">廣告編號
+															<label for="coupon_id" class="form-label">優惠碼編號 </label>
+															<input type="text" class="form-control" id="coupon_id"
+																name="coupon_id" placeholder="請輸入優惠碼編號" readonly>
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="coupon_name" class="form-label">優惠碼名稱
+															</label> <input type="text" class="form-control" id="coupon_name"
+																name="coupon_name" placeholder="請輸入優惠碼名稱">
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="coupon_content" class="form-label">優惠碼敘述
 															</label> <input type="text" class="form-control"
-																id="advertisement_id" name="advertisement_id"
-																placeholder="請輸入廣告編號" disabled>
+																id="coupon_content" name="coupon_content"
+																placeholder="請輸入優惠碼敘述">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="advertisement_name" class="form-label">廣告標題
+															<label for="coupon_restrict" class="form-label">使用條件
 															</label> <input type="text" class="form-control"
-																id="advertisement_name" name="advertisement_name"
-																placeholder="請輸入廣告名稱">
-															<span id="verify_advertisement_name"></span>																
+																id="coupon_restrict" name="coupon_restrict"
+																placeholder="請輸入使用條件">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="advertisement_content" class="form-label">廣告敘述
+															<label for="coupon_amount" class="form-label">折扣金額
 															</label> <input type="text" class="form-control"
-																id="advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
-															<span id="verify_advertisement_content"></span>																
-														</div>
-
-														<div class="form-group col-md-6">
-															<label for="advertisement_img" class="form-label">廣告圖片
-															</label> <input type="file" class="form-control-sm"
-																id="advertisement_img" name="advertisement_img"
-																accept="image/*"> <img class="image-preview"
-																id="advertisement_img_preview" src="" alt=""
-																style="width: 300px;">
-															<span id="verify_advertisement_img"></span>																
+																id="coupon_amount" name="coupon_amount"
+																placeholder="請輸入折扣金額">
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="" class="form-label">上架狀態
-															</label><br>
+															<label for="" class="form-label">優惠碼狀態 </label><br>
 															<div class="form-check form-check-inline">
-																<input class="form-check-input" type="radio" name="advertisement_status" id="launched"
-																	value="true">
-																<label class="form-check-label" for="launched">上架</label>
+																<input class="form-check-input" type="radio"
+																	name="coupon_state" id="launched" value="true">
+																<label class="form-check-label" for="launched">啟用</label>
 															</div>
 
 															<div class="form-check form-check-inline">
-																<input class="form-check-input" type="radio" name="advertisement_status" id="unlaunched"
-																	value="false">
-																<label class="form-check-label" for="unlaunched">下架</label>
-															</div>															
-														</div>														
-
-														<div class="form-group mb-3">
-															<label for="advertisement_stardate" class="form-label">開始日期
-															</label> <input type="date" class="form-control"
-																id="advertisement_stardate"
-																name="advertisement_stardate" placeholder="請輸入開始日期">
-															<span id="verify_advertisement_stardate"></span>																	
+																<input class="form-check-input" type="radio"
+																	name="coupon_state" id="unlaunched" value="false">
+																<label class="form-check-label" for="unlaunched">未啟用</label>
+															</div>
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="advertisement_enddate" class="form-label">結束日期
+															<label for="coupon_stardate" class="form-label">開始日期
 															</label> <input type="date" class="form-control"
-																id="advertisement_enddate" name="advertisement_enddate"
+																id="coupon_stardate" name="coupon_stardate"
+																placeholder="選擇開始日期">
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="coupon_enddate" class="form-label">結束日期
+															</label> <input type="date" class="form-control"
+																id="coupon_enddate" name="coupon_enddate"
 																placeholder="選擇結束日期">
-															<span id="verify_advertisement_enddate"></span>																	
 														</div>
 													</div>
 
 													<div class="row modal-footer">
 														<div class="col"></div>
 														<button type="submit" class="col-auto btn btn-danger"
-															id="btn_savechanges">修改</button>
+															id="btn_delete">儲存</button>
 														<button type="button" class="col-auto btn btn-secondary"
 															data-bs-dismiss="modal">取消</button>
 														<div class="col"></div>
-														<input type=hidden name="action" value="updateAdvertisement">														
-														<input type="hidden" name="advertisement_Id" id="advertisement_Id">
-														<input type="hidden" name="advertisement_img_base64" id="advertisement_img_base64">
+                                                        <input type="hidden" name="action" value="updateCoupon">
+														<input type="hidden" name="couponId" id="couponId">
 													</div>
 												</div>
 											</div>
 										</div>
 									</form>
+
+								</div>
+								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
 						</div>
@@ -373,7 +376,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="../dist/js/adminlte.js"></script>
-		<script src="../dist/js/admin_advertisement_management.js"></script>
+		<script src="../dist/js/admin_coupon_management.js"></script>
 </body>
 
 </html>

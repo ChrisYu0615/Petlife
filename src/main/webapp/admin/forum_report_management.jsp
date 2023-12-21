@@ -153,7 +153,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 									<!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
 								</div>
 								<!-- /.card-header -->
-								<div class="card-body">
+								<div class="card-body table">
 									<table id="myTable" class="display">
 										<thead>
 											<tr>
@@ -196,7 +196,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 											</c:forEach>
 										</tbody>
 									</table>
-
+								</div>
+								<!-- /.card-body -->
 
 									<!-- 查看檢舉並回覆(使用ajax撈資料) -->
 									<form
@@ -364,8 +365,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 											</div>
 										</div>
 									</form>
-								</div>
-								<!-- /.card-body -->
+
 							</div>
 							<!-- /.card -->
 						</div>

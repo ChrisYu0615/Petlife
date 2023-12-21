@@ -60,8 +60,8 @@ public class ShelterServlet extends HttpServlet {
 		case "getAll":
 			forwardPath = getAllShelters(req, res);
 			break;
-		case"getOne":
-			getOneShelter(res,req);
+		case "getOne":
+			getOneShelter(res, req);
 			break;
 		case "compositeQuery":
 			forwardPath = getCompositeSheltersQuery(req, res);
@@ -112,6 +112,7 @@ public class ShelterServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
+
 //1215修改 詩涵
 	private String getUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
 		Integer shelterId = 300000002;
@@ -119,15 +120,16 @@ public class ShelterServlet extends HttpServlet {
 		req.setAttribute("shelter", shelter);
 		return "/petjsp/shelter_update.jsp";
 	}
-	//1215新增 詩涵
-		private String update_forward(HttpServletRequest req, HttpServletResponse res) {
-			System.out.println("ShelterServlet: update_forward Entry");
-			Integer shelterId = 300000002;
-			Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-			req.setAttribute("shelter", shelter);
-			System.out.println("ShelterServlet: update_forward End");
-			return "/petjsp/shelter_update_put.jsp";
-			}
+
+	// 1215新增 詩涵
+	private String update_forward(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("ShelterServlet: update_forward Entry");
+		Integer shelterId = 300000002;
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		req.setAttribute("shelter", shelter);
+		System.out.println("ShelterServlet: update_forward End");
+		return "/petjsp/shelter_update_put.jsp";
+	}
 
 //1215新增 詩涵
 	private String update_put(HttpServletRequest req, HttpServletResponse res) {
@@ -139,7 +141,7 @@ public class ShelterServlet extends HttpServlet {
 		String shelterPhoneNum = req.getParameter("shelterPhoneNum").trim();
 		String shelterAddress = req.getParameter("shelterAddress").trim();
 		String shelterIntroduction = req.getParameter("shelterIntroduction").trim();
-		
+
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 		shelter.setShelterId(shelterId);
 		shelter.setShelterName(shelterName);
@@ -148,38 +150,45 @@ public class ShelterServlet extends HttpServlet {
 		shelter.setShelterPhoneNum(shelterPhoneNum);
 		shelter.setShelterAddress(shelterAddress);
 		shelter.setShelterIntroduction(shelterIntroduction);
-		
+
 		shelter = shelterService.updateShelter(shelter);
 		req.setAttribute("shelter", shelter);
 		return "/petjsp/shelter_update.jsp";
-		}
+	}
 
 	private String verifyShelter(HttpServletRequest req, HttpServletResponse res) {
 		Integer ShelterId = Integer.valueOf(req.getParameter("memberId"));
 		String selectValue = req.getParameter("shelterReviewResult");
 		String reason = req.getParameter("reason");
 		Shelter shelter = shelterService.getShelterByShelterId(ShelterId);
+		Thread thread;
 		switch (selectValue) {
 		case "1":
 			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
 			AcctState acctState = acctStateDAO.findByPK(0);
 			shelter.setAcctState(acctState);
-			MailService.verifySuccess(shelter.getShelterAcct());
+			thread = new Thread(() -> {
+				MailService.verifySuccess(shelter.getShelterAcct());
+			});
+			thread.start();
 			shelterService.updateShelter(shelter);
 			break;
 		case "2":
 			shelterService.deleteShelter(ShelterId);
-			MailService.verifyfailed(shelter.getShelterAcct(), reason);
+			thread = new Thread(() -> {
+				MailService.verifyfailed(shelter.getShelterAcct(), reason);
+			});
+			thread.start();
 			break;
 		}
-		
+
 		return "/admin/admin.do?action=getAllMembers&condition=unverified";
 	}
 
 	private void getOneShelter(HttpServletResponse res, HttpServletRequest req) throws IOException {
 		Integer shelterId = Integer.valueOf(req.getParameter("memberId"));
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		
+
 		Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("yyyy-MM-dd")
 				.excludeFieldsWithoutExposeAnnotation().create();
 		String shelterJson = gson.toJson(shelter);
@@ -403,7 +412,10 @@ public class ShelterServlet extends HttpServlet {
 			}
 
 			// 寄信表示註冊成功
-			MailService.registerSuccess(shelterAcct);
+			Thread thread = new Thread(() -> {
+				MailService.registerSuccess(shelterAcct);
+			});
+			thread.start();
 		}
 	}
 

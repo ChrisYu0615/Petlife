@@ -22,6 +22,9 @@ public interface ArticleService {
     // 獲得所有文章
     List<Article> getAllArticle();
     
+    // 根據userId拿到所有文章
+    List<Article> getAllArticle(Integer userId);
+    
     // 根據關鍵字搜尋文章
     List<Article> searchArticlesByKeyword(String keyword);
 
