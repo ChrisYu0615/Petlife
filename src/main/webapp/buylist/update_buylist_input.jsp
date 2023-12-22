@@ -1,10 +1,12 @@
+<%@page import="com.petlife.seller.entity.Seller"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ page import="com.emp.model.*"%> --%>
 
-<% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-   Buylist buylist = (Buylist) request.getAttribute("buylist");
+<%
+Seller seller = (Seller) session.getAttribute("seller");
+Buylist buylist = (Buylist) request.getAttribute("buylist");
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -247,7 +249,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">OOO管理員，你好</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>賣家，你好</a>
 					</div>
 				</div>
 
@@ -270,8 +272,12 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+								<li class="nav-item"><a href="listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+										<p>所有訂單</p>
+								</a></li>
+								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>0:待付款</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState1.jsp"
@@ -302,6 +308,7 @@ th, td {
 								<p>訂單商品細項</p>
 						</a></li>
 						<!-- ========================================================== -->
+
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
@@ -309,40 +316,47 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./index.html"
+								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>出售中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index2.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>已下架</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>缺貨中</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>上架商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllComm.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>所有商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:販售中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>1:缺貨中</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>2:下架</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>3:違規下架</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>預覽賣場</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>預覽賣場</p> -->
+						<!-- 						</a></li> -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-								<i class="nav-icon fas fa-shopping-cart"></i>
-								<p>賣家數據中心</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
+						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
+						<!-- 								<p>賣家數據中心</p> -->
+						<!-- 						</a></li> -->
 						<li class="nav-item"><a href="#" class="nav-link"> <i
 								class="nav-icon fas fa-ad"></i>
 								<p>登出</p>
 						</a></li>
-
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -361,7 +375,7 @@ th, td {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">嘉仁真帥</h1>
+							<h1 class="m-0">修改訂單</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
@@ -386,10 +400,10 @@ th, td {
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>訂單編號資料修改 - update_buylist_input.jsp</h3>
+						<h3>訂單編號資料修改</h3>
 						<h4>
-							<a href="select_page.jsp"><img src="images/back1.gif"
-								width="100" height="32" border="0">回首頁</a>
+							<a href="listAllBuylist.jsp"><img src="images/back1.gif"
+								width="100" height="32" border="0"> 回所有訂單首頁 </a>
 						</h4>
 					</td>
 				</tr>
@@ -437,7 +451,7 @@ th, td {
 					<tr>
 						<td>優惠碼名稱:</td>
 						<td><input name="coupon" id="coupon" type="text"
-							value="<%=buylist.getCoupon()==null? "" :buylist.getCoupon().getCouponId()%>"
+							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>"
 							required></td>
 					</tr>
 					<tr>
@@ -455,7 +469,7 @@ th, td {
 						<td>賣家評價時間:</td>
 						<td><input name="sellerEvaluateTime" id="sellerEvaluateTime"
 							type="text" value="<%=buylist.getSellerEvaluateTime()%>" required>
-						<div>YYYY-MM-DD HH:mm:ss</div></td>
+							<div>YYYY-MM-DD HH:mm:ss</div></td>
 					</tr>
 					<tr>
 						<td>訂單金額:</td>

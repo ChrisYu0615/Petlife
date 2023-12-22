@@ -1,6 +1,7 @@
 package com.petlife.mall.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -9,22 +10,29 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petlife.admin.entity.Coupon;
 import com.petlife.mall.dao.BuylistDAO;
 import com.petlife.mall.dao.impl.BuylistDAOImpl;
 import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.BuylistState;
 import com.petlife.mall.service.BuylistService;
+import com.petlife.mall.service.BuylistStateService;
 import com.petlife.mall.service.impl.BuylistServiceImpl;
+import com.petlife.mall.service.impl.BuylistStateServiceImpl;
 import com.petlife.seller.entity.Seller;
 import com.petlife.user.entity.User;
+import com.petlife.util.MailService;
 
 @WebServlet("/buylist/buylist.do")
+@MultipartConfig
 public class BuylistServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private BuylistService buylistService;
@@ -43,6 +51,7 @@ public class BuylistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		String action = req.getParameter("action");
 		String forwardPath = "";
 
@@ -62,18 +71,95 @@ public class BuylistServlet extends HttpServlet {
 		case "insert":
 			// 來自listAllBuylist.jsp
 			forwardPath = insert(req, res);
+			System.out.println("=================================="+forwardPath+"=================================");
 			break;
 		case "delete":
 			// 來自listAllBuylist.jsp
 			forwardPath = delete(req, res);
 			break; // 新加的break
+		case "getBuyListByMemberId":
+			forwardPath = getBuyListByMemberId(req, res);
+			break;
+		case "getOneBuylistById":
+			getOneBuylistById(req, res);
+			break;
+		case "cancelBuylist":
+			forwardPath = cancelBuylist(req, res);
+			break;
 		default:
-			forwardPath = "/buylist/select_page.jsp"; //2023/12/18
+			forwardPath = "/buylist/listAllBuylist.jsp"; //2023/12/18
+			break;
 		}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
+		System.out.println(forwardPath);
+		if (!forwardPath.isEmpty()) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
+	}
+
+	private void getOneBuylistById(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
+		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+		String buylistJson = gson.toJson(buylist);
+		out.print(buylistJson);
+	}
+
+	private String cancelBuylist(HttpServletRequest req, HttpServletResponse res) {
+		Integer buylistId = Integer.valueOf(req.getParameter("buylistId").trim());
+		Integer memberId = Integer.valueOf(req.getParameter("memberId").trim());
+		String cancelReasonSelect = req.getParameter("cancelReasonResult").trim();
+		String cancelReason;
+		String sellerAcct = req.getParameter("sellerAcct").trim();
+
+		switch (cancelReasonSelect) {
+		case "1":
+			cancelReason = "商品購買錯誤，想要重新選擇。";
+			break;
+		case "2":
+			cancelReason = "已經不需要這些商品了，想要取消整筆訂單。";
+			break;
+		case "3":
+			cancelReason = "有看到其他更便宜的商品，決定換購，想要取消整筆訂單。";
+			break;
+		default:
+			cancelReason = req.getParameter("cancelReason").trim();
+		}
+		
+		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		BuylistStateService buylistStateService = new BuylistStateServiceImpl();
+		BuylistState buylistState = buylistStateService.getBuylistStateByBuylistStateId(4);
+
+		buylist.setBuylistState(buylistState);
+		buylistService.updateBuylist(buylist);
+
+		Thread thread = new Thread(() -> {
+			MailService.cancelBuylist(buylistId, sellerAcct, cancelReason);
+		});
+		thread.start();
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId="+memberId;
+	}
+
+	private String getBuyListByMemberId(HttpServletRequest req, HttpServletResponse res) {
+		String memberId = req.getParameter("memberId");
+		System.out.println("===========================" + memberId + "============================");
+		String forwardPath = "";
+		List<Buylist> buylistList = new ArrayList<>();
+		switch (memberId.charAt(0)) {
+		case '1':
+			buylistList = buylistService.getAllBuylists(memberId);
+			forwardPath = "/member_center/order_management.jsp";
+			break;
+		case '2':
+			buylistList = buylistService.getAllBuylists(memberId);
+			forwardPath = "/buylist/listAllBuylist.jsp";
+			break;
+		}
+		req.setAttribute("getAllBuylist", buylistList);
+		return forwardPath;
 	}
 
 	// 1,查詢
@@ -84,13 +170,14 @@ public class BuylistServlet extends HttpServlet {
 
 ///*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 		String str = req.getParameter("buylistId");
+		// sellerId
 
 		if (str == null || (str.trim()).length() == 0) {
 			errorMsgs.add("請輸入訂單編號");
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 		Integer buylistId = null;
@@ -101,20 +188,23 @@ public class BuylistServlet extends HttpServlet {
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 ///*************************** 2.開始查詢資料 *****************************************/
 //		BuylistService coupoService = new BuylistService();
 		buylistService = new BuylistServiceImpl();
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		// geyBySellerId(Integer sellerId)
+		// List<Buylist> (from Buylist where
+		// sellerId=:sellerId).setParameter("sellerId,sellerId")
 
 		if (buylist == null) {
 			errorMsgs.add("查無資料");
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			return "/buylist/select_page.jsp";// 程式中斷
+			return "/buylist/listAllBuylist.jsp";// 程式中斷
 		}
 
 ///*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
@@ -157,18 +247,18 @@ public class BuylistServlet extends HttpServlet {
 //			sellerEvaluateTime = new java.sql.Timestamp(System.currentTimeMillis());
 //			errorMsgs.add("請輸入買家評價時間!");
 //		}
-		
+
 		BigDecimal buylistAmount;
 		try {
 			// 假設 req 是 HttpServletRequest 物件
 			String buylistAmountStr = req.getParameter("buylistAmount");
-			
+
 			// 將字串轉換為 BigDecimal
 			buylistAmount = new BigDecimal(buylistAmountStr);
-			
+
 			// 設定默認值，保留兩位小數
 			buylistAmount = buylistAmount.setScale(2, RoundingMode.HALF_UP);
-			
+
 			// 在這裡您可以使用 buylistPrice 進行後續的操作
 		} catch (NumberFormatException e) {
 			// 處理轉換失敗的情況，例如記錄錯誤或提供默認值
@@ -176,8 +266,7 @@ public class BuylistServlet extends HttpServlet {
 			// 例如，提供默認值
 			buylistAmount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
-		
-		
+
 		Timestamp buylistDate = java.sql.Timestamp.valueOf(req.getParameter("buylistDate").trim());
 
 //		Timestamp buylistDate;
@@ -187,8 +276,6 @@ public class BuylistServlet extends HttpServlet {
 //			buylistDate = new java.sql.Timestamp(System.currentTimeMillis());
 //			errorMsgs.add("請輸入買家評價時間!");
 //		}
-		
-
 
 //============================================
 
@@ -206,11 +293,11 @@ public class BuylistServlet extends HttpServlet {
 		BuylistState buylistState = new BuylistState();
 		buylistState.setBuylistStateId(buylistStateId);
 		buylist.setBuylistState(buylistState);
-		
+
 		Coupon coupon = new Coupon();
 		coupon.setCouponId(couponId);
 		buylist.setCoupon(coupon);
-		
+
 		buylist.setSellerRatingStars(sellerRatingStars);
 		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);
 		buylist.setSellerEvaluateTime(sellerEvaluateTime);
@@ -251,10 +338,10 @@ public class BuylistServlet extends HttpServlet {
 		Integer couponId = Integer.parseInt(req.getParameter("coupon"));
 		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
 		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
-		//----
+		// ----
 		System.out.println("sellerEvaluateTime String: " + req.getParameter("sellerEvaluateTime"));
 		Timestamp sellerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("sellerEvaluateTime").trim());
-		
+
 //		Timestamp sellerEvaluateTime;
 //		try {
 //			sellerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("sellerEvaluateTime").trim());
@@ -262,18 +349,18 @@ public class BuylistServlet extends HttpServlet {
 //			sellerEvaluateTime = new java.sql.Timestamp(System.currentTimeMillis());
 //			errorMsgs.add("請輸入賣家評價時間!");
 //		}
-		
+
 		BigDecimal buylistAmount;
 		try {
 			// 假設 req 是 HttpServletRequest 物件
 			String buylistAmountStr = req.getParameter("buylistAmount");
-			
+
 			// 將字串轉換為 BigDecimal
 			buylistAmount = new BigDecimal(buylistAmountStr);
-			
+
 			// 設定默認值，保留兩位小數
 			buylistAmount = buylistAmount.setScale(2, RoundingMode.HALF_UP);
-			
+
 			// 在這裡您可以使用 buylistPrice 進行後續的操作
 		} catch (NumberFormatException e) {
 			// 處理轉換失敗的情況，例如記錄錯誤或提供默認值
@@ -308,11 +395,11 @@ public class BuylistServlet extends HttpServlet {
 		BuylistState buylistState = new BuylistState();
 		buylistState.setBuylistStateId(buylistStateId);
 		buylist.setBuylistState(buylistState);
-		
+
 		Coupon coupon = new Coupon();
 		coupon.setCouponId(couponId);
 		buylist.setCoupon(coupon);
-		
+
 		buylist.setSellerRatingStars(sellerRatingStars);
 		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);
 		buylist.setSellerEvaluateTime(sellerEvaluateTime);
@@ -340,7 +427,7 @@ public class BuylistServlet extends HttpServlet {
 //		}
 
 //		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-		return "/buylist/select_page.jsp";
+		return "/buylist/listAllBuylist.jsp";
 	}
 
 	// ===================================================

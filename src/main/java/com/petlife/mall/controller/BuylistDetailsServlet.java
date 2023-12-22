@@ -1,6 +1,7 @@
 package com.petlife.mall.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -9,11 +10,14 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petlife.mall.dao.BuylistDetailsDAO;
 import com.petlife.mall.dao.impl.BuylistDetailsDAOImpl;
 import com.petlife.mall.entity.Buylist;
@@ -22,9 +26,8 @@ import com.petlife.mall.entity.Comm;
 import com.petlife.mall.service.BuylistDetailsService;
 import com.petlife.mall.service.impl.BuylistDetailsServiceImpl;
 
-
-
 @WebServlet("/buylistdetails/buylistdetails.do")
+@MultipartConfig
 public class BuylistDetailsServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private BuylistDetailsService buylistDetailsService;
@@ -41,6 +44,7 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/html; charset=UTF-8");
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -67,13 +71,17 @@ public class BuylistDetailsServlet extends HttpServlet {
 			// 來自listAllBuylistDetails.jsp
 			forwardPath = delete(req, res);
 			break; // 新加的break
+		case "getBuylistDetailsById":
+			getBuylistById(req, res);
+			break;
 		default:
-			forwardPath = "/select_page.jsp"; 
+			forwardPath = "/select_page.jsp";
 		}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
+		if (!forwardPath.isEmpty()) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
 	}
 
 	// 1,查詢
@@ -142,29 +150,29 @@ public class BuylistDetailsServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 
 ///*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-		Integer buylistDetailsId = Integer.parseInt(req.getParameter("buylistDetailsId")); 
-		
-		Integer buylistId =  Integer.parseInt(req.getParameter("buylist"));
-		Integer commId =  Integer.parseInt(req.getParameter("comm"));
+		Integer buylistDetailsId = Integer.parseInt(req.getParameter("buylistDetailsId"));
+
+		Integer buylistId = Integer.parseInt(req.getParameter("buylistId"));
+		Integer commId = Integer.parseInt(req.getParameter("comm"));
 //		Integer comm = Integer.parseInt(req.getParameter("comm"));
-		
+
 		BigDecimal buylistDetailsPrice;
 		try {
-		    // 假設 req 是 HttpServletRequest 物件
-		    String buylistDetailsPriceStr = req.getParameter("buylistDetailsPrice");
-		    
-		    // 將字串轉換為 BigDecimal
-		    buylistDetailsPrice = new BigDecimal(buylistDetailsPriceStr);
-		    
-		    // 設定默認值，保留兩位小數
-		    buylistDetailsPrice = buylistDetailsPrice.setScale(2, RoundingMode.HALF_UP);
-		    
-		    // 在這裡您可以使用 buylistDetailsPrice 進行後續的操作
+			// 假設 req 是 HttpServletRequest 物件
+			String buylistDetailsPriceStr = req.getParameter("buylistDetailsPrice");
+
+			// 將字串轉換為 BigDecimal
+			buylistDetailsPrice = new BigDecimal(buylistDetailsPriceStr);
+
+			// 設定默認值，保留兩位小數
+			buylistDetailsPrice = buylistDetailsPrice.setScale(2, RoundingMode.HALF_UP);
+
+			// 在這裡您可以使用 buylistDetailsPrice 進行後續的操作
 		} catch (NumberFormatException e) {
-		    // 處理轉換失敗的情況，例如記錄錯誤或提供默認值
-		    e.printStackTrace();
-		    // 例如，提供默認值
-		    buylistDetailsPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+			// 處理轉換失敗的情況，例如記錄錯誤或提供默認值
+			e.printStackTrace();
+			// 例如，提供默認值
+			buylistDetailsPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
 
 		Integer buylistDetailsPurchaseAmount = Integer.parseInt(req.getParameter("buylistDetailsPurchaseAmount"));
@@ -179,7 +187,6 @@ public class BuylistDetailsServlet extends HttpServlet {
 		}
 		String returnReasons = req.getParameter("returnReasons");
 
-
 //		String buylistDetailsName = req.getParameter("buylistDetailsName"); // 20231127
 //		System.out.println(req.getParameter("buylistDetailsName"));
 //		String buylistDetailsNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -192,21 +199,21 @@ public class BuylistDetailsServlet extends HttpServlet {
 //============================================
 
 		BuylistDetails buylistDetails = new BuylistDetails();
-		buylistDetails.setBuylistDetailsId(buylistDetailsId);		
-		
+		buylistDetails.setBuylistDetailsId(buylistDetailsId);
+
 //		buylistDetails.setBuylist(buylist);
 		Buylist buylist = new Buylist();
 		buylist.setBuylistId(buylistId);
 		buylistDetails.setBuylist(buylist);
-		
+
 		Comm comm = new Comm();
 		comm.setCommId(commId);
 		buylistDetails.setComm(comm);
-			
+
 		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
 		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
 		buylistDetails.setMemberRatingStars(memberRatingStars);
-		
+
 		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
 		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
 		buylistDetails.setReturnReasons(returnReasons);
@@ -245,33 +252,32 @@ public class BuylistDetailsServlet extends HttpServlet {
 //		} else if (!buylistDetailsName.trim().matches(buylistDetailsNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 //			errorMsgs.add("名稱: 長度必需大於2個字");
 //		}
-		Integer buylistId =  Integer.parseInt(req.getParameter("buylist"));
-		Integer commId =  Integer.parseInt(req.getParameter("comm"));
+		Integer buylistId = Integer.parseInt(req.getParameter("buylist"));
+		Integer commId = Integer.parseInt(req.getParameter("comm"));
 
-		
 		BigDecimal buylistDetailsPrice;
 		try {
-		    // 假設 req 是 HttpServletRequest 物件
-		    String buylistDetailsPriceStr = req.getParameter("buylistDetailsPrice");
-		    
-		    // 將字串轉換為 BigDecimal
-		    buylistDetailsPrice = new BigDecimal(buylistDetailsPriceStr);
-		    
-		    // 設定默認值，保留兩位小數
-		    buylistDetailsPrice = buylistDetailsPrice.setScale(2, RoundingMode.HALF_UP);
-		    
-		    // 在這裡您可以使用 buylistDetailsPrice 進行後續的操作
+			// 假設 req 是 HttpServletRequest 物件
+			String buylistDetailsPriceStr = req.getParameter("buylistDetailsPrice");
+
+			// 將字串轉換為 BigDecimal
+			buylistDetailsPrice = new BigDecimal(buylistDetailsPriceStr);
+
+			// 設定默認值，保留兩位小數
+			buylistDetailsPrice = buylistDetailsPrice.setScale(2, RoundingMode.HALF_UP);
+
+			// 在這裡您可以使用 buylistDetailsPrice 進行後續的操作
 		} catch (NumberFormatException e) {
-		    // 處理轉換失敗的情況，例如記錄錯誤或提供默認值
-		    e.printStackTrace();
-		    // 例如，提供默認值
-		    buylistDetailsPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+			// 處理轉換失敗的情況，例如記錄錯誤或提供默認值
+			e.printStackTrace();
+			// 例如，提供默認值
+			buylistDetailsPrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
 
 		Integer buylistDetailsPurchaseAmount = Integer.parseInt(req.getParameter("buylistDetailsPurchaseAmount"));
 		Double memberRatingStars = Double.parseDouble(req.getParameter("memberRatingStars"));
 		String buyerEvaluateNarrative = req.getParameter("buyerEvaluateNarrative");
-		
+
 		Timestamp buyerEvaluateTime;
 		try {
 			buyerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("buyerEvaluateTime").trim());
@@ -281,41 +287,39 @@ public class BuylistDetailsServlet extends HttpServlet {
 		}
 		String returnReasons = req.getParameter("returnReasons");
 
-		//============================================
+		// ============================================
 
-				BuylistDetails buylistDetails = new BuylistDetails();
-	
-				
+		BuylistDetails buylistDetails = new BuylistDetails();
+
 //				buylistDetails.setBuylist(buylistId);
-				Buylist buylist = new Buylist();
-				buylist.setBuylistId(buylistId);
-				buylistDetails.setBuylist(buylist);
+		Buylist buylist = new Buylist();
+		buylist.setBuylistId(buylistId);
+		buylistDetails.setBuylist(buylist);
 //				
-				Comm comm = new Comm();
-				comm.setCommId(commId);
-				buylistDetails.setComm(comm);
-				
+		Comm comm = new Comm();
+		comm.setCommId(commId);
+		buylistDetails.setComm(comm);
 
-				buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
-				buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
-				buylistDetails.setMemberRatingStars(memberRatingStars);
-				
-				buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
-				buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
-				buylistDetails.setReturnReasons(returnReasons);
+		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
+		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
+		buylistDetails.setMemberRatingStars(memberRatingStars);
 
-		//==========================================		
+		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
+		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
+		buylistDetails.setReturnReasons(returnReasons);
+
+		// ==========================================
 
 //		/*************************** 2.開始新增資料 ***************************************/
-		
+
 		try {
 			System.out.println("1");
 			buylistDetailsService.addBuylistDetails(buylistDetails);
-			}catch (Exception e) {
-				System.out.println("2");
-				e.getMessage();
-			};
-
+		} catch (Exception e) {
+			System.out.println("2");
+			e.getMessage();
+		}
+		;
 
 //		if (buylistDetails.getBuylistDetailsId() != null && buylistDetails.getBuylistDetailsId() > 0) {
 //			System.out.println("新增成功2");
@@ -347,6 +351,18 @@ public class BuylistDetailsServlet extends HttpServlet {
 //          String url = "/buylistDetails/listAllBuylistDetails.jsp";
 //          RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 //          successView.forward(req, res);
+	}
+
+	private void getBuylistById(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+
+		Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
+		List<BuylistDetails> buylistDetailsList = buylistDetailsService.getAllBuylistDetailss(buylistId);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+		String buylistJson = gson.toJson(buylistDetailsList);
+		out.print(buylistJson);
 	}
 
 }

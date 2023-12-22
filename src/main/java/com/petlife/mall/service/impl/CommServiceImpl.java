@@ -44,5 +44,11 @@ public class CommServiceImpl implements CommService{
 		// TODO Auto-generated method stub
 		return dao.getAll();
 	}
+
+	@Override
+	public List<Comm> getCommsByState(Integer commState) {
+		// TODO Auto-generated method stub
+		return dao.getCommsByState(commState);
+	}
 	
 }

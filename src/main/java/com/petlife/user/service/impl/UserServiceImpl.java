@@ -100,7 +100,10 @@ public class UserServiceImpl implements UserServeice {
 			user.setUserPwdErrTimes(0);
 			dao.update(user);
 			// 寄信表示變更成功
-			MailService.getNewPassword(userAcct, newPassword);
+			Thread thread = new Thread(() -> {
+				MailService.getNewPassword(userAcct, newPassword);
+			});
+			thread.start();
 			return "密碼變更成功!!請至您的信箱查看";
 		}
 		return "帳號處於停權或未審核狀態，請和管理員聯繫!!";

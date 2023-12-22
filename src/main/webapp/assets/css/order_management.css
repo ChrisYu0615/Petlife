@@ -57,12 +57,13 @@ div#delete_content {
     text-align: center;
     font-size: 32px;
     font-weight: bolder;
-    padding-top: 60px;
-    color: red;
+    color: black;
+    margin: 0 10px;
 }
 
-h5#deleteModalLabel,
-h5#editModalLabel {
+h5#rateModalLabel,
+h5#cancelModalLabel,
+h5#checkModalLabel {
     font-size: 24px;
     font-weight: bolder;
 }
@@ -81,12 +82,6 @@ div.row.modal-footer {
 
 div.form-group label {
     font-size: 18px;
-}
-
-div.form-group input,
-div.form-group select {
-    width: 300px;
-    height: 50px;
 }
 
 button#btn_delete,
@@ -143,7 +138,40 @@ h3#sidebar_title {
     font-size: 20px;
 }
 
-div#sidebar_wrapper{
+div#sidebar_wrapper {
     margin-left: 50px;
     width: 341.28px;
+}
+
+div.star_block {
+    display: inline-block;
+    position: relative;
+}
+
+div.star_block>span.star {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+div.star_block>span.star.-on {
+    color: yellow;
+}
+
+table.buylistdetailList{
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+    border-radius: 10%;
+}
+
+tbody.order_items td,thead.order_header th{
+    text-align: center;
+}
+
+div#cancel_reason,div#cancelReasonTextarea{
+    margin: 0;
+}
+
+div#main_content {
+    font-size: 14px !important;
 }

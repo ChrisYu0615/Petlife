@@ -109,7 +109,7 @@ public class Pet {
 	@ManyToOne
 	@JoinColumn(name = "shelter_id", referencedColumnName = "shelter_id",updatable = false, insertable = false)
 	@Expose
-	private Shelter Sheltername;
+	private Shelter shelter;
 
 
 	@OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
@@ -166,12 +166,16 @@ public class Pet {
 		this.adoptDate = adoptDate;
 	}
 
-	public Shelter getSheltername() {
-		return Sheltername;
+	
+	
+
+
+	public Shelter getShelter() {
+		return shelter;
 	}
 
-	public void setSheltername(Shelter sheltername) {
-		Sheltername = sheltername;
+	public void setShelter(Shelter shelter) {
+		this.shelter = shelter;
 	}
 
 	public PetVariety getVariety() {

@@ -1,6 +1,5 @@
 package com.petlife.pet.dao.impl;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +8,8 @@ import java.util.Map;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -16,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.petlife.pet.entity.Pet;
+import com.petlife.shelter.entity.Shelter;
 import com.petlife.util.HibernateUtil;
 import com.petlife.util.Idao;
 
@@ -95,23 +97,23 @@ public class PetDAOImpl implements Idao<Pet> {
 			}
 			CriteriaBuilder builder = getSession().getCriteriaBuilder();
 			CriteriaQuery<Pet> criteria = builder.createQuery(Pet.class);
-			Root<Pet> root = criteria.from(Pet.class);
+			Root<Pet> root = criteria.from(Pet.class);			
 
 			List<Predicate> predicates = new ArrayList<>();
 	
 			for (Map.Entry<String, String> row : map.entrySet()) {
 				System.out.println("PetDAOImpl: " + row.getKey()+ " : " + row.getValue());
 				// 種類
-				if ("type".equals(row.getKey())) {
-					predicates.add(builder.equal(root.get("type"), row.getValue()));
-				}
+                if ("type".equals(row.getKey())) {
+                     predicates.add(builder.equal(root.get("variety").get("type"), row.getValue()));
+                }
 				// 性別
 				if ("petGender".equals(row.getKey())) {
 					predicates.add(builder.equal(root.get("petGender"), row.getValue()));
 				}
 				// 品種
 				if ("petVarietyId".equals(row.getKey())) {
-					predicates.add(builder.equal(root.get("petVariety"), row.getValue()));
+					predicates.add(builder.equal(root.get("variety").get("id"), row.getValue()));
 				}
 				// 收容編號
 				if ("petNum".equals(row.getKey())) {
@@ -135,8 +137,14 @@ public class PetDAOImpl implements Idao<Pet> {
 				if ("adopt_date_end".equals(row.getKey())) {
 					predicates.add(builder.lessThanOrEqualTo(root.get("adoptDate"), Date.valueOf(row.getValue())));
 				}
-					
-
+				if("pet_variety".equals(row.getKey())) {
+					predicates.add(builder.equal(root.get("petVariety"), row.getValue()));
+				}
+				if("shelter_name".equals(row.getKey())) {
+					System.out.println("get shelter");
+					 predicates.add(builder.equal(root.get("shelter").get("shelterName"), row.getValue()));
+				}
+				
 			}
 			criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 			criteria.orderBy(builder.asc(root.get("id")));

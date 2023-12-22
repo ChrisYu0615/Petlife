@@ -246,57 +246,13 @@ $(function () {
         });
     });
 
-    // 前端驗證區塊(回覆)
-    var insertFlag = true;
-    $("#add_advertisementForm").submit(function (event) {
-        insertFlag = true;
-        let adTitle = $.trim($("#new_advertisement_name").val());
-        let adContent = $.trim($("#new_advertisement_content").val());
-        let adImg = $.trim($("#new_advertisement_img").val());
-        let adStartDate = $.trim($("#new_advertisement_stardate").val());
-        let adEndDate = $.trim($("#new_advertisement_enddate").val());
-
-        if (adTitle.val() == '' || adTitle != null) {
-            insertFlag = false;
-            $("#verify_new_advertisement_name").html(`<font color="red">請輸入廣告標題!!</font>`);
-        } else {
-            $("#verify_new_advertisement_name").html("");
-        }
-
-        if (adContent.val() == '' || adContent != null) {
-            insertFlag = false;
-            $("#verify_new_advertisement_content").html(`<font color="red">請輸入廣告內容!!</font>`);
-        } else {
-            $("#verify_new_advertisement_content").html("");
-        }
-
-        if (adImg.val() == '' || adImg != null) {
-            insertFlag = false;
-            $("#verify_new_advertisement_img").html(`<font color="red">請上傳廣告圖片!!</font>`);
-        }
-
-        if (adStartDate.val() == '' || adStartDate != null) {
-            insertFlag = false;
-            $("#verify_new_advertisement_stardate").html(`<font color="red">請選擇上架日期!!</font>`);
-        }
-
-        if (adEndDate.val() == '' || adEndDate != null) {
-            insertFlag = false;
-            $("#verify_new_advertisement_ednddate").html(`<font color="red">請選擇下架日期!!</font>`);
-        }
-
-        if (insertFlag == false) {
-            event.preventDefault();
-            $("html, body").scrollTop(0);
-        }
-    });
-
     // 回覆(使用ajax)
     $(".btn_reply").on("click", function () {
         let reportForumId = $(this).val();
         console.log(reportForumId);
         $("input[name='reportId']").val(reportForumId);
-
+        $("#verify_adminReply").html("");
+        
         let formData = new FormData();
         let url = "/Petlife/reportForum/reportForum.do?action=getOne";
         formData.append("reportForumId", reportForumId);
@@ -358,6 +314,7 @@ $(function () {
         });
     });
 
+    // 前端驗證區塊(回覆)
     $("#replyReportData_form").submit(function (event) {
         let replyFlag = true;
         let replyContent = $.trim($("#unreply_adminReply").val());

@@ -283,33 +283,48 @@ $(function () {
         let adStartDate = $.trim($("#new_advertisement_stardate").val());
         let adEndDate = $.trim($("#new_advertisement_enddate").val());
 
-        if (adTitle.val() == '' || adTitle != null) {
+        console.log(adTitle);
+        console.log(adContent);
+        console.log(adImg);
+        console.log(adStartDate);
+        console.log(adEndDate);
+
+        if (adTitle == null || adTitle == '') {
             insertFlag = false;
-            $("#verify_new_advertisement_name").html(`<font color="red">請輸入廣告標題!!</font>`);
+            $("#verify_new_advertisement_name").html(`<font color="red"><b>請輸入廣告標題!!</font>`);
         } else {
             $("#verify_new_advertisement_name").html("");
         }
 
-        if (adContent.val() == '' || adContent != null) {
+        if (adContent == null || adContent == '') {
             insertFlag = false;
-            $("#verify_new_advertisement_content").html(`<font color="red">請輸入廣告內容!!</font>`);
+            $("#verify_new_advertisement_content").html(`<font color="red"><b>請輸入廣告內容!!</font>`);
         } else {
             $("#verify_new_advertisement_content").html("");
         }
 
-        if (adImg.val() == '' || adImg != null) {
+        if (adImg == null || adImg == '') {
             insertFlag = false;
-            $("#verify_new_advertisement_img").html(`<font color="red">請上傳廣告圖片!!</font>`);
+            $("#verify_new_advertisement_img").html(`<font color="red"><b>請上傳廣告圖片!!</font>`);
         }
 
-        if (adStartDate.val() == '' || adStartDate != null) {
+        if (adStartDate == null || adStartDate == '') {
             insertFlag = false;
-            $("#verify_new_advertisement_stardate").html(`<font color="red">請選擇上架日期!!</font>`);
+            $("#verify_new_advertisement_stardate").html(`<font color="red"><b>請選擇上架日期!!</font>`);
+        } else {
+            $("#verify_new_advertisement_stardate").html("");
         }
 
-        if (adEndDate.val() == '' || adEndDate != null) {
+        if (adEndDate == null || adEndDate == '') {
             insertFlag = false;
-            $("#verify_new_advertisement_ednddate").html(`<font color="red">請選擇下架日期!!</font>`);
+            $("#verify_new_advertisement_ednddate").html(`<font color="red"><b>請選擇下架日期!!</font>`);
+        } else {
+            $("#verify_new_advertisement_ednddate").html("");
+        }
+
+        if (adStartDate > adEndDate) {
+            insertFlag = false;
+            $("#verify_new_advertisement_stardate").html(`<font color="red"><b>開始日不能大於結束日!!</font>`);
         }
 
         if (insertFlag == false) {
@@ -328,34 +343,38 @@ $(function () {
         let adImg = $.trim($("#advertisement_img"));
         let adStartDate = $.trim($("#advertisement_stardate").val());
         let adEndDate = $.trim($("#advertisement_enddate").val());
-        let adImgBase64 = $("#advertisement_img_preview").attr('src').split(',')[1];
 
-        if (adTitle.val() == '' || adTitle == null) {
+        if (adTitle == null || adTitle == '') {
             modifyFlag = false;
-            $("#verify_advertisement_name").html(`<font color="red">請輸入廣告標題!!</font>`);
+            $("#verify_advertisement_name").html(`<font color="red"><b>請輸入廣告標題!!</font>`);
         } else {
             $("#verify_advertisement_name").html("");
         }
 
-        if (adContent.val() == '' || adContent == null) {
+        if (adContent == null || adContent == '') {
             modifyFlag = false;
-            $("#verify_advertisement_content").html(`<font color="red">請輸入廣告內容!!</font>`);
+            $("#verify_advertisement_content").html(`<font color="red"><b>請輸入廣告內容!!</font>`);
         } else {
             $("#verify_advertisement_content").html("");
         }
 
-        if (adImg.val() == '' || adImg == null) {
-            $("#advertisement_img_base64").val(adImgBase64);
+        if (adStartDate == null || adStartDate == '') {
+            modifyFlag = false;
+            $("#verify_advertisement_stardate").html(`<font color="red"><b>請選擇上架日期!!</font>`);
+        } else {
+            $("#verify_advertisement_stardate").html("");
         }
 
-        if (adStartDate.val() == '' || adStartDate == null) {
+        if (adEndDate == null || adEndDate == '') {
             modifyFlag = false;
-            $("#verify_advertisement_stardate").html(`<font color="red">請選擇上架日期!!</font>`);
+            $("#verify_advertisement_ednddate").html(`<font color="red"><b>請選擇下架日期!!</font>`);
+        } else {
+            $("#verify_advertisement_ednddate").html("");
         }
 
-        if (adEndDate.val() == '' || adEndDate == null) {
+        if (adStartDate > adEndDate) {
             modifyFlag = false;
-            $("#verify_advertisement_ednddate").html(`<font color="red">請選擇下架日期!!</font>`);
+            $("#verify_advertisement_stardate").html(`<font color="red"><b>開始日不能大於結束日!!</font>`);
         }
 
         if (modifyFlag == false) {
@@ -366,11 +385,14 @@ $(function () {
 
 
     // 修改(使用ajax)
-    var modifyFlag = true;
     $(".btn_check").on("click", function () {
         let advertisementId = $(this).val();
         console.log(advertisementId);
         $("#advertisement_Id").val(advertisementId);
+        $("#verify_advertisement_name").html("");
+        $("#verify_advertisement_content").html("");
+        $("#verify_advertisement_stardate").html("");
+        $("#verify_advertisement_ednddate").html("");
 
         let formData = new FormData();
         let url = "/Petlife/advertisement/advertisement.do?action=getOne&advertisementId=" + advertisementId;
@@ -404,7 +426,6 @@ $(function () {
                 $("#advertisement_enddate").val(data.ad.endDate);
             }
         });
-
     });
 })
 

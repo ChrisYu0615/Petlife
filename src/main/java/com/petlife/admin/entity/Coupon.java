@@ -1,5 +1,6 @@
 package com.petlife.admin.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -23,10 +24,12 @@ public class Coupon {
 	private String couponContent;
 	@Column(name = "conditions_of_use")
 	private Integer conditionsOfUse;
+	@Column(name = "coupon_state")
+	private Boolean couponState;
 	@Column(name = "start_date")
-	private Timestamp startDate;
+	private Date startDate;
 	@Column(name = "end_date")
-	private Timestamp endDate;
+	private Date endDate;
 	@Column(name = "discount_amount")
 	private Integer discountAmount;
 
@@ -35,10 +38,9 @@ public class Coupon {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Coupon(Integer couponId, String couponName, String couponContent, Integer conditionsOfUse,
-			Timestamp startDate, Timestamp endDate, Integer discountAmount) {
+	public Coupon(String couponName, String couponContent, Integer conditionsOfUse, Date startDate, Date endDate,
+			Integer discountAmount) {
 		super();
-		this.couponId = couponId;
 		this.couponName = couponName;
 		this.couponContent = couponContent;
 		this.conditionsOfUse = conditionsOfUse;
@@ -79,19 +81,20 @@ public class Coupon {
 		this.conditionsOfUse = conditionsOfUse;
 	}
 
-	public Timestamp getStartDate() {
+
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public Timestamp getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -101,6 +104,14 @@ public class Coupon {
 
 	public void setDiscountAmount(Integer discountAmount) {
 		this.discountAmount = discountAmount;
+	}
+
+	public Boolean getCouponState() {
+		return couponState;
+	}
+
+	public void setCouponState(Boolean couponState) {
+		this.couponState = couponState;
 	}
 
 	@Override

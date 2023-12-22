@@ -21,7 +21,7 @@ public class ArticleImg {
     private Integer articleImgId;
 
     @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false, insertable = false)
+    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false)
     @Expose
     private Article article;
 

@@ -61,13 +61,24 @@ div#delete_content {
 }
 
 h5#deleteModalLabel,
-h5#editModalLabel {
+h5#uploadModalLabel,
+h5#removeModalLabel {
     font-size: 24px;
     font-weight: bolder;
 }
 
 div.delete_box {
     height: 200px;
+}
+
+div#modify_content {
+    border: 1px black solid;
+    background-color: #FEFAE0;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+    padding-top: 60px;
+    color: red;
 }
 
 div.modal-header {
@@ -109,7 +120,7 @@ div.order_item {
 }
 
 .btn-secondary {
-    font-weight: bold ;
+    font-weight: bold;
     border: 0;
 }
 
@@ -120,29 +131,33 @@ div.order_item {
     border: 0;
 }
 
-button#likes{
+button#likes {
     font-size: 16px !important;
     font-weight: 400 !important;
 }
 
-section#our_shop_main{
+section#our_shop_main {
     padding: 50px 0;
 }
 
-div#main_content{
+div#main_content {
     padding: 20px;
 }
 
-h3#mamber_center_title{
+h3#mamber_center_title {
     font-size: 20px;
     background-color: #FFD966 !important;
 }
 
-h3#sidebar_title{
+h3#sidebar_title {
     font-size: 20px;
 }
 
-div#sidebar_wrapper{
+div#sidebar_wrapper {
     margin-left: 50px;
     width: 341.28px;
+}
+
+div#main_content {
+    font-size: 14px !important;
 }

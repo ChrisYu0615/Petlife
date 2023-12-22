@@ -52,7 +52,6 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<!-- <a href="test.html" class="nav-link"></a> -->
 				</li>
 			</ul>
 		</nav>
@@ -61,7 +60,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
 				<span class="brand-text font-weight-light">PetLife後臺管理</span>
@@ -84,24 +83,22 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a
-							href="<%=request.getContextPath()%>/user/user.do?action=getAll"
-							class="nav-link"> <i class="fas fa-solid fa-users"></i>
+
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-newspaper"></i>
+
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+							class="nav-link">
+								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-store"></i>
-								<p>商品管理</p>
-						</a></li>
-
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
@@ -111,7 +108,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
 								class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
@@ -128,12 +125,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>優惠碼管理</h1>
+							<h1>廣告管理</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">優惠碼管理</li>
+								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
+								<li class="breadcrumb-item active">廣告管理</li>
 							</ol>
 						</div>
 					</div>
@@ -153,14 +150,13 @@ Admin admin = (Admin) session.getAttribute("admin");
 										data-bs-target="#add_advertisement">新增廣告</button>
 								</div>
 								<!-- /.card-header -->
-								<div class="card-body">
+								<div class="card-body table">
 									<table id="myTable" class="display">
 										<thead>
 											<tr>
 												<th>廣告編號</th>
 												<th>廣告標題</th>
 												<th>廣告敘述</th>
-<!-- 												<th>廣告圖片</th> -->
 												<th>上架狀態</th>
 												<th>開始日期</th>
 												<th>結束日期</th>
@@ -173,7 +169,6 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<td>${ad.advertisementId}</td>
 													<td>${ad.advertisementTitle}</td>
 													<td>${ad.advertisementContent}</td>
-<%-- 													<td>${ad.advertisementImg}</td> --%>
 													<td>${ad.adStatus == true ? "上架中" : "已下架"}</td>
 													<td><fmt:formatDate value="${ad.startDate}"
 															pattern="yyyy-MM-dd" /></td>
@@ -186,7 +181,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 											</c:forEach>
 										</tbody>
 									</table>
-
+								</div>
+								<!-- /.card-body -->
 
 									<!-- 新增廣告 -->
 									<form action="<%=request.getContextPath()%>/advertisement/advertisement.do" method="post" enctype="multipart/form-data" id="add_advertisementForm">
@@ -349,9 +345,6 @@ Admin admin = (Admin) session.getAttribute("admin");
 											</div>
 										</div>
 									</form>
-
-								</div>
-								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
 						</div>
