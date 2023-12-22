@@ -72,8 +72,8 @@
                         
     
                             <!-- <div class="button col"> -->
-                                <button type="button" class="btn btn-secondary">清除</button>
-                                <button type="button" class="btn btn-primary">搜尋</button>
+<!--                                 <button type="button" class="btn btn-secondary">清除</button> -->
+<!--                                 <button type="button" class="btn btn-primary">搜尋</button> -->
     
                             <!-- </div> -->
                         </div>

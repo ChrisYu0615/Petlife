@@ -113,7 +113,7 @@ public class PetDAOImpl implements Idao<Pet> {
 				}
 				// 品種
 				if ("petVarietyId".equals(row.getKey())) {
-					predicates.add(builder.equal(root.get("petVariety"), row.getValue()));
+					predicates.add(builder.equal(root.get("variety").get("id"), row.getValue()));
 				}
 				// 收容編號
 				if ("petNum".equals(row.getKey())) {

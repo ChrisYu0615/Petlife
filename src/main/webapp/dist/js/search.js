@@ -26,28 +26,6 @@ $(document).on("click", "input.pet_type", function() {
 })
 
 
-//$(document).on("click", "#search_btn", function() {
-//
-//	var dataURL = '../project/pet.do?action=getAllPet';
-//	$.ajax({
-//		url: dataURL,
-//		method: "post",
-//		dataType: "html",
-//		async: false,
-//		success: res => {
-//		var result = document.getElementById("result");
-//		result.innerHTML = res;
-//		$('#myTable').bootstrapTable({});
-//		}, error: function(jqXHR, textStatus, errorThrown) {
-//			try {
-//				console.log("Error code:", jqXHR.status);
-//				console.log("Error message:", jqXHR.responseText);
-//			} catch (e) {
-//				console.error("Error parsing JSON response:", e);
-//			}
-//		},
-//	});
-//});
 
 $(document).on("click", "#search_btn", function() {
 	var dataURL = '../project/pet.do?action=getCompositePetsQuery';
@@ -56,20 +34,25 @@ $(document).on("click", "#search_btn", function() {
 	if (petGender.length != 0) {
 		dataURL = dataURL + `&petGender=${petGender.val()}`;
 	}
+	var type=$("input[name='type']:checked");
+	if(type.length!=0){
+			dataURL = dataURL + `&type=${type.val()}`;
+	}
+	
 	var petVariety = $("#petVarietyId").val();
-	if (petVariety != "請先選擇種類") {
+	if (petVariety != "請先選擇種類"&& petVariety!="請選擇品種") {
 		dataURL = dataURL + `&petVarietyId=${petVariety}`;
 	}
-	else if (petVariety === "請選擇品種") {
-		var select = $('#petVarietyId');
-		var allOptions = select.find('option');
-
-		// 在控制台中輸出所有選項的值和文本
-		allOptions.each(function(index, option) {
-			console.log('Value: ' + $(option).val() + ', Text: ' + $(option).text());
-			dataURL = dataURL + `&petVarietyId=${$(option).val()}`;
-		});
-	}
+//	else if (petVariety === "請選擇品種") {
+//		var select = $('#petVarietyId');
+//		var allOptions = select.find('option');
+//
+//		// 在控制台中輸出所有選項的值和文本
+//		allOptions.each(function(index, option) {
+//			console.log('Value: ' + $(option).val() + ', Text: ' + $(option).text());
+//			dataURL = dataURL + `&petVarietyId=${$(option).val()}`;
+//		});
+//	}
 	var petNum = $("input[name='petNum']").val();
 	if (petNum != "") {
 		dataURL = dataURL + `&petNum=${petNum}`;
