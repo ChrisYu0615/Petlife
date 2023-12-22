@@ -2,6 +2,8 @@
 
 <%@ page import="java.math.BigDecimal" %>
 
+<%@page import="com.petlife.user.entity.User"%>
+
 <%@page import="com.petlife.mall.entity.Comm"%>
 <%@page import="com.petlife.mall.entity.Cart"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
@@ -17,12 +19,17 @@
 
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<!-- 執行常見web任務(e.g. for迴圈), 前綴詞=c -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 處理文本,日期等等, 前綴詞=fmt -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 
 <%
+User user = (User) session.getAttribute("user");
 CartService cartSvc = new CartServiceImpl();
-List<Cart> list = cartSvc.getAll();
+
+List<Cart> list = cartSvc.getCartsByUser(user);
 pageContext.setAttribute("list", list);
 %>
 
@@ -35,12 +42,10 @@ pageContext.setAttribute("list", list);
 	
 	<title>寵愛生活的購物車</title>
 	<style>
-.product_count_form_two {
-	padding-top: 0px !important;
-}
-
-
-</style>
+	.product_count_form_two {
+		padding-top: 0px !important;
+	}
+	</style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -195,7 +200,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             </div>
                         </div>
                         <div class="cart_proce_btn">
-                            <a href="checkout.html" class="btn btn_theme btn_md">Proceed to checkout</a>
+                            <a href="checkout.html" class="btn btn_theme btn_md">為你家的寵物快樂下單</a>
                         </div>
                     </div>
                 </div>

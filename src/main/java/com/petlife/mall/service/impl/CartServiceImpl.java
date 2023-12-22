@@ -5,6 +5,7 @@ import java.util.List;
 import com.petlife.mall.dao.impl.CartDAOImpl;
 import com.petlife.mall.entity.Cart;
 import com.petlife.mall.service.CartService;
+import com.petlife.user.entity.User;
 
 public class CartServiceImpl implements CartService {
 	private CartDAOImpl dao;
@@ -36,8 +37,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<Cart> getAllByUserId(Integer userId) {
-        return dao.getAllByUserId(userId);
+	 public List<Cart> getCartsByUser(User user) {
+        return dao.getCartsByUser(user);
     }
 
 	@Override

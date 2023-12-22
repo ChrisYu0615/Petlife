@@ -1,5 +1,6 @@
 package com.petlife.mall.dao.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import com.petlife.mall.dao.CartDAO;
 import com.petlife.mall.entity.Cart;
+import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 
 public class CartDAOImpl implements CartDAO {
@@ -57,16 +59,16 @@ public class CartDAOImpl implements CartDAO {
 	}
 	
 	@Override
-	public List<Cart> getAllByUserId(Integer userId) {
+	public List<Cart> getCartsByUser(User user) {
 	    try {
 	        Session session = getSession();
 	        List<Cart> carts = session.createQuery("from Cart where user.userId = :userId", Cart.class)
-	                .setParameter("userId", userId)
+	                .setParameter("userId", user.getUserId())
 	                .getResultList();
 	        return carts; 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return null;
+	        return Collections.emptyList();
 	    }
 	}
 }

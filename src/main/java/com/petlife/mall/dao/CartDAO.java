@@ -3,6 +3,7 @@ package com.petlife.mall.dao;
 import java.util.List;
 
 import com.petlife.mall.entity.Cart;
+import com.petlife.user.entity.User;
 
 public interface CartDAO {
 	//增
@@ -15,5 +16,5 @@ public interface CartDAO {
 	public Cart findByPK(Integer cartId);
 	//查(多個)
 	public List<Cart> getAll();
-	public List<Cart> getAllByUserId(Integer userId);
+	public List<Cart> getCartsByUser(User user);
 }
