@@ -24,15 +24,11 @@ function generateCalendar() {
 			//		data: jsonString,
 			async: false,
 			success: res => {
-				if(res!=""){
-				$("#calendar").empty();	
-				$("#calendar2").empty();	
-				$("#calendar3").empty();	
-				
+				$("#put").empty();
 				$(".row").empty();
+				if(res!=""){		
 					var put=document.getElementById("put");
 					put.innerHTML = res;
-				}else if(res ===""){
 					Automatic_generated();
 				}
 				
@@ -90,17 +86,13 @@ function next_two_weeks_generateCalendar() {
 			//		data: jsonString,
 			async: false,
 			success: res => {
+				$("#put").empty();
+				$(".row").empty();
 				if(res!=""){
-					$(".row").empty();
 					var put=document.getElementById("put");
 					put.innerHTML = res;
-				}else if(res ===""){
-					$("#button").empty();
-					$("#myTable").empty();
-				
 					Automatic_next_two_weeks();
 				}
-				
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				alert("請選擇月份")
@@ -117,6 +109,7 @@ function next_two_weeks_generateCalendar() {
 
 // 自動生成下半月
 function Automatic_next_two_weeks(){
+
 	var getEnter = $("#monthSelector").val();
 	var parts = getEnter.split('-');
 	var year = parts[0];
