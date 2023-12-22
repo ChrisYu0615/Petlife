@@ -92,7 +92,7 @@ public class CartServlet extends HttpServlet{
 			
 	        cart.setUser(user);
 	        cart.setComm(comm);
-	        cart.setPurchasingAmout(purchasingAmount);
+	        cart.setPurchasingAmount(purchasingAmount);
 	        
 	        Integer id = cartDAOImpl.add(cart);
 	        System.out.println("已經新增cart_id: " + id);
