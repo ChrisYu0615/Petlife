@@ -218,10 +218,10 @@ public class BuylistServlet extends HttpServlet {
 	private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
 //		System.out.println(req.getParameter("buylistId"));
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId")); // 20231206
-		System.out.println("+++" + buylistId);
+//		System.out.println("+++" + buylistId);
 
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
-		System.out.println(buylist);
+//		System.out.println(buylist);
 
 		req.setAttribute("buylist", buylist);
 		return "/buylist/update_buylist_input.jsp";
@@ -340,7 +340,7 @@ public class BuylistServlet extends HttpServlet {
 		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
 		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
 		// ----
-		System.out.println("sellerEvaluateTime String: " + req.getParameter("sellerEvaluateTime"));
+//		System.out.println("sellerEvaluateTime String: " + req.getParameter("sellerEvaluateTime"));
 		Timestamp sellerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("sellerEvaluateTime").trim());
 
 //		Timestamp sellerEvaluateTime;
@@ -369,7 +369,7 @@ public class BuylistServlet extends HttpServlet {
 			// 例如，提供默認值
 			buylistAmount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
-		System.out.println("buylistDate String: " + req.getParameter("buylistDate"));
+//		System.out.println("buylistDate String: " + req.getParameter("buylistDate"));
 		Timestamp buylistDate = java.sql.Timestamp.valueOf(req.getParameter("buylistDate").trim());
 //		Timestamp buylistDate = java.sql.Timestamp.valueOf(req.getParameter("buylistDate"));
 //		Timestamp buylistDate;

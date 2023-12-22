@@ -29,4 +29,6 @@ public interface CommDAO {
 	
 	//根據訂單狀態ID查詢
 	List<Comm> getCommsByState(Integer commState);
+
+//	public List<Comm> getCommImg(Integer commId);
 }
