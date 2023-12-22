@@ -76,12 +76,6 @@
 
 
 
-				<div class=" row">
-					<button type="button" class="btn btn-primary update btn-sm"
-						onclick="uploadData()" id="upload">上傳</button>
-					<button type="button" class="btn btn-warning delete btn-sm" id="rowback">取消</button>
-
-				</div>
 
 
 
