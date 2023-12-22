@@ -4,7 +4,7 @@ div.res_one{
     /* border: 1px solid black; */
     position: relative;
     width: 800px;
-    left: 65%;
+    left: 75%;
     margin-top: 30px;
 }
 /* 選擇日期 */
@@ -143,6 +143,8 @@ div.float-left{
 /* 整個表格的邊框 */
 table.table{
     border: 0px;
+     position: relative;
+    left: 55%;
 }
 /* 表格最後一個因底下的按鈕 長度拉長 */
 th:nth-child(6n){
