@@ -9,7 +9,7 @@ public interface CartDAO {
 	//增
 	public Integer add(Cart cart);
 	//刪
-	public Integer delete(Integer cartId);
+	public void delete(Integer cartId);
 	//改
 	public Integer update(Cart cart);
 	//查(單個)

@@ -54,10 +54,16 @@ public class CartServlet extends HttpServlet{
 		String forwardPath = "";
 
 		switch (action) {
+		// 編號1
 		case "add_comm_to_cart":
 			// 來自singleCommDetail.jsp 還沒出現
 			// 來自listAllCommForUser.jsp
 			forwardPath = addCommToCart(req, res);
+			break;
+		// 編號2
+		case "delete_cart_item":
+			// 來自cart.jsp的垃圾桶icon
+			forwardPath = deleteCartItem(req, res);
 			break;
 		default:
 			forwardPath = "/comm/select_page.jsp";
@@ -68,8 +74,9 @@ public class CartServlet extends HttpServlet{
 		dispatcher.forward(req, res);
 	}
 	
-	// 1. 新增comm到cart
+	// 編號1. 新增comm到cart
 	private String addCommToCart(HttpServletRequest req, HttpServletResponse res) {
+
 		// 錯誤處理
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
@@ -104,4 +111,19 @@ public class CartServlet extends HttpServlet{
 			return "/comm/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
 		}
 	}
+	
+	// 編號2
+	private String deleteCartItem(HttpServletRequest req, HttpServletResponse res) {
+        try {
+            int cartId = Integer.parseInt(req.getParameter("cartId"));
+            
+            CartDAOImpl cartDAOImpl = new CartDAOImpl();
+            cartDAOImpl.delete(cartId);
+            
+            return "/comm/cart.jsp";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "/comm/cart.jsp";  // 暫時先回去/comm/cart.jsp
+        }
+    }
 }

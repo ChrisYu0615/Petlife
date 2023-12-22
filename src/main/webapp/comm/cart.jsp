@@ -25,14 +25,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 
-<%
-User user = (User) session.getAttribute("user");
-CartService cartSvc = new CartServiceImpl();
+<!-- ================= -->
+<!-- 以下偵測使用者版本 -->
 
-List<Cart> list = cartSvc.getCartsByUser(user);
-pageContext.setAttribute("list", list);
+<%
+// User user = (User) session.getAttribute("user");
+// CartService cartSvc = new CartServiceImpl();
+
+// List<Cart> list = cartSvc.getCartsByUser(user);
+// pageContext.setAttribute("list", list);
 %>
 
+<!-- 不偵測使用者版本 -->
+<%
+CartService cartSvc = new CartServiceImpl();
+
+List<Cart> list = cartSvc.getAll();
+pageContext.setAttribute("list", list);
+%>
+<!-- ================= -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -154,7 +165,13 @@ pageContext.setAttribute("totalAmount", totalAmount);
 <!--                                         </td> -->
                                         <td>${cart.comm.commOnsalePrice * cart.purchasingAmount}</td>
 										<!-- 之後要做成button來使用delete動作 -->
-                                        <td><i class="fas fa-trash"></i></td>
+                                        <td>${cart.cartId}
+                                        	<form action="<%=request.getContextPath()%>/cart/cart.do" method="post">
+    											<input type="hidden" name="action" value="delete_cart_item">
+    											<input type="hidden" name="cartId" value="${cart.cartId}">
+    											<button type="submit" class="btn btn-danger">刪除</button>
+											</form>
+										</td>
                                     </tr>
                                     </c:forEach>
                                     <%@ include file="page2.file" %>
@@ -214,6 +231,29 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
+	<script>
+// 	$(document).ready(function() {
+//         $('.delete-cart-item').click(function() {
+//             var cartId = $(this).data('cartid'); // 取得 cart ID
+//             $.ajax({
+//                 url: '/path/to/delete/cart', // 替換為後端處理刪除請求的 URL
+//                 type: 'POST',
+//                 data: { cartId: cartId },
+//                 success: function(response) {
+//                     // 刪除成功，更新頁面
+//                     if(response.status == 'success') {
+//                         $('#cart-item-' + cartId).remove(); // 假設每個 cart 項目有一個唯一的 ID
+//                     }
+//                 },
+//                 error: function(xhr, status, error) {
+//                     // 處理錯誤
+//                     console.log('刪除失敗: ', error);
+//                 }
+//             });
+//         });
+//     });
+	</script>
+	
 </body>
 
 </html>
