@@ -17,6 +17,8 @@ public interface ReservationService {
 	
 	List<Reservation> getAll();
 	
+	List<Reservation> getAll(Integer userId);
+	
 	List<Reservation> getResByCompositeQuery(Map<String, String[]> map);
 	
 }

@@ -67,6 +67,12 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return getSession().createQuery("from Article", Article.class).getResultList();
 	}
 
+	@Override
+	public List<Article> getAll(Integer userId) {
+		return getSession().createQuery("from Article where user.userId=:userId", Article.class)
+				.setParameter("userId", userId).getResultList();
+	}
+
 //關鍵字搜尋
 	@Override
 	public List<Article> searchByKeyword(String keyword) {
@@ -88,34 +94,37 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		// 收集查詢限制條件
 		List<Predicate> predicates = new ArrayList<>();
-		
-		if(map.containsKey("article_startdate") && map.containsKey("article_enddate"))
-			predicates.add(builder.between(root.get("updateTime"), Timestamp.valueOf(map.get("article_startdate")), Timestamp.valueOf(map.get("article_enddate"))));
-		
-		for(Map.Entry<String, String> row:map.entrySet()) {
-			if("article_name".equals(row.getKey())) {
-				predicates.add(builder.like(root.get("articleName"), "%"+row.getValue()+"%"));
+
+		if (map.containsKey("article_startdate") && map.containsKey("article_enddate"))
+			predicates.add(builder.between(root.get("updateTime"), Timestamp.valueOf(map.get("article_startdate")),
+					Timestamp.valueOf(map.get("article_enddate"))));
+
+		for (Map.Entry<String, String> row : map.entrySet()) {
+			if ("article_name".equals(row.getKey())) {
+				predicates.add(builder.like(root.get("articleName"), "%" + row.getValue() + "%"));
 			}
-			
-			if("article_category".equals(row.getKey())) {
+
+			if ("article_category".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("forum").get("forumId"), row.getValue()));
 			}
-			
-			if("article_startdate".equals(row.getKey())) {
-				if(!map.containsKey("article_enddate"))
-					predicates.add(builder.greaterThanOrEqualTo(root.get("updateTime"), Timestamp.valueOf(row.getValue())));
+
+			if ("article_startdate".equals(row.getKey())) {
+				if (!map.containsKey("article_enddate"))
+					predicates.add(
+							builder.greaterThanOrEqualTo(root.get("updateTime"), Timestamp.valueOf(row.getValue())));
 			}
-			
-			if("article_enddate".equals(row.getKey())) {
-				if(!map.containsKey("article_startdate"))
-					predicates.add(builder.greaterThanOrEqualTo(root.get("updateTime"), Timestamp.valueOf(row.getValue())));
+
+			if ("article_enddate".equals(row.getKey())) {
+				if (!map.containsKey("article_startdate"))
+					predicates.add(
+							builder.greaterThanOrEqualTo(root.get("updateTime"), Timestamp.valueOf(row.getValue())));
 			}
 		}
-		
+
 		criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 		criteriaQuery.orderBy(builder.asc(root.get("articleId")));
 		TypedQuery<Article> query = getSession().createQuery(criteriaQuery);
-		
+
 		return query.getResultList();
 	}
 
