@@ -105,7 +105,6 @@ public class BuylistServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String buylistJson = gson.toJson(buylist);
-		System.out.println(buylistJson);
 		out.print(buylistJson);
 	}
 

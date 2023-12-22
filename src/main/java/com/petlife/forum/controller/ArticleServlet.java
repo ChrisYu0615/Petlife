@@ -166,9 +166,9 @@ public class ArticleServlet extends HttpServlet {
 	}
 
 	private String modifyArticleState(HttpServletRequest req, HttpServletResponse res) {
-		Integer articleId = Integer.valueOf(req.getParameter("articleId"));
-		Integer userId = Integer.valueOf(req.getParameter("userId"));
-		String value = req.getParameter("value");
+		Integer articleId = Integer.valueOf(req.getParameter("articleId").trim());
+		String userId = req.getParameter("userId");
+		String value = req.getParameter("value").trim();
 		Article article = articleService.getArticleByArticleId(articleId);
 
 		if ("removeArticle".equals(value))
@@ -179,7 +179,7 @@ public class ArticleServlet extends HttpServlet {
 		articleService.updateArticle(article);
 
 		if (userId != null) {
-			return "/art/art.do?action=getAllArticles&userId=" + userId;
+			return "/art/art.do?action=getAllArticles&userId=" + Integer.valueOf(userId.trim());
 		} else {
 			return "/art/art.do?action=getAllArticles";
 		}
