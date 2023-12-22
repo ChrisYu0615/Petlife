@@ -336,7 +336,10 @@ public class UserServlet extends HttpServlet {
 			out.print(redirectPath);
 
 			// 寄信表示註冊成功
-			MailService.memberRegisterSuccess(userAcct);
+			Thread thread = new Thread(() -> {
+				MailService.memberRegisterSuccess(userAcct);
+			});
+			thread.start();
 		}
 	}
 
@@ -371,11 +374,11 @@ public class UserServlet extends HttpServlet {
 		address = country + district + address;
 
 		User user = userServeice.getUserByUserId(userId);
-		
-		if(headshot!=null&&headshot.length>0) {
+
+		if (headshot != null && headshot.length > 0) {
 			user.setHeadshot(headshot);
 		}
-		
+
 		if (userPwd != null && userPwd.length() > 0) {
 			user.setUserPwd(userPwd);
 		}

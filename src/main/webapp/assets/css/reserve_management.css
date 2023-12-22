@@ -61,7 +61,7 @@ div#delete_content {
     color: red;
 }
 
-h5#deleteModalLabel,
+h5#cancelModalLabel,
 h5#editModalLabel {
     font-size: 24px;
     font-weight: bolder;
@@ -150,4 +150,8 @@ h3#sidebar_title {
 div#sidebar_wrapper{
     margin-left: 50px;
     width: 341.28px;
+}
+
+div#main_content {
+    font-size: 14px !important;
 }

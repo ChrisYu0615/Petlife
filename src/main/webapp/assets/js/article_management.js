@@ -1,6 +1,6 @@
 $(function () {
-    $(".headerPage").load("../component/header.html");
-    $(".footerPage").load("../component/footer.html");
+    $(".headerPage").load("../components/header.html");
+    $(".footerPage").load("../components/footer.html");
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
@@ -11,26 +11,7 @@ $(function () {
 
     $(document).ready(function () {
         $('#myTable').DataTable({
-            "ajax": {
-                "url": "../assets/json/data.json", // 請替換為你的JSON檔案路徑
-                "dataSrc": "" // 表示JSON數據的根節點為空
-            }, "columns": [
-                { "data": "article_id" },
-                { "data": "article_title" },
-                { "data": "category" },
-                { "data": "views" },
-                { "data": "likes" },
-                { "data": "create_time" },
-                {
-                    "data": null,
-                    "render": function (data, type, row) {
-                        // 在這裡可以自定義操作按鈕的HTML
-                        return '<button class="btn-sm btn-primary" onclick = "editArticle(' + row.article_id + ')" data-bs-toggle="modal" data-bs-target="#edit_article">編輯</button> ' +
-                            '<button class="btn-sm btn-danger" onclick = "deleteArticle(' + row.article_id + ')" data-bs-toggle="modal" data-bs-target="#delete_article">刪除</button>';
-                    }
-                }
-            ],
-            "orderClasses": false,
+            orderClasses: false,
             responsive: true,
             // 中文化
             "language": {
@@ -273,6 +254,12 @@ $(function () {
                 "thousands": ","
             }
         });
+    });
+
+    $(".btn_remove,.btn_upload").on("click",function(){
+        let articleId = $(this).val();
+        console.log(articleId);
+        $('input[name="articleId"]').val(articleId);
     });
 })
 // 編輯文章的函數

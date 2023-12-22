@@ -404,7 +404,6 @@ $(function () {
                 $("#advertisement_enddate").val(data.ad.endDate);
             }
         });
-
     });
 })
 

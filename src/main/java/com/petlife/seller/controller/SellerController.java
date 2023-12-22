@@ -97,20 +97,26 @@ public class SellerController extends HttpServlet {
 		String selectValue = req.getParameter("sellerReviewResult");
 		String reason = req.getParameter("reason");
 		Seller seller = sellerService.getSellerBySellerId(SellerId);
+		Thread thread;
 		switch (selectValue) {
 		case "1":
 			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
 			AcctState acctState = acctStateDAO.findByPK(0);
 			seller.setAcctState(acctState);
-			MailService.verifySuccess(seller.getSellerAcct());
 			sellerService.updateSeller(seller);
+			thread = new Thread(() -> {
+				MailService.verifySuccess(seller.getSellerAcct());
+			});
+			thread.start();
 			break;
 		case "2":
 			sellerService.deleteSeller(SellerId);
-			MailService.verifyfailed(seller.getSellerAcct(), reason);
+			thread = new Thread(() -> {
+				MailService.verifyfailed(seller.getSellerAcct(), reason);
+			});
 			break;
 		}
-		
+
 		return "/admin/admin.do?action=getAllMembers&condition=unverified";
 	}
 
@@ -284,7 +290,10 @@ public class SellerController extends HttpServlet {
 			out.print(redirectPath);
 
 			// 寄信表示註冊成功
-			MailService.registerSuccess(sellerAcct);
+			Thread thread = new Thread(()->{
+				MailService.registerSuccess(sellerAcct);
+			});
+			thread.start();
 		}
 	}
 

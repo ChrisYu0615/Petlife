@@ -82,11 +82,14 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
-								class="fas fa-solid fa-users"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+							class="nav-link"> <i class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+							class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
 								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
@@ -102,8 +105,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements" class="nav-link"> <i
-								class="fas fa-ad"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
+							class="nav-link"> <i class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
@@ -149,7 +153,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									<form action="<%=request.getContextPath()%>/art/art.do" method="post" id="select_articleForm">
+									<form action="<%=request.getContextPath()%>/art/art.do"
+										method="post" id="select_articleForm">
 										<%-- 如果全部選擇結果都沒輸入就按查詢時，會顯示此錯誤結果 --%>
 										<span id="verify_select_result"></span>
 
@@ -210,7 +215,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 											<div class="col-auto">
 												<button type="submit" class="btn btn-primary"
 													id="btn_regist">送出查詢</button>
-												<input type="hidden" name="action" value="CompositeArticleQuery">
+												<input type="hidden" name="action"
+													value="CompositeArticleQuery">
 											</div>
 											<div class="col"></div>
 										</div>
@@ -224,14 +230,17 @@ Admin admin = (Admin) session.getAttribute("admin");
 							<div class="card">
 								<div class="card-header">
 									<ul class="list-group list-group-horizontal-sm">
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles">全部文章列表</a></li>
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply">待處理檢舉</a></li>
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied">已處理檢舉</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles">全部文章列表</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply">待處理檢舉</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied">已處理檢舉</a></li>
 									</ul>
 									<!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
 								</div>
 								<!-- /.card-header -->
-								<div class="card-body">
+								<div class="card-body table">
 									<table id="myTable" class="display">
 										<thead>
 											<tr>
@@ -255,88 +264,88 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<td><fmt:formatDate value="${article.updateTime}"
 															pattern="yyyy-MM-dd HH:mm:ss" /></td>
 													<td>
-														<button class="btn-sm btn-primary" value="${article.articleId}">查看</button>
-                                                        <c:choose>
-                                                            <c:when test="${article.state}">
-														        <button class="btn-sm btn-danger btn_remove"
-															      data-bs-toggle="modal"
-															     data-bs-target="#remove_article"
-															     value="${article.articleId}">下架</button>
-                                                            </c:when>
+														<button class="btn-sm btn-primary"
+															value="${article.articleId}">查看</button> <c:choose>
+															<c:when test="${article.state}">
+																<button class="btn-sm btn-danger btn_remove"
+																	data-bs-toggle="modal" data-bs-target="#remove_article"
+																	value="${article.articleId}">下架</button>
+															</c:when>
 
-                                                            <c:otherwise>
-														        <button class="btn-sm btn-warning btn_upload"
-															      data-bs-toggle="modal"
-															     data-bs-target="#upload_article"
-															     value="${article.articleId}">上架</button>
-                                                            </c:otherwise>
-                                                        </c:choose>
+															<c:otherwise>
+																<button class="btn-sm btn-warning btn_upload"
+																	data-bs-toggle="modal" data-bs-target="#upload_article"
+																	value="${article.articleId}">上架</button>
+															</c:otherwise>
+														</c:choose>
 
 													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-
-									<!-- 下架 -->
-									<form action="<%=request.getContextPath()%>/art/art.do" method="post">
-										<div class="modal fade" id="remove_article" tabindex="-1"
-											aria-labelledby="removeModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="removeModalLabel">下架文章</h5>
-													</div>
-													<div class="row modal-body delete_box">
-														<div class="col rounded" id="modify_content">
-															是否將該文章變為下架狀態?</div>
-													</div>
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger"
-															id="btn_modify">確認</button>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">取消</button>
-														<div class="col"></div>
-                                                        <input type="hidden" name="articleId" value="">
-                                                        <input type="hidden" name="action" value="modifyArticleState">
-                                                        <input type="hidden" name="value" value="removeArticle">                                                                                                                
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-
-                                    <!-- 上架 -->
-									<form action="<%=request.getContextPath()%>/art/art.do" method="post">
-										<div class="modal fade" id="upload_article" tabindex="-1"
-											aria-labelledby="uploadModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="uploadModalLabel">上架文章</h5>
-													</div>
-													<div class="row modal-body delete_box">
-														<div class="col rounded" id="modify_content">
-															是否將該文章變為上架狀態?</div>
-													</div>
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger"
-															id="btn_modify">確認</button>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">取消</button>
-														<div class="col"></div>
-                                                        <input type="hidden" name="articleId" value="">
-                                                        <input type="hidden" name="action" value="modifyArticleState">
-                                                        <input type="hidden" name="value" value="uploadArticle">                                                        
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
 								</div>
 								<!-- /.card-body -->
+
+								<!-- 下架 -->
+								<form action="<%=request.getContextPath()%>/art/art.do"
+									method="post">
+									<div class="modal fade" id="remove_article" tabindex="-1"
+										aria-labelledby="removeModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="removeModalLabel">下架文章</h5>
+												</div>
+												<div class="row modal-body delete_box">
+													<div class="col rounded" id="modify_content">
+														是否將該文章變為下架狀態?</div>
+												</div>
+												<div class="row modal-footer">
+													<div class="col"></div>
+													<button type="submit" class="col-auto btn btn-danger"
+														id="btn_modify">確認</button>
+													<button type="button" class="col-auto btn btn-secondary"
+														data-bs-dismiss="modal">取消</button>
+													<div class="col"></div>
+													<input type="hidden" name="articleId" value=""> <input
+														type="hidden" name="action" value="modifyArticleState">
+													<input type="hidden" name="value" value="removeArticle">
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+
+								<!-- 上架 -->
+								<form action="<%=request.getContextPath()%>/art/art.do"
+									method="post">
+									<div class="modal fade" id="upload_article" tabindex="-1"
+										aria-labelledby="uploadModalLabel" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="uploadModalLabel">上架文章</h5>
+												</div>
+												<div class="row modal-body delete_box">
+													<div class="col rounded" id="modify_content">
+														是否將該文章變為上架狀態?</div>
+												</div>
+												<div class="row modal-footer">
+													<div class="col"></div>
+													<button type="submit" class="col-auto btn btn-danger"
+														id="btn_modify">確認</button>
+													<button type="button" class="col-auto btn btn-secondary"
+														data-bs-dismiss="modal">取消</button>
+													<div class="col"></div>
+													<input type="hidden" name="articleId" value=""> <input
+														type="hidden" name="action" value="modifyArticleState">
+													<input type="hidden" name="value" value="uploadArticle">
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
 							</div>
 							<!-- /.card -->
 						</div>

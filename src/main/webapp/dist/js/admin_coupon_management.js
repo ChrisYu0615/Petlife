@@ -246,14 +246,48 @@ $(function () {
         });
     });
 
-})
+    // 修改(使用ajax)
+    var modifyFlag = true;
+    $(".btn_check").on("click", function () {
+        let couponId = $(this).val();
+        console.log(couponId);
+        $("#couponId").val(couponId);
 
-// 刪除文章的函數
-function checkCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('check Coupon with ID: ' + coupon_id);
-}
-function deleteCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('delete Coupon with ID: ' + coupon_id);
-}
+        let formData = new FormData();
+        let url = "/Petlife/coupon/coupon.do?action=getOne&couponId=" + couponId;
+        formData.append("couponId", couponId);
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                console.log("成功!!");
+                $("#coupon_id").val(data.couponId);
+                $("#coupon_name").val(data.couponName);
+                $("#coupon_content").val(data.couponContent);
+
+                $("#coupon_restrict").val(data.conditionsOfUse);
+                $("#coupon_amount").val(data.discountAmount);
+
+                if (data.couponState == true) {
+                    $("#launched").prop("checked", true);
+                }
+                else {
+                    $("#unlaunched").prop("checked", true);
+                }
+                $("#coupon_stardate").val(data.startDate);
+                $("#coupon_enddate").val(data.endDate);
+            }
+        });
+    });
+
+    $("#logout").on("click", function () {
+        alert("您已成功登出!!");
+    });
+})
