@@ -90,7 +90,7 @@ public class SellerServiceImpl implements SellerService {
 		}
 		return loginStatus;
 	}
-	
+
 	@Override
 	public String getNewPwd(String sellerAcct) {
 		Seller seller = dao.findSellerBySellerAccount(sellerAcct);
@@ -102,7 +102,10 @@ public class SellerServiceImpl implements SellerService {
 			seller.setSellerPwdErrTimes(0);
 			dao.update(seller);
 			// 寄信表示變更成功
-			MailService.getNewPassword(sellerAcct, newPassword);
+			Thread thread = new Thread(() -> {
+				MailService.getNewPassword(sellerAcct, newPassword);
+			});
+			thread.start();
 			return "密碼變更成功!!請至您的信箱查看";
 		}
 		return "帳號處於停權或未審核狀態，請和管理員聯繫!!";

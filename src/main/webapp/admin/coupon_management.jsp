@@ -60,7 +60,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
 				<span class="brand-text font-weight-light">PetLife後臺管理</span>
@@ -83,20 +83,18 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
 								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-newspaper"></i>
+
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+							class="nav-link">
+								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-store"></i>
-								<p>商品管理</p>
-						</a></li>
-
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
@@ -104,8 +102,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-ad"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
+							class="nav-link"> <i class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
@@ -130,7 +129,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">優惠碼管理</li>
 							</ol>
 						</div>
@@ -247,7 +246,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<div class="row modal-footer">
 														<div class="col"></div>
 														<button type="submit" class="col-auto btn btn-primary"
-															id="btn_save">儲存</button>
+															id="btn_save">修改</button>
 														<button type="button" class="col-auto btn btn-secondary"
 															data-bs-dismiss="modal">取消</button>
 														<div class="col"></div>

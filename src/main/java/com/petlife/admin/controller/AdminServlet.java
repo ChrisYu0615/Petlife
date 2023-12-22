@@ -74,20 +74,14 @@ public class AdminServlet extends HttpServlet {
 
 	private String getAllMembers(HttpServletRequest req, HttpServletResponse resp) {
 		String conditions = req.getParameter("condition");
-		// 取得全部未審核的會員，使用Member DTO去裝
-		if (conditions != null && conditions.length() > 0) {
-			ShelterService shelterService = new ShelterServiceImpl();
-			List<Shelter> shelterList = shelterService.getAllShelters(conditions);
-			SellerService sellerService = new SellerServiceImpl();
-			List<Seller> sellerList = sellerService.getAllSellers(conditions);
+		ShelterService shelterService = new ShelterServiceImpl();
+		List<Shelter> shelterList = shelterService.getAllShelters(conditions);
+		SellerService sellerService = new SellerServiceImpl();
+		List<Seller> sellerList = sellerService.getAllSellers(conditions);
 
-			req.setAttribute("getAllShelters", shelterList);
-			req.setAttribute("getAllSellers", sellerList);
-			return "/admin/unverify_member_management.jsp";
-		} else {
-			// 取得全部已審核的會員，使用Member DTO去裝
-			return "";
-		}
+		req.setAttribute("getAllShelters", shelterList);
+		req.setAttribute("getAllSellers", sellerList);
+		return "/admin/unverify_member_management.jsp";
 	}
 
 	private void getAuthenCode(HttpServletRequest req, HttpServletResponse resp) {

@@ -86,32 +86,32 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
 								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-newspaper"></i>
+
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+							class="nav-link">
+								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-store"></i>
-								<p>商品管理</p>
-						</a></li>
-
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-ad"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
+							class="nav-link"> <i class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
 								class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
@@ -132,7 +132,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">會員管理</li>
 							</ol>
 						</div>

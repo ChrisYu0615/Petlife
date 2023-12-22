@@ -59,7 +59,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
 				<span class="brand-text font-weight-light">PetLife後臺管理</span>
@@ -82,26 +82,22 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a
-							href="<%=request.getContextPath()%>/user/user.do?action=getAll"
-							class="nav-link"> <i class="fas fa-solid fa-users"></i>
+
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
 								<p>會員管理</p>
 						</a></li>
+
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
-							class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
+							class="nav-link">
 								<i class="fas fa-solid fa-newspaper"></i>
 								<p>文章管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-store"></i>
-								<p>商品管理</p>
-						</a></li>
-
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-percent"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
+							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
@@ -111,7 +107,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
 								class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
@@ -133,7 +129,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">文章管理</li>
 							</ol>
 						</div>
@@ -257,7 +253,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 											<c:forEach var="article" items="${getAllArticles}">
 												<tr>
 													<td>${article.articleId}</td>
-													<td>${article.user.userId}</td>
+													<td>${article.user.userAcct}</td>
 													<td>${article.articleName}</td>
 													<td>${article.forum.sortName}</td>
 													<td>${article.state? "上架中":"已下架"}</td>
