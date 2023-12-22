@@ -75,7 +75,7 @@ public class ShelterBookingServlet extends HttpServlet {
 			if(shelterBookingList.size()!=0) {
 			    return "/petjsp/listshelterbooking.jsp";
 			}else if (shelterBookingList.size()==0) {
-				
+				  return "/petjsp/pet_autodate.jsp";
 			}
 		} 
 		return "";
@@ -109,7 +109,7 @@ public class ShelterBookingServlet extends HttpServlet {
 		
 		 JsonNode shelterBookings = node.get("shelterBookings");
 		 
-         // 遍历数组元素
+       
          if (shelterBookings.isArray()) {
              for (JsonNode shelterBookingJson : shelterBookings) {
             	 ShelterBooking shelterBooking =new ShelterBooking();
