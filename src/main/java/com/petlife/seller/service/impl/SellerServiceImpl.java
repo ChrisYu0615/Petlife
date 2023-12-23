@@ -12,6 +12,7 @@ import com.petlife.seller.service.SellerService;
 import com.petlife.user.entity.User;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 public class SellerServiceImpl implements SellerService {
 	private SellerDAO dao;
@@ -97,7 +98,7 @@ public class SellerServiceImpl implements SellerService {
 		Integer acctStateId = seller.getAcctState().getAcctStateId();
 		if (acctStateId == 0 || acctStateId == 2) {
 			String newPassword = RandomPassword.getNewPassword();
-			seller.setSellerPwd(newPassword);
+			seller.setSellerPwd(Sha1Util.encodePwd(newPassword));
 			seller.setAcctState(new AcctState(0, "可使用"));
 			seller.setSellerPwdErrTimes(0);
 			dao.update(seller);

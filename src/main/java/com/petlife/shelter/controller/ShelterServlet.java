@@ -40,6 +40,7 @@ import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/shelter/shelter.do")
 @MultipartConfig
@@ -343,7 +344,7 @@ public class ShelterServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("shelterAuthenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("shelterAuthenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
@@ -351,10 +352,10 @@ public class ShelterServlet extends HttpServlet {
 		// 驗證密碼
 		String shelterPwd = req.getParameter("password");
 		String shelterPwdReg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{1,20}$";
-		;
 		if (!shelterPwd.matches(shelterPwdReg)) {
 			errorMsg.put("shelterPwdErr", "密碼格式不正確，必須包含英文大小寫及特殊符號");
 		}
+		shelterPwd = Sha1Util.encodePwd(shelterPwd);
 
 		// 驗證收容所名稱
 		String shelterName = req.getParameter("shelterName");
@@ -478,10 +479,8 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		String shelterAcct = req.getParameter("account");
-		System.out.println(shelterAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String shelterAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		res.setContentType("application/json; charset=UTF-8");
@@ -490,7 +489,6 @@ public class ShelterServlet extends HttpServlet {
 		if (!shelterService.existShelterAccount(shelterAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -499,14 +497,13 @@ public class ShelterServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = shelterService.getNewPwd(shelterAcct);
