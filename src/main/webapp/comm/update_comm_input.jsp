@@ -34,41 +34,86 @@ Comm comm = (Comm) request.getAttribute("comm");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #f4f6f9;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+.wrapper {
+	background-color: #fff;
 }
 
-h4 {
-	color: blue;
-	display: inline;
+/* Header styles */
+.navbar {
+	background-color: #fff; /* 保留原本的白色 */
+	color: #343a40;
+}
+
+.navbar a {
+	color: #343a40;
+}
+
+/* Sidebar styles */
+.main-sidebar {
+	background-color: #343a40;
+}
+
+.brand-link {
+	background-color: #343a40;
+	color: #fff;
+}
+
+.brand-link:hover {
+	color: #fff;
+}
+
+.nav-sidebar a {
+	color: #d4d4d4;
+}
+
+.nav-sidebar a:hover {
+	color: #fff !important;
+}
+
+/* Content styles */
+.content-wrapper {
+	background-color: #f4f6f9;
+	padding: 20px;
+}
+
+h1, h3, h4 {
+	color: #343a40;
+}
+
+/* Form styles */
+form {
+	margin-top: 20px;
+}
+
+label {
+	font-weight: bold;
+	color: #343a40;
+}
+
+.form-control {
+	border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
 }
 </style>
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -272,32 +317,39 @@ th, td {
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="../buylist/listAllBuylist.jsp"
-									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylist.jsp" class="nav-link active">
+										<i class="far fa-circle nav-icon"></i>
 										<p>所有訂單</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState0.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>0:待付款</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState1.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState1.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>1:待出貨</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState2.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState2.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>2:運送中</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState3.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState3.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>3:訂單已完成</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState4.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState4.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>4:訂單已取消</p>
 								</a></li>
-								<li class="nav-item"><a href="../buylist/listAllBuylistState5.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a
+									href="../buylist/listAllBuylistState5.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
 										<p>5:退貨/退款</p>
 								</a></li>
 							</ul></li>
@@ -402,10 +454,9 @@ th, td {
 					<td>
 						<h3>商品資料修改</h3>
 						<h4>
-							<a href="listAllComm.jsp">
-<!-- 							<img src="images/back1.gif" -->
-<!-- 								width="100" height="32" border="0"> -->
-								回全部商品首頁</a>
+							<a href="listAllComm.jsp"> <!-- 							<img src="images/back1.gif" -->
+								<!-- 								width="100" height="32" border="0"> --> 回全部商品首頁
+							</a>
 						</h4>
 					</td>
 				</tr>
@@ -451,9 +502,23 @@ th, td {
 					</tr>
 					<tr>
 						<td>商品狀態:</td>
-						<td><input type="text" name="commState"
-							value="<%=comm.getCommState()%>" size="45" /></td>
+						<td><select name="commState" required>
+								<option value="" selected disabled hidden>請選擇商品狀態</option>
+								<option value="0"
+									<%=(comm.getCommState() == 0) ? "selected" : ""%>>販售中</option>
+								<option value="1"
+									<%=(comm.getCommState() == 1) ? "selected" : ""%>>缺貨中</option>
+								<option value="2"
+									<%=(comm.getCommState() == 2) ? "selected" : ""%>>下架</option>
+								<option value="3"
+									<%=(comm.getCommState() == 3) ? "selected" : ""%>>違規下架</option>
+						</select></td>
 					</tr>
+					<!-- 					<tr> -->
+					<!-- 						<td>商品狀態:</td> -->
+					<!-- 						<td><input type="text" name="commState" -->
+					<%-- 							value="<%=comm.getCommState()%>" size="45" /></td> --%>
+					<!-- 					</tr> -->
 					<tr>
 						<td>上架時間:</td>
 						<td><input type="text" name="listDatetime"

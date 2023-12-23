@@ -426,7 +426,7 @@ th, td {
 					<th>商品優惠價</th>
 					<th>瀏覽數</th>
 					<th>修改</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				<tr>
 					<td><%=comm.getCommId()%></td>
@@ -435,7 +435,9 @@ th, td {
 					<td><%=comm.getCommDesc()%></td>
 					<td><%=comm.getCommState()%></td>
 					<td><%=comm.getListDatetime()%></td>
-					<td><%=comm.getCommImg()%></td>
+					<td><img
+							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+							width="100px"></td>
 					<td><%=comm.getCommCat().getCommCatId()%></td>
 					<td><%=comm.getCommStock()%></td>
 					<td><%=comm.getCommPrice()%></td>
@@ -450,15 +452,15 @@ th, td {
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
 					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/comm/comm.do"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> <input type="hidden"
-								name="commId" value="${comm.commId}"> <input
-								type="hidden" name="action" value="delete">
-						</FORM>
-					</td>
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" -->
+<%-- 							ACTION="<%=request.getContextPath()%>/comm/comm.do" --%>
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="刪除"> <input type="hidden" -->
+<%-- 								name="commId" value="${comm.commId}"> <input --%>
+<!-- 								type="hidden" name="action" value="delete"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
 				</tr>
 			</table>
 

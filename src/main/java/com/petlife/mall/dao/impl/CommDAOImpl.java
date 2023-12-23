@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.petlife.mall.dao.CommDAO;
 import com.petlife.mall.entity.Comm;
@@ -90,4 +91,13 @@ public class CommDAOImpl implements CommDAO{
 	        return null;
 	}
 }
+
+//	@Override
+//	public List<Comm> getCommImg(Integer commId) {
+//		 String hql = "from Comm where comm_id = :commId";
+//	        Query<Comm> query = getSession().createQuery(hql, Comm.class);
+//	        query.setParameter("commId", commId);
+//	        return query.getResultList();
+//		
+//	}
 }

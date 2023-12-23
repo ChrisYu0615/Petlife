@@ -421,8 +421,8 @@ th, td {
 					<td>
 						<h3>所有商品資料</h3>
 						<h4>
-<!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
-<!-- 								width="100" height="32" border="0">回首頁</a> -->
+							<!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
+							<!-- 								width="100" height="32" border="0">回首頁</a> -->
 						</h4>
 					</td>
 				</tr>
@@ -470,7 +470,7 @@ th, td {
 					<th>商品優惠價</th>
 					<th>瀏覽數</th>
 					<th>修改</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
 				<c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
@@ -483,7 +483,9 @@ th, td {
 						<td>${comm.commDesc}</td>
 						<td>${comm.commState}</td>
 						<td>${comm.listDatetime}</td>
-						<td>${comm.commImg}</td>
+						<td><img
+							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+							width="100px"></td>
 						<td>${comm.commCat.commCatId}</td>
 						<td>${comm.commStock}</td>
 						<td>${comm.commPrice}</td>
@@ -498,15 +500,15 @@ th, td {
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>
-						<td>
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/comm/comm.do"
-								style="margin-bottom: 0px;">
-								<input type="submit" value="刪除"> <input type="hidden"
-									name="commId" value="${comm.commId}"> <input
-									type="hidden" name="action" value="delete">
-							</FORM>
-						</td>
+<!-- 						<td> -->
+<!-- 							<FORM METHOD="post" -->
+<%-- 								ACTION="<%=request.getContextPath()%>/comm/comm.do" --%>
+<!-- 								style="margin-bottom: 0px;"> -->
+<!-- 								<input type="submit" value="刪除"> <input type="hidden" -->
+<%-- 									name="commId" value="${comm.commId}"> <input --%>
+<!-- 									type="hidden" name="action" value="delete"> -->
+<!-- 							</FORM> -->
+<!-- 						</td> -->
 					</tr>
 				</c:forEach>
 			</table>
