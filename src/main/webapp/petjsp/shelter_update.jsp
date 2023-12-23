@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="com.petlife.*"%>
+
+<%@page import="com.petlife.shelter.entity.Shelter"%>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -27,7 +28,16 @@
     <link rel="stylesheet" href="../dist/css/pet_edit.css">
     
     
-     
+     <% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
+
+
+%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

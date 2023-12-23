@@ -104,6 +104,10 @@ public class PetDAOImpl implements Idao<Pet> {
 			for (Map.Entry<String, String> row : map.entrySet()) {
 				System.out.println("PetDAOImpl: " + row.getKey()+ " : " + row.getValue());
 				// 種類
+				  if ("id".equals(row.getKey())) {
+	                     predicates.add(builder.equal(root.get("shelterId"), row.getValue()));
+	                }
+				
                 if ("type".equals(row.getKey())) {
                      predicates.add(builder.equal(root.get("variety").get("type"), row.getValue()));
                 }

@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					if (data.endsWith("html")) {
+					if (data.endsWith("jsp")) {
 						redirectPage(data);
 						return;
 					}

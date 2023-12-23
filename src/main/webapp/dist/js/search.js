@@ -29,7 +29,12 @@ $(document).on("click", "input.pet_type", function() {
 
 $(document).on("click", "#search_btn", function() {
 	var dataURL = '../project/pet.do?action=getCompositePetsQuery';
-
+	
+	var id=$("#id").val();
+	if(id!=""){
+		dataURL = dataURL + `&id=${id}`;
+	}
+	
 	var petGender = $("input[name='petGender']:checked");
 	if (petGender.length != 0) {
 		dataURL = dataURL + `&petGender=${petGender.val()}`;
@@ -159,5 +164,6 @@ $(document).on("click", "input[name='adopted']", function() {
 	}else{
 		$("tr#userId").css("display", "block");
 		$("tr#adopt_date").css("display", "block");
+		$("#pet_adopt_no").prop('checked', true);
 	}
 });

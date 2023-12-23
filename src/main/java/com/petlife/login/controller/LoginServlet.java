@@ -203,7 +203,7 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/petjsp/shelter_update.jsp");
 						return;
 					}
 				} catch (Exception ignored) {

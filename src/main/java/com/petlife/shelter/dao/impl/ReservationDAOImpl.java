@@ -123,9 +123,10 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 		for (Map.Entry<String, String> row : map.entrySet()) {
 //			如果要新增其他條件要在這裡寫
-//			if ("shelterBookingId".equals(row.getKey())) {
-//				predicates.add(builder.like(root.get("shelterBookingId"), "%" + row.getValue() + "%"));
-//			}
+			
+			if ("shelterId".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("shelter").get("shelterId"), row.getValue()));
+			}
 
 			if ("resTypeId".equals(row.getKey())) {
 				predicates.add(builder.equal(root.get("resTypeId"), row.getValue()));

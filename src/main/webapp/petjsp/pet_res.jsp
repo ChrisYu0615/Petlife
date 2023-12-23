@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.petlife.shelter.entity.Shelter"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -24,6 +25,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+<% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
+
+
+%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -70,7 +81,7 @@
                             <span>迄</span>
                             <input type="date" class="form-control" id="search_end" name="search_end" placeholder="選擇日期">
                         
-    
+    						<input type ="hidden" name="id" value="<%=id%>" id="shelterId" >
                             <!-- <div class="button col"> -->
 <!--                                 <button type="button" class="btn btn-secondary">清除</button> -->
 <!--                                 <button type="button" class="btn btn-primary">搜尋</button> -->
@@ -133,6 +144,7 @@
             });
             //在待確認畫面點擊確認預約更改狀態
             $(document).on("click","#res_ok",function(){
+            	var shelterId =$("#shelterId").val();
             	var resId =$(this).val();
             	var resType=$("#input_resType").val();
             	if(resType === "1"){
@@ -141,7 +153,7 @@
             	}else if(resType === "4"){
             		resType = "5";
             	}
-            	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType;
+            	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType ;
             	$.ajax({
             		url: dataURL,
             		method: "post",
@@ -162,6 +174,7 @@
             })
             //再待確認or已確認畫面中點擊取消預約更改狀態
             $(document).on("click","#res_delete",function(){
+            	var shelterId =$("#shelterId").val();
             	var resId =$(this).val();
             	var resType=$("#input_resType").val();
             	if(resType === "1" || resType === "2"){
@@ -170,7 +183,7 @@
             	}else if (resType === "4"){
             		resType = "6";
             	}
-            	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType;
+            	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType ;
             	$.ajax({
             		url: dataURL,
             		method: "post",
@@ -192,8 +205,9 @@
             
             //點擊待確認 等等.. 的ajax
             $(document).on("click","#res",function(){
+            	var shelterId =$("#shelterId").val();
             	var res =$(this).val();
-            	var dataURL = '../shelter/reservation.do?action=compositeQuery&resTypeId=' + res;
+            	var dataURL = '../shelter/reservation.do?action=compositeQuery&resTypeId=' + res + '&shelterId=' + shelterId;
             	var search_start=$("#search_start").val();
             	if(search_start!=""){
             		dataURL=dataURL+'&search_start='+search_start;
