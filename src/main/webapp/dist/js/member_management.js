@@ -263,6 +263,7 @@ $(function () {
 		let memberId = $(this).val();
 		$("#memberId").val(memberId);
 		console.log(memberId);
+		$("#verify_sellerConfirm").html("");
 
 		let formData = new FormData();
 		let url = "/Petlife/seller/seller.do?action=getOne&memberId=" + memberId;
@@ -334,6 +335,7 @@ $(function () {
 		let memberId = $(this).val();
 		$("#sheltermemberId").val(memberId);
 		console.log(memberId);
+		$("#verify_shelterConfirm").html("");
 
 		let formData = new FormData();
 		let url = "/Petlife/shelter/shelter.do?action=getOne&memberId=" + memberId;

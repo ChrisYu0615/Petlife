@@ -31,6 +31,8 @@ import com.google.gson.JsonParser;
 import com.petlife.admin.dao.AcctStateDAO;
 import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
 import com.petlife.admin.entity.AcctState;
+import com.petlife.admin.service.AcctStateService;
+import com.petlife.admin.service.impl.AcctStateServiceImpl;
 import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
@@ -87,11 +89,8 @@ public class ShelterServlet extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, res);
 			break;
-		case "suspend_Shelter":
-			forwardPath = suspendShelter(req, res);
-			break;
-		case "recover_Shelter":
-			forwardPath = recoverShelter(req, res);
+		case "modifyShelterAcctState":
+			forwardPath = modifyShelterAcctState(req, res);
 			break;
 		case "verify_Shelter":
 			forwardPath = verifyShelter(req, res);
@@ -157,9 +156,9 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 	private String verifyShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer ShelterId = Integer.valueOf(req.getParameter("memberId"));
-		String selectValue = req.getParameter("shelterReviewResult");
-		String reason = req.getParameter("reason");
+		Integer ShelterId = Integer.valueOf(req.getParameter("memberId").trim());
+		String selectValue = req.getParameter("shelterReviewResult").trim();
+		String reason = req.getParameter("reason").trim();
 		Shelter shelter = shelterService.getShelterByShelterId(ShelterId);
 		Thread thread;
 		switch (selectValue) {
@@ -197,18 +196,22 @@ public class ShelterServlet extends HttpServlet {
 		out.print(shelterJson);
 	}
 
-	private String suspendShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		shelter.setAcctState(new AcctState(1, "停權"));
-		shelterService.updateShelter(shelter);
-		return "/shelter/shelter.do?action=getAll&condition=verified";
-	}
 
-	private String recoverShelter(HttpServletRequest req, HttpServletResponse res) {
+	
+	private String modifyShelterAcctState(HttpServletRequest req, HttpServletResponse res) {
 		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
+		String modify = req.getParameter("modify");
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		shelter.setAcctState(new AcctState(0, "可使用"));
+		AcctState acctState = null;
+		AcctStateService acctStateService = new AcctStateServiceImpl();
+
+		if (modify != null && "suspendShelter".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(1);
+		} else if (modify != null && "recoverShelter".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(0);
+		}
+		
+		shelter.setAcctState(acctState);
 		shelterService.updateShelter(shelter);
 		return "/shelter/shelter.do?action=getAll&condition=verified";
 	}

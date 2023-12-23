@@ -25,6 +25,8 @@ import com.google.gson.GsonBuilder;
 import com.petlife.admin.dao.AcctStateDAO;
 import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
 import com.petlife.admin.entity.AcctState;
+import com.petlife.admin.service.AcctStateService;
+import com.petlife.admin.service.impl.AcctStateServiceImpl;
 import com.petlife.seller.entity.Seller;
 import com.petlife.seller.service.SellerService;
 import com.petlife.seller.service.impl.SellerServiceImpl;
@@ -72,11 +74,8 @@ public class SellerController extends HttpServlet {
 		case "getOne":
 			getOneSeller(req, resp);
 			break;
-		case "suspend_Seller":
-			forwardPath = suspendSeller(req, resp);
-			break;
-		case "recover_Seller":
-			forwardPath = recoverSeller(req, resp);
+		case "modifySellerAcctState":
+			forwardPath = modifySellerAcctState(req, resp);
 			break;
 		case "verify_Seller":
 			forwardPath = verifySeller(req, resp);
@@ -93,9 +92,9 @@ public class SellerController extends HttpServlet {
 	}
 
 	private String verifySeller(HttpServletRequest req, HttpServletResponse resp) {
-		Integer SellerId = Integer.valueOf(req.getParameter("memberId"));
-		String selectValue = req.getParameter("sellerReviewResult");
-		String reason = req.getParameter("reason");
+		Integer SellerId = Integer.valueOf(req.getParameter("memberId").trim());
+		String selectValue = req.getParameter("sellerReviewResult").trim();
+		String reason = req.getParameter("reason").trim();
 		Seller seller = sellerService.getSellerBySellerId(SellerId);
 		Thread thread;
 		switch (selectValue) {
@@ -114,6 +113,7 @@ public class SellerController extends HttpServlet {
 			thread = new Thread(() -> {
 				MailService.verifyfailed(seller.getSellerAcct(), reason);
 			});
+			thread.start();
 			break;
 		}
 
@@ -140,19 +140,21 @@ public class SellerController extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		out.print(sellerDataJson);
 	}
-
-	private String recoverSeller(HttpServletRequest req, HttpServletResponse resp) {
+	
+	private String modifySellerAcctState(HttpServletRequest req, HttpServletResponse resp) {
 		Integer sellerId = Integer.parseInt(req.getParameter("memberId"));
+		String modify = req.getParameter("modify");
 		Seller seller = sellerService.getSellerBySellerId(sellerId);
-		seller.setAcctState(new AcctState(0, "可使用"));
-		sellerService.updateSeller(seller);
-		return "/seller/seller.do?action=getAll&condition=verified";
-	}
+		AcctState acctState = null;
+		AcctStateService acctStateService = new AcctStateServiceImpl();
 
-	private String suspendSeller(HttpServletRequest req, HttpServletResponse resp) {
-		Integer sellerId = Integer.parseInt(req.getParameter("memberId"));
-		Seller seller = sellerService.getSellerBySellerId(sellerId);
-		seller.setAcctState(new AcctState(1, "停權"));
+		if (modify != null && "suspendSeller".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(1);
+		} else if (modify != null && "recoverSeller".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(0);
+		}
+		
+		seller.setAcctState(acctState);
 		sellerService.updateSeller(seller);
 		return "/seller/seller.do?action=getAll&condition=verified";
 	}

@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+    /* font-size: 20px; */
+}
 /* 標題 */
 h1{
     position: relative;
@@ -9,12 +13,12 @@ h1{
     box-shadow: 3px 3px 3px lightgray;
 }
 /* 下拉選擇日期 */
-span.date{
+span#select_month{
     display: inline-block;
     /* border: 1px solid red; */
     position: relative;
     left: 50%;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 
@@ -36,6 +40,7 @@ table.table:nth-child(4n){
 
 tr.tb_header{
     background-color: lightgray; 
+   
 }
 
 th{
@@ -52,6 +57,9 @@ td.tb_header{
 tr.button{
     background-color:#FEF4C4 ;
 }
+td{
+	width:100px;
+}
 
 button.afternoon{
     display: block;
@@ -60,15 +68,21 @@ button.afternoon{
     height: 40px;
     width: 40px;
     border: 1px solid black;
+    cursor: pointer
 }
 button.morning{
     display: block;
-    margin-left: 20px;
+  margin-left:20px;
     margin-bottom: 10px;
     border-radius: 10px;
     height: 40px;
     width: 40px;
     border: 1px solid black;
+    cursor: pointer
+}
+
+th{
+	width:100px;
 }
 /* 點擊後呈現顏色 */
 button.on{
@@ -105,4 +119,84 @@ img.brand-image{
 .brand-link .brand-image {
     margin-left: 0rem;
 }
+/*回傳table 格式*/
+table.table{
+    border: 0px;
+}
 
+div.fixed-table-body{
+    position: relative;
+    left: 50%;
+    width: 800px;
+    margin-top: 40px;
+  
+}
+
+th.tb_header{
+    width: 120px;
+    text-align: center;
+    background-color: lightgray;
+    
+    /* border: 1px solid blue; */
+    
+}
+
+
+tr{
+    /* border: 1px solid black; */
+    display: block;
+    margin: 5px 0;
+    width: 700px;
+   
+}
+tr.tb_con{
+    background-color: #FFF2CC;
+    border-radius: 25px;
+    width: 600px;
+
+}
+td.tb_con{  
+    width: 100px;
+    text-align: center;
+/*     padding: 5px 15px; */
+    height: 25px;
+}
+div.float-left{
+    display: none;
+}
+div.float-right{
+  
+    position: relative;
+    left: 25%;
+}
+#myTable tr td:first-child{
+	cursor: pointer;
+	background-color: #E7BCDE;
+	border-radius: 25px 0px 0px 25px;
+}
+div.th-inner {
+	width:100px;
+}
+tb_con pet_id{
+	height:25px;
+}
+/*上半月;下半月按鈕樣式*/
+#first_two_weeks,#next_two_weeks{
+	border-radius: 10px ;
+	color: white;
+	border:0px;
+	width:80px;
+	background-color: #B2A59B ;
+}
+/* 回傳回來的css table*/
+tr#booking{
+	width:600px;
+}
+td#booking_list{
+	width:120px;
+	padding:5px 0px;
+}
+#button{
+	position: relative;
+     left: 95%;
+}

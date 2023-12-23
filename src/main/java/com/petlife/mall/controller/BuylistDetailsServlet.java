@@ -359,11 +359,8 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
 		List<BuylistDetails> buylistDetailsList = buylistDetailsService.getAllBuylistDetailss(buylistId);
-//		System.out.println(buylistDetailsList);
-
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String buylistJson = gson.toJson(buylistDetailsList);
-//		System.out.println(buylistJson);
 		out.print(buylistJson);
 	}
 

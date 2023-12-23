@@ -163,7 +163,8 @@ table.buylistdetailList{
     border-collapse: collapse;
     border-radius: 10%;
 }
-tbody.order_items td{
+
+tbody.order_items td,thead.order_header th{
     text-align: center;
 }
 
