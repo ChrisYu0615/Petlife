@@ -27,7 +27,6 @@ public class Comm {
 	@Expose
 	private Integer commId;
 
-//	Seller 等隊友弄好才能使用
 //	@Expose
 	@ManyToOne // buylist_id
 	@JoinColumn(name = "seller_id", referencedColumnName = "seller_id")

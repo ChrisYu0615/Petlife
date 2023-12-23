@@ -52,7 +52,7 @@ public class CommServlet extends HttpServlet {
 
 		switch (action) {
 		case "getOne_For_Display":
-			// 來自selact_page.jsp
+			// 來自select_page.jsp
 			forwardPath = getOneDisplay(req, res);
 			break;
 		case "getOne_For_Update":
