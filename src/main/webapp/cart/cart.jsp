@@ -164,7 +164,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 <!--                                             </form> -->
 <!--                                         </td> -->
                                         <td>${cart.comm.commOnsalePrice * cart.purchasingAmount}</td>
-										<!-- 之後要做成button來使用delete動作 -->
+										<!-- DELETE BTN-->
                                         <td>${cart.cartId}
                                         	<form action="<%=request.getContextPath()%>/cart/cart.do" method="post">
     											<input type="hidden" name="action" value="delete_cart_item">
@@ -181,7 +181,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             <div class="cart_tabel_bottom">
                             	<!-- 回商城的btn -->
                                 <div class="cart_submit_btn">
-                                    <a href="./listAllCommForUser.jsp" class="btn btn_theme btn_md">Continue shopping</a>
+                                    <a href="../comm_for_user/listAllCommForUser.jsp" class="btn btn_theme btn_md">Continue shopping</a>
                                 </div>
                                 <div class="cart_right_side">
                                 	<!-- coupon btn -->
