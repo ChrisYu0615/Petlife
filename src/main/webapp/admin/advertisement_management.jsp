@@ -84,17 +84,71 @@ Admin admin = (Admin) session.getAttribute("admin");
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link"> <i
-								class="fas fa-solid fa-users"></i>
-								<p>會員管理</p>
-						</a></li>
+          				<li class="nav-item">
+          				  <a href="#" class="nav-link">
+          				    <i class="fas fa-solid fa-users"></i>
+          				    <p>
+          				      會員管理
+          				      <i class="right fas fa-angle-left"></i>
+          				    </p>
+          				  </a>
+          				  <ul class="nav nav-treeview">
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>一般會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>賣家會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>收容所會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>待審核會員</p>
+          				      </a>
+          				    </li>							
+          				  </ul>
+          				</li>		
 
-						<li class="nav-item"><a
-							href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
-							class="nav-link">
-								<i class="fas fa-solid fa-newspaper"></i>
-								<p>文章管理</p>
-						</a></li>
+          				<li class="nav-item">
+          				  <a href="#" class="nav-link">
+          				    <i class="fas fa-solid fa-newspaper"></i>
+          				    <p>
+          				      文章管理
+          				      <i class="right fas fa-angle-left"></i>
+          				    </p>
+          				  </a>
+          				  <ul class="nav nav-treeview">
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>文章列表</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>待處理檢舉</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>已處理檢舉</p>
+          				      </a>
+          				    </li>							
+          				  </ul>
+          				</li>						
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
@@ -104,7 +158,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
-							class="nav-link"> <i class="fas fa-ad"></i>
+							class="nav-link active"> <i class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
