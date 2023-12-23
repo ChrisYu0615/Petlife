@@ -98,10 +98,8 @@ public class AdminServlet extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String adminAcct = req.getParameter("account");
-		System.out.println(adminAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String adminAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		resp.setContentType("application/json; charset=UTF-8");
@@ -110,7 +108,6 @@ public class AdminServlet extends HttpServlet {
 		if (!adminService.exisAdminAccount(adminAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -119,14 +116,13 @@ public class AdminServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = adminService.getNewPwd(adminAcct);

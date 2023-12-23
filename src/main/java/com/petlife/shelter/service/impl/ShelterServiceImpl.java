@@ -17,6 +17,7 @@ import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 public class ShelterServiceImpl implements ShelterService {
 
@@ -136,7 +137,7 @@ public class ShelterServiceImpl implements ShelterService {
 		Integer acctStateId = shelter.getAcctState().getAcctStateId();
 		if (acctStateId == 0 || acctStateId == 2) {
 			String newPassword = RandomPassword.getNewPassword();
-			shelter.setShelterPwd(newPassword);
+			shelter.setShelterPwd(Sha1Util.encodePwd(newPassword));
 			shelter.setAcctState(new AcctState(0, "可使用"));
 			shelter.setShelterPwdErrTimes(0);
 			dao.update(shelter);

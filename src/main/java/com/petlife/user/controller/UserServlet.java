@@ -32,6 +32,7 @@ import com.petlife.user.service.UserServeice;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/user/user.do")
 @MultipartConfig
@@ -165,10 +166,8 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String userAcct = req.getParameter("account");
-		System.out.println(userAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String userAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		resp.setContentType("application/json; charset=UTF-8");
@@ -177,7 +176,6 @@ public class UserServlet extends HttpServlet {
 		if (!userServeice.exisUserAccount(userAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -193,7 +191,6 @@ public class UserServlet extends HttpServlet {
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = userServeice.getNewPwd(userAcct);
@@ -261,7 +258,7 @@ public class UserServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("userAuthenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("userAuthenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
@@ -272,6 +269,7 @@ public class UserServlet extends HttpServlet {
 		if (!userPwd.matches(userPwdReg)) {
 			errorMsg.put("userPwdErr", "密碼格式不正確，必須包含英文大小寫及特殊符號");
 		}
+		userPwd = Sha1Util.encodePwd(userPwd);
 
 		// 驗證姓名
 		String userName = registerUserData.get("username");
@@ -376,6 +374,7 @@ public class UserServlet extends HttpServlet {
 		}
 
 		if (userPwd != null && userPwd.length() > 0) {
+			userPwd = Sha1Util.encodePwd(userPwd);
 			user.setUserPwd(userPwd);
 		}
 		user.setUserName(userName);

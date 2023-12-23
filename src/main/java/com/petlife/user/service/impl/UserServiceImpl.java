@@ -11,6 +11,7 @@ import com.petlife.user.entity.User;
 import com.petlife.user.service.UserServeice;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 public class UserServiceImpl implements UserServeice {
 	private UserDAO dao;
@@ -95,7 +96,7 @@ public class UserServiceImpl implements UserServeice {
 		Integer acctStateId = user.getAcctState().getAcctStateId();
 		if (acctStateId == 0 || acctStateId == 2) {
 			String newPassword = RandomPassword.getNewPassword();
-			user.setUserPwd(newPassword);
+			user.setUserPwd(Sha1Util.encodePwd(newPassword));
 			user.setAcctState(new AcctState(0, "可使用"));
 			user.setUserPwdErrTimes(0);
 			dao.update(user);

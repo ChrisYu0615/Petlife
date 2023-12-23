@@ -33,6 +33,7 @@ import com.petlife.seller.service.impl.SellerServiceImpl;
 import com.petlife.user.entity.User;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/seller/seller.do")
 @MultipartConfig
@@ -196,7 +197,7 @@ public class SellerController extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("sellerAuthenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("sellerAuthenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
@@ -207,6 +208,7 @@ public class SellerController extends HttpServlet {
 		if (!sellerPwd.matches(sellerPwdReg)) {
 			errorMsg.put("sellerPwdErr", "密碼格式不正確，必須包含英文大小寫及特殊符號");
 		}
+		sellerPwd = Sha1Util.encodePwd(sellerPwd);
 
 		// 驗證姓名
 		String sellerName = req.getParameter("sellername");
@@ -313,8 +315,8 @@ public class SellerController extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String sellerAcct = req.getParameter("account");
-		String authenCode = req.getParameter("authencode");
+		String sellerAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		resp.setContentType("application/json; charset=UTF-8");
@@ -323,7 +325,6 @@ public class SellerController extends HttpServlet {
 		if (!sellerService.existSellerAccount(sellerAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -332,14 +333,13 @@ public class SellerController extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = sellerService.getNewPwd(sellerAcct);
