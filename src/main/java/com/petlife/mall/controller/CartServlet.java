@@ -104,11 +104,11 @@ public class CartServlet extends HttpServlet{
 	        Integer id = cartDAOImpl.add(cart);
 	        System.out.println("已經新增cart_id: " + id);
 	        
-	        return "/comm/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
+	        return "/comm_for_user/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
 		} catch (Exception e) {
 			errorMsgs.add("發生錯誤" + e.getMessage());
 			e.printStackTrace();
-			return "/comm/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
+			return "/comm_for_user/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
 		}
 	}
 	
@@ -120,10 +120,10 @@ public class CartServlet extends HttpServlet{
             CartDAOImpl cartDAOImpl = new CartDAOImpl();
             cartDAOImpl.delete(cartId);
             
-            return "/comm/cart.jsp";
+            return "/cart/cart.jsp";
         } catch (Exception e) {
             e.printStackTrace();
-            return "/comm/cart.jsp";  // 暫時先回去/comm/cart.jsp
+            return "/cart/cart.jsp";  // 暫時先回去/comm/cart.jsp
         }
     }
 }

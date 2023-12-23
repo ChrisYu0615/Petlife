@@ -28,11 +28,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public void delete(Integer cartId) {
+	public Integer delete(Integer cartId) {
 		Cart cart = getSession().get(Cart.class, cartId);
 		if (cart != null) {
 			getSession().delete(cart);
+			return 1;
 		} else {
+			return -1;
 		}
 	}
 
