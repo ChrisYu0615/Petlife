@@ -2,17 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.petlife.pet.entity.PetVariety"%>
 <%@ page import="com.petlife.pet.entity.Pet"%>
+	<%@page import="com.petlife.shelter.entity.Shelter"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="BIG5">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/form_update.css">
+
+    <% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
+%>
 </head>
 <body>
-<% String selectedGender =" ${pet.petGender} "; %>
-<% String selectedpetLigation =" ${pet.petLigation} "; %>
-<% Boolean selectedadopt = (Boolean) pageContext.getAttribute("pet.adopt"); %>
+
 
 
 

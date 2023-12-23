@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="com.petlife.shelter.entity.Shelter"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -26,6 +27,16 @@
 <link rel="stylesheet" href="../dist/css/pet_date.css">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+	<% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
+
+
+%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -65,6 +76,7 @@
 
 				<h1>新增&查詢可預約時間</h1>
 				<span id="select_month"> <label for="monthSelector">選擇月份：</label>
+					<input type ="hidden" name="id" value="<%=id%>" id="shelterId" >
 					<input type="month" id="monthSelector"> <!-- 					<button type="button" id="first two weeks" onclick="generateCalendar()">上半月</button> -->
 					<button type="button" id="first_two_weeks" value="-14" onclick="generateCalendar()">上半月</button>
 					<button type="button" id="next_two_weeks" onclick="next_two_weeks_generateCalendar()" value="-15">下半月</button>

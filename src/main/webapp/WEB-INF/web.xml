@@ -72,7 +72,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>shelterLoginFilter</filter-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/petjsp/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
