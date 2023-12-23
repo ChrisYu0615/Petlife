@@ -39,7 +39,7 @@
 	</tbody>
 </table>
 
-<a href="../emp/shelter_date.jsp" id="button">
+<a href="../petjsp/shelter_date.jsp" id="button">
 		<button type="button" class="btn btn-warning delete btn-sm" id="rowback">返回</button>
 </a>
 

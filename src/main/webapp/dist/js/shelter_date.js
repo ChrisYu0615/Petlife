@@ -15,7 +15,9 @@ function generateCalendar() {
 		var checkbookingend=year_month + end_date;
 		//會等於 = 使用者填寫年分+-14 (yyyy-mm-14)
 		var checkbookingstart = year_month + date;
-		var dataUrl = `../project/shelterbooking.do?action=getCompositePetsQuery&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}`;
+		
+		var shelterId = $("#shelterId").val();
+		var dataUrl = `../project/shelterbooking.do?action=getCompositePetsQuery&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}&shelterId=${shelterId}`;
 		$.ajax({
 			url: dataUrl,
 			method: 'POST',
@@ -77,7 +79,8 @@ function next_two_weeks_generateCalendar() {
 		var checkbookingend=year_month + date;
 		//會等於 = 使用者填寫年分+-14 (yyyy-mm-31)
 		var checkbookingstart = year_month + end_date;
-		var dataUrl = `../project/shelterbooking.do?action=getCompositePetsQuery&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}`;
+		var shelterId = $("#shelterId").val();
+		var dataUrl = `../project/shelterbooking.do?action=getCompositePetsQuery&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}&shelterId=${shelterId}`;
 		$.ajax({
 			url: dataUrl,
 			method: 'POST',
@@ -387,7 +390,7 @@ function uploadData() {
 
 	// 获取所有日期按钮
 	var dateButtons = $("tr.button td button");
-
+	var shelterId = $("#shelterId").val();
 	dateButtons.each(function(index, button) {
 		var button_value = button.value;
 		var shelter_num;
@@ -425,7 +428,7 @@ function uploadData() {
 		}
 
 		data.push({
-			shelter: "300000001",
+			shelter: shelterId,
 			date: date,
 			time: time,
 			shelter_num: shelter_num,

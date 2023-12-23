@@ -115,8 +115,7 @@ public class ShelterServlet extends HttpServlet {
 
 //1215修改 詩涵
 	private String getUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer shelterId = 300000002;
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		Shelter shelter = (Shelter)req.getSession().getAttribute("shelter");
 		req.setAttribute("shelter", shelter);
 		return "/petjsp/shelter_update.jsp";
 	}
@@ -124,7 +123,8 @@ public class ShelterServlet extends HttpServlet {
 	// 1215新增 詩涵
 	private String update_forward(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("ShelterServlet: update_forward Entry");
-		Integer shelterId = 300000002;
+		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Integer shelterId = shelter2.getShelterId();
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 		req.setAttribute("shelter", shelter);
 		System.out.println("ShelterServlet: update_forward End");
@@ -134,7 +134,10 @@ public class ShelterServlet extends HttpServlet {
 //1215新增 詩涵
 	private String update_put(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("ShelterServlet: update_put Entry");
-		Integer shelterId = 300000002;
+		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Integer shelterId = shelter2.getShelterId();
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
@@ -142,7 +145,7 @@ public class ShelterServlet extends HttpServlet {
 		String shelterAddress = req.getParameter("shelterAddress").trim();
 		String shelterIntroduction = req.getParameter("shelterIntroduction").trim();
 
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		
 		shelter.setShelterId(shelterId);
 		shelter.setShelterName(shelterName);
 		shelter.setShelterAcct(shelterAcct);

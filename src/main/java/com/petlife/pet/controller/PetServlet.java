@@ -114,7 +114,7 @@ public class PetServlet extends HttpServlet {
 	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
 		Pet pet = petService.getOnePet(Id);
-		Integer shelterId =300000002;
+		Integer shelterId =pet.getShelterId();
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		String petLigation = req.getParameter("petLigation").trim();
@@ -206,7 +206,7 @@ public class PetServlet extends HttpServlet {
 	private String insert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		System.out.println("PetServlet :insert Entry");
 		Pet pet = new Pet();
-		Integer shelterId = Integer.valueOf(req.getParameter("shelterId").trim());
+		Integer shelterId = Integer.valueOf(req.getParameter("id").trim());
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		System.out.println(petVarietyId);

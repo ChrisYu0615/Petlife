@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="com.petlife.shelter.entity.Shelter"%>
+	<!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
@@ -36,7 +38,17 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+	
+<% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
 
+
+%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -78,8 +90,10 @@
 						class="from" method="post">
 						<!-- 第一行  -->
 						<div class="search_pet">
+						
+								<input type ="hidden" name="id" value="<%=id%>" id="id" >
 
-							<span class="mar"> <!-- 						種類 -->
+							<span class="mar">
 								<p>種類:</p>
 
 								<div class="form-check form-check-inline">
