@@ -82,8 +82,8 @@ th, td {
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a
-					href="test.html" class="nav-link">Home</a></li>
+<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+<!-- 					href="test.html" class="nav-link">Home</a></li> -->
 				<!-- 這是contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -93,27 +93,27 @@ th, td {
 			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-				<li class="nav-item"><a class="nav-link"
-					data-widget="navbar-search" href="#" role="button"> <i
-						class="fas fa-search"></i>
-				</a>
-					<div class="navbar-search-block">
-						<form class="form-inline">
-							<div class="input-group input-group-sm">
-								<input class="form-control form-control-navbar" type="search"
-									placeholder="Search" aria-label="Search">
-								<div class="input-group-append">
-									<button class="btn btn-navbar" type="submit">
-										<i class="fas fa-search"></i>
-									</button>
-									<button class="btn btn-navbar" type="button"
-										data-widget="navbar-search">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div></li>
+<!-- 				<li class="nav-item"><a class="nav-link" -->
+<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
+<!-- 						class="fas fa-search"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="navbar-search-block"> -->
+<!-- 						<form class="form-inline"> -->
+<!-- 							<div class="input-group input-group-sm"> -->
+<!-- 								<input class="form-control form-control-navbar" type="search" -->
+<!-- 									placeholder="Search" aria-label="Search"> -->
+<!-- 								<div class="input-group-append"> -->
+<!-- 									<button class="btn btn-navbar" type="submit"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 									<button class="btn btn-navbar" type="button" -->
+<!-- 										data-widget="navbar-search"> -->
+<!-- 										<i class="fas fa-times"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 					</div></li> -->
 
 				<!-- 這邊是上方右邊聊天通知列 -->
 				<!-- Messages Dropdown Menu -->
@@ -181,32 +181,32 @@ th, td {
 
 				<!-- 這裡是上方右邊訊息通知列 -->
 				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown"><a class="nav-link"
-					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-						class="badge badge-warning navbar-badge">15</span>
-				</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15
-							Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-envelope mr-2"></i> 4 new messages <span
-							class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-users mr-2"></i> 8 friend requests <span
-							class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-							3 new reports <span class="float-right text-muted text-sm">2
-								days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All
-							Notifications</a>
-					</div></li>
+<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
+<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
+<!-- 						class="badge badge-warning navbar-badge">15</span> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+<!-- 						<span class="dropdown-item dropdown-header">15 -->
+<!-- 							Notifications</span> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
+<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
+<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
+<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
+<!-- 								days</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
+<!-- 							Notifications</a> -->
+<!-- 					</div></li> -->
 
 				<!-- 這個是上方右邊全螢幕模式 -->
 				<li class="nav-item"><a class="nav-link"
@@ -215,15 +215,15 @@ th, td {
 				</a></li>
 
 				<!-- 這裡可以做登入修改或登出功能 -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown"
-					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> <i
-						class="fas fa-solid fa-user"></i>
-				</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a
-							class="dropdown-item" href="/yahoo">登出</a>
-					</div></li>
+<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
+<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
+<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
+<!-- 						class="fas fa-solid fa-user"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
+<!-- 						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a -->
+<!-- 							class="dropdown-item" href="/yahoo">登出</a> -->
+<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -361,8 +361,9 @@ th, td {
 						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
 						<!-- 								<p>賣家數據中心</p> -->
 						<!-- 						</a></li> -->
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-ad"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
 								<p>登出</p>
 						</a></li>
 					</ul>
@@ -386,12 +387,12 @@ th, td {
 							<h1 class="m-0">訂單管理</h1>
 						</div>
 						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">訂單管理</li>
-							</ol>
-						</div>
+<!-- 						<div class="col-sm-6"> -->
+<!-- 							<ol class="breadcrumb float-sm-right"> -->
+<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+<!-- 								<li class="breadcrumb-item active">訂單管理</li> -->
+<!-- 							</ol> -->
+<!-- 						</div> -->
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -430,7 +431,7 @@ th, td {
 					<th>買家評價時間</th>
 					<th>退貨原因</th>
 					<th>修改</th>
-					<th>刪除</th>
+<!-- 					<th>刪除</th> -->
 				</tr>
 				<tr>
 					<td><%=buylistDetails.getBuylistDetailsId()%></td>
@@ -453,16 +454,16 @@ th, td {
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
 					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> <input type="hidden"
-								name="buylistDetailsId"
-								value="${buylistDetails.buylistDetailsId}"> <input
-								type="hidden" name="action" value="delete">
-						</FORM>
-					</td>
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" -->
+<%-- 							ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do" --%>
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="刪除"> <input type="hidden" -->
+<!-- 								name="buylistDetailsId" -->
+<%-- 								value="${buylistDetails.buylistDetailsId}"> <input --%>
+<!-- 								type="hidden" name="action" value="delete"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
 					<!-- 					========================================= -->
 				</tr>
 			</table>
