@@ -1,6 +1,4 @@
 $(function () {
-    $(".headerPage").load("../components/header.html");
-    $(".footerPage").load("../components/footer.html");
 
     var nowDate = new Date();
     var year = nowDate.getFullYear();

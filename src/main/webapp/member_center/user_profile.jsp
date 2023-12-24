@@ -1,15 +1,8 @@
 <%@page import="com.petlife.user.entity.User"%>
-<%@ page import="com.petlife.user.entity.CreditCard"%>
-<%@ page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<%
-User user = (User) session.getAttribute("user");
-// Set<CreditCard> cardList = user.getCreditCards();
-%>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -55,7 +48,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
+	<%@include file="../components/header.jsp"%>
 
 	<!--Our Shop-->
 	<section id="our_shop_main" class="section_padding">
@@ -181,117 +174,8 @@ User user = (User) session.getAttribute("user");
 														<td class="profile_content"><%=user.getAddress()%>
 														</td>
 													</tr>
-													<%-- <tr>
-														<th class="profile_title"
-															rowspan="<%=cardList.size() + 1%>"><span>信用卡</span>
-															<button type="button"
-																class="col-auto btn-sm btn-primary addCards"
-																data-bs-toggle="modal" data-bs-target="#add_creditcard">新增信用卡
-															</button></th>
-
-
-														<c:forEach var="creditCard" items="<%=cardList%>">
-															<tr>
-																<td class="profile_content cardlist" colspan="1"><span>${creditCard.getCreditCardNumber()}</span>
-																</td>
-
-																<td class="profile_content cardlist delete" colspan="1">
-																	<button type="button"
-																		class="btn-sm btn-danger btn_delete_card"
-																		value="${creditCard.getCreditCardId()}">刪除</button>
-																</td>
-															</tr>
-														</c:forEach>
-													</tr> --%>
 												</table>
 											</div>
-
-
-											<%-- <!-- 新增信用卡 -->
-											<form action="<%=request.getContextPath()%>/creditcard/creditcard.do" method="post" id="add_creditCardForm">
-												<div class="modal fade" id="add_creditcard" tabindex="-1"
-													aria-labelledby="checkModalLabel" aria-hidden="true">
-													<div
-														class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="checkModalLabel">新增廣告資料</h5>
-															</div>
-															<div class="row modal-body delete_box">
-																<div class="form-group mb-3">
-																	<label for="creditCardNum" class="form-label">信用卡卡號
-																	</label> <input type="text" class="form-control"
-																		id="creditCardNum" name="creditCardNum"
-																		placeholder="請輸入信用卡卡號"> <span
-																		id="verify_creditCardNum"></span>
-																</div>
-
-																<div class="form-group mb-3">
-																	<label for="creditCardName" class="form-label">持卡人姓名
-																	</label> <input type="text" class="form-control"
-																		id="creditCardName" name="creditCardName"
-																		placeholder="請輸入持卡人姓名"> <span
-																		id="verify_creditCardName"></span>
-																</div>
-
-																<div class="form-group mb-3">
-																	<label for="creditCardDate" class="form-label">到期日
-																	</label> <input type="month" class="form-control"
-																		id="creditCardDate" name="creditCardExpirationDate"
-																		placeholder="請輸入到期日"> <span
-																		id="verify_creditCardDate"></span>
-																</div>
-															</div>
-
-															<div class="row modal-footer">
-																<div class="col"></div>
-																<button type="submit"
-																	class="col-auto btn-sm btn-primary btn_save">儲存</button>
-																<button type="button"
-																	class="col-auto btn-sm btn-warning btn_cancel"
-																	data-bs-dismiss="modal">取消</button>
-																<div class="col"></div>
-																<input type="hidden" name ="userId" value="<%=user.getUserId()%>">
-																<input type="hidden" name ="action" value="insert">
-															</div>
-														</div>
-													</div>
-												</div>
-											</form>
-
-
-											<!-- 刪除信用卡 -->
-											<form
-												action="<%=request.getContextPath()%>/creditcard/creditcard.do"
-												method="post">
-												<div class="modal fade" id="remove_article" tabindex="-1"
-													aria-labelledby="removeModalLabel" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="removeModalLabel">刪除信用卡資訊</h5>
-															</div>
-															<div class="row modal-body delete_box">
-																<div class="col rounded" id="modify_content">
-																	是要刪除該信用卡資訊?</div>
-															</div>
-															<div class="row modal-footer">
-																<div class="col"></div>
-																<button type="submit" class="col-auto btn btn-danger"
-																	id="btn_modify">確認</button>
-																<button type="button" class="col-auto btn btn-secondary"
-																	data-bs-dismiss="modal">取消</button>
-																<div class="col"></div>
-																<input type="hidden" name="articleId" value="">
-																<input type="hidden" name="action"
-																	value="modifyArticleState"> <input
-																	type="hidden" name="value" value="removeArticle">
-															</div>
-														</div>
-													</div>
-												</div>
-											</form> --%>
-
 										</div>
 									</div>
 								</div>
@@ -304,7 +188,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script
