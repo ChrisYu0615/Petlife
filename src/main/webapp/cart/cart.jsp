@@ -29,19 +29,19 @@
 <!-- 以下偵測使用者版本 -->
 
 <%
-// User user = (User) session.getAttribute("user");
-// CartService cartSvc = new CartServiceImpl();
+User user = (User) session.getAttribute("user");
+CartService cartSvc = new CartServiceImpl();
 
-// List<Cart> list = cartSvc.getCartsByUser(user);
-// pageContext.setAttribute("list", list);
+List<Cart> list = cartSvc.getCartsByUser(user);
+pageContext.setAttribute("list", list);
 %>
 
 <!-- 不偵測使用者版本 -->
 <%
-CartService cartSvc = new CartServiceImpl();
+// CartService cartSvc = new CartServiceImpl();
 
-List<Cart> list = cartSvc.getAll();
-pageContext.setAttribute("list", list);
+// List<Cart> list = cartSvc.getAll();
+// pageContext.setAttribute("list", list);
 %>
 <!-- ================= -->
 <!DOCTYPE html>
@@ -134,13 +134,14 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 <%@ include file="page1.file" %>
                                 	<c:forEach var="cart" items="${list}" begin="<%=pageIndex%>"
 										end="<%=pageIndex+rowsPerPage-1%>">
-                                    <tr>
-                                    	
-                                        <td><img src="../assets/img/shop/cart-1.png" alt="img"></td>
+                                    <tr id="cartItem-${cart.cartId}">
+                                    	<td> checkbox 在這邊</td>
+<!--                                         <td><img src="../assets/img/shop/cart-1.png" alt="img"></td> -->
                                         <td>${cart.comm.commName}</td>
                                         
                                         <td>NTD. ${cart.comm.commOnsalePrice}</td>
                                         <td>${cart.purchasingAmount}</td>
+<!--                                         	加減按鈕 -->
 <!--                                         <td> -->
 <!--                                             <form action="#!" class="product_count_form_two"> -->
 <!--                                                 <div class="product_count_one"> -->
@@ -165,13 +166,16 @@ pageContext.setAttribute("totalAmount", totalAmount);
 <!--                                         </td> -->
                                         <td>${cart.comm.commOnsalePrice * cart.purchasingAmount}</td>
 										<!-- DELETE BTN-->
-                                        <td>${cart.cartId}
-                                        	<form action="<%=request.getContextPath()%>/cart/cart.do" method="post">
-    											<input type="hidden" name="action" value="delete_cart_item">
-    											<input type="hidden" name="cartId" value="${cart.cartId}">
-    											<button type="submit" class="btn btn-danger">刪除</button>
-											</form>
-										</td>
+<%--                                         <td>${cart.cartId} --%>
+<%--                                         	<form action="<%=request.getContextPath()%>/cart/cart.do" method="post"> --%>
+<!--     											<input type="hidden" name="action" value="delete_cart_item"> -->
+<%--     											<input type="hidden" name="cartId" value="${cart.cartId}"> --%>
+<!--     											<button type="submit" class="btn btn-danger">刪除</button> -->
+<!-- 											</form> -->
+<!-- 										</td> -->
+
+										<!-- DELETE ajax version -->
+										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button></td>
                                     </tr>
                                     </c:forEach>
                                     <%@ include file="page2.file" %>
@@ -216,9 +220,17 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 <h4>Grand total: <span>$<%= grandTotal %> </span></h4>
                             </div>
                         </div>
-                        <div class="cart_proce_btn">
-                            <a href="checkout.html" class="btn btn_theme btn_md">為你家的寵物快樂下單</a>
-                        </div>
+<!--                         下單功能 -->
+<%-- 						<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post"> --%>
+<!--                         	<div class="cart_proce_btn"> -->
+<!--                         		<input type="hidden" name="action" value="insert"> -->
+<%--     							<input type="hidden" name="user" value="${user}"> --%>
+<%--     							<input type="hidden" name="seller" value="${cart.seller}"> --%>
+<!--     							<input type="hidden" name="coupon" value=1> -->
+<!--     							<input type="hidden" name="buylistState" value=0> -->
+<!--     							<button type="submit" class="btn btn_theme btn_md">為你家的寵物快樂下單</button> -->
+<!--                         	</div> -->
+<!--                         </form> -->
                     </div>
                 </div>
             </div>
@@ -232,27 +244,36 @@ pageContext.setAttribute("totalAmount", totalAmount);
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
 	<script>
-// 	$(document).ready(function() {
-//         $('.delete-cart-item').click(function() {
-//             var cartId = $(this).data('cartid'); // 取得 cart ID
-//             $.ajax({
-//                 url: '/path/to/delete/cart', // 替換為後端處理刪除請求的 URL
-//                 type: 'POST',
-//                 data: { cartId: cartId },
-//                 success: function(response) {
-//                     // 刪除成功，更新頁面
-//                     if(response.status == 'success') {
-//                         $('#cart-item-' + cartId).remove(); // 假設每個 cart 項目有一個唯一的 ID
-//                     }
-//                 },
-//                 error: function(xhr, status, error) {
-//                     // 處理錯誤
-//                     console.log('刪除失敗: ', error);
-//                 }
-//             });
-//         });
-//     });
-	</script>
+	function deleteCartItem(cartId) {
+	    if(confirm('確定要刪除此項目嗎？')) {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', '<%=request.getContextPath()%>/cart/cart.do', true);
+	        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	        xhr.onload = function () {
+	            if (this.status == 200) {
+	                // 假設服務器返回的響應是 JSON 格式
+	                var response = JSON.parse(this.responseText);
+	                if(response.status === 'success') {
+	                    // 移除已刪除的購物車項目
+	                    var elementToRemove = document.getElementById('cartItem-' + cartId);
+	                    if(elementToRemove) {
+	                        elementToRemove.parentNode.removeChild(elementToRemove);
+	                    }
+	                } else {
+	                    // 處理錯誤情況
+	                    alert(response.message);
+	                }
+	            } else {
+	                // 處理非200的響應
+	                console.error('錯誤發生: ' + this.status);
+	            }
+	        };
+	        xhr.send('action=delete_cart_item&cartId=' + cartId);
+	    }
+	}
+
+</script>
+	
 	
 </body>
 
