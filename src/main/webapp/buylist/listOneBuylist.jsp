@@ -462,15 +462,15 @@ th, td {
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
 					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/buylist/buylist.do"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除"> <input type="hidden"
-								name="buylistId" value="${buylist.buylistId}"> <input
-								type="hidden" name="action" value="delete">
-						</FORM>
-					</td>
+<!-- 					<td> -->
+<!-- 						<FORM METHOD="post" -->
+<%-- 							ACTION="<%=request.getContextPath()%>/buylist/buylist.do" --%>
+<!-- 							style="margin-bottom: 0px;"> -->
+<!-- 							<input type="submit" value="刪除"> <input type="hidden" -->
+<%-- 								name="buylistId" value="${buylist.buylistId}"> <input --%>
+<!-- 								type="hidden" name="action" value="delete"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
 				</tr>
 			</table>
 

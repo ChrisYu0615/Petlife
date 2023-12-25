@@ -459,26 +459,6 @@ th, td {
 						<td><input type="TEXT" name="buylistDetailsPurchaseAmount"
 							size="45" required /></td>
 					</tr>
-					<tr>
-						<td>會員評價星等:</td>
-						<td><input name="memberRatingStars" id="f_date1" type="text"
-							size="45" required /></td>
-					</tr>
-					<tr>
-						<td>買家評價敘述:</td>
-						<td><input type="TEXT" name="buyerEvaluateNarrative"
-							size="45" required /></td>
-					</tr>
-					<tr>
-						<td>買家評價時間:</td>
-						<td><input type="TEXT" name="buyerEvaluateTime" size="45"
-							required />
-							<div>YYYY-MM-DD HH:mm:ss</div></td>
-					</tr>
-					<tr>
-						<td>退貨原因:</td>
-						<td><input type="TEXT" name="returnReasons" size="45" /></td>
-					</tr>
 
 
 				</table>

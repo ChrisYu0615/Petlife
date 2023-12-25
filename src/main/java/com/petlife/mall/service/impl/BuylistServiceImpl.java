@@ -42,8 +42,8 @@ public class BuylistServiceImpl implements BuylistService {
 	}
 
 	@Override
-	public List<Buylist> getBuylistsByState(Integer buylistState) {
-		return dao.getBuylistsByState(buylistState);
+	public List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId) {
+		return dao.getBuylistsByState(buylistState, sellerId);
 	}
 
 	@Override

@@ -12,7 +12,7 @@
 <%
 Seller seller = (Seller) session.getAttribute("seller");
 CommService commSvc = new CommServiceImpl();
-List<Comm> list = commSvc.getCommsByState(3);
+List<Comm> list = commSvc.getCommsByState(3,seller.getSellerId());
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>

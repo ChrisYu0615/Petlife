@@ -70,12 +70,12 @@ public class BuylistDAOImpl implements BuylistDAO {
 	}
 
 	@Override
-	public List<Buylist> getBuylistsByState(Integer buylistState) {
+	public List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId) {
 		try {
 			Session session = getSession();
 			List<Buylist> buylists = session
-					.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
-					.setParameter("state", buylistState).getResultList();
+					.createQuery("from Buylist where buylistState.buylistStateId = :state and seller.sellerId = :sellerId", Buylist.class)
+					.setParameter("state", buylistState).setParameter("sellerId", sellerId).getResultList();
 			return buylists;
 		} catch (Exception e) {
 			e.printStackTrace();
