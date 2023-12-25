@@ -29,7 +29,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.petlife.admin.dao.AcctStateDAO;
-import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.service.AcctStateService;
 import com.petlife.admin.service.impl.AcctStateServiceImpl;
@@ -167,7 +167,7 @@ public class ShelterServlet extends HttpServlet {
 		Thread thread;
 		switch (selectValue) {
 		case "1":
-			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl();
 			AcctState acctState = acctStateDAO.findByPK(0);
 			shelter.setAcctState(acctState);
 			thread = new Thread(() -> {

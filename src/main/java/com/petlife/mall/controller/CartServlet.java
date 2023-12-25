@@ -27,7 +27,7 @@ import com.petlife.mall.service.impl.CartServiceImpl;
 import com.petlife.mall.service.impl.CommServiceImpl;
 import com.petlife.seller.entity.Seller;
 import com.petlife.user.dao.UserDAO;
-import com.petlife.user.dao.impl.UserDAOImpl2;
+import com.petlife.user.dao.impl.UserDAOImpl;
 import com.petlife.user.entity.User;
 
 @WebServlet("/cart/cart.do")
@@ -89,7 +89,7 @@ public class CartServlet extends HttpServlet{
 			Cart cart = new Cart();
 			
 			// 創建 DAOImpl 實例.
-			UserDAOImpl2 userDAOImpl2 = new UserDAOImpl2();
+			UserDAOImpl userDAOImpl2 = new UserDAOImpl();
 			CommDAOImpl commDAOImpl = new CommDAOImpl();
 			CartDAOImpl cartDAOImpl = new CartDAOImpl();
 			

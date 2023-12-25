@@ -19,5 +19,8 @@ public interface BuylistDAO {
 	public List<Buylist> getAll();
 	//根據訂單狀態ID查詢
 	 List<Buylist> getBuylistsByState(Integer buylistState);
+
+	 Double getUserRating(Integer userId);
 	}
+
 

@@ -39,7 +39,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 <!-- my_css -->
-<link rel="stylesheet" href="../dist/css/admin_member.css">
+<link rel="stylesheet" href="../dist/css/admin_profile.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -89,12 +89,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
-							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
+							class="nav-link active"> <i class="fas fa-solid fa-address-card"></i>
 								<p>修改管理員資料</p>
 						</a></li>   	
-
-          				<li class="nav-item menu-open">
-          				  <a href="#" class="nav-link active">
+						
+          				<li class="nav-item">
+          				  <a href="#" class="nav-link">
           				    <i class="fas fa-solid fa-users"></i>
           				    <p>
           				      會員管理
@@ -188,12 +188,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>會員管理</h1>
+							<h1>修改管理員資料</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
-								<li class="breadcrumb-item active">會員管理</li>
+								<li class="breadcrumb-item active">修改管理員資料</li>
 							</ol>
 						</div>
 					</div>
@@ -209,134 +209,49 @@ Admin admin = (Admin) session.getAttribute("admin");
 							<div class="card">
 								<div class="card-header">
 									<ul class="list-group list-group-horizontal-sm">
-										<li class="list-group-item"><a
-											href="<%=request.getContextPath()%>/user/user.do?action=getAll">一般會員</a></li>
-										<li class="list-group-item"><a
-											href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified">賣家會員</a></li>
-										<li class="list-group-item"><a
-											href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified">收容所會員</a></li>
-										<li class="list-group-item"><a
-											href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified">待審核會員</a></li>
+                                        <h2 class="card-title">管理員資料</h3>
 									</ul>
-									<!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
 								</div>
-								<!-- /.card-header -->
-								<div class="card-body table">
-									<table id="myTable" class="display">
-										<thead>
-											<tr>
-												<th>會員編號</th>
-												<th>會員帳號</th>
-												<th>會員身分</th>
-												<th>會員姓名</th>
-												<th>會員電話</th>
-												<th>帳號狀態</th>
-												<th>註冊時間</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="seller" items="${getAllSellers}">
-												<tr>
-													<td>${seller.sellerId}</td>
-													<td>${seller.sellerAcct}</td>
-													<td>${seller.acctType.acctType}</td>
-													<td>${seller.sellerName}</td>
-													<td>${seller.phoneNum}</td>
-													<td>${seller.acctState.acctStateType}</td>
-													<td><fmt:formatDate value="${seller.sellerCreateTime}"
-															pattern="yyyy-MM-dd HH:mm:ss" /></td>
-													<td>
-														<form
-															action="<%=request.getContextPath()%>/seller/seller.do"
-															method="post">
-															<c:choose>
-																<c:when test="${seller.acctState.acctStateType eq '停權'}">
-																	<button class="btn-sm btn-warning btn_recover"
-																		type="button" data-bs-toggle="modal"
-																		data-bs-target="#resume_member"
-																		value="${seller.sellerId}">解除</button>
-																</c:when>
-																<c:otherwise>
-																	<button class="btn-sm btn-danger btn_suspend"
-																		type="button" data-bs-toggle="modal"
-																		data-bs-target="#suspend_member"
-																		value="${seller.sellerId}">停權</button>
-																</c:otherwise>
-															</c:choose>
-														</form>
-													</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-								<!-- /.card-body -->
 
-									<!-- 停權 -->
-									<form action="<%=request.getContextPath()%>/seller/seller.do"
-										method="post">
-										<div class="modal fade" id="suspend_member" tabindex="-1"
-											aria-labelledby="suspendModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="suspendModalLabel">停權會員</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="row modal-body delete_box">
-														<div class="col rounded" id="suspend_content">
-															是否停權該會員?</div>
-													</div>
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger"
-															id="btn_delete">確認</button>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">取消</button>
-														<input type="hidden" id="suspendMemberId" name="memberId">
-														<input type="hidden" name="action" value="modifySellerAcctState">
-														<input type="hidden" name="modify" value="suspendSeller">
-														<div class="col"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-
-									<!-- 解除停權 -->
-									<form action="<%=request.getContextPath()%>/seller/seller.do"
-										method="post">
-										<div class="modal fade" id="resume_member" tabindex="-1"
-											aria-labelledby="resumeModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="resumeModalLabel">解除停權</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="row modal-body delete_box">
-														<div class="col rounded" id="resume_content">
-															是否要解除停權該會員?</div>
-													</div>
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger"
-															id="btn_delete">確認</button>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">取消</button>
-														<input type="hidden" id="recoverMemberId" name="memberId">
-														<input type="hidden" name="action" value="modifySellerAcctState">
-														<input type="hidden" name="modify" value="recoverSeller">
-														<div class="col"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-
+                                <form action="<%=request.getContextPath()%>/admin/admin.do" method="post" id="adminProfileForm">
+								    <!-- /.card-header -->
+								    <div class="card-body">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">管理員編號</label>
+                                          <input type="text" class="form-control" id="admin_id" name="admin_id" placeholder="請輸入管理員編號" value="<%=admin.getAdminId()%>" disabled>
+                                        </div>                                    
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">管理員帳號</label>
+                                          <input type="email" class="form-control" id="admin_acct" name="admin_acct" placeholder="請輸入管理員帳號" value="<%=admin.getAdminAcct()%>" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">修改密碼</label>
+                                          <input type="password" class="form-control" id="admin_pwd" name="admin_pwd" placeholder="管理員密碼">
+                                          <span id="verify_password"></span>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">管理員暱稱</label>
+                                          <input type="text" class="form-control" id="admin_nickname" name="admin_nickname" placeholder="請輸入管理員暱稱" value="<%=admin.getAdminNickname()%>">
+                                          <span id="verify_nickname"></span>                                          
+                                        </div>                     
+								    </div>
+								    <!-- /.card-body -->
+                                    <div class="row card-footer">
+                                        <div class="col"></div>
+                                        
+                                        <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary">修改</button>                                        
+                                        </div>
+                                        
+                                        <div class="col-auto offset-1">
+                                        <button type="submit" class="btn btn-warning">取消</button>                                        
+                                        </div>
+                                        
+                                        <div class="col"></div>
+                                        <input type="hidden" name="action" value="updateAdminProfile">                                        
+                                        <input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">                                      
+                                    </div>
+                                </form>
 							</div>
 							<!-- /.card -->
 						</div>
@@ -362,7 +277,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="../dist/js/adminlte.js"></script>
-		<script src="../dist/js/member_management.js"></script>
+		<script src="../dist/js/admin_profile.js"></script>
 </body>
 
 </html>

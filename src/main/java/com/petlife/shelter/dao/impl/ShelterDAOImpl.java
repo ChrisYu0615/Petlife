@@ -16,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.petlife.admin.dao.AcctStateDAO;
-import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.shelter.dao.ShelterDAO;
 import com.petlife.shelter.entity.Shelter;
@@ -102,7 +102,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 	@Override
 	public List<Shelter> getAll(String... conditions) {
 		if (conditions != null && conditions.length > 0) {
-			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl();
 			AcctState acctState = acctStateDAO.findByPK(4);
 			if ("verified".equals(conditions[0])) {
 				return getSession().createQuery("from Shelter where acctState!=:acctState", Shelter.class)

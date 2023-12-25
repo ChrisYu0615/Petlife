@@ -154,8 +154,16 @@
 
 																<c:when
 																	test="${buyList.buylistState.buylistStateName eq '訂單已完成'}">
-																	<button class="btn-sm btn-warning btn_rate"
-																		data-bs-toggle="modal" data-bs-target="#rate_order">評價</button>
+																	<c:choose>
+																		<c:when test="${buyList.memberEvaluateTime != null}">
+																		<button class="btn-sm btn-secondary btn_rate"
+																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}" disabled>已評價</button>
+																		</c:when>
+																		<c:otherwise>
+																		<button class="btn-sm btn-warning btn_rate"
+																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}">評價</button>
+																		</c:otherwise>
+																	</c:choose>
 																</c:when>
 															</c:choose>
 														</td>
@@ -267,7 +275,7 @@
 										</form>
 
 										<!-- 評價 -->
-										<form action="" method="get">
+										<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post" id="rate_orderForm">
 											<div class="modal fade" id="rate_order" tabindex="-1"
 												aria-labelledby="rateModalLabel" aria-hidden="true">
 												<div
@@ -279,8 +287,10 @@
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
 														<div class="row modal-body delete_box">
+															<span id="verify_rateStar"></span>																														
 															<div class="col rounded star_block" id="delete_content">
-																評價此訂單<br> <span class="star" data-star="1"><i
+																評價此訂單<br>
+																 <span class="star" data-star="1"><i
 																	class="fas fa-star"></i></span> <span class="star"
 																	data-star="2"><i class="fas fa-star"></i></span> <span
 																	class="star" data-star="3"><i
@@ -290,6 +300,7 @@
 																	class="fas fa-star"></i></span>
 															</div>
 															<div class="col-auto">
+																<span id="verify_rateComment"></span>
 																<label class="col-md-12" for="rateReason">評論：</label> <br>
 																<textarea class="col-md-12" id="rateReason"
 																	name="rateReason" rows="4" cols="80"
@@ -303,6 +314,10 @@
 															<button type="button" class="col-auto btn btn-secondary"
 																data-bs-dismiss="modal">取消</button>
 															<div class="col"></div>
+															<input type="hidden" name="action" value="memberRateBuylist">
+															<input type="hidden" name="ratedMemberId" value=<%=user.getUserId()%>>
+															<input type="hidden" name="retedBuylistId">
+															<input type="hidden" name="ratedStar">
 														</div>
 													</div>
 												</div>

@@ -3,139 +3,88 @@ package com.petlife.user.dao.impl;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.petlife.user.dao.UserDAO;
 import com.petlife.user.entity.User;
 import com.petlife.util.HibernateUtil;
 
 public class UserDAOImpl implements UserDAO {
+	private SessionFactory factory;
+
+	public UserDAOImpl() {
+		factory = HibernateUtil.getSessionFactory();
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
 
 	@Override
 	public Integer add(User user) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Integer id = (Integer) session.save(user);
-
-			session.getTransaction().commit();
-			return id;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return -1;
+		Integer id = (Integer) getSession().save(user);
+		return id;
 	}
 
 	@Override
 	public Integer delete(Integer userId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			User user = session.get(User.class, userId);
-			if (user != null) {
-				session.delete(user);
-			}
-			session.getTransaction().commit();
+		User user = getSession().get(User.class, userId);
+		if (user != null) {
+			getSession().delete(user);
 			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
+		} else {
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
 	public Integer update(User user) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		getSession().flush();
 		try {
-			session.beginTransaction();
-
-			session.update(user);
-
-			session.getTransaction().commit();
+			getSession().update(user);
 			return 1;
 		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
 	public User findByPK(Integer userId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			User user = session.get(User.class, userId);
-
-			session.getTransaction().commit();
-			return user;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
+		getSession().clear();
+		return getSession().createQuery("from User u left join fetch u.creditCards where u.userId=:userId", User.class)
+				.setParameter("userId", userId).getSingleResult();
 	}
 
 	@Override
 	public List<User> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			List<User> userList = session.createQuery("from User", User.class).getResultList();
-
-			session.getTransaction().commit();
-			return userList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
+		return getSession().createQuery("from User", User.class).getResultList();
 	}
 
 	@Override
 	public Long getTotal() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Long count = session.createQuery("select count(*) from User", Long.class).getSingleResult();
-
-			session.getTransaction().commit();
-			return count;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return 0L;
+		return getSession().createQuery("select count(*) from User", Long.class).getSingleResult();
 	}
 
 	@Override
 	public User findUserByUserAccount(String userAcct) {
-		// TODO Auto-generated method stub
+		List<User> users = getSession().createQuery("from User where userAcct=:userAcct", User.class)
+				.setParameter("userAcct", userAcct).getResultList();
+
+		if (users.size() > 0) {
+			return users.get(0);
+		}
 		return null;
 	}
 
 	@Override
 	public User findUserByUserAccountAndPassword(String userAcct, String userPwd) {
-		// TODO Auto-generated method stub
+		List<User> users = getSession()
+				.createQuery("from User where userAcct=:userAcct and userPwd=:userPwd", User.class)
+				.setParameter("userAcct", userAcct).setParameter("userPwd", userPwd).getResultList();
+
+		if (users.size() > 0) {
+			return users.get(0);
+		}
 		return null;
 	}
-
 }

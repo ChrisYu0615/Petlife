@@ -128,7 +128,6 @@ public class AdvertisementServlet extends HttpServlet {
 
 	private String getAllAdvertisements(HttpServletRequest req, HttpServletResponse resp) {
 		List<Advertisement> advertisements = advertisementService.getAll();
-		System.out.println(advertisements);
 		req.setAttribute("getAllAdvertisements", advertisements);
 		return "/admin/advertisement_management.jsp";
 	}

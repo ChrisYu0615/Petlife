@@ -112,8 +112,8 @@ User user = (User) session.getAttribute("user");
 													<li class="nav-item"><a href="#" class="nav-link">
 															<img
 															src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=user.getUserId()%>"
-															alt="" class="preview_img rounded-circle"
-															style="width: 35px ;height:35px;"> <span
+															alt="" class="preview_img shadow rounded-circle"
+															style="width: 35px ;height:35px; background-color:white;"> <span
 															style="font-size: 15px;"><%=user.getUserName()%></span>
 															<i class="fas fa-angle-down"></i>
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
