@@ -8,8 +8,6 @@
 <%
 Seller seller = (Seller) session.getAttribute("seller");
 Buylist buylist = (Buylist) request.getAttribute("buylist");
-
-
 %>
 <!-- List<Commcat> commCat = commCatServie.getAll(); -->
 <!-- pageContext.setAttribute("getAllCommCat", commCat); -->
@@ -86,8 +84,8 @@ th, td {
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
-<!-- 					href="test.html" class="nav-link">Home</a></li> -->
+				<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+				<!-- 					href="test.html" class="nav-link">Home</a></li> -->
 				<!-- 這是contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -97,27 +95,27 @@ th, td {
 			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-<!-- 				<li class="nav-item"><a class="nav-link" -->
-<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
-<!-- 						class="fas fa-search"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="navbar-search-block"> -->
-<!-- 						<form class="form-inline"> -->
-<!-- 							<div class="input-group input-group-sm"> -->
-<!-- 								<input class="form-control form-control-navbar" type="search" -->
-<!-- 									placeholder="Search" aria-label="Search"> -->
-<!-- 								<div class="input-group-append"> -->
-<!-- 									<button class="btn btn-navbar" type="submit"> -->
-<!-- 										<i class="fas fa-search"></i> -->
-<!-- 									</button> -->
-<!-- 									<button class="btn btn-navbar" type="button" -->
-<!-- 										data-widget="navbar-search"> -->
-<!-- 										<i class="fas fa-times"></i> -->
-<!-- 									</button> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
-<!-- 					</div></li> -->
+				<!-- 				<li class="nav-item"><a class="nav-link" -->
+				<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
+				<!-- 						class="fas fa-search"></i> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="navbar-search-block"> -->
+				<!-- 						<form class="form-inline"> -->
+				<!-- 							<div class="input-group input-group-sm"> -->
+				<!-- 								<input class="form-control form-control-navbar" type="search" -->
+				<!-- 									placeholder="Search" aria-label="Search"> -->
+				<!-- 								<div class="input-group-append"> -->
+				<!-- 									<button class="btn btn-navbar" type="submit"> -->
+				<!-- 										<i class="fas fa-search"></i> -->
+				<!-- 									</button> -->
+				<!-- 									<button class="btn btn-navbar" type="button" -->
+				<!-- 										data-widget="navbar-search"> -->
+				<!-- 										<i class="fas fa-times"></i> -->
+				<!-- 									</button> -->
+				<!-- 								</div> -->
+				<!-- 							</div> -->
+				<!-- 						</form> -->
+				<!-- 					</div></li> -->
 
 				<!-- 這邊是上方右邊聊天通知列 -->
 				<!-- Messages Dropdown Menu -->
@@ -185,32 +183,32 @@ th, td {
 
 				<!-- 這裡是上方右邊訊息通知列 -->
 				<!-- Notifications Dropdown Menu -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
-<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
-<!-- 						class="badge badge-warning navbar-badge">15</span> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
-<!-- 						<span class="dropdown-item dropdown-header">15 -->
-<!-- 							Notifications</span> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
-<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
-<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
-<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
-<!-- 								days</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
-<!-- 							Notifications</a> -->
-<!-- 					</div></li> -->
+				<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
+				<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
+				<!-- 						class="badge badge-warning navbar-badge">15</span> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+				<!-- 						<span class="dropdown-item dropdown-header">15 -->
+				<!-- 							Notifications</span> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i -->
+				<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
+				<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i -->
+				<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
+				<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
+				<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
+				<!-- 								days</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
+				<!-- 							Notifications</a> -->
+				<!-- 					</div></li> -->
 
 				<!-- 這個是上方右邊全螢幕模式 -->
 				<li class="nav-item"><a class="nav-link"
@@ -219,15 +217,15 @@ th, td {
 				</a></li>
 
 				<!-- 這裡可以做登入修改或登出功能 -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
-<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
-<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
-<!-- 						class="fas fa-solid fa-user"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
-<!-- 						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a -->
-<!-- 							class="dropdown-item" href="/yahoo">登出</a> -->
-<!-- 					</div></li> -->
+				<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
+				<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
+				<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
+				<!-- 						class="fas fa-solid fa-user"></i> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
+				<!-- 						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a -->
+				<!-- 							class="dropdown-item" href="/yahoo">登出</a> -->
+				<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -264,10 +262,10 @@ th, td {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
-<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>通知</p> -->
-<!-- 						</a></li> -->
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>通知</p> -->
+						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
@@ -439,7 +437,7 @@ th, td {
 			</c:if>
 
 			<form method="post" action="comm.do" name="form1"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onsubmit="return validateForm()">
 
 				<table>
 					<!-- 表單字段 -->
@@ -466,14 +464,14 @@ th, td {
 						<td><select name="commState" id="f_date1" required>
 								<option value="" selected disabled hidden>請選擇訂單狀態</option>
 								<option value="0">販售中</option>
-<!-- 								<option value="1">缺貨中</option> -->
+								<!-- 								<option value="1">缺貨中</option> -->
 								<option value="2">下架</option>
 						</select></td>
 					</tr>
-<!-- 					<tr> -->
-<!-- 						<td>商品狀態:</td> -->
-<!-- 						<td><input type="text" name="commState" size="45" /></td> -->
-<!-- 					</tr> -->
+					<!-- 					<tr> -->
+					<!-- 						<td>商品狀態:</td> -->
+					<!-- 						<td><input type="text" name="commState" size="45" /></td> -->
+					<!-- 					</tr> -->
 					<tr>
 						<!-- 						<td>上架時間:</td> -->
 						<input type="hidden" name="listDatetime" size="45" />
@@ -483,13 +481,28 @@ th, td {
 						<td><input type="file" name="commImg" size="45" /></td>
 					</tr>
 					<tr>
-						<td>商品分類ID:</td>
-												<td><input type="text" name="commCat" size="45" /></td>
-<!-- 						<td><select> -->
-<%-- 								<c:forEach var="commCat" items="${pageScope.getAllCommCat}"> --%>
-<%-- 									<option name="" value="${commCat.commCatId}">${commCat.commMainSort}/${commCat.commMajorSort}</option> --%>
-<%-- 								</c:forEach> --%>
-<!-- 						</select></td> -->
+						<td>商品分類:</td>
+						<td><select name="commCat" id="f_date1" required>
+								<option value="" selected disabled hidden>請選擇商品分類</option>
+								<optgroup label="貓貓">
+								<option value="1000">貓咪飼料</option>
+								<option value="1001">貓咪主食罐</option>
+								<option value="1002">貓咪副食罐</option>
+								<option value="1003">貓咪零食</option>
+								<option value="1004">貓咪用品</option>
+								<optgroup label="狗狗">
+								<option value="2000">狗狗飼料</option>
+								<option value="2001">狗狗主食罐</option>
+								<option value="2002">狗狗副食罐</option>
+								<option value="2003">狗狗零食</option>
+								<option value="2004">狗狗用品</option>
+						</select></td>
+<!-- 						<td><input type="text" name="commCat" size="45" /></td> -->
+						<!-- 						<td><select> -->
+						<%-- 								<c:forEach var="commCat" items="${pageScope.getAllCommCat}"> --%>
+						<%-- 									<option name="" value="${commCat.commCatId}">${commCat.commMainSort}/${commCat.commMajorSort}</option> --%>
+						<%-- 								</c:forEach> --%>
+						<!-- 						</select></td> -->
 					</tr>
 					<tr>
 						<td>商品庫存量:</td>
@@ -505,7 +518,7 @@ th, td {
 					</tr>
 					<tr>
 						<td>瀏覽數:</td>
-						<td><input type="text" name="commViewCount" size="45" /></td>
+						<td><input type="text" name="commViewCount" size="45" value="0" readonly/></td>
 					</tr>
 				</table>
 				<br> <input type="hidden" name="action" value="insert">
@@ -539,6 +552,8 @@ th, td {
 
     function validateForm() {
         var listDatetime = document.forms["form1"]["listDatetime"].value;
+        var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
+        var commOnsalePrice = parseFloat(document.forms["form1"]["commOnsalePrice"].value);
         
 
         // 檢查日期格式
@@ -549,7 +564,11 @@ th, td {
             return false;
         }
 
-        // 添加您的其他表單驗證邏輯...
+        if (commOnsalePrice >= commPrice) {
+            alert("商品優惠價不得大於或等於商品價格。");
+            return false;
+        }
+
 
         return true; // 如果所有驗證都通過，返回 true；否則返回 false
     }

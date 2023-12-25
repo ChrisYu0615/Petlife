@@ -51,4 +51,9 @@ public class CommServiceImpl implements CommService{
 		return dao.getCommsByState(commState);
 	}
 	
+	@Override
+	public void updateView(Integer commId) {
+		dao.updateView(commId);
+	}
+	
 }

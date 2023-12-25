@@ -421,7 +421,7 @@ th, td {
 					<th>會員ID</th>
 					<th>賣家ID</th>
 					<th>訂單狀態ID</th>
-					<th>優惠碼ID</th>
+					<th>優惠碼名稱</th>
 					<th>賣家評價星等</th>
 					<th>賣家評價敘述</th>
 					<th>賣家評價時間</th>

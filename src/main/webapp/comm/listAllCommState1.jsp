@@ -4,7 +4,7 @@
 <%@page import="com.petlife.mall.service.CommService"%>
 
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@page import="com.petlife.admin.*"%>
@@ -21,8 +21,8 @@ pageContext.setAttribute("list", list);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¯Ê³f¤¤°Ó«~</title>
-<!-- ÅıLoading, please wait®ø¥¢ -->
+<title>ç¼ºè²¨ä¸­å•†å“</title>
+<!-- è®“Loading, please waitæ¶ˆå¤± -->
 <link rel="stylesheet" href="/buylist.css">
 
 <!-- Google Font: Source Sans Pro -->
@@ -81,47 +81,47 @@ th, td {
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
-		<!-- ¤W¤èNavbar -->
+		<!-- ä¸Šæ–¹Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- ¤W¤è¥ªÃäLeft navbar links -->
+			<!-- ä¸Šæ–¹å·¦é‚ŠLeft navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
-<!-- 					href="test.html" class="nav-link">Home</a></li> -->
-				<!-- ³o¬Ocontact bar -->
+				<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+				<!-- 					href="test.html" class="nav-link">Home</a></li> -->
+				<!-- é€™æ˜¯contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> -->
 			</ul>
 
-			<!-- ¤W¤è¥kÃäRight navbar links -->
+			<!-- ä¸Šæ–¹å³é‚ŠRight navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-<!-- 				<li class="nav-item"><a class="nav-link" -->
-<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
-<!-- 						class="fas fa-search"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="navbar-search-block"> -->
-<!-- 						<form class="form-inline"> -->
-<!-- 							<div class="input-group input-group-sm"> -->
-<!-- 								<input class="form-control form-control-navbar" type="search" -->
-<!-- 									placeholder="Search" aria-label="Search"> -->
-<!-- 								<div class="input-group-append"> -->
-<!-- 									<button class="btn btn-navbar" type="submit"> -->
-<!-- 										<i class="fas fa-search"></i> -->
-<!-- 									</button> -->
-<!-- 									<button class="btn btn-navbar" type="button" -->
-<!-- 										data-widget="navbar-search"> -->
-<!-- 										<i class="fas fa-times"></i> -->
-<!-- 									</button> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
-<!-- 					</div></li> -->
+				<!-- 				<li class="nav-item"><a class="nav-link" -->
+				<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
+				<!-- 						class="fas fa-search"></i> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="navbar-search-block"> -->
+				<!-- 						<form class="form-inline"> -->
+				<!-- 							<div class="input-group input-group-sm"> -->
+				<!-- 								<input class="form-control form-control-navbar" type="search" -->
+				<!-- 									placeholder="Search" aria-label="Search"> -->
+				<!-- 								<div class="input-group-append"> -->
+				<!-- 									<button class="btn btn-navbar" type="submit"> -->
+				<!-- 										<i class="fas fa-search"></i> -->
+				<!-- 									</button> -->
+				<!-- 									<button class="btn btn-navbar" type="button" -->
+				<!-- 										data-widget="navbar-search"> -->
+				<!-- 										<i class="fas fa-times"></i> -->
+				<!-- 									</button> -->
+				<!-- 								</div> -->
+				<!-- 							</div> -->
+				<!-- 						</form> -->
+				<!-- 					</div></li> -->
 
-				<!-- ³oÃä¬O¤W¤è¥kÃä²á¤Ñ³qª¾¦C -->
+				<!-- é€™é‚Šæ˜¯ä¸Šæ–¹å³é‚ŠèŠå¤©é€šçŸ¥åˆ— -->
 				<!-- Messages Dropdown Menu -->
 				<!-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -185,51 +185,51 @@ th, td {
                     </div>
                 </li> -->
 
-				<!-- ³o¸Ì¬O¤W¤è¥kÃä°T®§³qª¾¦C -->
+				<!-- é€™è£¡æ˜¯ä¸Šæ–¹å³é‚Šè¨Šæ¯é€šçŸ¥åˆ— -->
 				<!-- Notifications Dropdown Menu -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
-<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
-<!-- 						class="badge badge-warning navbar-badge">15</span> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
-<!-- 						<span class="dropdown-item dropdown-header">15 -->
-<!-- 							Notifications</span> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
-<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
-<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
-<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
-<!-- 								days</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
-<!-- 							Notifications</a> -->
-<!-- 					</div></li> -->
+				<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
+				<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
+				<!-- 						class="badge badge-warning navbar-badge">15</span> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+				<!-- 						<span class="dropdown-item dropdown-header">15 -->
+				<!-- 							Notifications</span> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i -->
+				<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
+				<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i -->
+				<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
+				<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
+				<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
+				<!-- 								days</span> -->
+				<!-- 						</a> -->
+				<!-- 						<div class="dropdown-divider"></div> -->
+				<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
+				<!-- 							Notifications</a> -->
+				<!-- 					</div></li> -->
 
-				<!-- ³o­Ó¬O¤W¤è¥kÃä¥ş¿Ã¹õ¼Ò¦¡ -->
+				<!-- é€™å€‹æ˜¯ä¸Šæ–¹å³é‚Šå…¨è¢å¹•æ¨¡å¼ -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
 
-				<!-- ³o¸Ì¥i¥H°µµn¤J­×§ï©Îµn¥X¥\¯à -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
-<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
-<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
-<!-- 						class="fas fa-solid fa-user"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
-<!-- 						<a class="dropdown-item" href="/google">­×§ï±b¸¹¸ê°T</a> <a -->
-<!-- 							class="dropdown-item" href="/yahoo">µn¥X</a> -->
-<!-- 					</div></li> -->
+				<!-- é€™è£¡å¯ä»¥åšç™»å…¥ä¿®æ”¹æˆ–ç™»å‡ºåŠŸèƒ½ -->
+				<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
+				<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
+				<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
+				<!-- 						class="fas fa-solid fa-user"></i> -->
+				<!-- 				</a> -->
+				<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
+				<!-- 						<a class="dropdown-item" href="/google">ä¿®æ”¹å¸³è™Ÿè³‡è¨Š</a> <a -->
+				<!-- 							class="dropdown-item" href="/yahoo">ç™»å‡º</a> -->
+				<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -244,7 +244,7 @@ th, td {
 			<a href="test.html" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Ãd·R¥Í¬¡«á»OºŞ²z</span>
+				<span class="brand-text font-weight-light">å¯µæ„›ç”Ÿæ´»å¾Œè‡ºç®¡ç†</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -256,7 +256,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block"><%=seller.getSellerName()%>½æ®a¡A§A¦n</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>è³£å®¶ï¼Œä½ å¥½</a>
 					</div>
 				</div>
 
@@ -266,93 +266,93 @@ th, td {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
-<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>³qª¾</p> -->
-<!-- 						</a></li> -->
-						<!-- ¥H¤U¬O¥i¦ùÁYªº°¼ÃäÄæ -->
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>é€šçŸ¥</p> -->
+						<!-- 						</a></li> -->
+						<!-- ä»¥ä¸‹æ˜¯å¯ä¼¸ç¸®çš„å´é‚Šæ¬„ -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									­q³æºŞ²z <i class="right fas fa-angle-left"></i>
+									è¨‚å–®ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylist.jsp" class="nav-link active">
 										<i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³­q³æ</p>
+										<p>æ‰€æœ‰è¨‚å–®</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>0:«İ¥I´Ú</p>
+										<p>0:å¾…ä»˜æ¬¾</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState1.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>1:«İ¥X³f</p>
+										<p>1:å¾…å‡ºè²¨</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState2.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>2:¹B°e¤¤</p>
+										<p>2:é‹é€ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState3.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>3:­q³æ¤w§¹¦¨</p>
+										<p>3:è¨‚å–®å·²å®Œæˆ</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState4.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>4:­q³æ¤w¨ú®ø</p>
+										<p>4:è¨‚å–®å·²å–æ¶ˆ</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState5.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>5:°h³f/°h´Ú</p>
+										<p>5:é€€è²¨/é€€æ¬¾</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 						<li class="nav-item"><a
 							href="../buylistdetails/listAllBuylistDetails.jsp"
 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>­q³æ°Ó«~²Ó¶µ</p>
+								<p>è¨‚å–®å•†å“ç´°é …</p>
 						</a></li>
 						<!-- ========================================================== -->
 
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
-									°Ó«~ºŞ²z <i class="right fas fa-angle-left"></i>
+									å•†å“ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>¤W¬[°Ó«~</p>
+										<p>ä¸Šæ¶å•†å“</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllComm.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³°Ó«~</p>
+										<p>æ‰€æœ‰å•†å“</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllCommState0.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>0:³c°â¤¤</p>
+										<p>0:è²©å”®ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllCommState1.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>1:¯Ê³f¤¤</p>
+										<p>1:ç¼ºè²¨ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllCommState2.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>2:¤U¬[</p>
+										<p>2:ä¸‹æ¶</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllCommState3.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>3:¹H³W¤U¬[</p>
+										<p>3:é•è¦ä¸‹æ¶</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
@@ -360,17 +360,17 @@ th, td {
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
 						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>¹wÄı½æ³õ</p> -->
+						<!-- 								<p>é è¦½è³£å ´</p> -->
 						<!-- 						</a></li> -->
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
 						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
-						<!-- 								<p>½æ®a¼Æ¾Ú¤¤¤ß</p> -->
+						<!-- 								<p>è³£å®¶æ•¸æ“šä¸­å¿ƒ</p> -->
 						<!-- 						</a></li> -->
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/logout/logout.do"
 							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
-								<p>µn¥X</p>
+								<p>ç™»å‡º</p>
 						</a></li>
 
 					</ul>
@@ -383,7 +383,7 @@ th, td {
 
 
 
-		<!-- ³oÃä¬O¥D¤º®e¤W¤èªº¤å¦r±Ô­z -->
+		<!-- é€™é‚Šæ˜¯ä¸»å…§å®¹ä¸Šæ–¹çš„æ–‡å­—æ•˜è¿° -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -391,13 +391,13 @@ th, td {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">°Ó«~ºŞ²z</h1>
+							<h1 class="m-0">å•†å“ç®¡ç†</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
-								<!-- 								<li class="breadcrumb-item active">­q³æºŞ²z</li> -->
+								<!-- 								<li class="breadcrumb-item active">è¨‚å–®ç®¡ç†</li> -->
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -409,21 +409,21 @@ th, td {
 			<!-- /.content-header -->
 
 
-			<!-- //³oÃä¶ë¥D¤º®e¤å¦r -->
+			<!-- //é€™é‚Šå¡ä¸»å…§å®¹æ–‡å­— -->
 			<!-- /.content-wrapper -->
 
 			<div class="card-header">
 				<a href='addComm.jsp'><button type="button"
 						class="btn btn-primary" id="btn_addcoupon" data-bs-toggle="modal"
-						data-bs-target="#add_coupon">·s¼W°Ó«~</button></a>
+						data-bs-target="#add_coupon">æ–°å¢å•†å“</button></a>
 			</div>
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>©Ò¦³°Ó«~¸ê®Æ</h3>
+						<h3>æ‰€æœ‰å•†å“è³‡æ–™</h3>
 						<h4>
-<!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
-<!-- 								width="100" height="32" border="0">¦^­º­¶</a> -->
+							<!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
+							<!-- 								width="100" height="32" border="0">å›é¦–é </a> -->
 						</h4>
 					</td>
 				</tr>
@@ -431,47 +431,47 @@ th, td {
 			<!-- ========================================================== -->
 
 			<FORM METHOD="post" ACTION="comm.do">
-				<b>¿é¤J°Ó«~½s¸¹:</b> <input type="text" name="commId"> <input
+				<b>è¼¸å…¥å•†å“ç·¨è™Ÿ:</b> <input type="text" name="commId"> <input
 					type="hidden" name="action" value="getOne_For_Display"> <input
-					type="submit" value="°e¥X">
+					type="submit" value="é€å‡º">
 			</FORM>
 
 			<jsp:useBean id="commSv" scope="page"
 				class="com.petlife.mall.service.impl.CommServiceImpl" />
 			<FORM METHOD="post" ACTION="comm.do">
-				<b>¿ï¾Ü°Ó«~½s¸¹:</b> <select size="1" name="commId">
+				<b>é¸æ“‡å•†å“ç·¨è™Ÿ:</b> <select size="1" name="commId">
 					<c:forEach var="comm" items="${commSv.getAll()}">
 						<option value="${comm.commId}">${comm.commId}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="°e¥X">
+				<input type="submit" value="é€å‡º">
 			</FORM>
 
 			<FORM METHOD="post" ACTION="comm.do">
-				<b>¿ï¾Ü°Ó«~¦WºÙ:</b> <select size="1" name="commId">
+				<b>é¸æ“‡å•†å“åç¨±:</b> <select size="1" name="commId">
 					<c:forEach var="comm" items="${commSv.getAll()}">
 						<option value="${comm.commId}">${comm.commName}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="°e¥X">
+				<input type="submit" value="é€å‡º">
 			</FORM>
 			<!-- ========================================================== -->
 			<table>
 				<tr>
-					<th>°Ó«~ID</th>
-					<th>½æ®aID</th>
-					<th>°Ó«~¦WºÙ</th>
-					<th>°Ó«~´y­z</th>
-					<th>°Ó«~ª¬ºA</th>
-					<th>¤W¬[®É¶¡</th>
-					<th>°Ó«~ÁY¹Ï</th>
-					<th>°Ó«~¤ÀÃşID</th>
-					<th>°Ó«~®w¦s¶q</th>
-					<th>°Ó«~»ù®æ</th>
-					<th>°Ó«~Àu´f»ù</th>
-					<th>ÂsÄı¼Æ</th>
-					<th>­×§ï</th>
-<!-- 					<th>§R°£</th> -->
+					<th>å•†å“ID</th>
+					<th>è³£å®¶ID</th>
+					<th>å•†å“åç¨±</th>
+					<th>å•†å“æè¿°</th>
+					<th>å•†å“ç‹€æ…‹</th>
+					<th>ä¸Šæ¶æ™‚é–“</th>
+					<th>å•†å“ç¸®åœ–</th>
+					<th>å•†å“åˆ†é¡</th>
+					<th>å•†å“åº«å­˜é‡</th>
+					<th>å•†å“åƒ¹æ ¼</th>
+					<th>å•†å“å„ªæƒ åƒ¹</th>
+					<th>ç€è¦½æ•¸</th>
+					<th>ä¿®æ”¹</th>
+					<!-- 					<th>åˆªé™¤</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
 				<c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
@@ -483,19 +483,33 @@ th, td {
 						<td>${comm.commName}</td>
 						<td>${comm.commDesc}</td>
 						<td>${
-								    comm.commState == 0 ? '³c°â¤¤' :
-								    comm.commState == 1 ? '¯Ê³f¤¤' :
-								    comm.commState == 2 ? '¤U¬[' :
-								    comm.commState == 3 ? '¹H³W¤U¬[' :
-								    '¥¼ª¾ª¬ºA'
+								    comm.commState == 0 ? 'è²©å”®ä¸­' :
+								    comm.commState == 1 ? 'ç¼ºè²¨ä¸­' :
+								    comm.commState == 2 ? 'ä¸‹æ¶' :
+								    comm.commState == 3 ? 'é•è¦ä¸‹æ¶' :
+								    'æœªçŸ¥ç‹€æ…‹'
 								  }
 						</td>
-<%-- 						<td>${comm.commState}</td> --%>
+						<%-- 						<td>${comm.commState}</td> --%>
 						<td>${comm.listDatetime}</td>
 						<td><img
 							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 							width="100px"></td>
-						<td>${comm.commCat.commCatId}</td>
+						<td>${
+								        comm.commCat.commCatId == 1000 ? 'è²“å’ªé£¼æ–™' :
+								        comm.commCat.commCatId == 1001 ? 'è²“å’ªä¸»é£Ÿç½' :
+								        comm.commCat.commCatId == 1002 ? 'è²“å’ªå‰¯é£Ÿç½' :
+								        comm.commCat.commCatId == 1003 ? 'è²“å’ªé›¶é£Ÿ' :
+								        comm.commCat.commCatId == 1004 ? 'è²“å’ªç”¨å“' :
+								        comm.commCat.commCatId == 2000 ? 'ç‹—ç‹—é£¼æ–™' :
+								        comm.commCat.commCatId == 2001 ? 'ç‹—ç‹—ä¸»é£Ÿç½' :
+								        comm.commCat.commCatId == 2002 ? 'ç‹—ç‹—å‰¯é£Ÿç½' :
+								        comm.commCat.commCatId == 2003 ? 'ç‹—ç‹—é›¶é£Ÿ' :
+								        comm.commCat.commCatId == 2004 ? 'ç‹—ç‹—ç”¨å“' :
+								        'æœªçŸ¥åˆ†é¡'
+								    }
+						</td>
+						<%-- 						<td>${comm.commCat.commCatId}</td> --%>
 						<td>${comm.commStock}</td>
 						<td>${comm.commPrice}</td>
 						<td>${comm.commOnsalePrice}</td>
@@ -504,20 +518,20 @@ th, td {
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/comm/comm.do"
 								style="margin-bottom: 0px;">
-								<input type="submit" value="­×§ï"> <input type="hidden"
+								<input type="submit" value="ä¿®æ”¹"> <input type="hidden"
 									name="commId" value="${comm.commId}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>
-<!-- 						<td> -->
-<!-- 							<FORM METHOD="post" -->
-<%-- 								ACTION="<%=request.getContextPath()%>/comm/comm.do" --%>
-<!-- 								style="margin-bottom: 0px;"> -->
-<!-- 								<input type="submit" value="§R°£"> <input type="hidden" -->
-<%-- 									name="commId" value="${comm.commId}"> <input --%>
-<!-- 									type="hidden" name="action" value="delete"> -->
-<!-- 							</FORM> -->
-<!-- 						</td> -->
+						<!-- 						<td> -->
+						<!-- 							<FORM METHOD="post" -->
+						<%-- 								ACTION="<%=request.getContextPath()%>/comm/comm.do" --%>
+						<!-- 								style="margin-bottom: 0px;"> -->
+						<!-- 								<input type="submit" value="åˆªé™¤"> <input type="hidden" -->
+						<%-- 									name="commId" value="${comm.commId}"> <input --%>
+						<!-- 									type="hidden" name="action" value="delete"> -->
+						<!-- 							</FORM> -->
+						<!-- 						</td> -->
 					</tr>
 				</c:forEach>
 			</table>
