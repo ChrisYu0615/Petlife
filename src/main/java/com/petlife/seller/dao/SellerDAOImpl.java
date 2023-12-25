@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 import com.petlife.admin.dao.AcctStateDAO;
 import com.petlife.admin.dao.impl.AcctStateDAOImpl;
-import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
@@ -61,7 +61,7 @@ public class SellerDAOImpl implements SellerDAO {
 	@Override
 	public List<Seller> getAll(String... conditions) {
 		if (conditions.length > 0 && conditions != null) {
-			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl();
 			AcctState acctState = acctStateDAO.findByPK(4);
 			if ("verified".equals(conditions[0])) {
 				return getSession().createQuery("from Seller where acctState!=:acctState", Seller.class)

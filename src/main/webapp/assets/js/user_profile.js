@@ -1,4 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
+    $.ajax({
+        url: "/Petlife/user/user.do?action=getUserRate",           // 資料請求的網址
+        type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+        data: null,             // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+        contentType: false,
+        processData: false,
+        cache: false,
+        success: function(data) {      // request 成功取得回應後執行
+            console.log(data);
+            $("#user_ratescore").html(data);
+        }, error: function(error) {
+            console.error(error);
+        }
+    });
+
+    //user_ratescore
+
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
 

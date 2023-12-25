@@ -27,8 +27,10 @@ import com.google.gson.reflect.TypeToken;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.service.AcctStateService;
 import com.petlife.admin.service.impl.AcctStateServiceImpl;
+import com.petlife.mall.service.BuylistService;
+import com.petlife.mall.service.impl.BuylistServiceImpl;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
@@ -37,11 +39,11 @@ import com.petlife.util.Sha1Util;
 @WebServlet("/user/user.do")
 @MultipartConfig
 public class UserServlet extends HttpServlet {
-	private UserServeice userServeice;
+	private UserService userService;
 
 	@Override
 	public void init() throws ServletException {
-		userServeice = new UserServiceImpl();
+		userService = new UserServiceImpl();
 	}
 
 	@Override
@@ -83,6 +85,9 @@ public class UserServlet extends HttpServlet {
 		case "getUserHeadshot":
 			getUserHeadshot(req, resp);
 			break;
+		case "getUserRate":
+			getUserRate(req, resp);
+			break;
 		default:
 			forwardPath = "";
 			break;
@@ -96,7 +101,7 @@ public class UserServlet extends HttpServlet {
 
 	private void getUserHeadshot(HttpServletRequest req, HttpServletResponse resp) {
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
-		User user = userServeice.getUserByUserId(userId);
+		User user = userService.getUserByUserId(userId);
 		FileInputStream fis = null;
 		ServletOutputStream out = null;
 		byte[] headshot = user.getHeadshot();
@@ -150,7 +155,7 @@ public class UserServlet extends HttpServlet {
 	private String modifyUserAcctState(HttpServletRequest req, HttpServletResponse resp) {
 		Integer userId = Integer.parseInt(req.getParameter("memberId"));
 		String modify = req.getParameter("modify");
-		User user = userServeice.getUserByUserId(userId);
+		User user = userService.getUserByUserId(userId);
 		AcctState acctState = null;
 		AcctStateService acctStateService = new AcctStateServiceImpl();
 
@@ -161,7 +166,7 @@ public class UserServlet extends HttpServlet {
 		}
 
 		user.setAcctState(acctState);
-		userServeice.updateUser(user);
+		userService.updateUser(user);
 		return "/user/user.do?action=getAll";
 	}
 
@@ -173,7 +178,7 @@ public class UserServlet extends HttpServlet {
 		resp.setContentType("application/json; charset=UTF-8");
 		Gson gson = new Gson();
 		PrintWriter out = resp.getWriter();
-		if (!userServeice.exisUserAccount(userAcct)) {
+		if (!userService.exisUserAccount(userAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
 			out.print(errorMsgJson);
@@ -193,7 +198,7 @@ public class UserServlet extends HttpServlet {
 			String errorMsgJson = gson.toJson(errorMsg);
 			out.print(errorMsgJson);
 		} else {
-			String result = userServeice.getNewPwd(userAcct);
+			String result = userService.getNewPwd(userAcct);
 			Map<String, String> successMsg = new HashMap<>();
 			successMsg.put("success", result);
 
@@ -213,7 +218,7 @@ public class UserServlet extends HttpServlet {
 			if (!userAcct.matches(userAcctReg)) {
 				out.print("<font color='red'>信箱格式不符!!</font>");
 			} else {
-				boolean checkUserAccount = userServeice.exisUserAccount(userAcct);
+				boolean checkUserAccount = userService.exisUserAccount(userAcct);
 
 				if (checkUserAccount) {
 					out.print("<font color='red'>帳號重複!!</font>");
@@ -320,7 +325,7 @@ public class UserServlet extends HttpServlet {
 			// 如果沒有任何錯誤驗證資訊，開始執行service並儲存到資料庫中
 			User user = new User(userAcct, userPwd, userName, userNickname, userBirthday, userAddress, userPhoneNum,
 					userGender);
-			user = userServeice.addUser(user);
+			user = userService.addUser(user);
 
 			// 把user資訊放到Session中
 			req.getSession().setAttribute("user", user);
@@ -367,7 +372,7 @@ public class UserServlet extends HttpServlet {
 		String address = req.getParameter("address").trim();
 		address = country + district + address;
 
-		User user = userServeice.getUserByUserId(userId);
+		User user = userService.getUserByUserId(userId);
 
 		if (headshot != null && headshot.length > 0) {
 			user.setHeadshot(headshot);
@@ -384,21 +389,31 @@ public class UserServlet extends HttpServlet {
 		user.setPhoneNum(phone);
 		user.setAddress(address);
 
-		userServeice.updateUser(user);
+		userService.updateUser(user);
 
 		req.getSession().setAttribute("user", user);
 		return "/member_center/user_profile.jsp";
 	}
 
 	private String getUserByPK(HttpServletRequest req, HttpServletResponse resp) {
-		userServeice.getUserByUserId(null);
+		userService.getUserByUserId(null);
 		return "";
 	}
 
 	private String getAllUsers(HttpServletRequest req, HttpServletResponse resp) {
-		List<User> userList = userServeice.getAllUsers();
+		List<User> userList = userService.getAllUsers();
 		req.setAttribute("getAllUsers", userList);
 		return "/admin/member_management.jsp";
+	}
+
+	private void getUserRate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		User user = (User) req.getSession().getAttribute("user");
+		BuylistService buylistService = new BuylistServiceImpl();
+		Double userRating = buylistService.getUserRatingScore(user.getUserId());
+		
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		out.print(userRating);
 	}
 
 	private byte[] getHeadshotBytes(Part part) {

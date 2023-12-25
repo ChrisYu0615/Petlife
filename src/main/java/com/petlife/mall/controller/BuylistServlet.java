@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -71,7 +73,8 @@ public class BuylistServlet extends HttpServlet {
 		case "insert":
 			// 來自listAllBuylist.jsp
 			forwardPath = insert(req, res);
-			System.out.println("=================================="+forwardPath+"=================================");
+			System.out
+					.println("==================================" + forwardPath + "=================================");
 			break;
 		case "delete":
 			// 來自listAllBuylist.jsp
@@ -86,8 +89,11 @@ public class BuylistServlet extends HttpServlet {
 		case "cancelBuylist":
 			forwardPath = cancelBuylist(req, res);
 			break;
+		case "memberRateBuylist":
+			forwardPath = memberRateBuylist(req, res);
+			break;
 		default:
-			forwardPath = "/buylist/listAllBuylist.jsp"; //2023/12/18
+			forwardPath = "/buylist/listAllBuylist.jsp"; // 2023/12/18
 			break;
 		}
 
@@ -106,6 +112,20 @@ public class BuylistServlet extends HttpServlet {
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String buylistJson = gson.toJson(buylist);
 		out.print(buylistJson);
+	}
+
+	private String memberRateBuylist(HttpServletRequest req, HttpServletResponse res) {
+		Integer buylistId = Integer.valueOf(req.getParameter("retedBuylistId").trim());
+		Integer memberId = Integer.valueOf(req.getParameter("ratedMemberId").trim());
+		Double memberRatingStar = Double.valueOf(req.getParameter("ratedStar").trim());
+		String rateReason = req.getParameter("rateReason").trim();
+
+		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		buylist.setMemberRatingStars(memberRatingStar);
+		buylist.setMemberEvaluateNarrative(rateReason);
+		buylist.setMemberEvaluateTime(Timestamp.valueOf(LocalDateTime.now()));
+
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
 
 	private String cancelBuylist(HttpServletRequest req, HttpServletResponse res) {
@@ -128,7 +148,7 @@ public class BuylistServlet extends HttpServlet {
 		default:
 			cancelReason = req.getParameter("cancelReason").trim();
 		}
-		
+
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
 		BuylistStateService buylistStateService = new BuylistStateServiceImpl();
 		BuylistState buylistState = buylistStateService.getBuylistStateByBuylistStateId(4);
@@ -140,7 +160,7 @@ public class BuylistServlet extends HttpServlet {
 			MailService.cancelBuylist(buylistId, sellerAcct, cancelReason);
 		});
 		thread.start();
-		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId="+memberId;
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
 
 	private String getBuyListByMemberId(HttpServletRequest req, HttpServletResponse res) {

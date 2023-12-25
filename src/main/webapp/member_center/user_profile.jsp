@@ -59,7 +59,8 @@
 					<div class="sidebar_boxed_wrapper">
 						<div class="sidebar_common_heading">
 							<h3 id="sidebar_title">
-								<a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a>
+								<a
+									href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a>
 							</h3>
 						</div>
 
@@ -79,7 +80,8 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
+										<a
+											href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -87,7 +89,8 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
+										<a
+											href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -128,6 +131,14 @@
 															alt="" class="preview_img rounded-circle"></span>
 													</div>
 												</div>
+												<div class="row" style="text-align: center;">
+													<div id="rate">
+														<span class="text">評價：</span>
+														<span class="star"
+															data-star="1"><i class="fas fa-star" style="color:yellow;"></i></span>
+														<span id="user_ratescore"></span>
+													</div>
+												</div>
 											</div>
 
 											<div class="main_form col-7">
@@ -135,18 +146,15 @@
 												<table id="user_profile">
 													<tr>
 														<th class="profile_title">會員編號</th>
-														<td class="profile_content"><%=user.getUserId()%>
-														</td>
-													</tr>												
+														<td class="profile_content"><%=user.getUserId()%></td>
+													</tr>
 													<tr>
 														<th class="profile_title">會員帳號</th>
-														<td class="profile_content"><%=user.getUserAcct()%>
-														</td>
+														<td class="profile_content"><%=user.getUserAcct()%></td>
 													</tr>
 													<tr>
 														<th class="profile_title">姓名</th>
-														<td class="profile_content"><%=user.getUserName()%>
-														</td>
+														<td class="profile_content"><%=user.getUserName()%></td>
 													</tr>
 													<tr>
 														<th class="profile_title">暱稱</th>
@@ -166,13 +174,11 @@
 													</tr>
 													<tr>
 														<th class="profile_title">手機號碼</th>
-														<td class="profile_content"><%=user.getPhoneNum()%>
-														</td>
+														<td class="profile_content"><%=user.getPhoneNum()%></td>
 													</tr>
 													<tr>
 														<th class="profile_title">地址</th>
-														<td class="profile_content"><%=user.getAddress()%>
-														</td>
+														<td class="profile_content"><%=user.getAddress()%></td>
 													</tr>
 												</table>
 											</div>

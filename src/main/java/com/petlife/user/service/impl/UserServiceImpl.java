@@ -6,18 +6,18 @@ import java.util.Map;
 
 import com.petlife.admin.entity.AcctState;
 import com.petlife.user.dao.UserDAO;
-import com.petlife.user.dao.impl.UserDAOImpl2;
+import com.petlife.user.dao.impl.UserDAOImpl;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomPassword;
 import com.petlife.util.Sha1Util;
 
-public class UserServiceImpl implements UserServeice {
+public class UserServiceImpl implements UserService {
 	private UserDAO dao;
 
 	public UserServiceImpl() {
-		dao = new UserDAOImpl2();
+		dao = new UserDAOImpl();
 	}
 
 	@Override
