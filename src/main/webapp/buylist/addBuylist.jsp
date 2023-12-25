@@ -468,7 +468,9 @@ th, td {
 					<!-- 					</tr> -->
 					<tr>
 						<td>優惠碼ID:</td>
-						<td><input type="TEXT" name="coupon" size="45" /></td>
+<!-- 						<td><input type="TEXT" name="coupon" size="45" /></td> -->
+<td><input type="TEXT" name="coupon" size="45" value="${empty param.coupon ? null : param.coupon}" /></td>
+
 					</tr>
 					<tr>
 						<td>賣家評價星等:</td>

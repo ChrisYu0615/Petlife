@@ -29,4 +29,7 @@ public interface CommService {
 	
 	// 根據商品狀態查詢
     List<Comm> getCommsByState(Integer commState);
+    
+  //瀏覽數
+  	 public void updateView(Integer commId) ;
 }

@@ -7,21 +7,22 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import com.petlife.mall.dao.CommDAO;
+import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
 import com.petlife.mall.entity.Comm;
 import com.petlife.util.HibernateUtil;
 
-public class CommDAOImpl implements CommDAO{
+public class CommDAOImpl implements CommDAO {
 	private SessionFactory factory;
-	
+
 	public CommDAOImpl() {
 		factory = HibernateUtil.getSessionFactory();
 	}
-	
+
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
-	
+
 	@Override
 	public Integer add(Comm comm) {
 		Integer id = (Integer) getSession().save(comm);
@@ -31,7 +32,7 @@ public class CommDAOImpl implements CommDAO{
 	@Override
 	public Integer delete(Integer commId) {
 		Comm comm = getSession().get(Comm.class, commId);
-		if(comm != null) {
+		if (comm != null) {
 			getSession().delete(comm);
 			return 1;
 		} else {
@@ -44,7 +45,7 @@ public class CommDAOImpl implements CommDAO{
 		try {
 			getSession().update(comm);
 			return 1;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -74,24 +75,28 @@ public class CommDAOImpl implements CommDAO{
 //	}
 
 	@Override
-	public List<Comm> getAll() {		
+	public List<Comm> getAll() {
 		return getSession().createQuery("FROM Comm", Comm.class).list();
 	}
 
 	@Override
 	public List<Comm> getCommsByState(Integer commState) {
 		try {
-	        Session session = getSession();
-	        List<Comm> comms = session.createQuery("from Comm where commState.commState = :state", Comm.class)
-	                .setParameter("state", commState)
-	                .getResultList();
-	        return comms;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return null;
+			Session session = getSession();
+			List<Comm> comms = session.createQuery("from Comm where commState.commState = :state", Comm.class)
+					.setParameter("state", commState).getResultList();
+			return comms;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-}
 
+	@Override
+	public void updateView(Integer commId) {
+		Comm comm = getSession().get(Comm.class, commId);
+		comm.setCommViewCount(comm.getCommViewCount() + 1);
+	}
 //	@Override
 //	public List<Comm> getCommImg(Integer commId) {
 //		 String hql = "from Comm where comm_id = :commId";
