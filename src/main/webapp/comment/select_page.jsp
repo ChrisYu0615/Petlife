@@ -51,23 +51,7 @@
   <li><a href='listAllComment.jsp'>List</a> all Comments.  <br><br></li>
   
   
-<!--   <li> -->
-<!--     <FORM METHOD="post" ACTION="article.do" > -->
-<!--         <b>輸入文章編號:</b> -->
-<!--         <input type="text" name="articleId"> -->
-<!--         <input type="hidden" name="action" value="getOne_For_Display"> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--   </li> -->
 
-<!--   <li> -->
-<!--     <FORM METHOD="post" ACTION="article.do" > -->
-<!--         <b>輸入關鍵字搜尋:</b> -->
-<!--         <input type="text" name="keyword"> -->
-<!--         <input type="hidden" name="action" value="getOne_For_Display"> -->
-<!--         <input type="submit" value="送出"> -->
-<!--     </FORM> -->
-<!--   </li> -->
 
   <jsp:useBean id="commentSvc" scope="page" class="com.petlife.forum.service.impl.CommentServiceImpl" />
    

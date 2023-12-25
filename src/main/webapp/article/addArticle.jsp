@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 
-	User user = (User)session.getAttribute("account");
+	User user = (User)session.getAttribute("user");
 	if(user!=null){
 		System.out.print(user.getUserId());
 	}
@@ -84,8 +84,12 @@
     Article article = (Article)request.getAttribute("article"); 
     %>
 
-    <FORM METHOD="post" ACTION="article.do" name="form1">
+    <FORM METHOD="post" ACTION="art.do" name="form1">
     <table>
+        <tr>
+            <td>USER:</td>
+            <td><input type="text" name="user"size="45" /></td>
+        </tr>
         <tr>
             <td>文章標題:</td>
             <td><input type="text" name="articleName" value="${article != null ? article.articleName : ''}" size="45" /></td>
@@ -97,11 +101,11 @@
         <tr>
             <td>論壇分類名稱:</td>
             <td>
-            <select  name="forumName">
-             	<option value="貓貓" ${article != null ? article.forum : ''}  />貓貓</option>
-            	<option value="狗狗" ${article != null ? article.forum : ''}  />狗狗</option>
-            	<option value="特殊" ${article != null ? article.forum : ''}  />特殊</option>
-            	<option value="休閒" ${article != null ? article.forum : ''}  />休閒</option>
+            <select name="forumName">
+             	<option value="${article.forum.forumId}">貓貓</option>
+            	<option value="${article.forum.forumId}">狗狗</option>
+            	<option value="${article.forum.forumId}">特殊</option>
+            	<option value="${article.forum.forumId}">休閒</option>
             </select> 
         </tr>
         <tr>

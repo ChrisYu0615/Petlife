@@ -1,8 +1,6 @@
 package com.petlife.forum.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.petlife.forum.entity.Article;
-import com.petlife.forum.entity.ArticleImg;
-import com.petlife.forum.entity.Forum;
-import com.petlife.forum.service.ArticleImgService;
+import com.petlife.forum.entity.Comment;
 import com.petlife.forum.service.ArticleService;
 import com.petlife.forum.service.CommentService;
-import com.petlife.forum.service.ForumService;
-import com.petlife.forum.service.impl.ArticleImgServiceImpl;
 import com.petlife.forum.service.impl.ArticleServiceImpl;
-import com.petlife.forum.service.impl.ForumServiceImpl;
-import com.petlife.pet.entity.PetPhoto;
-import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
-import com.petlife.user.service.impl.UserServiceImpl;
-import com.petlife.forum.entity.Comment;
 import com.petlife.forum.service.impl.CommentServiceImpl;
+import com.petlife.user.entity.User;
 
 @WebServlet("/comment/comment.do")
 @MultipartConfig
@@ -157,75 +145,52 @@ return "/comment/listOneComment.jsp";
   req.setAttribute("errorMsgs", errorMsgs);
 
 /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-  String commentId = req.getParameter("commentId");
+  Integer commentId = null;
+//  Comment comment = commentService.getCommentById(commentId);
   String commentText = req.getParameter("commentText");
-//  String articleContent = req.getParameter("articleContent");
-//  String forumName = req.getParameter("forumName"); // 使用 forumName 而不是 forumId
-  Integer forumName=1;
-  if (commentText == null || commentText.trim().isEmpty()) {
-      errorMsgs.add("留言不得為空");
-  }
-  if (articleContent == null || articleContent.trim().isEmpty()) {
-      errorMsgs.add("文章內容不得為空");
-  }
-//  if (forumName == null || forumName.trim().isEmpty()) {
-//      errorMsgs.add("請選擇論壇分類");
-//  }
+  Integer articleId = null;
 
-  Article article = null;
-  Comment comment = null;
-  
-  Timestamp commentDatetime = null;
   try {
-      comment = commentService.getCommentById(Integer.parseInt(commentId));
-//      state = Boolean.valueOf(req.getParameter("state"));
+      commentId = Integer.parseInt(req.getParameter("commentId"));
+      articleId = Integer.parseInt(req.getParameter("articleId"));
   } catch (NumberFormatException e) {
-      errorMsgs.add("留言編號、不正確");
-  }
-  
-
-  // 檢查用戶是否登錄
-  User user = (User) req.getSession().getAttribute("account");
-  if (user == null) {
-      errorMsgs.add("無法獲取用戶信息");
-  }
-  System.out.println(user.getUserId());
-
-  // 查找對應的論壇類別
-  // 查找對應的論壇類別
-//  ForumService forumService = new ForumServiceImpl();
-//  Forum forum = forumService.findForumBySortName(forumName);
-//  if (forum == null) {
-//      errorMsgs.add("找不到對應的論壇類別");
-//  }
-//  System.out.println(forumName);
-
-  // 如果有錯誤，返回表單頁面
-  if (!errorMsgs.isEmpty()) {
-      req.setAttribute("comment", comment);
+      errorMsgs.add("格式不正確");
       return "/comment/update_comment_input.jsp";
   }
 
-  // 更新文章對象並設置其屬性
-  comment.setCommentText(commentText);
-//  article.setArticleContent(articleContent);
-//  article.setForum(forumName);
-//  article.setState(state);
-  // Send the use back to the form, if there were errors
-  if (!errorMsgs.isEmpty()) {
-   req.setAttribute("comment", comment); // 含有輸入格式錯誤的manage物件,也存入req
-   return "/comment/update_comment_input.jsp"; // 程式中斷
+  // 從 session 中獲取當前用戶
+  User user = (User) req.getSession().getAttribute("account");
+  if (user == null) {
+      errorMsgs.add("無法獲取用戶信息");
+      return "/comment/update_comment_input.jsp";
   }
 
-/*************************** 2.開始修改資料 *****************************************/
-commentService.updateComment(comment);
-req.setAttribute("comment", commentService.updateComment(comment));
+  // 查找對應的文章實體
+  ArticleService articleService = new ArticleServiceImpl();
+  Article article = articleService.getArticleByArticleId(articleId);
+  	if (article == null) {
+      errorMsgs.add("找不到對應的文章");
+      return "/comment/update_comment_input.jsp";
+  }
 
-/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-req.setAttribute("comment", comment); // 資料庫update成功後,正確的的manage物件,存入req
-return "/comment/listAllcomment.jsp";
-}
+  // 更新留言資訊
+  Comment comment = new Comment();
+  comment.setCommentId(commentId);
+  comment.setUser(user);
+  comment.setArticle(article);
+  comment.setCommentText(commentText);
 
+
+  req.setAttribute("comment", comment);
+
+
+
+//*************************** 2.開始修改資料 *****************************************/
+//  CommentService commentService = new CommentServiceImpl();
+  commentService.updateComment(comment);
+
+  return "/comment/listOneComment.jsp";
+ }
  
  /*************************** 1.開始新增 
  * @throws IOException 
@@ -235,94 +200,51 @@ return "/comment/listAllcomment.jsp";
 	    // 錯誤處理
 	    List<String> errorMsgs = new ArrayList<>();
 	    req.setAttribute("errorMsgs", errorMsgs);
+	    /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+	    Integer commentId = null;
+	//  Comment comment = commentService.getCommentById(commentId);
+	  String commentText = req.getParameter("commentText");
+	  Integer articleId = null;
 
-	    // 1.接收請求參數 - 輸入格式的錯誤處理
-	    Article article = new Article();
-	    String articleId = req.getParameter("articleId");
-	    String articleName = req.getParameter("articleName");
-	    System.out.println(articleName);
-	    String articleContent = req.getParameter("articleContent");
-	    System.out.println(articleContent);
-//	    String forumName = req.getParameter("forumName"); // 使用 forumName 而不是 forumId
-	    Integer forumName=1;
-	    System.out.println(forumName);
-	    if (articleName == null || articleName.trim().isEmpty()) {
-	        errorMsgs.add("文章名稱不得為空");
-	    }
-	    if (articleContent == null || articleContent.trim().isEmpty()) {
-	        errorMsgs.add("文章內容不得為空");
-	    }
-//	    if (forumName == null || forumName.trim().isEmpty()) {
-//	        errorMsgs.add("請選擇論壇分類");
-//	    }
+	  try {
+	      commentId = Integer.parseInt(req.getParameter("commentId"));
+	      articleId = Integer.parseInt(req.getParameter("articleId"));
+	  } catch (NumberFormatException e) {
+	      errorMsgs.add("格式不正確");
+	      return "/comment/update_comment_input.jsp";
+	  }
 
-	    // 如果有錯誤，返回表單頁面
-	    if (!errorMsgs.isEmpty()) {
-	        req.setAttribute("article", new Article());
-	        return "/article/addArticle.jsp";
-	    }
+	  // 從 session 中獲取當前用戶
+	  User user = (User) req.getSession().getAttribute("account");
+	  if (user == null) {
+	      errorMsgs.add("無法獲取用戶信息");
+	      return "/comment/update_comment_input.jsp";
+	  }
 
-	    Integer ctr = 1000;
-	    System.out.println(ctr);
-	    Boolean state = true;
-	    System.out.println(state);
-	    System.out.println(req.getParameter("articlePhoto"));
-	    try {
-//	        ctr = Integer.valueOf(req.getParameter("ctr"));
-//	        state = Boolean.valueOf(req.getParameter("state"));
-	    } catch (NumberFormatException e) {
-	        errorMsgs.add("計數器或狀態格式不正確");
-	    } 
-	    
-//	    List<ArticleImg> articleList = new ArrayList<ArticleImg>();
-	    
-	 // ... 之前的代码 ...
+	  // 查找對應的文章實體
+	  ArticleService articleService = new ArticleServiceImpl();
+	  Article article = articleService.getArticleByArticleId(articleId);
+	  	if (article == null) {
+	      errorMsgs.add("找不到對應的文章");
+	      return "/comment/update_comment_input.jsp";
+	  }
 
-	    
+	  // 更新留言資訊
+	  Comment comment = new Comment();
+//	  comment.setCommentId(commentId);
+	  comment.setUser(user);
+	  comment.setArticle(article);
+	  comment.setCommentText(commentText);
 
-	    // ... 后续代码 ...
 
-	    
-	    
-	    
-	    
-	    // 檢查用戶是否登錄
-	    User user = (User) req.getSession().getAttribute("account");
-	    if (user == null) {
-	        errorMsgs.add("無法獲取用戶信息");
-	    }
-	    System.out.println(user.getUserId());
+	  req.setAttribute("comment", comment);
 
-	    // 查找對應的論壇類別
-//	    ForumService forumService = new ForumServiceImpl();
-//	    Forum forum = forumService.findForumBySortName(forumName);
-//	    if (forum == null) {
-//	        errorMsgs.add("找不到對應的論壇類別");
-//	    }
-//	    System.out.println(forumName);
-
-	    // 如果有錯誤，返回表單頁面
-	    if (!errorMsgs.isEmpty()) {
-	        req.setAttribute("article", new Article());
-	        return "/article/addArticle.jsp";
-	    }
-	    
-//	    Integer user= 100000005;
-	    System.out.println(user);
-	    // 建立文章對象並設置其屬性
-//	    Article article = new Article();
-	    article.setArticleName(articleName);
-	    article.setArticleContent(articleContent);
-	    article.setUser(user);
-	    article.setForum(forumName);
-	    article.setCtr(ctr);
-	    article.setState(state);
 
 	    // 2.開始新增資料
-	    articleService.addArticle(article);
+	    commentService.addComment(comment);
 
 	    // 3.新增完成,準備轉交
-	    return "/article/listAllArticle.jsp";
+	    return "/comment/listAllComment.jsp";
 	}
 
  
@@ -338,10 +260,10 @@ private String delete (HttpServletRequest req, HttpServletResponse res) {
 //          req.setAttribute("errorMsgs", errorMsgs);
           
           /**1.接收請求參數**/
-          Integer articleId = Integer.valueOf(req.getParameter("articleId"));
+          Integer commentId = Integer.valueOf(req.getParameter("commentId"));
 
           /**2.開始刪除資料**/
-          articleService.deleteArticle(articleId);
+          commentService.deleteComment(commentId);
 
           /**3.刪除完成,準備轉交(Send the Success view)**/
           return "/article/listAllarticle.jsp";

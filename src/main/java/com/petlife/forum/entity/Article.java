@@ -1,7 +1,10 @@
 package com.petlife.forum.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
@@ -22,7 +27,7 @@ import com.petlife.user.entity.User;
 public class Article  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //自增鍵
-	@Column(name = "article_id", updatable = false,insertable = false) // updatable = false --> updata SQL  不包括此欄位
+	@Column(name = "article_id", updatable = false,nullable= false) // updatable = false --> updata SQL  不包括此欄位
 	@Expose
 	private Integer articleId;
 	
@@ -54,6 +59,10 @@ public class Article  {
 		
 	@Column(name = "state")
 	private Boolean state;
+	
+	@OneToMany(mappedBy = "article",cascade = CascadeType.ALL)
+	@OrderBy("article_id asc")
+	List<ArticleImg> articleImgs = new ArrayList<>();
 
 	public Article() {
 		super();
@@ -136,6 +145,16 @@ public class Article  {
 	public void setState(Boolean state) {
 		this.state = state;
 	}
+
+	public List<ArticleImg> getArticleImgs() {
+		return articleImgs;
+	}
+
+	public void setArticleImgs(List<ArticleImg> articleImgs) {
+		this.articleImgs = articleImgs;
+	}
+	
+	
 
 
 	

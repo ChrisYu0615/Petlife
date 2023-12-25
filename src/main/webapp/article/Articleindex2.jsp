@@ -10,9 +10,9 @@
 
 
 <%
-    ArticleService articleSvc = new ArticleServiceImpl();
-    List<Article> list = articleSvc.getAllArticle();
-    pageContext.setAttribute("list",list);
+//     ArticleService articleSvc = new ArticleServiceImpl();
+//     List<Article> list = articleSvc.getAllArticle();
+//     pageContext.setAttribute("list",list);
     
     Article article = (Article) request.getAttribute("article");
 %>
@@ -88,15 +88,9 @@
     <section id="our_blog_area" class="section_padding">
         <!-- <a href="/furry/blog-details.html" style="font-size:  50px; color: chocolate; padding: left 10px;">我要發文</a> -->
         
-        <button class="btn btn-primary"  
-        
-        type="submit" style="background-color: darkorange;">
-            <a href="blog-details.jsp" style="font-size:  30px; color: brown; padding: left 10px;">
-            我要發文
-        </a>
-                
+        <input class="btn btn-primary" onclick="goBack()" type="submit" value="回上一頁" style="height:50px; width:300px; font-size:30px; color: brown; background-color: darkorange;">
 
-        </button>
+
         <br>
         <div class="container">
             <div class="row">
@@ -166,117 +160,36 @@
 
                 <div class="col-lg-9">
                     <div class="row">
-                        	<div class="card">
-								<div class="card-header" id="select_card_header">
-									<h5>搜尋條件</h5>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<form action="<%=request.getContextPath()%>/art/art.do" method="post" id="select_articleForm">
-										<%-- 如果全部選擇結果都沒輸入就按查詢時，會顯示此錯誤結果 --%>
-										<span id="verify_select_result"></span>
-
-										<div class="form-group mb-3 row">
-											<div class="col-auto" id="div_article_name">
-												<label for="article_name" class="form-label"
-													id="label_article_name">文章標題：</label>
-											</div>
-											<div class="col-3">
-												<input type="text" class="form-control"
-													id="select_article_name" name="article_name"
-													placeholder="請輸入文章標題">
-											</div>
-										</div>
-
-										<div class="form-group mb-3 row">
-											<div class="col-auto" id="div_article_category">
-												<label for="select_article_category" class="form-label"
-													id="label_article_category">文章分類：</label>
-											</div>
-											<div class="col-3">
-												<select class="form-select col-12 border rounded"
-													id="select_article_category" name="article_category">
-													<option selected>選擇文章分類</option>
-													<option value="1">狗狗</option>
-													<option value="2">貓咪</option>
-													<option value="3">閒聊</option>
-													<option value="4">特殊</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="form-group mb-3 row">
-											<div class="col-auto" id="div_article_category">
-												<label for="" class="form-label" id="label_article_category">文章區間：</label>
-											</div>
-											<div class="col-3">
-												<input type="date" class="form-control"
-													id="select_article_startdate" name="article_startdate"
-													placeholder="請選擇開始區間">
-											</div>
-											<div class="col-auto">
-												<h5>~</h5>
-											</div>
-											<div class="col-3">
-												<input type="date" class="form-control"
-													id="select_article_enddate" name="article_enddate"
-													placeholder="請選擇結束區間">
-											</div>
-											<div class="col-auto">
-												<%-- 判斷文章日期選擇輸入錯誤問題 --%>
-												<span id="verify_article_date"></span>
-											</div>
-										</div>
-
-										<div class="row card-footer">
-											<div class="col"></div>
-											<div class="col-auto">
-												<button type="submit" class="btn btn-primary"
-													id="btn_regist">送出查詢</button>
-												<input type="hidden" name="action" value="CompositeArticleQuery">
-												<input type="hidden" name="selectArticle" value="selectArticle">
-											</div>
-											<div class="col"></div>
-										</div>
-									</form>
-								</div>
-								<!-- /.card-body -->
-							</div>
-                         <%@ include file="page1.file" %> 
-                         
-                        <c:forEach var="article" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="blog_area_wrapper">
-                                <div class="blog_area_img">
-                                    <a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><img src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}" alt="img" style="width: 460px; height: 400px"></a>
-                                </div>
-                                <div class="blog_area_content">
-                                    <a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><h3>${article.articleName}</h3></a>
-                                    <p>
+						<c:forEach var="article" items="${list}">
+                        	<div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            	<div class="blog_area_wrapper">
+                                	<div class="blog_area_img">
+                                    	<a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><img src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}" alt="img" style="width: 300px; height: 300px"></a>
+                                	</div>
+                                	<div class="blog_area_content">
+                                    	<a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><h3>${article.articleName}</h3></a>
+                                    	<p>
 										${article.articleContent}
-                                    </p>
-                                    <div class="blog_area_author_wrappe">
-                                        <div class="blog_area_author_img">
-                                            <a href="blog-details.html"><img src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=${article.user.userId}" alt="img" style="width: 50px; height: 50px"></a>
-                                        </div>
-                                        <div class="blog_area_author_text">
-                                            <h5>${article.user.userName}</h5>
-                                            <p><span>${article.updateTime}</span> <i class="fas fa-circle"></i> <span>8 min
-                                                    read</span> </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>           
-                        </div>
-                        </c:forEach>
-                        <%@ include file="page2.file" %>
-                        
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                                    	</p>
+                                    	<div class="blog_area_author_wrappe">
+                                        	<div class="blog_area_author_img">
+                                            	<a href="blog-details.html"><img src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=${article.user.userId}" alt="img" style="width: 50px; height: 50px"></a>
+                                        	</div>
+                                        	<div class="blog_area_author_text">
+                                            	<h5>${article.user.userName}</h5>
+                                            	<p><span>${article.updateTime}</span> <i class="fas fa-circle"></i> <span>8 min
+                                                    	read</span> </p>
+                                        	</div>
+                                    	</div>
+                                	</div>
+                            	</div>           
+                        	</div>
+                        	</c:forEach>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+    	</section>
 
 
     <div class="footerPage"></div>
@@ -305,6 +218,10 @@
     <script>
         $(".headerPage").load("../components/header.html");
         $(".footerPage").load("../components/footer.html");
+        
+        function goBack(){
+        	history.back();
+        }
     </script>
 </body>
 

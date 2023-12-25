@@ -17,11 +17,11 @@ public class ArticleImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_img_id", updatable = false, nullable = false, insertable = false)
+    @Column(name = "article_img_id", updatable = false, nullable = false)
     private Integer articleImgId;
 
     @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false)
+    @JoinColumn(name = "article_id", referencedColumnName = "article_id", nullable = false )
     @Expose
     private Article article;
 

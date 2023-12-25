@@ -1,8 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.petlife.forum.service.impl.ForumServiceImpl"%>
+<%@page import="com.petlife.forum.service.ForumService"%>
+<%@page import="com.petlife.forum.entity.Forum"%>
 <%@ page import = "com.petlife.user.entity.User"%>
-<% 
+<%@ page import = "com.petlife.forum.entity.Article"%>
+
+
+<%
 User user = (User)session.getAttribute("user");
+Article article = (Article)session.getAttribute("article");
+if (article == null) {
+    article = (Article) request.getAttribute("article");
+    if (article == null) {
+        article = new Article();
+    }
+}
 %>
 
 <!DOCTYPE html>
@@ -162,69 +175,46 @@ User user = (User)session.getAttribute("user");
                 </div>
 
                 <div class="col-lg-9">
-                    <h3>請撰寫你的文章</h3>
-                    <div class="comment_form">																	   
-                       <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" name="form1" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="forumName" id="btnradio1" value="1"
-                                        autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary"  for="btnradio1">狗狗</label>
-
-                                    <input type="radio" class="btn-check" name="forumName" id="btnradio2" value="2"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio2">貓貓</label>
-
-                                    <input type="radio" class="btn-check" name="forumName" id="btnradio3" value="3"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio3">閒聊</label>
-
-                                    <input type="radio" class="btn-check" name="forumName" id="btnradio4" value="4"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="btnradio4">特殊</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                        <div class="form-group">
-                                            <input type="text" name="articleName" class="form-control" placeholder="請輸入你的文章標題"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-6 col-sm-12 col-12">
-                                    <div class="col">
-                                        <label for="inputGroupFile02">照片:</label>
-                                        <input type="file" class="form-control" id="articlePhoto" name="articlePhoto" multiple>
-                                    
-<%--                         	     <div><input type="text" name = "user" value ="<%=user.getUserId()%>"></div> --%>
-<!--                         	     <div><input type="text" name = "user">UserId</div> -->
-            
-                                    
-                                        <div class="pet_img"><span class="pet_img">預覽圖</span></div>
-                                        </div>
-                                </div>
-                                <div class="col-lg-12 col-md-6 col-sm-12 col-12">
-                                    <div class="form-group" >
-                                        <textarea rows="20" placeholder="開始撰寫文章" class="form-control" name="articleContent"
-                                            required=""></textarea>
-                                    </div>
-                                </div>
-                        	    
-                        	    
-                        
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <div class="submit_btn">
-                                        <button class="btn btn_theme btn_md"  name="action" value="insert">新增文章</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+       <h3>請撰寫你的文章</h3>
+    <div class="comment_form">
+        <form method="post" action="<%=request.getContextPath()%>/art/art.do" name="form1">
+            <div class="row">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <!-- Radio buttons for forumName -->
+                    <input type="radio" class="btn-check" name="forumName" id="btnradio1" value="1" autocomplete="off" ${article.forum.forumId == 1 ? 'checked' : ''}>
+                    <label class="btn btn-outline-primary" for="btnradio1">狗狗</label>
+                    <input type="radio" class="btn-check" name="forumName" id="btnradio2" value="2" autocomplete="off" ${article.forum.forumId == 2 ? 'checked' : ''}>
+                    <label class="btn btn-outline-primary" for="btnradio2">貓貓</label>
+                    <input type="radio" class="btn-check" name="forumName" id="btnradio3" value="3" autocomplete="off" ${article.forum.forumId == 3 ? 'checked' : ''}>
+                    <label class="btn btn-outline-primary" for="btnradio3">閒聊</label>
+                    <input type="radio" class="btn-check" name="forumName" id="btnradio4" value="4" autocomplete="off" ${article.forum.forumId == 4 ? 'checked' : ''}>
+                    <label class="btn btn-outline-primary" for="btnradio4">特殊</label>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <input type="text" name="articleName" class="form-control" placeholder="請輸入你的文章標題" value="${article.articleName}" required>
+                        </div>
                     </div>
                 </div>
-               
-        </div> 
-                </section>
-
+                <div class="col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="form-group">
+                        <textarea rows="20" placeholder="開始撰寫文章" class="form-control" name="articleContent" required>${article.articleContent}</textarea>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="submit_btn">
+                    	<input type="hidden" name="state" ${article.state ? 'checked' : ''}/>
+                    	<input type="hidden" name="updateTime" value="${article.updateTime}">
+                        <input type="hidden" name="articleId" value="${article.articleId}">
+                        <input type="hidden" name="action" value="update">
+                        <button class="btn btn_theme btn_md" type="submit">更新文章</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
                 <!-- Subscribe Area -->
                 <section id="subscribe_area">
                     <div class="container">
@@ -303,6 +293,34 @@ function readURL(input) {
 };
 });       
 
+</script>
+
+<script>
+
+<!-- 帶入現在時間到buylistDate -->
+document.addEventListener('DOMContentLoaded', function () {
+    // 獲取當前日期和時間
+    var currentDateTime = new Date();
+
+    // 將日期格式化為 "yyyy-MM-dd HH:mm:ss"，這裡使用了自定義的 formatDate 函數
+    var formattedDateTime = formatDate(currentDateTime);
+
+    // 將格式化後的日期時間設置到輸入框的值中
+    document.querySelector("input[name='updateTime']").value = formattedDateTime;
+});
+
+// 自定義的日期格式化函數
+function formatDate(date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var day = date.getDate().toString().padStart(2, '0');
+    var hours = date.getHours().toString().padStart(2, '0');
+    var minutes = date.getMinutes().toString().padStart(2, '0');
+    var seconds = date.getSeconds().toString().padStart(2, '0');
+
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+}
+<!-- /帶入現在時間到buylistDate -->
 </script>
 </body>
 
