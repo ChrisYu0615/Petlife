@@ -40,7 +40,7 @@ public class Buylist {
     private BuylistState buylistState;
 	
 	@ManyToOne   //coupon_id
-    @JoinColumn(name = "coupon_id" ,referencedColumnName = "coupon_id")
+    @JoinColumn(name = "coupon_id" ,referencedColumnName = "coupon_id",nullable = true)
     private Coupon coupon;
 	
 	@Column(name = "seller_rating_stars")
@@ -51,6 +51,15 @@ public class Buylist {
 	
 	@Column(name = "seller_evaluate_time")
 	private Timestamp sellerEvaluateTime;
+	
+	@Column(name = "member_rating_stars")
+	private Double memberRatingStars;
+	
+	@Column(name = "member_evaluate_narrative",columnDefinition = "LONGTEXT")
+	private String memberEvaluateNarrative;
+	
+	@Column(name = "member_evaluate_time")
+	private Timestamp memberEvaluateTime;
 	
 	@Column(name = "buylist_amount", columnDefinition = "Decimal")
 	@Expose
@@ -148,6 +157,35 @@ public class Buylist {
 
 	public void setBuylistDate(Timestamp buylistDate) {
 		this.buylistDate = buylistDate;
+	}
+
+	public Double getMemberRatingStars() {
+		return memberRatingStars;
+	}
+
+
+	public void setMemberRatingStars(Double memberRatingStars) {
+		this.memberRatingStars = memberRatingStars;
+	}
+
+
+	public String getMemberEvaluateNarrative() {
+		return memberEvaluateNarrative;
+	}
+
+
+	public void setMemberEvaluateNarrative(String memberEvaluateNarrative) {
+		this.memberEvaluateNarrative = memberEvaluateNarrative;
+	}
+
+
+	public Timestamp getMemberEvaluateTime() {
+		return memberEvaluateTime;
+	}
+
+
+	public void setMemberEvaluateTime(Timestamp memberEvaluateTime) {
+		this.memberEvaluateTime = memberEvaluateTime;
 	}
 
 	@Override

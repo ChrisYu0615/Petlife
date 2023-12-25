@@ -60,7 +60,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
 				<span class="brand-text font-weight-light">PetLife後臺管理</span>
@@ -83,29 +83,88 @@ Admin admin = (Admin) session.getAttribute("admin");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-users"></i>
-								<p>會員管理</p>
-						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-newspaper"></i>
-								<p>文章管理</p>
-						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-solid fa-store"></i>
-								<p>商品管理</p>
-						</a></li>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
+								<p>修改管理員資料</p>
+						</a></li>   	
 
+          				<li class="nav-item">
+          				  <a href="#" class="nav-link">
+          				    <i class="fas fa-solid fa-users"></i>
+          				    <p>
+          				      會員管理
+          				      <i class="right fas fa-angle-left"></i>
+          				    </p>
+          				  </a>
+          				  <ul class="nav nav-treeview">
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>一般會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>賣家會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>收容所會員</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>待審核會員</p>
+          				      </a>
+          				    </li>							
+          				  </ul>
+          				</li>		
+
+          				<li class="nav-item">
+          				  <a href="#" class="nav-link">
+          				    <i class="fas fa-solid fa-newspaper"></i>
+          				    <p>
+          				      文章管理
+          				      <i class="right fas fa-angle-left"></i>
+          				    </p>
+          				  </a>
+          				  <ul class="nav nav-treeview">
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>文章列表</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>待處理檢舉</p>
+          				      </a>
+          				    </li>
+          				    <li class="nav-item">
+          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied" class="nav-link">
+          				        <i class="far fa-circle nav-icon"></i>
+          				        <p>已處理檢舉</p>
+          				      </a>
+          				    </li>							
+          				  </ul>
+          				</li>						
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
-							class="nav-link"> <i class="fas fa-solid fa-percent"></i>
+							class="nav-link active"> <i class="fas fa-solid fa-percent"></i>
 								<p>優惠碼管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="fas fa-ad"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/advertisement/advertisement.do?action=getAllAdvertisements"
+							class="nav-link"> <i class="fas fa-ad"></i>
 								<p>廣告管理</p>
 						</a></li>
 
@@ -130,7 +189,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">優惠碼管理</li>
 							</ol>
 						</div>
@@ -189,7 +248,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 									<!-- 新增優惠碼 -->
 									<form action="<%=request.getContextPath()%>/coupon/coupon.do"
-										method="post">
+										method="post" id="add_couponForm">
 										<div class="modal fade" id="add_coupon" tabindex="-1"
 											aria-labelledby="checkModalLabel" aria-hidden="true">
 											<div
@@ -206,6 +265,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="new_coupon_name" name="coupon_name"
 																placeholder="請輸入優惠碼名稱">
+															<span id="verify_new_coupon_name"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -213,6 +273,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="new_coupon_content" name="coupon_content"
 																placeholder="請輸入優惠碼敘述">
+															<span id="verify_new_coupon_content"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -220,6 +281,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="new_coupon_restrict" name="coupon_restrict"
 																placeholder="請輸入使用條件">
+															<span id="verify_new_coupon_restrict"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -227,6 +289,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="new_coupon_amount" name="coupon_amount"
 																placeholder="請輸入折扣金額">
+															<span id="verify_new_coupon_amount"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -234,6 +297,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="date" class="form-control"
 																id="new_coupon_stardate" name="coupon_stardate"
 																placeholder="選擇開始日期">
+															<span id="verify_new_coupon_stardate"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -241,13 +305,14 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="date" class="form-control"
 																id="new_coupon_enddate" name="coupon_enddate"
 																placeholder="選擇結束日期">
+															<span id="verify_new_coupon_enddate"></span>
 														</div>
 													</div>
 
 													<div class="row modal-footer">
 														<div class="col"></div>
 														<button type="submit" class="col-auto btn btn-primary"
-															id="btn_save">儲存</button>
+															id="btn_save">修改</button>
 														<button type="button" class="col-auto btn btn-secondary"
 															data-bs-dismiss="modal">取消</button>
 														<div class="col"></div>
@@ -259,7 +324,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 									</form>
 
 									<!-- 修改優惠碼 -->
-									<form action="<%=request.getContextPath()%>/coupon/coupon.do" method="post">
+									<form action="<%=request.getContextPath()%>/coupon/coupon.do" method="post" id="modify_couponForm">
 										<div class="modal fade" id="check_coupon" tabindex="-1"
 											aria-labelledby="modifyModalLabel" aria-hidden="true">
 											<div
@@ -281,6 +346,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															<label for="coupon_name" class="form-label">優惠碼名稱
 															</label> <input type="text" class="form-control" id="coupon_name"
 																name="coupon_name" placeholder="請輸入優惠碼名稱">
+															<span id="verify_coupon_name"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -288,6 +354,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="coupon_content" name="coupon_content"
 																placeholder="請輸入優惠碼敘述">
+															<span id="verify_coupon_content"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -295,6 +362,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="coupon_restrict" name="coupon_restrict"
 																placeholder="請輸入使用條件">
+															<span id="verify_coupon_restrict"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -302,6 +370,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="text" class="form-control"
 																id="coupon_amount" name="coupon_amount"
 																placeholder="請輸入折扣金額">
+															<span id="verify_coupon_amount"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -324,6 +393,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="date" class="form-control"
 																id="coupon_stardate" name="coupon_stardate"
 																placeholder="選擇開始日期">
+															<span id="verify_coupon_stardate"></span>
 														</div>
 
 														<div class="form-group mb-3">
@@ -331,6 +401,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 															</label> <input type="date" class="form-control"
 																id="coupon_enddate" name="coupon_enddate"
 																placeholder="選擇結束日期">
+															<span id="verify_coupon_enddate"></span>
 														</div>
 													</div>
 

@@ -4,10 +4,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%
-User user = (User) session.getAttribute("user");
-%>
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -51,7 +47,7 @@ User user = (User) session.getAttribute("user");
         </div>
     </div>
 
-    <div class="headerPage"></div>
+	<%@include file="../components/header.jsp"%>
 
     <!--Our Shop-->
     <section id="our_shop_main" class="section_padding">
@@ -206,6 +202,7 @@ User user = (User) session.getAttribute("user");
         </div>
     </section>
 
+	<%@include file="../components/footer.jsp"%>
 
     <script src="../assets/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

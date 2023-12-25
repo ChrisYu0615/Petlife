@@ -40,36 +40,19 @@ public class BuylistDetails {
 	@Expose
 	private Integer buylistDetailsPurchaseAmount;
 
-	@Column(name = "member_rating_stars")
-	private Double memberRatingStars;
-
-	@Column(name = "buyer_evaluate_narrative", columnDefinition = "LONGTEXT")
-	private String buyerEvaluateNarrative;
-
-	@Column(name = "buyer_evaluate_time")
-	private Timestamp buyerEvaluateTime;
-
-	@Column(name = "return_reasons", columnDefinition = "LONGTEXT")
-	private String returnReasons;
-
 	public BuylistDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public BuylistDetails(Integer buylistDetailsId, Buylist buylist, Comm comm, BigDecimal buylistDetailsPrice,
-			Integer buylistDetailsPurchaseAmount, Double memberRatingStars, String buyerEvaluateNarrative,
-			Timestamp buyerEvaluateTime, String returnReasons) {
+			Integer buylistDetailsPurchaseAmount) {
 		super();
 		this.buylistDetailsId = buylistDetailsId;
 		this.buylist = buylist;
 		this.comm = comm;
 		this.buylistDetailsPrice = buylistDetailsPrice;
 		this.buylistDetailsPurchaseAmount = buylistDetailsPurchaseAmount;
-		this.memberRatingStars = memberRatingStars;
-		this.buyerEvaluateNarrative = buyerEvaluateNarrative;
-		this.buyerEvaluateTime = buyerEvaluateTime;
-		this.returnReasons = returnReasons;
 	}
 
 	public Integer getBuylistDetailsId() {
@@ -112,45 +95,11 @@ public class BuylistDetails {
 		this.buylistDetailsPurchaseAmount = buylistDetailsPurchaseAmount;
 	}
 
-	public Double getMemberRatingStars() {
-		return memberRatingStars;
-	}
-
-	public void setMemberRatingStars(Double memberRatingStars) {
-		this.memberRatingStars = memberRatingStars;
-	}
-
-	public String getBuyerEvaluateNarrative() {
-		return buyerEvaluateNarrative;
-	}
-
-	public void setBuyerEvaluateNarrative(String buyerEvaluateNarrative) {
-		this.buyerEvaluateNarrative = buyerEvaluateNarrative;
-	}
-
-	public Timestamp getBuyerEvaluateTime() {
-		return buyerEvaluateTime;
-	}
-
-	public void setBuyerEvaluateTime(Timestamp buyerEvaluateTime) {
-		this.buyerEvaluateTime = buyerEvaluateTime;
-	}
-
-	public String getReturnReasons() {
-		return returnReasons;
-	}
-
-	public void setReturnReasons(String returnReasons) {
-		this.returnReasons = returnReasons;
-	}
-
 	@Override
 	public String toString() {
 		return "BuylistDetails [buylistDetailsId=" + buylistDetailsId + ", buylist=" + buylist
 				+ ", buylistDetailsPrice=" + buylistDetailsPrice + ", buylistDetailsPurchaseAmount="
-				+ buylistDetailsPurchaseAmount + ", memberRatingStars=" + memberRatingStars
-				+ ", buyerEvaluateNarrative=" + buyerEvaluateNarrative + ", buyerEvaluateTime=" + buyerEvaluateTime
-				+ ", returnReasons=" + returnReasons + "]";
+				+ buylistDetailsPurchaseAmount ;
 	}
 
 //	@OneToMany(mappedBy = "acctState", cascade = CascadeType.ALL)

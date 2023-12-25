@@ -88,4 +88,11 @@ public class BuylistDAOImpl implements BuylistDAO {
 		return getSession().createQuery("from Buylist ", Buylist.class).getResultList();
 	}
 
+	@Override
+	public Double getUserRating(Integer userId) {
+		return getSession().createQuery(
+				"select AVG(memberRatingStars) from Buylist where user.userId=:userId and memberRatingStars is not null",
+				Double.class).setParameter("userId", userId).getSingleResult();
+	}
+
 }

@@ -29,8 +29,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.petlife.admin.dao.AcctStateDAO;
-import com.petlife.admin.dao.impl.AcctStateDAOImpl2;
+import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
+import com.petlife.admin.service.AcctStateService;
+import com.petlife.admin.service.impl.AcctStateServiceImpl;
 import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
@@ -38,6 +40,7 @@ import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/shelter/shelter.do")
 @MultipartConfig
@@ -87,11 +90,8 @@ public class ShelterServlet extends HttpServlet {
 		case "forgetPwd":
 			setNewPassword(req, res);
 			break;
-		case "suspend_Shelter":
-			forwardPath = suspendShelter(req, res);
-			break;
-		case "recover_Shelter":
-			forwardPath = recoverShelter(req, res);
+		case "modifyShelterAcctState":
+			forwardPath = modifyShelterAcctState(req, res);
 			break;
 		case "verify_Shelter":
 			forwardPath = verifyShelter(req, res);
@@ -115,8 +115,7 @@ public class ShelterServlet extends HttpServlet {
 
 //1215修改 詩涵
 	private String getUpdateShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer shelterId = 300000002;
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		Shelter shelter = (Shelter)req.getSession().getAttribute("shelter");
 		req.setAttribute("shelter", shelter);
 		return "/petjsp/shelter_update.jsp";
 	}
@@ -124,7 +123,8 @@ public class ShelterServlet extends HttpServlet {
 	// 1215新增 詩涵
 	private String update_forward(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("ShelterServlet: update_forward Entry");
-		Integer shelterId = 300000002;
+		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Integer shelterId = shelter2.getShelterId();
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 		req.setAttribute("shelter", shelter);
 		System.out.println("ShelterServlet: update_forward End");
@@ -134,7 +134,10 @@ public class ShelterServlet extends HttpServlet {
 //1215新增 詩涵
 	private String update_put(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("ShelterServlet: update_put Entry");
-		Integer shelterId = 300000002;
+		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Integer shelterId = shelter2.getShelterId();
+		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
@@ -142,7 +145,7 @@ public class ShelterServlet extends HttpServlet {
 		String shelterAddress = req.getParameter("shelterAddress").trim();
 		String shelterIntroduction = req.getParameter("shelterIntroduction").trim();
 
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
+		
 		shelter.setShelterId(shelterId);
 		shelter.setShelterName(shelterName);
 		shelter.setShelterAcct(shelterAcct);
@@ -157,14 +160,14 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 	private String verifyShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer ShelterId = Integer.valueOf(req.getParameter("memberId"));
-		String selectValue = req.getParameter("shelterReviewResult");
-		String reason = req.getParameter("reason");
+		Integer ShelterId = Integer.valueOf(req.getParameter("memberId").trim());
+		String selectValue = req.getParameter("shelterReviewResult").trim();
+		String reason = req.getParameter("reason").trim();
 		Shelter shelter = shelterService.getShelterByShelterId(ShelterId);
 		Thread thread;
 		switch (selectValue) {
 		case "1":
-			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
+			AcctStateDAO acctStateDAO = new AcctStateDAOImpl();
 			AcctState acctState = acctStateDAO.findByPK(0);
 			shelter.setAcctState(acctState);
 			thread = new Thread(() -> {
@@ -197,18 +200,22 @@ public class ShelterServlet extends HttpServlet {
 		out.print(shelterJson);
 	}
 
-	private String suspendShelter(HttpServletRequest req, HttpServletResponse res) {
-		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
-		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		shelter.setAcctState(new AcctState(1, "停權"));
-		shelterService.updateShelter(shelter);
-		return "/shelter/shelter.do?action=getAll&condition=verified";
-	}
 
-	private String recoverShelter(HttpServletRequest req, HttpServletResponse res) {
+	
+	private String modifyShelterAcctState(HttpServletRequest req, HttpServletResponse res) {
 		Integer shelterId = Integer.parseInt(req.getParameter("memberId"));
+		String modify = req.getParameter("modify");
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		shelter.setAcctState(new AcctState(0, "可使用"));
+		AcctState acctState = null;
+		AcctStateService acctStateService = new AcctStateServiceImpl();
+
+		if (modify != null && "suspendShelter".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(1);
+		} else if (modify != null && "recoverShelter".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(0);
+		}
+		
+		shelter.setAcctState(acctState);
 		shelterService.updateShelter(shelter);
 		return "/shelter/shelter.do?action=getAll&condition=verified";
 	}
@@ -340,7 +347,7 @@ public class ShelterServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("shelterAuthenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("shelterAuthenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
@@ -348,10 +355,10 @@ public class ShelterServlet extends HttpServlet {
 		// 驗證密碼
 		String shelterPwd = req.getParameter("password");
 		String shelterPwdReg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{1,20}$";
-		;
 		if (!shelterPwd.matches(shelterPwdReg)) {
 			errorMsg.put("shelterPwdErr", "密碼格式不正確，必須包含英文大小寫及特殊符號");
 		}
+		shelterPwd = Sha1Util.encodePwd(shelterPwd);
 
 		// 驗證收容所名稱
 		String shelterName = req.getParameter("shelterName");
@@ -475,10 +482,8 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		String shelterAcct = req.getParameter("account");
-		System.out.println(shelterAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String shelterAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		res.setContentType("application/json; charset=UTF-8");
@@ -487,7 +492,6 @@ public class ShelterServlet extends HttpServlet {
 		if (!shelterService.existShelterAccount(shelterAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -496,14 +500,13 @@ public class ShelterServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = shelterService.getNewPwd(shelterAcct);

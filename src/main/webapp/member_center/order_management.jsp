@@ -1,14 +1,8 @@
 <%@page import="com.petlife.user.entity.User"%>
-<%@ page import="com.petlife.user.entity.CreditCard"%>
-<%@ page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<%
-User user = (User) session.getAttribute("user");
-%>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -54,9 +48,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
-
-
+	<%@include file="../components/header.jsp"%>
 
 	<!--Our Shop-->
 	<section id="our_shop_main" class="section_padding">
@@ -162,8 +154,16 @@ User user = (User) session.getAttribute("user");
 
 																<c:when
 																	test="${buyList.buylistState.buylistStateName eq '訂單已完成'}">
-																	<button class="btn-sm btn-warning btn_rate"
-																		data-bs-toggle="modal" data-bs-target="#rate_order">評價</button>
+																	<c:choose>
+																		<c:when test="${buyList.memberEvaluateTime != null}">
+																		<button class="btn-sm btn-secondary btn_rate"
+																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}" disabled>已評價</button>
+																		</c:when>
+																		<c:otherwise>
+																		<button class="btn-sm btn-warning btn_rate"
+																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}">評價</button>
+																		</c:otherwise>
+																	</c:choose>
 																</c:when>
 															</c:choose>
 														</td>
@@ -184,7 +184,7 @@ User user = (User) session.getAttribute("user");
 													</div>
 													<div class="modal-body">
 														<table class="col-md-12 buylistdetailList">
-															<thead>
+															<thead class="order_header">
 																<tr>
 																	<th>商品編號</th>
 																	<th>商品名稱</th>
@@ -275,7 +275,7 @@ User user = (User) session.getAttribute("user");
 										</form>
 
 										<!-- 評價 -->
-										<form action="" method="get">
+										<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post" id="rate_orderForm">
 											<div class="modal fade" id="rate_order" tabindex="-1"
 												aria-labelledby="rateModalLabel" aria-hidden="true">
 												<div
@@ -287,8 +287,10 @@ User user = (User) session.getAttribute("user");
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
 														<div class="row modal-body delete_box">
+															<span id="verify_rateStar"></span>																														
 															<div class="col rounded star_block" id="delete_content">
-																評價此訂單<br> <span class="star" data-star="1"><i
+																評價此訂單<br>
+																 <span class="star" data-star="1"><i
 																	class="fas fa-star"></i></span> <span class="star"
 																	data-star="2"><i class="fas fa-star"></i></span> <span
 																	class="star" data-star="3"><i
@@ -298,6 +300,7 @@ User user = (User) session.getAttribute("user");
 																	class="fas fa-star"></i></span>
 															</div>
 															<div class="col-auto">
+																<span id="verify_rateComment"></span>
 																<label class="col-md-12" for="rateReason">評論：</label> <br>
 																<textarea class="col-md-12" id="rateReason"
 																	name="rateReason" rows="4" cols="80"
@@ -311,6 +314,10 @@ User user = (User) session.getAttribute("user");
 															<button type="button" class="col-auto btn btn-secondary"
 																data-bs-dismiss="modal">取消</button>
 															<div class="col"></div>
+															<input type="hidden" name="action" value="memberRateBuylist">
+															<input type="hidden" name="ratedMemberId" value=<%=user.getUserId()%>>
+															<input type="hidden" name="retedBuylistId">
+															<input type="hidden" name="ratedStar">
 														</div>
 													</div>
 												</div>
@@ -328,7 +335,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script

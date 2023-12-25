@@ -4,9 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%
-User user = (User) session.getAttribute("user");
-%>
+<%-- <%-- <% --%>
+<!-- // User user = (User) session.getAttribute("user"); -->
+<%-- <%-- %> --%> 
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -52,8 +52,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
-
+	<%@include file="../components/header.jsp"%>
 
 	<!--Our Shop-->
 	<section id="our_shop_main" class="section_padding">
@@ -85,7 +84,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
+										<a
+											href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -93,7 +93,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
+										<a
+											href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -129,10 +130,10 @@ User user = (User) session.getAttribute("user");
 												<thead>
 													<tr>
 														<th>文章編號</th>
-														<th>發文帳號</th>
 														<th>文章標題</th>
 														<th>分類</th>
 														<th>文章狀態</th>
+														<th>點閱數</th>
 														<th>發文時間</th>
 														<th>操作</th>
 													</tr>
@@ -141,10 +142,10 @@ User user = (User) session.getAttribute("user");
 													<c:forEach var="article" items="${getAllArticles}">
 														<tr>
 															<td>${article.articleId}</td>
-															<td>${article.user.userId}</td>
 															<td>${article.articleName}</td>
 															<td>${article.forum.sortName}</td>
 															<td>${article.state? "上架中":"已下架"}</td>
+															<td>${article.ctr}</td>
 															<td><fmt:formatDate value="${article.updateTime}"
 																	pattern="yyyy-MM-dd HH:mm:ss" /></td>
 															<td>
@@ -164,7 +165,6 @@ User user = (User) session.getAttribute("user");
 																			value="${article.articleId}">上架</button>
 																	</c:otherwise>
 																</c:choose>
-
 															</td>
 														</tr>
 													</c:forEach>
@@ -195,8 +195,9 @@ User user = (User) session.getAttribute("user");
 															<div class="col"></div>
 															<input type="hidden" name="articleId" value=""> <input
 																type="hidden" name="action" value="modifyArticleState">
-															<input type="hidden" name="userId" value="<%=user.getUserId()%>">                                                                
-															<input type="hidden" name="value" value="removeArticle">
+															<input type="hidden" name="userId"
+																value="<%=user.getUserId()%>"> <input
+																type="hidden" name="value" value="removeArticle">
 														</div>
 													</div>
 												</div>
@@ -226,8 +227,9 @@ User user = (User) session.getAttribute("user");
 															<div class="col"></div>
 															<input type="hidden" name="articleId" value=""> <input
 																type="hidden" name="action" value="modifyArticleState">
-															<input type="hidden" name="userId" value="<%=user.getUserId()%>">                                                                
-															<input type="hidden" name="value" value="uploadArticle">
+															<input type="hidden" name="userId"
+																value="<%=user.getUserId()%>"> <input
+																type="hidden" name="value" value="uploadArticle">
 														</div>
 													</div>
 												</div>
@@ -245,7 +247,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script

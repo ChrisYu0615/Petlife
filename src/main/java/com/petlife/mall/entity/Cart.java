@@ -36,7 +36,7 @@ public class Cart {
 	
 	@Column(name = "purchasing_amount", updatable = true)
 	@Expose
-	private Integer purchasingAmout;
+	private Integer purchasingAmount;
 
 	public Cart() {
 	}
@@ -46,7 +46,7 @@ public class Cart {
 		this.cartId = cartId;
 		this.user = user;
 		this.comm = comm;
-		this.purchasingAmout = purchasingAmout;
+		this.purchasingAmount = purchasingAmout;
 	}
 	
 	public Integer getCartId() {
@@ -73,17 +73,17 @@ public class Cart {
 		this.comm = comm;
 	}
 
-	public Integer getPurchasingAmout() {
-		return purchasingAmout;
+	public Integer getPurchasingAmount() {
+		return purchasingAmount;
 	}
 
-	public void setPurchasingAmout(Integer purchasingAmout) {
-		this.purchasingAmout = purchasingAmout;
-	}
+	public void setPurchasingAmount(Integer purchasingAmount) {
+		this.purchasingAmount = purchasingAmount;
+	}	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cartId, comm, purchasingAmout, user);
+		return Objects.hash(cartId, comm, purchasingAmount, user);
 	}
 
 	@Override
@@ -96,12 +96,12 @@ public class Cart {
 			return false;
 		Cart other = (Cart) obj;
 		return Objects.equals(cartId, other.cartId) && Objects.equals(comm, other.comm)
-				&& Objects.equals(purchasingAmout, other.purchasingAmout) && Objects.equals(user, other.user);
+				&& Objects.equals(purchasingAmount, other.purchasingAmount) && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", user=" + user + ", comm=" + comm + ", purchasingAmout=" + purchasingAmout
+		return "Cart [cartId=" + cartId + ", user=" + user + ", comm=" + comm + ", purchasingAmout=" + purchasingAmount
 				+ "]";
 	}
 }

@@ -1,6 +1,6 @@
 <%@page import="com.petlife.seller.entity.Seller"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ page import="com.emp.model.*"%> --%>
 
@@ -14,8 +14,8 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>­q³æ½s¸¹¸ê®Æ­×§ï</title>
-<!-- ÅıLoading, please wait®ø¥¢ -->
+<title>è¨‚å–®è³‡æ–™ä¿®æ”¹</title>
+<!-- è®“Loading, please waitæ¶ˆå¤± -->
 <link rel="stylesheet" href="/buylist.css">
 
 <!-- Google Font: Source Sans Pro -->
@@ -34,39 +34,87 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+        background-color: #f4f6f9;
+    }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
+    .wrapper {
+        background-color: #fff;
+    }
 
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
+    /* Header styles */
+    .navbar {
+        background-color: #fff; /* ä¿ç•™åŸæœ¬çš„ç™½è‰² */
+        color: #343a40;
+    }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
+    .navbar a {
+        color: #343a40;
+    }
 
-th, td {
-	padding: 5px;
-	text-align: center;
-}
+    /* Sidebar styles */
+    .main-sidebar {
+        background-color: #343a40;
+    }
+
+    .brand-link {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .brand-link:hover {
+        color: #fff;
+    }
+
+    .nav-sidebar a {
+        color: #d4d4d4;
+    }
+
+    .nav-sidebar a:hover {
+        color: #fff !important;
+    }
+
+    /* Content styles */
+    .content-wrapper {
+        background-color: #f4f6f9;
+        padding: 20px;
+    }
+
+    h1,
+    h3,
+    h4 {
+        color: #343a40;
+    }
+
+    /* Form styles */
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
 </style>
 
 </head>
@@ -74,47 +122,47 @@ th, td {
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
-		<!-- ¤W¤èNavbar -->
+		<!-- ä¸Šæ–¹Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- ¤W¤è¥ªÃäLeft navbar links -->
+			<!-- ä¸Šæ–¹å·¦é‚ŠLeft navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a
-					href="test.html" class="nav-link">Home</a></li>
-				<!-- ³o¬Ocontact bar -->
+<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+<!-- 					href="test.html" class="nav-link">Home</a></li> -->
+				<!-- é€™æ˜¯contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> -->
 			</ul>
 
-			<!-- ¤W¤è¥kÃäRight navbar links -->
+			<!-- ä¸Šæ–¹å³é‚ŠRight navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-				<li class="nav-item"><a class="nav-link"
-					data-widget="navbar-search" href="#" role="button"> <i
-						class="fas fa-search"></i>
-				</a>
-					<div class="navbar-search-block">
-						<form class="form-inline">
-							<div class="input-group input-group-sm">
-								<input class="form-control form-control-navbar" type="search"
-									placeholder="Search" aria-label="Search">
-								<div class="input-group-append">
-									<button class="btn btn-navbar" type="submit">
-										<i class="fas fa-search"></i>
-									</button>
-									<button class="btn btn-navbar" type="button"
-										data-widget="navbar-search">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div></li>
+<!-- 				<li class="nav-item"><a class="nav-link" -->
+<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
+<!-- 						class="fas fa-search"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="navbar-search-block"> -->
+<!-- 						<form class="form-inline"> -->
+<!-- 							<div class="input-group input-group-sm"> -->
+<!-- 								<input class="form-control form-control-navbar" type="search" -->
+<!-- 									placeholder="Search" aria-label="Search"> -->
+<!-- 								<div class="input-group-append"> -->
+<!-- 									<button class="btn btn-navbar" type="submit"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 									<button class="btn btn-navbar" type="button" -->
+<!-- 										data-widget="navbar-search"> -->
+<!-- 										<i class="fas fa-times"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 					</div></li> -->
 
-				<!-- ³oÃä¬O¤W¤è¥kÃä²á¤Ñ³qª¾¦C -->
+				<!-- é€™é‚Šæ˜¯ä¸Šæ–¹å³é‚ŠèŠå¤©é€šçŸ¥åˆ— -->
 				<!-- Messages Dropdown Menu -->
 				<!-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -178,51 +226,51 @@ th, td {
                     </div>
                 </li> -->
 
-				<!-- ³o¸Ì¬O¤W¤è¥kÃä°T®§³qª¾¦C -->
+				<!-- é€™è£¡æ˜¯ä¸Šæ–¹å³é‚Šè¨Šæ¯é€šçŸ¥åˆ— -->
 				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown"><a class="nav-link"
-					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-						class="badge badge-warning navbar-badge">15</span>
-				</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15
-							Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-envelope mr-2"></i> 4 new messages <span
-							class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-users mr-2"></i> 8 friend requests <span
-							class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-							3 new reports <span class="float-right text-muted text-sm">2
-								days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All
-							Notifications</a>
-					</div></li>
+<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
+<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
+<!-- 						class="badge badge-warning navbar-badge">15</span> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+<!-- 						<span class="dropdown-item dropdown-header">15 -->
+<!-- 							Notifications</span> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
+<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
+<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
+<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
+<!-- 								days</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
+<!-- 							Notifications</a> -->
+<!-- 					</div></li> -->
 
-				<!-- ³o­Ó¬O¤W¤è¥kÃä¥ş¿Ã¹õ¼Ò¦¡ -->
+				<!-- é€™å€‹æ˜¯ä¸Šæ–¹å³é‚Šå…¨è¢å¹•æ¨¡å¼ -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
 
-				<!-- ³o¸Ì¥i¥H°µµn¤J­×§ï©Îµn¥X¥\¯à -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown"
-					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> <i
-						class="fas fa-solid fa-user"></i>
-				</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-						<a class="dropdown-item" href="/google">­×§ï±b¸¹¸ê°T</a> <a
-							class="dropdown-item" href="/yahoo">µn¥X</a>
-					</div></li>
+				<!-- é€™è£¡å¯ä»¥åšç™»å…¥ä¿®æ”¹æˆ–ç™»å‡ºåŠŸèƒ½ -->
+<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
+<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
+<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
+<!-- 						class="fas fa-solid fa-user"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
+<!-- 						<a class="dropdown-item" href="/google">ä¿®æ”¹å¸³è™Ÿè³‡è¨Š</a> <a -->
+<!-- 							class="dropdown-item" href="/yahoo">ç™»å‡º</a> -->
+<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -237,7 +285,7 @@ th, td {
 			<a href="test.html" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Ãd·R¥Í¬¡«á»OºŞ²z</span>
+				<span class="brand-text font-weight-light">å¯µæ„›ç”Ÿæ´»å¾Œè‡ºç®¡ç†</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -249,7 +297,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block"><%=seller.getSellerName()%>½æ®a¡A§A¦n</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>è³£å®¶ï¼Œä½ å¥½</a>
 					</div>
 				</div>
 
@@ -259,86 +307,90 @@ th, td {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>³qª¾</p>
-						</a></li>
-						<!-- ¥H¤U¬O¥i¦ùÁYªº°¼ÃäÄæ -->
+<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+<!-- 								<p>é€šçŸ¥</p> -->
+<!-- 						</a></li> -->
+						<!-- ä»¥ä¸‹æ˜¯å¯ä¼¸ç¸®çš„å´é‚Šæ¬„ -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									­q³æºŞ²z <i class="right fas fa-angle-left"></i>
+									è¨‚å–®ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³­q³æ</p>
+										<p>æ‰€æœ‰è¨‚å–®</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState0.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>0:«İ¥I´Ú</p>
+										<p>0:å¾…ä»˜æ¬¾</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState1.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>1:«İ¥X³f</p>
+										<p>1:å¾…å‡ºè²¨</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState2.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>2:¹B°e¤¤</p>
+										<p>2:é‹é€ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState3.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>3:­q³æ¤w§¹¦¨</p>
+										<p>3:è¨‚å–®å·²å®Œæˆ</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState4.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>4:­q³æ¤w¨ú®ø</p>
+										<p>4:è¨‚å–®å·²å–æ¶ˆ</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState5.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>5:°h³f/°h´Ú</p>
+										<p>5:é€€è²¨/é€€æ¬¾</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 						<li class="nav-item"><a
 							href="../buylistdetails/listAllBuylistDetails.jsp"
 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>­q³æ°Ó«~²Ó¶µ</p>
+								<p>è¨‚å–®å•†å“ç´°é …</p>
 						</a></li>
 						<!-- ========================================================== -->
 
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
-									°Ó«~ºŞ²z <i class="right fas fa-angle-left"></i>
+									å•†å“ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>¤W¬[°Ó«~</p>
+										<p>ä¸Šæ¶å•†å“</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllComm.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³°Ó«~</p>
+										<p>æ‰€æœ‰å•†å“</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>0:³c°â¤¤</p>
+								<li class="nav-item"><a
+									href="../comm/listAllCommState0.jsp" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>0:è²©å”®ä¸­</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>1:¯Ê³f¤¤</p>
+								<li class="nav-item"><a
+									href="../comm/listAllCommState1.jsp" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>1:ç¼ºè²¨ä¸­</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>2:¤U¬[</p>
+								<li class="nav-item"><a
+									href="../comm/listAllCommState2.jsp" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>2:ä¸‹æ¶</p>
 								</a></li>
-								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>3:¹H³W¤U¬[</p>
+								<li class="nav-item"><a
+									href="../comm/listAllCommState3.jsp" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>3:é•è¦ä¸‹æ¶</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
@@ -346,16 +398,17 @@ th, td {
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
 						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>¹wÄı½æ³õ</p> -->
+						<!-- 								<p>é è¦½è³£å ´</p> -->
 						<!-- 						</a></li> -->
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
 						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
-						<!-- 								<p>½æ®a¼Æ¾Ú¤¤¤ß</p> -->
+						<!-- 								<p>è³£å®¶æ•¸æ“šä¸­å¿ƒ</p> -->
 						<!-- 						</a></li> -->
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-ad"></i>
-								<p>µn¥X</p>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
+								<p>ç™»å‡º</p>
 						</a></li>
 					</ul>
 				</nav>
@@ -367,7 +420,7 @@ th, td {
 
 
 
-		<!-- ³oÃä¬O¥D¤º®e¤W¤èªº¤å¦r±Ô­z -->
+		<!-- é€™é‚Šæ˜¯ä¸»å…§å®¹ä¸Šæ–¹çš„æ–‡å­—æ•˜è¿° -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -375,15 +428,15 @@ th, td {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">­×§ï­q³æ</h1>
+							<h1 class="m-0">ä¿®æ”¹è¨‚å–®</h1>
 						</div>
 						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">­q³æºŞ²z</li>
-							</ol>
-						</div>
+<!-- 						<div class="col-sm-6"> -->
+<!-- 							<ol class="breadcrumb float-sm-right"> -->
+<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+<!-- 								<li class="breadcrumb-item active">è¨‚å–®ç®¡ç†</li> -->
+<!-- 							</ol> -->
+<!-- 						</div> -->
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -393,27 +446,29 @@ th, td {
 			<!-- /.content-header -->
 
 
-			<!-- //³oÃä¶ë¥D¤º®e¤å¦r -->
+			<!-- //é€™é‚Šå¡ä¸»å…§å®¹æ–‡å­— -->
 			<!-- /.content-wrapper -->
 
 
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>­q³æ½s¸¹¸ê®Æ­×§ï</h3>
+						<h3>è¨‚å–®ç·¨è™Ÿè³‡æ–™ä¿®æ”¹</h3>
 						<h4>
-							<a href="listAllBuylist.jsp"><img src="images/back1.gif"
-								width="100" height="32" border="0"> ¦^©Ò¦³­q³æ­º­¶ </a>
+							<a href="listAllBuylist.jsp">
+<!-- 							<img src="images/back1.gif" -->
+<!-- 								width="100" height="32" border="0">  -->
+								å›æ‰€æœ‰è¨‚å–®é¦–é  </a>
 						</h4>
 					</td>
 				</tr>
 			</table>
 
-			<h3>¸ê®Æ­×§ï:</h3>
+			<h3>è³‡æ–™ä¿®æ”¹:<span style= "font-size:14px;color:red;">(åƒ…å¾—ä¿®æ”¹è¨‚å–®ç‹€æ…‹)</span></h3>
 
-			<%-- ¿ù»~ªí¦C --%>
+			<%-- éŒ¯èª¤è¡¨åˆ— --%>
 			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+				<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 				<ul>
 					<c:forEach var="message" items="${errorMsgs}">
 						<li style="color: red">${message}</li>
@@ -425,68 +480,92 @@ th, td {
 				onsubmit="return validateForm();">
 				<table>
 					<tr>
-						<td>­q³æ½s¸¹½s¸¹:<font color=red><b>*</b></font></td>
+						<td>è¨‚å–®ç·¨è™Ÿç·¨è™Ÿ:<font color=red><b>*</b></font></td>
 						<td>${buylist.buylistId}</td>
 					</tr>
 					<!-- 	<tr> -->
-					<!-- 		<td>­q³æ½s¸¹½s¸¹:</td> -->
+					<!-- 		<td>è¨‚å–®ç·¨è™Ÿç·¨è™Ÿ:</td> -->
 					<%-- 		<td><input type="HIDDEN" name="buylist_id" value="<%=buylist.getBuylistId()%>" size="45"/></td> --%>
 					<!-- 	</tr> -->
 					<tr>
-						<td>·|­ûID:</td>
+						<td>æœƒå“¡ID:</td>
 						<td><input type="TEXT" name="user"
-							value="<%=buylist.getUser().getUserId()%>" size="45" required /></td>
+							value="<%=buylist.getUser().getUserId()%>" size="45" required
+							readonly /></td>
 					</tr>
 					<tr>
-						<td>½æ®aID:</td>
+						<td>è³£å®¶ID:</td>
 						<td><input type="TEXT" name="seller"
-							value="<%=buylist.getSeller().getSellerId()%>" size="45" required /></td>
+							value="<%=buylist.getSeller().getSellerId()%>" size="45" required
+							readonly /></td>
 					</tr>
 					<tr>
-						<td>­q³æª¬ºAID:</td>
-						<td><input type="TEXT" name="buylistState"
-							value="<%=buylist.getBuylistState().getBuylistStateId()%>"
-							size="45" required /></td>
+						<td>è¨‚å–®ç‹€æ…‹ID:</td>
+						<td><select name="buylistState" required>
+								<option value="0"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 0) ? "selected" : ""%>>å¾…ä»˜æ¬¾</option>
+								<option value="1"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 1) ? "selected" : ""%>>å¾…å‡ºè²¨</option>
+								<option value="2"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 2) ? "selected" : ""%>>é‹é€ä¸­</option>
+								<option value="3"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 3) ? "selected" : ""%>>å·²å®Œæˆ</option>
+								<option value="4"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 4) ? "selected" : ""%>>å·²å–æ¶ˆ</option>
+								<option value="5"
+									<%=(buylist.getBuylistState().getBuylistStateId() == 5) ? "selected" : ""%>>é€€è²¨/é€€æ¬¾</option>
+						</select></td>
 					</tr>
+					
+					<!-- 					<tr> -->
+					<!-- 						<td>è¨‚å–®ç‹€æ…‹ID:</td> -->
+					<!-- 						<td><input type="TEXT" name="buylistState" -->
+					<%-- 							value="<%=buylist.getBuylistState().getBuylistStateId()%>" --%>
+					<!-- 							size="45" required /></td> -->
+					<!-- 					</tr> -->
 					<tr>
-						<td>Àu´f½X¦WºÙ:</td>
+						<td>å„ªæƒ ç¢¼ID:</td>
 						<td><input name="coupon" id="coupon" type="text"
 							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>"
-							required></td>
+							required readonly></td>
 					</tr>
 					<tr>
-						<td>½æ®aµû»ù¬Pµ¥:</td>
+						<td>è³£å®¶è©•åƒ¹æ˜Ÿç­‰:</td>
 						<td><input name="sellerRatingStars" id="sellerRatingStars"
-							type="text" value="<%=buylist.getSellerRatingStars()%>" required></td>
+							type="text" value="<%=buylist.getSellerRatingStars()%>" required
+							readonly></td>
 					</tr>
 					<tr>
-						<td>½æ®aµû»ù±Ô­z:</td>
+						<td>è³£å®¶è©•åƒ¹æ•˜è¿°:</td>
 						<td><input name="sellerEvaluateNarrative"
 							id="sellerEvaluateNarrative" type="text"
-							value="<%=buylist.getSellerEvaluateNarrative()%>" required></td>
+							value="<%=buylist.getSellerEvaluateNarrative()%>" required
+							readonly></td>
 					</tr>
 					<tr>
-						<td>½æ®aµû»ù®É¶¡:</td>
+						<td>è³£å®¶è©•åƒ¹æ™‚é–“:</td>
 						<td><input name="sellerEvaluateTime" id="sellerEvaluateTime"
-							type="text" value="<%=buylist.getSellerEvaluateTime()%>" required>
+							type="text" value="<%=buylist.getSellerEvaluateTime()%>" required
+							readonly>
 							<div>YYYY-MM-DD HH:mm:ss</div></td>
 					</tr>
 					<tr>
-						<td>­q³æª÷ÃB:</td>
+						<td>è¨‚å–®é‡‘é¡:</td>
 						<td><input name="buylistAmount" id="buylistAmount"
-							type="text" value="<%=buylist.getBuylistAmount()%>" required></td>
+							type="text" value="<%=buylist.getBuylistAmount()%>" required
+							readonly></td>
 					</tr>
 					<tr>
 					<tr>
-						<td>­q³æ«Ø¥ß®É¶¡:</td>
+						<td>è¨‚å–®å»ºç«‹æ™‚é–“:</td>
 						<td><input name="buylistDate" id="buylistDate" type="text"
-							value="<%=buylist.getBuylistDate()%>" required></td>
+							value="<%=buylist.getBuylistDate()%>" required readonly></td>
 					</tr>
 
 
 					<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
 					<!-- 	<tr> -->
-					<!-- 		<td>³¡ªù:<font color=red><b>*</b></font></td> -->
+					<!-- 		<td>éƒ¨é–€:<font color=red><b>*</b></font></td> -->
 					<!-- 		<td><select size="1" name="deptno"> -->
 					<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
 					<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
@@ -498,7 +577,7 @@ th, td {
 				<br> <input type="hidden" name="action" value="update">
 				<input type="hidden" name="buylistId"
 					value="<%=buylist.getBuylistId()%>"> <input type="submit"
-					value="°e¥X­×§ï">
+					value="é€å‡ºä¿®æ”¹">
 			</FORM>
 
 			<script>
@@ -506,12 +585,12 @@ th, td {
 					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
 					var buylistDate = document.forms["form1"]["buylistDate"].value;
 
-					// ÀË¬d¤é´Á®æ¦¡
+					// æª¢æŸ¥æ—¥æœŸæ ¼å¼
 					var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
 
 					if (!dateRegex.test(sellerEvaluateTime)
 							|| !dateRegex.test(buylistDate)) {
-						alert("½Ğ¿é¤J¥¿½Tªº¤é´Á®æ¦¡¡]YYYY-MM-DD HH:mm:ss ©Î YYYY-MM-DD HH:mm:ss.S ©Î YYYY-MM-DD HH:mm:ss.SSS ©Î YYYY-MM-DD¡^¡C");
+						alert("è«‹è¼¸å…¥æ­£ç¢ºçš„æ—¥æœŸæ ¼å¼ï¼ˆYYYY-MM-DD HH:mm:ss æˆ– YYYY-MM-DD HH:mm:ss.S æˆ– YYYY-MM-DD HH:mm:ss.SSS æˆ– YYYY-MM-DDï¼‰ã€‚");
 						return false;
 					}
 				}

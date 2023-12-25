@@ -27,7 +27,7 @@ import com.petlife.forum.service.impl.ArticleServiceImpl;
 import com.petlife.forum.service.impl.ForumServiceImpl;
 import com.petlife.pet.entity.PetPhoto;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.forum.entity.Comment;
 import com.petlife.forum.service.impl.CommentServiceImpl;

@@ -165,12 +165,14 @@ public class ReservationServlet extends HttpServlet {
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 
 		System.out.println("ReservationServlet: update Entry");
+	
 		Integer Id = Integer.valueOf(req.getParameter("resId"));
 		System.out.println(Id);
 
 		Reservation reservation = reservationService.getResByResType(Id);
 
 		Integer resType = Integer.valueOf(req.getParameter("resType"));
+		
 		reservation.setResId(Id);
 		reservation.setResTypeId(resType);
 		System.out.println(resType);

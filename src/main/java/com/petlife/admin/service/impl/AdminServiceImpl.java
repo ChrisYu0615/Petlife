@@ -12,6 +12,7 @@ import com.petlife.admin.service.AdminService;
 import com.petlife.user.entity.User;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomPassword;
+import com.petlife.util.Sha1Util;
 
 public class AdminServiceImpl implements AdminService {
 	private AdminDAO dao;
@@ -98,7 +99,7 @@ public class AdminServiceImpl implements AdminService {
 		Integer acctStateId = admin.getAcctState().getAcctStateId();
 		if (acctStateId == 0 || acctStateId == 2) {
 			String newPassword = RandomPassword.getNewPassword();
-			admin.setAdminPwd(newPassword);
+			admin.setAdminPwd(Sha1Util.encodePwd(newPassword));
 			admin.setAcctState(new AcctState(0, "可使用"));
 			admin.setAdminPwdErrTimes(0);
 			dao.update(admin);
