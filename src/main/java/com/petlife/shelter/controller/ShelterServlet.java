@@ -16,11 +16,13 @@ import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,6 +35,7 @@ import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.service.AcctStateService;
 import com.petlife.admin.service.impl.AcctStateServiceImpl;
+import com.petlife.pet.entity.PetPhoto;
 import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
@@ -102,6 +105,9 @@ public class ShelterServlet extends HttpServlet {
 		case "update_put":
 			forwardPath = update_put(req, res);
 			break;
+		case "getShelterPhoto":
+			forwardPath = getShelterPhoto(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -111,6 +117,29 @@ public class ShelterServlet extends HttpServlet {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, res);
 		}
+	}
+//12/24詩涵
+private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res) {
+	Integer id=(Integer.valueOf(req.getParameter("shelterId")));
+	
+	System.out.println(id);
+	Shelter shelter = shelterService.getShelterByShelterId(id);
+
+//	// Check if the pet photo is not null
+	if (shelter != null) {
+	    res.setContentType("image/gif");
+	    
+	    // Assuming getPhotoData() returns a byte array representing the image data
+	    byte[] imageData = shelter.getShelterPhoto();
+
+	    try (ServletOutputStream out = res.getOutputStream()) {
+	        // Write the image data to the response output stream
+	        out.write(imageData);
+	    } catch (IOException e) {
+	        e.printStackTrace(); // Handle the exception appropriately
+	    }
+	}
+	return "";
 	}
 
 //1215修改 詩涵
@@ -123,7 +152,7 @@ public class ShelterServlet extends HttpServlet {
 	// 1215新增 詩涵
 	private String update_forward(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("ShelterServlet: update_forward Entry");
-		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Shelter shelter2= (Shelter)(req.getSession().getAttribute("shelter"));
 		Integer shelterId = shelter2.getShelterId();
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 		req.setAttribute("shelter", shelter);
@@ -132,24 +161,41 @@ public class ShelterServlet extends HttpServlet {
 	}
 
 //1215新增 詩涵
-	private String update_put(HttpServletRequest req, HttpServletResponse res) {
+	private String update_put(HttpServletRequest req, HttpServletResponse res)throws IOException, ServletException {
 		System.out.println("ShelterServlet: update_put Entry");
-		Shelter shelter2= (Shelter)req.getSession().getAttribute("shelter");
+		Shelter shelter2= (Shelter)(req.getSession().getAttribute("shelter"));
 		Integer shelterId = shelter2.getShelterId();
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
 		
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
+		
 		String shelterPhoneNum = req.getParameter("shelterPhoneNum").trim();
 		String shelterAddress = req.getParameter("shelterAddress").trim();
 		String shelterIntroduction = req.getParameter("shelterIntroduction").trim();
-
+		
+		for (Part part : req.getParts()) {
+			if (!part.getName().equals("shelterblob"))
+				continue;
+			InputStream in = part.getInputStream();
+			byte[] shelterPhoto = null;
+			if (in.available() != 0) {
+				shelterPhoto = new byte[in.available()];
+				in.read(shelterPhoto);
+				in.close();
+				shelter.setShelterPhoto(shelterPhoto);
+				
+			}
+		}
 		
 		shelter.setShelterId(shelterId);
 		shelter.setShelterName(shelterName);
 		shelter.setShelterAcct(shelterAcct);
-		shelter.setShelterPwd(password);
+		if(!password.equals("")) {
+			shelter.setShelterPwd(password);
+		}
+		
 		shelter.setShelterPhoneNum(shelterPhoneNum);
 		shelter.setShelterAddress(shelterAddress);
 		shelter.setShelterIntroduction(shelterIntroduction);

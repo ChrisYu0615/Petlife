@@ -4,6 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="com.petlife.shelter.entity.Shelter"%>
+<% 
+	Integer shelterId =null;
+	Shelter shelter_2 = (Shelter) session.getAttribute("shelter");
+%>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
@@ -22,7 +26,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">OOO管理員，你好</a>
+				<a href="#" class="d-block"><%= shelter_2.getShelterName()%></a>
 			</div>
 		</div>
 		<!-- Sidebar Menu -->

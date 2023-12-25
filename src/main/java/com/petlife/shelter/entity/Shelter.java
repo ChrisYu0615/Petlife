@@ -32,7 +32,7 @@ public class Shelter {
 	@Expose
 	private Integer shelterId;
 	
-	@Column(name = "shelter_acct", unique = true, updatable = false)
+	@Column(name = "shelter_acct", unique = true)
 	@Expose
 	private String shelterAcct;
 	

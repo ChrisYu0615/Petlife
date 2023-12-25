@@ -32,6 +32,7 @@
 
 
 
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -66,8 +67,7 @@
 					<!-- 					第一行  -->
 					<div class="material">
 						<!-- 						... (rest of the form content) ... -->
-						<form id="shelter_update_put" method="post"
-							action="${pageContext.request.contextPath}/shelter/shelter.do">
+						<form id="shelter_update_put" method="post" action="${pageContext.request.contextPath}/shelter/shelter.do" enctype="multipart/form-data">
 							<span class="material_list"> <label for="shelter_name"
 								class="shelter_name">收容所名稱:</label> <input class="form-control"
 								name="shelterName" type="text"
@@ -78,42 +78,55 @@
 								type="text" name="shelterAcct"
 								aria-label="default input example" id="shelterAcct"
 								value="${shelter.shelterAcct}"> <span id="shelterAcct"></span>
+							</span>
+						
+							<!-- 	=============================================準備修改密碼 -->
+							<span class="material_list"><input type="checkbox"
+								id="changPwd">是否修改密碼</span> <span id="pwd"
+								style="display: none;"> <span class="material_list">
+									<label for="shelter_password1">密碼:</label> <input
+									class="form-control" type="password" name="password"
+									aria-label="default input example" id="shelter_password1">
+									<span id="shelter_password1"></span>
 							</span> <span class="material_list"> <label
-								for="shelter_password1">密碼:</label> <input class="form-control"
-								type="password" name="password"
-								aria-label="default input example" id="shelter_password1"
-								value="${shelter.shelterPwd}"> <span
-								id="shelter_password1"></span>
-							</span> <span class="material_list"> <label
-								for="shelter_password1">確認密碼:</label> <input
-								class="form-control" type="password" name="shelterPwd_two"
-								aria-label="default input example" id="shelter_password2">
-								<span id="shelter_password2"></span>
+									for="shelter_password1">確認密碼:</label> <input
+									class="form-control" type="password" name="shelterPwd_two"
+									aria-label="default input example" id="shelter_password2">
+									<span id="shelter_password2"></span>
+
+							</span>
+
 							</span> <span class="material_list"> <label for="shelter_phone">電話:</label>
 								<input class="form-control" type="text" name="shelterPhoneNum"
 								aria-label="default input example" id="shelterPhoneNum"
 								value="${shelter.shelterPhoneNum}"> <span
-								id="shelterPhoneNum"></span> -->
-							</span> <span class="material_list"> <label for="shelter_adress">詳細地址:</label>
-								<input class="form-control" type="text" name="shelterAddress"
-								aria-label="default input example" id="shelterAddress"
-								value="${shelter.shelterAddress}"> <span
-								id="shelterAddress"></span> -->
-							</span> <span class="material_list"> <label
-								for="shelter_introduction">簡介:</label> <textarea
-									id="shelterIntroduction" name="shelterIntroduction" rows="4"
-									cols="50">${shelter.shelterIntroduction}</textarea> <span
-								id="shelterIntroduction"></span>
-							</span> <span class="material_list"> <span class="e_photo">環境照片:<input
-									type="file" id="e_photo" multiple></span>
-								<div id="preview">
-									<span class="text">預覽圖(可一次選擇多張)</span>
-								</div>
-
-							</span>
+								id="shelterPhoneNum"> </span>
+							</span> 
+							
+							<span class="material_list"> 
+								<label for="shelter_adress">詳細地址:</label>
+									<input class="form-control" type="text" name="shelterAddress" aria-label="default input example" id="shelterAddress"
+								value="${shelter.shelterAddress}"> 
+								<span id="shelterAddress"></span>
+							</span> 
+							
+							<span class="material_list">
+							 <label for="shelter_introduction">簡介:</label>
+							  <textarea id="shelterIntroduction" name="shelterIntroduction" rows="4"
+									cols="50">${shelter.shelterIntroduction}</textarea> 
+									<span id="shelterIntroduction"></span>
+							</span> 
+							
+<!-- 							<span class="material_list">  -->
+<!-- 							<span class="e_photo">環境照片:<input type="file" id="e_photo" multiple></span> -->
+<!-- 								<div id="preview"> -->
+<!-- 									<span class="text">預覽圖(可一次選擇多張)</span> -->
+<!-- 								</div> -->
+<!-- 							</span> -->
 
 							<div class="button">
-								<input type="submit" value="確認修改" id="btn_shelter_update">
+<!-- 								<input type="submit" value="確認修改" id="btn_shelter_update"> -->
+								  <button type="submit" class="btn btn-primary put_on btn-sm" id="btn_shelter_update">確認修改</button>
 								<input type="hidden" name="action" value="update_put">
 							</div>
 
@@ -121,8 +134,8 @@
 							<!-- 							右上角大頭貼   -->
 							<div class="img">
 								<span>
-									<div class="s_img" id="s_img"></div>
-								</span> <input type="file" id="s_blob">
+									<div class="s_img" id="s_img" ></div>
+								</span> <input type="file" id="s_blob" name="shelterblob">
 							</div>
 						</form>
 					</div>
@@ -148,15 +161,32 @@
 		<!-- AdminLTE App -->
 		<script src="../dist/js/adminlte.js"></script>
 		<script> 
-			// 這是環境照片
-			$("#e_photo").change(function() {
-				// ... (rest of the script for handling environment photos) ...
-			});
-
 			// 大頭貼
 			$("#s_blob").change(function() {
-				// ... (rest of the script for handling avatar) ...
+			    $("div#s_img").html("");
+			    readURL(this);
+		           function readURL(input) {
+	                    if (input.files && input.files.length >= 0) {
+	                        for (var i = 0; i < input.files.length; i++) {
+	                            var reader = new FileReader();
+	                            reader.onload = function (e) {
+	                                var img = $("<img>").css({
+	                                	'width': '100px',
+	                                	'height': '100px',
+	                                	'border-radius': '50%',
+	                                	'object-fit': 'cover'
+	                                }).attr('src', e.target.result);
+	                                $("div#s_img").append(img);
+	                                $("div#s_img").addClass("circular-image");
+	                            }
+	                            reader.readAsDataURL(input.files[i]);
+	                        }
+	                    }
+	                };
 			});
+			
+			
+			
 			//===================================================================
 			//英文&中文
 			var regex2 = /^[a-zA-Z\u4E00-\u9FA5]+$/;
@@ -168,8 +198,24 @@
 			var regex = /^[a-zA-Z0-9]+$/;
 			//電話
 			var phoneRegex = /^09\d{8}|02\d{8}$/;
+			//密碼
+			var pwdregex=/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[!@#$%^&()_+])[A-Za-z\d!@#$%^&()_+]{1,20}$/;
 			
-
+$(document).on("click","#changPwd",function(){
+			
+	
+	
+	
+			if ($("#changPwd").prop("checked")) {
+				$("#pwd").css("display", "block");
+			} else {
+				$("#pwd").css("display", "none");
+			}
+	
+	
+	
+	
+})
 			//密碼驗證
 			$("#shelter_password1").on(
 					"blur",
@@ -180,9 +226,9 @@
 							$("span#shelter_password1").html(
 									"<font color='red'>請勿空白!!</font>")
 							verifyFlag = false;
-						} else if (!regex.test(shelter_password1)) {
+						} else if (!pwdregex.test(shelter_password1)) {
 							$("span#shelter_password1").html(
-									"<font color='red'>只能輸入英文及中文!!</font>")
+									"<font color='red'>必須包含大小寫,數字及一個特殊符號!!</font>")
 							verifyFlag = false;
 						}
 					})
@@ -197,9 +243,9 @@
 							$("span#shelter_password2").html(
 									"<font color='red'>請勿空白!!</font>")
 							verifyFlag = false;
-						} else if (!regex.test(shelter_password2)) {
+						} else if (!pwdregex.test(shelter_password2)) {
 							$("span#shelter_password2").html(
-									"<font color='red'>只能輸入英文及中文!!</font>")
+									"<font color='red'>必須包含大小寫,數字及一個特殊符號!!</font>")
 							verifyFlag = false;
 						} else if (shelter_password1 != shelter_password2) {
 							$("span#shelter_password2").html(
@@ -217,13 +263,21 @@
 				$("#shelterAcct").val("")
 			})
 			//收容所密碼點擊後input清空
-			$(document).on("click", "#shelter_password1", function() {
-				$("#shelter_password1").val("")
-				$("span#shelter_password1").html("")
+			$(document).on("focus", "#shelter_password1", function() {
+				if($(this).val()!=""){
+					$("input#shelter_password1").val("")
+				}	
+			})
+			$(document).on("click", "#shelter_password1", function() {		
+					$("span#shelter_password1").html("")		
 			})
 			//收容所確認密碼點擊後input清空
-			$(document).on("click", "#shelter_password2", function() {
+			$(document).on("focus", "#shelter_password2", function() {
 				$("#shelter_password2").val("")
+			
+			})
+				$(document).on("click", "#shelter_password2", function() {
+		
 				$("span#shelter_password2").html("")
 			})
 			//收容所電話
