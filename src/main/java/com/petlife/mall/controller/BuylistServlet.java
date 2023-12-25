@@ -71,7 +71,8 @@ public class BuylistServlet extends HttpServlet {
 		case "insert":
 			// 來自listAllBuylist.jsp
 			forwardPath = insert(req, res);
-			System.out.println("=================================="+forwardPath+"=================================");
+			System.out
+					.println("==================================" + forwardPath + "=================================");
 			break;
 		case "delete":
 			// 來自listAllBuylist.jsp
@@ -87,7 +88,7 @@ public class BuylistServlet extends HttpServlet {
 			forwardPath = cancelBuylist(req, res);
 			break;
 		default:
-			forwardPath = "/buylist/listAllBuylist.jsp"; //2023/12/18
+			forwardPath = "/buylist/listAllBuylist.jsp"; // 2023/12/18
 			break;
 		}
 
@@ -128,7 +129,7 @@ public class BuylistServlet extends HttpServlet {
 		default:
 			cancelReason = req.getParameter("cancelReason").trim();
 		}
-		
+
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
 		BuylistStateService buylistStateService = new BuylistStateServiceImpl();
 		BuylistState buylistState = buylistStateService.getBuylistStateByBuylistStateId(4);
@@ -140,7 +141,7 @@ public class BuylistServlet extends HttpServlet {
 			MailService.cancelBuylist(buylistId, sellerAcct, cancelReason);
 		});
 		thread.start();
-		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId="+memberId;
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
 
 	private String getBuyListByMemberId(HttpServletRequest req, HttpServletResponse res) {
@@ -335,7 +336,15 @@ public class BuylistServlet extends HttpServlet {
 		Integer userId = Integer.parseInt(req.getParameter("user"));
 		Integer sellerId = Integer.parseInt(req.getParameter("seller"));
 		Integer buylistStateId = Integer.parseInt(req.getParameter("buylistState"));
-		Integer couponId = Integer.parseInt(req.getParameter("coupon"));
+
+		Integer couponId;
+		try {
+			couponId = Integer.parseInt(req.getParameter("coupon"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			couponId = null;
+		}
+
 		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
 		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
 		// ----
@@ -396,9 +405,13 @@ public class BuylistServlet extends HttpServlet {
 		buylistState.setBuylistStateId(buylistStateId);
 		buylist.setBuylistState(buylistState);
 
-		Coupon coupon = new Coupon();
-		coupon.setCouponId(couponId);
-		buylist.setCoupon(coupon);
+		if(couponId==null) {
+			buylist.setCoupon(null);
+		}else {
+			Coupon coupon = new Coupon();
+			coupon.setCouponId(couponId);
+			buylist.setCoupon(coupon);
+		}
 
 		buylist.setSellerRatingStars(sellerRatingStars);
 		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);

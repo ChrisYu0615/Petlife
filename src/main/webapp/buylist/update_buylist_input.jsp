@@ -431,12 +431,12 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 							<h1 class="m-0">修改訂單</h1>
 						</div>
 						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">訂單管理</li>
-							</ol>
-						</div>
+<!-- 						<div class="col-sm-6"> -->
+<!-- 							<ol class="breadcrumb float-sm-right"> -->
+<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+<!-- 								<li class="breadcrumb-item active">訂單管理</li> -->
+<!-- 							</ol> -->
+<!-- 						</div> -->
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -464,7 +464,7 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 				</tr>
 			</table>
 
-			<h3>資料修改:</h3>
+			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態)</span></h3>
 
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
@@ -524,7 +524,7 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 					<!-- 							size="45" required /></td> -->
 					<!-- 					</tr> -->
 					<tr>
-						<td>優惠碼名稱:</td>
+						<td>優惠碼ID:</td>
 						<td><input name="coupon" id="coupon" type="text"
 							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>"
 							required readonly></td>

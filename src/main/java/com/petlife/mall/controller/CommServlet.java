@@ -156,6 +156,7 @@ public class CommServlet extends HttpServlet {
 		if (!errorMsgs.isEmpty()) {
 			return "/comm/listAllComm.jsp";// 程式中斷
 		}
+		commService.updateView(commId);
 
 ///*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 		req.setAttribute("comm", comm); // 資料庫取出的manage物件,存入req
