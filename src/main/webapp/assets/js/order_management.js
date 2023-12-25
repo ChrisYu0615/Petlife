@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $(".headerPage").load("../components/header.html");
-    $(".footerPage").load("../components/footer.html");
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
@@ -318,9 +316,9 @@ $(document).ready(function () {
     $(".btn_cancel").on("click", function () {
         let buylistId = $(this).val();
         console.log(buylistId);
+        $("#verify_cancelReason").html("");
 
         let url = "/Petlife/buylist/buylist.do?action=getOneBuylistById";
-
         let formData = new FormData();
         formData.append("buylistId", buylistId);
         $.ajax({

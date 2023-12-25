@@ -1,6 +1,8 @@
 package com.petlife.admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petlife.admin.dao.CouponDAO;
 import com.petlife.admin.dao.impl.CouponDAOImpl;
 import com.petlife.admin.entity.Coupon;
@@ -39,7 +43,7 @@ public class CouponServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardPath = "";
-
+		res.setContentType("text/html; charset=UTF-8");
 		switch (action) {
 		case "getOne_For_Display":
 			// 來自selact_page.jsp
@@ -61,13 +65,81 @@ public class CouponServlet extends HttpServlet {
 			// 來自listAllCoupon.jsp
 			forwardPath = delete(req, res);
 			break; // 新加的break
+		case "getAllCoupons":
+			forwardPath = getAllCoupons(req, res);
+			break;
+		case "getOne":
+			getOne(req, res);
+			break;
+		case "addCoupon":
+			forwardPath = addCoupon(req, res);
+			break;
+		case "updateCoupon":
+			forwardPath = updateCoupon(req, res);
+			break;
 		default:
 			forwardPath = "/select_page.jsp"; // !!!???
 		}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
+		if (!forwardPath.isEmpty()) {
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
+	}
+
+	private String updateCoupon(HttpServletRequest req, HttpServletResponse res) {
+		Integer couponId = Integer.valueOf(req.getParameter("couponId").trim());
+		String couponName = req.getParameter("coupon_name").trim();
+		String couponContent = req.getParameter("coupon_content").trim();
+		Integer couponRestrict = Integer.valueOf(req.getParameter("coupon_restrict").trim());
+		Integer discountAmount = Integer.valueOf(req.getParameter("coupon_amount").trim());
+		Boolean couponState = Boolean.valueOf(req.getParameter("coupon_state").trim());
+		Date startDate = java.sql.Date.valueOf(req.getParameter("coupon_stardate").trim());
+		Date endDate = java.sql.Date.valueOf(req.getParameter("coupon_enddate").trim());
+
+		Coupon coupon = couponService.getCouponByCouponId(couponId);
+		coupon.setCouponName(couponName);
+		coupon.setCouponContent(couponContent);
+		coupon.setConditionsOfUse(couponRestrict);
+		coupon.setDiscountAmount(discountAmount);
+		coupon.setCouponState(couponState);
+		coupon.setStartDate(startDate);
+		coupon.setEndDate(endDate);
+		
+		couponService.updateCoupon(coupon);
+
+		return "/coupon/coupon.do?action=getAllCoupons";
+	}
+
+	private void getOne(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		Integer couponId = Integer.valueOf(req.getParameter("couponId"));
+		Coupon coupon = couponService.getCouponByCouponId(couponId);
+
+		res.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("yyyy-MM-dd").create();
+		String couponJson = gson.toJson(coupon);
+
+		out.print(couponJson);
+	}
+
+	private String addCoupon(HttpServletRequest req, HttpServletResponse res) {
+		String couponName = req.getParameter("coupon_name").trim();
+		String couponContent = req.getParameter("coupon_content").trim();
+		Integer couponRestrict = Integer.valueOf(req.getParameter("coupon_restrict").trim());
+		Integer discountAmount = Integer.valueOf(req.getParameter("coupon_amount").trim());
+		Date startDate = java.sql.Date.valueOf(req.getParameter("coupon_stardate").trim());
+		Date endDate = java.sql.Date.valueOf(req.getParameter("coupon_enddate").trim());
+
+		Coupon coupon = new Coupon(couponName, couponContent, couponRestrict, startDate, endDate, discountAmount);
+		couponService.addCoupon(coupon);
+		return "/coupon/coupon.do?action=getAllCoupons";
+	}
+
+	private String getAllCoupons(HttpServletRequest req, HttpServletResponse res) {
+		List<Coupon> couponList = couponService.getAllCoupons();
+		req.setAttribute("getAllCoupons", couponList);
+		return "/admin/coupon_management.jsp";
 	}
 
 	// 1,查詢
@@ -176,8 +248,8 @@ public class CouponServlet extends HttpServlet {
 		coupon.setCouponName(couponName);
 		coupon.setCouponContent(couponContent);
 		coupon.setConditionsOfUse(conditionsOfUse);
-		coupon.setStartDate(startDate);
-		coupon.setEndDate(endDate);
+//		coupon.setStartDate(startDate);
+//		coupon.setEndDate(endDate);
 		coupon.setDiscountAmount(discountAmount);
 
 		// Send the use back to the form, if there were errors
@@ -237,13 +309,13 @@ public class CouponServlet extends HttpServlet {
 
 		Integer discountAmount = Integer.valueOf(req.getParameter("discountAmount"));
 		System.out.println(req.getParameter("discountAmount"));
-		
+
 		Coupon coupon = new Coupon();
 		coupon.setCouponName(couponName);
 		coupon.setCouponContent(couponContent);
 		coupon.setConditionsOfUse(conditionsOfUse);
-		coupon.setStartDate(startDate);
-		coupon.setEndDate(endDate);
+//		coupon.setStartDate(startDate);
+//		coupon.setEndDate(endDate);
 		coupon.setDiscountAmount(discountAmount);
 
 //		if (coupon.getCouponId() != null && coupon.getCouponId() > 0) {
@@ -259,15 +331,15 @@ public class CouponServlet extends HttpServlet {
 //		}
 
 //		/*************************** 2.開始新增資料 ***************************************/
-		
+
 		try {
 			System.out.println("1");
 			couponService.addCoupon(coupon);
-			}catch (Exception e) {
-				System.out.println("2");
-				e.getMessage();
-			};
-
+		} catch (Exception e) {
+			System.out.println("2");
+			e.getMessage();
+		}
+		;
 
 //		if (coupon.getCouponId() != null && coupon.getCouponId() > 0) {
 //			System.out.println("新增成功2");

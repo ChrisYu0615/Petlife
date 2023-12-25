@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@page import="com.petlife.shelter.entity.Shelter"%>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
@@ -48,7 +48,9 @@
 							<p>收容動物管理</p>
 						</a>
 				</li>
-				<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
+				<li class="nav-item">
+				<c:url var="shelterUrl" value="/petjsp/shelter_date.jsp" /> 
+				<a href="${shelterUrl}" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
 						<i class="far fa-calendar-plus"></i>
 						<p>日曆功能</p>
 				</a></li>
@@ -61,8 +63,10 @@
 				</a>
 				</li>
 				
-				<li class="nav-item"><a href="#" class="nav-link"> <i
-						class="fas fa-sign-out-alt"></i>
+				<li class="nav-item">
+				<c:url var="petresUrl" value="/petjsp/pet_res.jsp" /> 
+				<a href="${petresUrl}" class="nav-link"> 
+				<i class="fas fa-sign-out-alt"></i>
 						<p>登出</p>
 				</a></li>
 

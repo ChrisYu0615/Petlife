@@ -1,6 +1,6 @@
 $(function() {
-	$(".headerPage").load("../components/header.html");
-	$(".footerPage").load("../components/footer.html");
+	$(".headerPage").load("../components/header.jsp");
+	$(".footerPage").load("../components/footer.jsp");
 	// 要傳送的位址
 	let identity;
 	let url;

@@ -284,14 +284,3 @@ $(function () {
     });
 
 });
-// 編輯文章的函數
-function checkArticle(articleId) {
-    // 在這裡添加編輯文章的邏輯
-    console.log('Check Article with ID: ' + articleId);
-}
-
-// 刪除文章的函數
-function modifyArticle(articleId) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('Modify Article with ID: ' + articleId);
-}

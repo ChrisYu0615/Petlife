@@ -44,6 +44,14 @@ public class Shelter {
 	@Expose
 	private String shelterName;
 
+	public Set<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
+	}
+
 	@Column(name = "shelter_create_time", insertable = false)
 	@Expose
 	private Timestamp shelterCreateTime;
@@ -86,7 +94,7 @@ public class Shelter {
 	@Expose
 	private AcctState acctState;
 	
-	@OneToMany(mappedBy = "Sheltername", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
 	private Set<Pet> pets;
 	
 	@OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)

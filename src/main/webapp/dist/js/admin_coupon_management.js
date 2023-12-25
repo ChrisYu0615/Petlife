@@ -246,14 +246,172 @@ $(function () {
         });
     });
 
-})
+    // 前端新增驗證
+    $("#add_couponForm").submit(function (event) {
+        let insertFlag = true;
+        let couponName = $.trim($("#new_coupon_name").val());
+        let couponContent = $.trim($("#new_coupon_content").val());
+        let couponRestrict = $.trim($("#new_coupon_restrict").val());
+        let couponDiscountAmount = $.trim($("#new_coupon_amount").val());
+        let couponStartDate = $.trim($("#new_coupon_stardate").val());
+        let couponEndDate = $.trim($("#new_coupon_enddate").val());
+        
+        if (couponName == null || couponName == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_name").html(`<font color="red"><b>請輸入優惠碼名稱!!</font>`)
+        } else {
+            $("#verify_new_coupon_name").html("");
+        }
 
-// 刪除文章的函數
-function checkCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('check Coupon with ID: ' + coupon_id);
-}
-function deleteCoupon(coupon_id) {
-    // 在這裡添加刪除文章的邏輯
-    console.log('delete Coupon with ID: ' + coupon_id);
-}
+        if (couponContent == null || couponContent == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_content").html(`<font color="red"><b>請輸入優惠碼敘述!!</font>`)
+        } else {
+            $("#verify_new_coupon_content").html("");
+        }
+
+        if (couponRestrict == null || couponRestrict == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_restrict").html(`<font color="red"><b>請輸入使用條件!!</font>`)
+        } else {
+            $("#verify_new_coupon_restrict").html("");
+        }
+
+        if (couponDiscountAmount == null || couponDiscountAmount == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_amount").html(`<font color="red"><b>請輸入折扣金額!!</font>`)
+        } else {
+            $("#verify_new_coupon_amount").html("");
+        }
+
+        if (couponStartDate == null || couponStartDate == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_stardate").html(`<font color="red"><b>請選擇開始日期!!</font>`)
+        } else {
+            $("#verify_new_coupon_stardate").html("");
+        }
+
+        if (couponEndDate == null || couponEndDate == "") {
+            insertFlag = false;
+            $("#verify_new_coupon_enddate").html(`<font color="red"><b>請選擇結束日期!!</font>`)
+        } else {
+            $("#verify_new_coupon_enddate").html("");
+        }
+
+        if ((couponStartDate != "" && couponEndDate != "") && couponStartDate > couponEndDate) {
+            insertFlag = false;
+            $("#verify_new_coupon_stardate").html(`<font color="red"><b>開始日不能大於結束日!!</font>`);
+        }
+
+        if (insertFlag == false) {
+            event.preventDefault();
+            $("html, body").scrollTop(0);
+        }
+    });
+
+    // 前端查看(使用ajax)
+    var modifyFlag = true;
+    $(".btn_check").on("click", function () {
+        let couponId = $(this).val();
+        $("#couponId").val(couponId);
+
+        let formData = new FormData();
+        let url = "/Petlife/coupon/coupon.do?action=getOne&couponId=" + couponId;
+        formData.append("couponId", couponId);
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                $("#coupon_id").val(data.couponId);
+                $("#coupon_name").val(data.couponName);
+                $("#coupon_content").val(data.couponContent);
+
+                $("#coupon_restrict").val(data.conditionsOfUse);
+                $("#coupon_amount").val(data.discountAmount);
+
+                if (data.couponState == true) {
+                    $("#launched").prop("checked", true);
+                }
+                else {
+                    $("#unlaunched").prop("checked", true);
+                }
+                $("#coupon_stardate").val(data.startDate);
+                $("#coupon_enddate").val(data.endDate);
+            }
+        });
+    });
+
+        // 前端修改驗證
+        $("#modify_couponForm").submit(function (event) {
+            let modifyFlag = true;
+            let couponName = $.trim($("#coupon_name").val());
+            let couponContent = $.trim($("#coupon_content").val());
+            let couponRestrict = $.trim($("#coupon_restrict").val());
+            let couponDiscountAmount = $.trim($("#coupon_amount").val());
+            let couponStartDate = $.trim($("#coupon_stardate").val());
+            let couponEndDate = $.trim($("#coupon_enddate").val());
+            
+            if (couponName == null || couponName == "") {
+                modifyFlag = false;
+                $("#verify_coupon_name").html(`<font color="red"><b>請輸入優惠碼名稱!!</font>`)
+            } else {
+                $("#verify_coupon_name").html("");
+            }
+    
+            if (couponContent == null || couponContent == "") {
+                modifyFlag = false;
+                $("#verify_coupon_content").html(`<font color="red"><b>請輸入優惠碼敘述!!</font>`)
+            } else {
+                $("#verify_coupon_content").html("");
+            }
+    
+            if (couponRestrict == null || couponRestrict == "") {
+                modifyFlag = false;
+                $("#verify_coupon_restrict").html(`<font color="red"><b>請輸入使用條件!!</font>`)
+            } else {
+                $("#verify_coupon_restrict").html("");
+            }
+    
+            if (couponDiscountAmount == null || couponDiscountAmount == "") {
+                modifyFlag = false;
+                $("#verify_coupon_amount").html(`<font color="red"><b>請輸入折扣金額!!</font>`)
+            } else {
+                $("#verify_coupon_amount").html("");
+            }
+    
+            if (couponStartDate == null || couponStartDate == "") {
+                modifyFlag = false;
+                $("#verify_coupon_stardate").html(`<font color="red"><b>請選擇開始日期!!</font>`)
+            } else {
+                $("#verify_coupon_stardate").html("");
+            }
+    
+            if (couponEndDate == null || couponEndDate == "") {
+                modifyFlag = false;
+                $("#verify_coupon_enddate").html(`<font color="red"><b>請選擇結束日期!!</font>`)
+            } else {
+                $("#verify_coupon_enddate").html("");
+            }
+    
+            if ((couponStartDate != "" && couponEndDate != "") && couponStartDate > couponEndDate) {
+                modifyFlag = false;
+                $("#verify_coupon_stardate").html(`<font color="red"><b>開始日不能大於結束日!!</font>`);
+            }
+    
+            if (modifyFlag == false) {
+                event.preventDefault();
+                $("html, body").scrollTop(0);
+            }
+        });
+
+
+    $("#logout").on("click", function () {
+        alert("您已成功登出!!");
+    });
+})

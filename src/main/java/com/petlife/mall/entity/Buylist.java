@@ -40,7 +40,7 @@ public class Buylist {
     private BuylistState buylistState;
 	
 	@ManyToOne   //coupon_id
-    @JoinColumn(name = "coupon_id" ,referencedColumnName = "coupon_id")
+    @JoinColumn(name = "coupon_id" ,referencedColumnName = "coupon_id",nullable = true)
     private Coupon coupon;
 	
 	@Column(name = "seller_rating_stars")

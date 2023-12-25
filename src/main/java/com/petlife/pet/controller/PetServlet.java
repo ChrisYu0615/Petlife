@@ -79,12 +79,18 @@ public class PetServlet extends HttpServlet {
 		case "getPetById"://for test
 			forwardPath = getPetById(req, res, jsonNode);
 			break;
+		case "getPetById2":
+			forwardPath = getPetById2(req, res);
+			break;
 		case "getPetListAsync":
 			forwardPath = getPetListAsync(req, res, jsonNode);
 			break;
-
 		case "getCompositePetsQuery":
 			forwardPath = getCompositePetsQuery(req, res);
+//			forwardPath = "/index.jsp";
+			break;			
+		case "getCompositePetsQuery2":
+			forwardPath = getCompositePetsQuery2(req, res);
 //			forwardPath = "/index.jsp";
 			break;
 		case "getAllPet":
@@ -108,7 +114,7 @@ public class PetServlet extends HttpServlet {
 	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
 		Pet pet = petService.getOnePet(Id);
-		Integer shelterId =300000002;
+		Integer shelterId =pet.getShelterId();
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		String petLigation = req.getParameter("petLigation").trim();
@@ -174,6 +180,19 @@ public class PetServlet extends HttpServlet {
 		return "";
 	}
 
+	// 收容所前端搜尋用，思涵2023/12/21新增
+		private String getPetById2(HttpServletRequest req, HttpServletResponse res) throws IOException {
+			try {
+				System.out.println("PetServlet: getById Entry");
+				Integer Id = Integer.valueOf(req.getParameter("id"));
+				Pet pet = petService.getOnePet(Id);
+				req.setAttribute("pet", pet);
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+
+			return "/shelter/adoptionDetails.jsp";
+		}
 
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 		Integer Id = Integer.valueOf(req.getParameter("rowId"));
@@ -187,7 +206,7 @@ public class PetServlet extends HttpServlet {
 	private String insert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		System.out.println("PetServlet :insert Entry");
 		Pet pet = new Pet();
-		Integer shelterId = Integer.valueOf(req.getParameter("shelterId").trim());
+		Integer shelterId = Integer.valueOf(req.getParameter("id").trim());
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		System.out.println(petVarietyId);
@@ -212,7 +231,7 @@ public class PetServlet extends HttpServlet {
 				petCage, petNum, adopted, userId, adopt_date);
 		System.out.println(petVarietyId);
 		pet.setVariety(petVarietyService.getOnePetVariety(petVarietyId));
-		pet.setSheltername(shelterService.getShelterByShelterId(shelterId));
+		pet.setShelter(shelterService.getShelterByShelterId(shelterId));
 		// 準備集合抓取照片
 		for (Part part : req.getParts()) {
 			if (!part.getName().equals("petphoto"))
@@ -294,6 +313,17 @@ public class PetServlet extends HttpServlet {
 		} 
 		return "/petjsp/listAllPets.jsp";
 	}
+	//收容所前端搜尋使用 思涵2023/12/21新增
+		private String getCompositePetsQuery2(HttpServletRequest req, HttpServletResponse res) {
+			System.out.println("getCompositePetsQuery2 Entry");
+			Map<String, String[]> map = req.getParameterMap();
+
+			if (map != null) {
+				List<Pet> petList = petService.getByCompositeQuery(map);
+				req.setAttribute("petList", petList);
+			} 
+			return "/shelter/listAllPets.jsp";
+		}
 	//全部
 	private String getAllPet(HttpServletRequest req, HttpServletResponse res,JsonNode node)throws IOException {
 		List<Pet> petList = petService.getAll();

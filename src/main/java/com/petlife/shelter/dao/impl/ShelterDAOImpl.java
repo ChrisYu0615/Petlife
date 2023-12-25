@@ -101,7 +101,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 
 	@Override
 	public List<Shelter> getAll(String... conditions) {
-		if (conditions.length > 0 && conditions != null) {
+		if (conditions != null && conditions.length > 0) {
 			AcctStateDAO acctStateDAO = new AcctStateDAOImpl2();
 			AcctState acctState = acctStateDAO.findByPK(4);
 			if ("verified".equals(conditions[0])) {

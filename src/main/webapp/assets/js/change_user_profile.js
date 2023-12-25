@@ -1,6 +1,4 @@
 $(function () {
-    $(".headerPage").load("../components/header.html");
-    $(".footerPage").load("../components/footer.html");
 
     var nowDate = new Date();
     var year = nowDate.getFullYear();
@@ -296,7 +294,7 @@ $(function () {
     });
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
-        var targetPageURL = "./user_profile.html";
+        var targetPageURL = "./user_profile.jsp";
 
         // 使用 window.location.href 進行頁面跳轉
         window.location.href = targetPageURL;

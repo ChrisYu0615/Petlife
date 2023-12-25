@@ -1,14 +1,8 @@
 <%@page import="com.petlife.user.entity.User"%>
-<%@ page import="com.petlife.user.entity.CreditCard"%>
-<%@ page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<%
-User user = (User) session.getAttribute("user");
-%>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -54,9 +48,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
-
-
+	<%@include file="../components/header.jsp"%>
 
 	<!--Our Shop-->
 	<section id="our_shop_main" class="section_padding">
@@ -88,8 +80,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a
-											href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
+										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -97,7 +88,7 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-										<a href="/member_center/reserve_management.html">預約管理</a>
+                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -106,7 +97,8 @@ User user = (User) session.getAttribute("user");
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingFour">
 									<div class="row sidebar_select" id="article_manage">
-										<a href="/member_center/article_management.html">文章管理</a>
+										<a
+											href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles&userId=<%=user.getUserId()%>">文章管理</a>
 									</div>
 								</h2>
 							</div>
@@ -184,7 +176,7 @@ User user = (User) session.getAttribute("user");
 													</div>
 													<div class="modal-body">
 														<table class="col-md-12 buylistdetailList">
-															<thead>
+															<thead class="order_header">
 																<tr>
 																	<th>商品編號</th>
 																	<th>商品名稱</th>
@@ -328,7 +320,7 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script

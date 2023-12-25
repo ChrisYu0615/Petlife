@@ -108,14 +108,14 @@ public class ArticleServlet extends HttpServlet {
 		byte[] artImg;
 		System.out.println(articleImg);
 		FileInputStream fis = null;
-		
+
 		ServletOutputStream out = null;
 		if (articleImg == null) {
 			artImg = null;
 		} else {
 			artImg = articleImg.getArticleImg();
 		}
-		
+
 		System.out.println(artImg);
 		res.setContentType("image/png");
 		if (artImg != null && artImg.length > 0) {
@@ -173,8 +173,9 @@ public class ArticleServlet extends HttpServlet {
 	}
 
 	private String modifyArticleState(HttpServletRequest req, HttpServletResponse res) {
-		Integer articleId = Integer.valueOf(req.getParameter("articleId"));
-		String value = req.getParameter("value");
+		Integer articleId = Integer.valueOf(req.getParameter("articleId").trim());
+		String userId = req.getParameter("userId");
+		String value = req.getParameter("value").trim();
 		Article article = articleService.getArticleByArticleId(articleId);
 
 		if ("removeArticle".equals(value))
@@ -183,7 +184,12 @@ public class ArticleServlet extends HttpServlet {
 			article.setState(true);
 
 		articleService.updateArticle(article);
-		return "/art/art.do?action=getAllArticles";
+
+		if (userId != null) {
+			return "/art/art.do?action=getAllArticles&userId=" + Integer.valueOf(userId.trim());
+		} else {
+			return "/art/art.do?action=getAllArticles";
+		}
 	}
 
 	private String CompositeArticleQuery(HttpServletRequest req, HttpServletResponse res) {
@@ -208,9 +214,19 @@ public class ArticleServlet extends HttpServlet {
 	}
 
 	private String getAllArticles(HttpServletRequest req, HttpServletResponse res) {
-		List<Article> articleList = articleService.getAllArticle();
+		String userId = req.getParameter("userId");
+		List<Article> articleList = new ArrayList<>();
+		String forwardPath;
+		if (userId != null && userId.length() > 0) {
+			articleList = articleService.getAllArticle(Integer.valueOf(userId));
+			forwardPath = "/member_center/article_management.jsp";
+		} else {
+			articleList = articleService.getAllArticle();
+			forwardPath = "/admin/article_management.jsp";
+		}
+
 		req.setAttribute("getAllArticles", articleList);
-		return "/admin/article_management.jsp";
+		return forwardPath;
 	}
 
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {

@@ -1,7 +1,4 @@
 $(function () {
-    $(".headerPage").load("../component/header.html");
-    $(".footerPage").load("../component/footer.html");
-
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
 
@@ -11,48 +8,6 @@ $(function () {
 
     $(document).ready(function () {
         $('#myTable').DataTable({
-            "ajax": {
-                "url": "../assets/json/reservelist.json", // 請替換為你的JSON檔案路徑
-                "dataSrc": "" // 表示JSON數據的根節點為空
-            }, "columns": [
-                {
-                    "data": null,
-                    "render": function (data, type, row) {
-                        // 在這裡可以自定義操作按鈕的HTML
-                        if (data.reserve_state === "已完成") {
-                            return '<button class="btn-sm btn-secondary reserve_state" id="btn_finished" disabled>已完成</button> ';
-                        } else if (data.reserve_state === "確認中") {
-                            return '<button class="btn-sm btn-warning reserve_state" id="btn_check" disabled>確認中</button> ';
-                        } else if (data.reserve_state === "已確認") {
-                            return '<button class="btn-sm btn-primary reserve_state" id="btn_check" disabled>確認中</button> ';
-                        }
-                    }
-                },
-                { "data": "reserve_id" },
-                { "data": "shelter_name" },
-                {
-                    "data": "reserve_deteil",
-                    "render": function (data, type, row) {
-                        return data ? `動物編號：${data.pet_id} <br> 種類：${data.pet_type} <br> 品種：${data.pet_variety}` : '';
-                    }
-                },
-                { "data": "shelter_location" },
-                {
-                    "data": null,
-                    "render": function (data, type, row) {
-                        // 在這裡可以自定義操作按鈕的HTML
-                        if (data.reserve_state === "已完成") {
-                            return '<button class="btn-sm btn-primary btn_reserve" id="btn_rate" onclick = "rateReserve(' + row.reserve_id + ')" data-bs-toggle="modal" data-bs-target="#rate_reserve">評分</button><br>';
-
-                        } else {
-                            return '<button class="btn-sm btn-primary btn_reserve" id="btn_edit" onclick = "editReserve(' + row.reserve_id + ')" data-bs-toggle="modal" data-bs-target="#edit_reserve">編輯</button><br>' +
-                                '<button class="btn-sm btn-warning btn_reserve" id="btn_consult" onclick = "consultReserve(' + row.reserve_id + ')" data-bs-toggle="modal" data-bs-target="#consult_reserve">諮詢</button><br>' +
-                                '<button class="btn-sm btn-danger btn_reserve" id="btn_cancel" onclick = "cancelReserve(' + row.reserve_id + ')" data-bs-toggle="modal" data-bs-target="#cancel_reserve">取消</button><br>'
-                                ;
-                        }
-                    }
-                }
-            ],
             "order": [
                 [1, 'asc'] // 默认按第一列（姓名列）升序排序
             ],
@@ -301,35 +256,10 @@ $(function () {
         });
     });
 
-    //退貨按鈕
-    $('#myTable').on('click', '.return-btn', function () {
-        var productId = $(this).data('product-id');
-        console.log('Return Product with ID: ' + productId);
+    $(".btn_cancelReservation").on("click",function(){
+        let resId = $(this).val();
+        console.log(resId);
+        $('input[name="resId"]').val(resId);
     });
-
-
-
-    $('#myTable').on('click', '#btn_order, #btn_cancel', function (e) {
-        e.stopPropagation();
-    });
-
-
-    // 編輯預約
-    function editReserve(reserveId) {
-        // 在這裡添加編輯文章的邏輯
-        console.log('Edit Article with ID: ' + reserveId);
-    }
-
-    // 諮詢
-    function consultReserve(reserveId) {
-        // 在這裡添加編輯文章的邏輯
-        console.log('Edit Article with ID: ' + reserveId);
-    }
-
-    // 取消預約
-    function cancelReserve(reserveId) {
-        // 在這裡添加刪除文章的邏輯
-        console.log('Delete Article with ID: ' + reserveId);
-    }
 })
 

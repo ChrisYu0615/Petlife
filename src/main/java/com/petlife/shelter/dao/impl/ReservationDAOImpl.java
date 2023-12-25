@@ -21,20 +21,18 @@ import com.petlife.shelter.entity.Reservation;
 import com.petlife.shelter.entity.ShelterBooking;
 import com.petlife.util.HibernateUtil;
 
-
-
 public class ReservationDAOImpl implements ReservationDAO {
-	
+
 	private SessionFactory factory;
-	
+
 	public ReservationDAOImpl() {
 		factory = HibernateUtil.getSessionFactory();
 	}
-	
+
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
-	
+
 	@Override
 	public int insert(Reservation entity) {
 		// 回傳給 service 剛新增成功的自增主鍵值
@@ -43,12 +41,13 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 	@Override
 	public Reservation update(Reservation entity) {
+		getSession().flush();
 		try {
 			System.out.println("ReservationDAOImpl  update: Entry");
 			getSession().update(entity);
-			
+
 			return entity;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return entity;
 		}
 	}
@@ -56,20 +55,22 @@ public class ReservationDAOImpl implements ReservationDAO {
 	@Override
 	public int delete(Integer id) {
 		Reservation reservation = getSession().get(Reservation.class, id);
-		if(reservation != null) {
+		if (reservation != null) {
 			getSession().delete(reservation);
 			return 1;
-		}else {
+		} else {
 			return -1;
 		}
 	}
 
 	@Override
 	public Reservation getById(Integer id) {
+		getSession().clear();
 		try {
 			System.out.println("ReservationDAOImpl : Entry");
 			System.out.println("ReservationDAOImpl: id = " + id);
-			Reservation reservation = getSession().createQuery("from Reservation where resId =" + id, Reservation.class).uniqueResult();
+			Reservation reservation = getSession().createQuery("from Reservation where resId =" + id, Reservation.class)
+					.uniqueResult();
 			return reservation;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,50 +101,57 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 	@Override
+	public List<Reservation> getAll(Integer userId) {
+		return getSession().createQuery("from Reservation where user.userId=:userId", Reservation.class)
+				.setParameter("userId", userId).getResultList();
+	}
+
+	@Override
 	public List<Reservation> getResByCompositeQuery(Map<String, String> map) {
 		System.out.println("ReservationDAOImpl : getResByCompositeQuery Entry");
 		if (map.size() == 0)
 			return getAll();
-		
+
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		CriteriaQuery<Reservation> criteria = builder.createQuery(Reservation.class);
 		Root<Reservation> root = criteria.from(Reservation.class);
 		Join<Reservation, ShelterBooking> shelterBookingJoin = root.join("shelterBooking", JoinType.INNER);
-		
-		//	Predicate是JPA套件代表查詢條件
-		
+
+		// Predicate是JPA套件代表查詢條件
+
 		List<Predicate> predicates = new ArrayList<>();
-		
+
 		for (Map.Entry<String, String> row : map.entrySet()) {
 //			如果要新增其他條件要在這裡寫
-//			if ("shelterBookingId".equals(row.getKey())) {
-//				predicates.add(builder.like(root.get("shelterBookingId"), "%" + row.getValue() + "%"));
-//			}
-
-			if ("resTypeId".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("resTypeId"),row.getValue()));
+			
+			if ("shelterId".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("shelter").get("shelterId"), row.getValue()));
 			}
 
-			 if ("search_start".equals(row.getKey())) {
-		            // 拿到日期 String 日期转换为 java.util.Date
-		            Date searchStartDate = Date.valueOf(row.getValue());
-		            predicates.add(builder.greaterThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
-		        }
-			 if ("search_end".equals(row.getKey())) {
-		            // 拿到日期 String 日期转换为 java.util.Date
-		            Date searchStartDate = Date.valueOf(row.getValue());
-		            predicates.add(builder.lessThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
-		        }
+			if ("resTypeId".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("resTypeId"), row.getValue()));
+			}
+
+			if ("search_start".equals(row.getKey())) {
+				// 拿到日期 String 日期转换为 java.util.Date
+				Date searchStartDate = Date.valueOf(row.getValue());
+				predicates.add(
+						builder.greaterThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
+			}
+			if ("search_end".equals(row.getKey())) {
+				// 拿到日期 String 日期转换为 java.util.Date
+				Date searchStartDate = Date.valueOf(row.getValue());
+				predicates
+						.add(builder.lessThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
+			}
 		}
-		
+
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 		criteria.orderBy(builder.asc(root.get("resId")));
 		TypedQuery<Reservation> query = getSession().createQuery(criteria);
-		
+
 		return query.getResultList();
 	}
-	
-	
 
 	@Override
 	public long getTotal() {

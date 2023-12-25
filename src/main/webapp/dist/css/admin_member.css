@@ -67,3 +67,11 @@ div.row.modal-footer {
 span#admin_name {
 	color: #c2c7d0;
 }
+
+div.card-body.table{
+	font-size: 14px !important;
+}
+
+button.btn_sellerCheck,button.btn_shelterCheck{
+    font-size: 12px !important;
+}

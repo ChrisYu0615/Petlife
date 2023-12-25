@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -33,7 +36,7 @@
 						<h3 class="footer_nav">快速連結</h3>
 						<div class="nav_item_footer">
 							<ul>
-								<li><a href="#">會員中心</a></li>
+								<li><a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a></li>
 								<li><a href="#">寵物商城</a></li>
 								<li><a href="#">寵物論壇</a></li>
 								<li><a href="#">寵物領養</a></li>
@@ -106,25 +109,6 @@
 		<i class="fas fa-chevron-up"></i> <i class="fas fa-chevron-up"></i>
 	</div>
 
-	<!-- <script src="assets/js/jquery.min.js"></script>  -->
-	<!-- Bootstrap js -->
-	<!-- <script src="assets/js/bootstrap.bundle.js"></script> -->
-	<!-- Meanu js -->
-	<script src="../assets/js/jquery.meanmenu.js"></script>
-	<!-- Magnific Popup js -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- owl carousel js -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
-	<!-- wow.js -->
-	<script src="../assets/js/wow.min.js"></script>
-	<!-- waypoints.js -->
-	<script src="../assets/js/waypoints.min.js"></script>
-	<!-- counterup.js -->
-	<script src="../assets/js/jquery.counterup.min.js"></script>
-	<!-- Custom js -->
-	<!-- <script src="assets/js/gallery-popup.js"></script> -->
-	<script src="../assets/js/custom.js"></script>
-	<!-- <script src="assets/js/video.js"></script> -->
 </body>
 
 </html>

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.Date;
@@ -26,14 +25,14 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.petlife.admin.entity.AcctState;
+import com.petlife.admin.service.AcctStateService;
+import com.petlife.admin.service.impl.AcctStateServiceImpl;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.UserServeice;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
-import com.petlife.util.RandomPassword;
-
-import redis.clients.jedis.Jedis;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/user/user.do")
 @MultipartConfig
@@ -69,11 +68,8 @@ public class UserServlet extends HttpServlet {
 		case "updateUserProfile":
 			forwardPath = updateUser(req, resp);
 			break;
-		case "suspend_User":
-			forwardPath = suspendUser(req, resp);
-			break;
-		case "recover_User":
-			forwardPath = recoverUser(req, resp);
+		case "modifyUserAcctState":
+			forwardPath = modifyUserAcctState(req, resp);
 			break;
 		case "getOneByPK":
 			forwardPath = getUserByPK(req, resp);
@@ -91,12 +87,11 @@ public class UserServlet extends HttpServlet {
 			forwardPath = "";
 			break;
 		}
-		// dispatcher路徑是從專案開始，forwardPath要加/
-		if (!("".equals(forwardPath))) {
+
+		if (!forwardPath.isEmpty()) {
 			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 			dispatcher.forward(req, resp);
 		}
-
 	}
 
 	private void getUserHeadshot(HttpServletRequest req, HttpServletResponse resp) {
@@ -152,27 +147,27 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
-	private String recoverUser(HttpServletRequest req, HttpServletResponse resp) {
+	private String modifyUserAcctState(HttpServletRequest req, HttpServletResponse resp) {
 		Integer userId = Integer.parseInt(req.getParameter("memberId"));
+		String modify = req.getParameter("modify");
 		User user = userServeice.getUserByUserId(userId);
-		user.setAcctState(new AcctState(0, "可使用"));
-		userServeice.updateUser(user);
-		return "/user/user.do?action=getAll";
-	}
+		AcctState acctState = null;
+		AcctStateService acctStateService = new AcctStateServiceImpl();
 
-	private String suspendUser(HttpServletRequest req, HttpServletResponse resp) {
-		Integer userId = Integer.parseInt(req.getParameter("memberId"));
-		User user = userServeice.getUserByUserId(userId);
-		user.setAcctState(new AcctState(1, "停權"));
+		if (modify != null && "suspendUser".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(1);
+		} else if (modify != null && "recoverUser".equals(modify)) {
+			acctState = acctStateService.getByAcctStateId(0);
+		}
+
+		user.setAcctState(acctState);
 		userServeice.updateUser(user);
 		return "/user/user.do?action=getAll";
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String userAcct = req.getParameter("account");
-		System.out.println(userAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String userAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		resp.setContentType("application/json; charset=UTF-8");
@@ -181,7 +176,6 @@ public class UserServlet extends HttpServlet {
 		if (!userServeice.exisUserAccount(userAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -190,14 +184,13 @@ public class UserServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = userServeice.getNewPwd(userAcct);
@@ -265,7 +258,7 @@ public class UserServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("userAuthenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("userAuthenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
@@ -276,6 +269,7 @@ public class UserServlet extends HttpServlet {
 		if (!userPwd.matches(userPwdReg)) {
 			errorMsg.put("userPwdErr", "密碼格式不正確，必須包含英文大小寫及特殊符號");
 		}
+		userPwd = Sha1Util.encodePwd(userPwd);
 
 		// 驗證姓名
 		String userName = registerUserData.get("username");
@@ -336,7 +330,10 @@ public class UserServlet extends HttpServlet {
 			out.print(redirectPath);
 
 			// 寄信表示註冊成功
-			MailService.memberRegisterSuccess(userAcct);
+			Thread thread = new Thread(() -> {
+				MailService.memberRegisterSuccess(userAcct);
+			});
+			thread.start();
 		}
 	}
 
@@ -371,12 +368,13 @@ public class UserServlet extends HttpServlet {
 		address = country + district + address;
 
 		User user = userServeice.getUserByUserId(userId);
-		
-		if(headshot!=null&&headshot.length>0) {
+
+		if (headshot != null && headshot.length > 0) {
 			user.setHeadshot(headshot);
 		}
-		
+
 		if (userPwd != null && userPwd.length() > 0) {
+			userPwd = Sha1Util.encodePwd(userPwd);
 			user.setUserPwd(userPwd);
 		}
 		user.setUserName(userName);
