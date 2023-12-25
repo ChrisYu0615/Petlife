@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petlife.mall.dao.CommDAO;
 import com.petlife.mall.dao.impl.CommDAOImpl;
+import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
 import com.petlife.mall.entity.CommCat;
 import com.petlife.mall.service.CommService;
@@ -75,6 +76,9 @@ public class CommServlet extends HttpServlet {
 			// 新增處理 findByPk 的 case
 			findByPk(req, res);
 			break;
+		case "getCommByMemberId":
+			forwardPath = getCommByMemberId(req, res);
+			break;
 //		case "getCommImg":
 //			getCommImg(req, res);
 //			break;
@@ -116,6 +120,43 @@ public class CommServlet extends HttpServlet {
 	}
 
 	// ===================/圖片===========================
+	
+	//=================================================
+	private String getCommByMemberId(HttpServletRequest req, HttpServletResponse res) {
+		String memberId = req.getParameter("memberId");
+		System.out.println("===========================" + memberId + "============================");
+		String forwardPath = "";
+		List<Comm> commList = new ArrayList<>();
+		switch (memberId.charAt(0)) {
+		case '1':
+			commList = commService.getAll(memberId);
+			forwardPath = "/member_center/order_management.jsp";
+			break;
+		case '2':
+			commList = commService.getAll(memberId);
+			forwardPath = "/buylist/listAllComm.jsp";
+			break;
+		}
+		//================================================================
+		String sellerId = req.getParameter("sellerId");
+		System.out.println("===========================" + sellerId + "============================");
+		
+		
+		switch (sellerId.charAt(0)) {
+		case '1':
+			commList = commService.getAll(sellerId);
+			forwardPath = "/comm/listAllComm.jsp";
+			break;
+		case '2':
+			commList = commService.getAll(sellerId);
+			forwardPath = "/comm/listAllComm.jsp";
+			break;
+		}
+		//================================================================
+		req.setAttribute("getAll", commList);
+		return forwardPath;
+	}
+	//=================================================
 	// 1,查詢
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
 		// 錯誤處理

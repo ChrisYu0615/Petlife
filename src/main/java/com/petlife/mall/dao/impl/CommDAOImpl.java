@@ -80,11 +80,11 @@ public class CommDAOImpl implements CommDAO {
 	}
 
 	@Override
-	public List<Comm> getCommsByState(Integer commState) {
+	public List<Comm> getCommsByState(Integer commState, Integer sellerId) {
 		try {
 			Session session = getSession();
-			List<Comm> comms = session.createQuery("from Comm where commState.commState = :state", Comm.class)
-					.setParameter("state", commState).getResultList();
+			List<Comm> comms = session.createQuery("from Comm where commState.commState = :state and seller.sellerId = :sellerId", Comm.class)
+					.setParameter("state", commState).setParameter("sellerId", sellerId).getResultList();
 			return comms;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,4 +105,23 @@ public class CommDAOImpl implements CommDAO {
 //	        return query.getResultList();
 //		
 //	}
+
+	@Override
+	public List<Comm> getAll(String memberId) {
+		switch (memberId.charAt(0)) {
+		case '1':
+			// 1開頭(一般會員)
+			Integer userId = Integer.valueOf(memberId);
+			return getSession().createQuery("from Comm where user.userId=:userId", Comm.class)
+					.setParameter("userId", userId).getResultList();
+		case '2':
+			// 2開頭(賣家會員)
+			Integer sellerId = Integer.valueOf(memberId);
+			System.out.println("``````````````````````````````````````"+sellerId+"```````````````````````````````````````");
+			return getSession().createQuery("from Comm where seller.sellerId=:sellerId", Comm.class)
+					.setParameter("sellerId", sellerId).getResultList();
+		}
+
+		return getSession().createQuery("from Comm", Comm.class).getResultList();
+	}
 }

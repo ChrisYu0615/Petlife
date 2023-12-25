@@ -79,7 +79,7 @@ public class BuylistServlet extends HttpServlet {
 		case "delete":
 			// 來自listAllBuylist.jsp
 			forwardPath = delete(req, res);
-			break; // 新加的break
+			break; 
 		case "getBuyListByMemberId":
 			forwardPath = getBuyListByMemberId(req, res);
 			break;
@@ -178,6 +178,22 @@ public class BuylistServlet extends HttpServlet {
 			forwardPath = "/buylist/listAllBuylist.jsp";
 			break;
 		}
+		//================================================================
+		String sellerId = req.getParameter("sellerId");
+		System.out.println("===========================" + sellerId + "============================");
+		
+		
+		switch (sellerId.charAt(0)) {
+		case '1':
+			buylistList = buylistService.getAllBuylists(sellerId);
+			forwardPath = "/buylist/listAllBuylist.jsp";
+			break;
+		case '2':
+			buylistList = buylistService.getAllBuylists(sellerId);
+			forwardPath = "/buylist/listAllBuylist.jsp";
+			break;
+		}
+		//================================================================
 		req.setAttribute("getAllBuylist", buylistList);
 		return forwardPath;
 	}

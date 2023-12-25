@@ -25,8 +25,8 @@ public interface BuylistService {
 	List<Buylist> getAllBuylists();
 	
 	// 根據訂單狀態ID查詢
-    List<Buylist> getBuylistsByState(Integer buylistState);
-    
+    List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId);
+
     Double getUserRatingScore(Integer userId);
 }
 

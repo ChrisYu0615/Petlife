@@ -10,7 +10,7 @@
 <%
 Seller seller = (Seller) session.getAttribute("seller");
 BuylistService buylistSvc = new BuylistServiceImpl();
-List<Buylist> list = buylistSvc.getAllBuylists();
+List<Buylist> list = buylistSvc.getAllBuylists( String.valueOf(seller.getSellerId()));
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
