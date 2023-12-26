@@ -179,20 +179,20 @@ public class BuylistServlet extends HttpServlet {
 			break;
 		}
 		//================================================================
-		String sellerId = req.getParameter("sellerId");
-		System.out.println("===========================" + sellerId + "============================");
-		
-		
-		switch (sellerId.charAt(0)) {
-		case '1':
-			buylistList = buylistService.getAllBuylists(sellerId);
-			forwardPath = "/buylist/listAllBuylist.jsp";
-			break;
-		case '2':
-			buylistList = buylistService.getAllBuylists(sellerId);
-			forwardPath = "/buylist/listAllBuylist.jsp";
-			break;
-		}
+//		String sellerId = req.getParameter("sellerId");
+//		System.out.println("===========================" + sellerId + "============================");
+//		
+//		
+//		switch (sellerId.charAt(0)) {
+//		case '1':
+//			buylistList = buylistService.getAllBuylists(sellerId);
+//			forwardPath = "/buylist/listAllBuylist.jsp";
+//			break;
+//		case '2':
+//			buylistList = buylistService.getAllBuylists(sellerId);
+//			forwardPath = "/buylist/listAllBuylist.jsp";
+//			break;
+//		}
 		//================================================================
 		req.setAttribute("getAllBuylist", buylistList);
 		return forwardPath;
