@@ -122,8 +122,8 @@
 
 
 				<p class="mb-1">
-					<a href="./forget_password.html">忘記密碼</a><br> <a
-						href="../register/member_register.html" class="text-center">註冊成為新會員</a>
+					<a href="./forget_password.jsp">忘記密碼</a><br> <a
+						href="../register/member_register.jsp" class="text-center">註冊成為新會員</a>
 				</p>
 			</div>
 			<!-- /.card-body -->

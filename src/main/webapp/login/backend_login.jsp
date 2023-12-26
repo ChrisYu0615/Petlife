@@ -134,9 +134,9 @@
 				<!-- /.social-auth-links -->
 
 				<p class="mb-1">
-					<a href="./forget_password.html">忘記密碼</a><br> <a href="../register/seller_register.html"
+					<a href="./forget_password.jsp">忘記密碼</a><br> <a href="../register/seller_register.jsp"
 						class="text-center">註冊成為賣家</a><br>
-					<a href="../register/shelter_register.html" class="text-center">註冊成為收容所</a>
+					<a href="../register/shelter_register.jsp" class="text-center">註冊成為收容所</a>
 				</p>
 			</div>
 			<!-- /.card-body -->
