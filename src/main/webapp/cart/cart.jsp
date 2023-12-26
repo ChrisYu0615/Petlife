@@ -1,6 +1,6 @@
 <%-- <%@ page language="java" contentType="text/html; charset=BIG5" pageEncoding="UTF-8"%> --%>
 
-<%@ page import="java.math.BigDecimal" %>
+<%@page import="java.math.BigDecimal" %>
 
 <%@page import="com.petlife.user.entity.User"%>
 
@@ -84,6 +84,7 @@ pageContext.setAttribute("list", list);
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	<!-- datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />    
 </head>
 
@@ -235,6 +236,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
+<!-- 	dataTables -->
 	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 	<script>
 	function deleteCartItem(cartId) {
