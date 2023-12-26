@@ -50,4 +50,11 @@ public class BuylistServiceImpl implements BuylistService {
 	public List<Buylist> getAllBuylists() {
 		return dao.getAll();
 	}
+	
+	@Override
+	public void addMultipleBuylists(List<Buylist> buylists) {
+        for (Buylist buylist : buylists) {
+            dao.add(buylist);
+        }
+    }
 }

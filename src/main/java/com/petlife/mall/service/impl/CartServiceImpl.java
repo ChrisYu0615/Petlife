@@ -43,6 +43,6 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public Cart findByPK(Integer cartId) {
-		return null;
+		return dao.findByPK(cartId);
 	}
 }

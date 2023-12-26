@@ -113,16 +113,22 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	</div>
 	<!-- header -->
 	<div class="headerPage"></div>
+<!-- 		購買勾選商品的傳送url -->
+		<form action="<%=request.getContextPath()%>/buylist_for_user/buylist_for_user.do" method="post">
+		
+		<input type="hidden" name="action" value="insert">
+		
 		<section id="cart_main_area" class="section_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="cart_groomers_area_wrapper">
                         <div class="cart_tabel_area table-responsive">
+                        	
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
+                                        <th>欲結帳商品</th>
                                         <th>商品名稱</th>
                                         <th>單價</th>
                                         <th>欲購買數量</th>
@@ -133,12 +139,14 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 <tbody>
                                 <%@ include file="page1.file" %>
                                 	<c:forEach var="cart" items="${list}" begin="<%=pageIndex%>"
-										end="<%=pageIndex+rowsPerPage-1%>">
+										end="<%=pageIndex+rowsPerPage-1%>" varStatus="status">
                                     <tr id="cartItem-${cart.cartId}">
-                                    	<td> checkbox 在這邊</td>
+                                    	<td>  
+                                    		<input type="checkbox" name="cartIds" value="${cart.cartId}">
+                                    	</td>
 <!--                                         <td><img src="../assets/img/shop/cart-1.png" alt="img"></td> -->
-                                        <td>${cart.comm.commName}</td>
-                                        
+                                        <td>${cart.comm.seller.sellerId}</td>
+
                                         <td>NTD. ${cart.comm.commOnsalePrice}</td>
                                         <td>${cart.purchasingAmount}</td>
 <!--                                         	加減按鈕 -->
@@ -165,18 +173,12 @@ pageContext.setAttribute("totalAmount", totalAmount);
 <!--                                             </form> -->
 <!--                                         </td> -->
                                         <td>${cart.comm.commOnsalePrice * cart.purchasingAmount}</td>
-										<!-- DELETE BTN-->
-<%--                                         <td>${cart.cartId} --%>
-<%--                                         	<form action="<%=request.getContextPath()%>/cart/cart.do" method="post"> --%>
-<!--     											<input type="hidden" name="action" value="delete_cart_item"> -->
-<%--     											<input type="hidden" name="cartId" value="${cart.cartId}"> --%>
-<!--     											<button type="submit" class="btn btn-danger">刪除</button> -->
-<!-- 											</form> -->
-<!-- 										</td> -->
-
+										
 										<!-- DELETE ajax version -->
 										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button></td>
                                     </tr>
+                                    <input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
+
                                     </c:forEach>
                                     <%@ include file="page2.file" %>
                                 </tbody>
@@ -189,13 +191,13 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 </div>
                                 <div class="cart_right_side">
                                 	<!-- coupon btn -->
-                                    <form action="#!" id="subscribe_form1">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Your coupon code"
-                                                required>
-                                            <button class="btn btn_theme btn_md" type="submit">Enter coupon</button>
-                                        </div>
-                                    </form>
+<!--                                     <form action="#!" id="subscribe_form1"> -->
+<!--                                         <div class="input-group"> -->
+<!--                                             <input type="text" class="form-control" placeholder="Your coupon code" -->
+<!--                                                 required> -->
+<!--                                             <button class="btn btn_theme btn_md" type="submit">Enter coupon</button> -->
+<!--                                         </div> -->
+<!--                                     </form> -->
                                 </div>
                             </div>
                         </div>
@@ -206,12 +208,6 @@ pageContext.setAttribute("totalAmount", totalAmount);
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart_area_total_wrapper">
-<!--                             <div class="cart_total_item bg_cart_item"> -->
-<!--                                 <h5> <span>$1,200</span></h5> -->
-<!--                             </div> -->
-<!--                             <div class="cart_total_item"> -->
-<!--                                 <h5>Red dog bed <span>$1,800</span></h5> -->
-<!--                             </div> -->
                             <div class="cart_total_area">
                                 <h4>Total amount: <span>$<%= totalAmount %></span></h4>
                                 <h4 class="cart_voucher_amount">Coupon: <span><%= couponValue %></span></h4>
@@ -221,22 +217,17 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             </div>
                         </div>
 <!--                         下單功能 -->
-<%-- 						<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post"> --%>
-<!--                         	<div class="cart_proce_btn"> -->
-<!--                         		<input type="hidden" name="action" value="insert"> -->
-<%--     							<input type="hidden" name="user" value="${user}"> --%>
-<%--     							<input type="hidden" name="seller" value="${cart.seller}"> --%>
-<!--     							<input type="hidden" name="coupon" value=1> -->
-<!--     							<input type="hidden" name="buylistState" value=0> -->
-<!--     							<button type="submit" class="btn btn_theme btn_md">為你家的寵物快樂下單</button> -->
-<!--                         	</div> -->
-<!--                         </form> -->
+						
+                        	<div class="cart_proce_btn">
+    							<button type="submit" class="btn btn_theme btn_md">為你家的寵物快樂下單</button>
+                        	</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+	</form>
+<!-- 	footer -->
 	<div class="footerPage"></div>
 
 	<script src="../assets/js/jquery.min.js"></script>
@@ -251,7 +242,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	        xhr.onload = function () {
 	            if (this.status == 200) {
-	                // 假設服務器返回的響應是 JSON 格式
+	                // 服務器返回的響應是 JSON 格式
 	                var response = JSON.parse(this.responseText);
 	                if(response.status === 'success') {
 	                    // 移除已刪除的購物車項目
@@ -273,8 +264,5 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	}
 
 </script>
-	
-	
 </body>
-
 </html>
