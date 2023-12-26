@@ -88,12 +88,7 @@
                         			<span>${shelter.shelterAcct}</span>
                         </span>
 
-                        <span class="material_list">
-                            <label for="shelter_password1">密碼:</label>
-<!--                             <input class="form-control" type="text" placeholder="請再次輸入密碼" -->
-<!--                                 aria-label="default input example" id="shelter_password1"> -->
-                        			<span>${shelter.shelterPwd}</span>
-                        </span>
+
 
                         <span class="material_list">
                             <label for="shelter_phone">電話:</label>
@@ -106,15 +101,11 @@
 
                         <span class="material_list">
                             <label for="shelter_adress">詳細地址:</label>
-<!--                             <input class="form-control" type="text" placeholder="請輸入詳細地址" -->
-<!--                                 aria-label="default input example" id="shelter_adress"> -->
                         <span>${shelter.shelterAddress}</span>
                         </span>
 
                         <span class="material_list">
                             <label for="shelter_introduction">簡介:</label>
-<!--                             <input class="form-control" type="text" placeholder="請輸入簡介" -->
-<!--                                 aria-label="default input example" id="shelter_introduction"> -->
                         		<span>${shelter.shelterIntroduction}</span>
                         </span>
 
@@ -133,11 +124,18 @@
 
 
                         <!-- 右上角大頭貼  -->
+                  
                         <div class="img">
                             <span> 
-                                <div class="s_img" id="s_img"></div>
+                                
+                               
+                                <div class="s_img" id="s_img"><img 
+									src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+									width="100px" style="border-radius: 50%;" > </div>
+								
+						
                             </span>
-                            <input type="file" id="s_blob">
+                          
                         </div>
                         </form>
                     </div>

@@ -69,7 +69,7 @@ public class PetPhotoServlet extends HttpServlet {
 			Integer id=(Integer.valueOf(req.getParameter("photoId")));
 			
 			System.out.println(id);
-			PetPhoto petPhoto = petPhotoService.getOnePet(id);
+			PetPhoto petPhoto = petPhotoService.getOnePetphoto(id);
 
 //			// Check if the pet photo is not null
 			if (petPhoto != null) {

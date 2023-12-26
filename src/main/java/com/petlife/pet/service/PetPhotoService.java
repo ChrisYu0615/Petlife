@@ -9,9 +9,9 @@ import com.petlife.pet.entity.PetVariety;
 public interface PetPhotoService {
 	PetPhoto addPetPhoto(PetPhoto Petphoto) throws Exception;
 	
-	PetPhoto getOnePet(Integer id) ;
+	PetPhoto getOnePetphoto(Integer id) ;
 	
-//	void deletePetPhoto(Integer id);
+	void deletePetPhoto(Integer id);
 //	
 //	PetVariety updatePetVariety(PetVariety petVariety);
 //	
