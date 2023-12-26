@@ -128,12 +128,12 @@
                         <div class="img">
                             <span> 
                                 
-                               
-                                <div class="s_img" id="s_img"><img 
-									src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
-									width="100px" style="border-radius: 50%;" > </div>
-								
-						
+                              
+                             <div class="s_img" id="s_img">
+                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+									width="100px" style="border-radius: 50%;" >
+									
+									 </div>
                             </span>
                           
                         </div>

@@ -119,25 +119,29 @@ public class ShelterServlet extends HttpServlet {
 		}
 	}
 //12/24詩涵
-private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res) {
+private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)throws IOException {
 	Integer id=(Integer.valueOf(req.getParameter("shelterId")));
 	
 	System.out.println(id);
 	Shelter shelter = shelterService.getShelterByShelterId(id);
 
-//	// Check if the pet photo is not null
-	if (shelter != null) {
+
+	if (shelter.getShelterPhoto() != null) {
+		System.out.println("我有照片");
 	    res.setContentType("image/gif");
 	    
-	    // Assuming getPhotoData() returns a byte array representing the image data
+	  
 	    byte[] imageData = shelter.getShelterPhoto();
 
 	    try (ServletOutputStream out = res.getOutputStream()) {
-	        // Write the image data to the response output stream
+	        
 	        out.write(imageData);
 	    } catch (IOException e) {
-	        e.printStackTrace(); // Handle the exception appropriately
+	        e.printStackTrace(); 
 	    }
+	}else {
+		System.out.println("我沒有照片");
+		 res.getWriter().write("");
 	}
 	return "";
 	}
@@ -170,6 +174,7 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res) 
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
+		password = Sha1Util.encodePwd(password);
 		
 		String shelterPhoneNum = req.getParameter("shelterPhoneNum").trim();
 		String shelterAddress = req.getParameter("shelterAddress").trim();
