@@ -27,6 +27,7 @@ import com.petlife.mall.entity.CommCat;
 import com.petlife.mall.service.CommService;
 import com.petlife.mall.service.impl.CommServiceImpl;
 import com.petlife.seller.entity.Seller;
+import com.petlife.user.entity.User;
 
 @WebServlet("/comm/comm.do")
 @MultipartConfig
@@ -225,12 +226,12 @@ public class CommServlet extends HttpServlet {
 
 ///*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 		Integer commId = Integer.parseInt(req.getParameter("commId"));
-		Integer sellerId = Integer.parseInt(req.getParameter("seller"));
+//		Integer sellerId = Integer.parseInt(req.getParameter("seller"));
 		String commName = req.getParameter("commName");
 		String commDesc = req.getParameter("commDesc");
 		Integer commState = Integer.parseInt(req.getParameter("commState"));
 
-		Timestamp listDatetime = java.sql.Timestamp.valueOf(req.getParameter("listDatetime").trim());
+//		Timestamp listDatetime = java.sql.Timestamp.valueOf(req.getParameter("listDatetime").trim());
 //		Timestamp sellerEvaluateTime;
 //		try {
 //			listDatetime = java.sql.Timestamp.valueOf(req.getParameter("listDatetime").trim());
@@ -274,8 +275,6 @@ public class CommServlet extends HttpServlet {
 		        commImg = new byte[in.available()];
 		        in.read(commImg);
 		        in.close();
-		    } else {
-		        errorMsgs.add("商品圖片: 请上傳照片");
 		    }
 		} catch (IOException | ServletException e) {
 		    errorMsgs.add("圖片上傳失敗: " + e.getMessage());
@@ -334,16 +333,18 @@ public class CommServlet extends HttpServlet {
 			commOnsalePrice = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
 
-		Integer commViewCount = Integer.parseInt(req.getParameter("commViewCount"));
+//		Integer commViewCount = Integer.parseInt(req.getParameter("commViewCount"));
 
 //============================================
 
-		Comm comm = new Comm();
-		comm.setCommId(commId);
+//		Comm comm = new Comm();
+		Comm comm = commService.findByPk(commId);
+		System.out.println("==================================="+comm+"=========================");
+//		comm.setCommId(commId);
 
-		Seller seller = new Seller();
-		seller.setSellerId(sellerId);
-		comm.setSeller(seller);
+//		Seller seller = new Seller();
+//		seller.setSellerId(sellerId);
+//		comm.setSeller(seller);
 
 		CommCat commCat = new CommCat();
 		commCat.setCommCatId(commCatId);
@@ -352,13 +353,17 @@ public class CommServlet extends HttpServlet {
 		comm.setCommName(commName);
 		comm.setCommDesc(commDesc);
 		comm.setCommState(commState);
-		comm.setListDatetime(listDatetime);
-		comm.setCommImg(commImg);
-//		comm.setCommCat(commCat);
+//		comm.setListDatetime(listDatetime);
+
+		if (commImg != null && commImg.length > 0) {
+//			user.setHeadshot(headshot);
+			comm.setCommImg(commImg);
+		}
+		comm.setCommCat(commCat);
 		comm.setCommStock(commStock);
 		comm.setCommPrice(commPrice);
 		comm.setCommOnsalePrice(commOnsalePrice);
-		comm.setCommViewCount(commViewCount);
+//		comm.setCommViewCount(commViewCount);
 
 //==========================================		
 		// Send the use back to the form, if there were errors

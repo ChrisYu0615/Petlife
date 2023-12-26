@@ -309,7 +309,7 @@ label {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
@@ -361,7 +361,7 @@ label {
 						</a></li>
 						<!-- ========================================================== -->
 
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
@@ -476,7 +476,7 @@ label {
 			</c:if>
 
 			<form method="post" action="comm.do" name="form1"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onsubmit="return validateForm()">
 				<table>
 					<tr>
 						<td>商品編號:<font color=red><b>*</b></font></td>
@@ -488,8 +488,7 @@ label {
 					<!-- 	</tr> -->
 					<tr>
 						<td>賣家ID:</td>
-						<td><input type="text" name="seller"
-							value="<%=comm.getSeller().getSellerId()%>" size="45" /></td>
+						<td><%=comm.getSeller().getSellerId()%></td>
 					</tr>
 					<tr>
 						<td>商品名稱:</td>
@@ -522,13 +521,13 @@ label {
 					<!-- 					</tr> -->
 					<tr>
 						<td>上架時間:</td>
-						<td><input type="text" name="listDatetime"
-							value="<%=comm.getListDatetime()%>" size="45" /></td>
+						<td><%=comm.getListDatetime()%></td>
 					</tr>
 					<tr>
 						<td>商品縮圖:</td>
 						<td><input type="file" name="commImg"
 							value="<%=comm.getCommImg()%>" size="45" /></td>
+							<td><img src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"  width="110px" height="110px"></td>
 					</tr>
 					<td>商品分類:</td>
 					<td><select name="commCat" required>
@@ -581,11 +580,11 @@ label {
 						<td><input type="text" name="commOnsalePrice"
 							value="<%=comm.getCommOnsalePrice()%>" size="45" /></td>
 					</tr>
-					<tr>
-						<td>瀏覽數:</td>
-						<td><input type="text" name="commViewCount"
-							value="<%=comm.getCommViewCount()%>" size="45" /></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td>瀏覽數:</td> -->
+<!-- 						<td><input type="text" name="commViewCount" -->
+<%-- 							value="<%=comm.getCommViewCount()%>" size="45" /></td> --%>
+<!-- 					</tr> -->
 
 
 
@@ -596,20 +595,18 @@ label {
 			</FORM>
 
 			<script>
-				function validateForm() {
-					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
-					var buylistDate = document.forms["form1"]["buylistDate"].value;
+			function validateForm() {
+		        var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
+		        var commOnsalePrice = parseFloat(document.forms["form1"]["commOnsalePrice"].value);
 
-					// 檢查日期格式
-					var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
+		        if (commOnsalePrice >= commPrice) {
+		            alert("商品優惠價不得大於或等於商品價格。");
+		            return false;
+		        }
 
-					if (!dateRegex.test(sellerEvaluateTime)
-							|| !dateRegex.test(buylistDate)) {
-						alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
-						return false;
-					}
-				}
-			</script>
+		        return true; // 如果所有驗證都通過，返回 true；否則返回 false
+		    }
+		</script>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"

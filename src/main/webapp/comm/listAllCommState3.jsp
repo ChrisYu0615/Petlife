@@ -271,7 +271,7 @@ th, td {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
