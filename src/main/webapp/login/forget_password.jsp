@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -48,7 +51,7 @@
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
+	<%@include file="../components/header.jsp"%>
 
 	<div class="row justify-content-around" id="forget_password_menu">
 		<div class="col-4 card card-outline card-warning">
@@ -129,7 +132,7 @@
 		</div>
 	</div>
 	<!-- /.login-box -->
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 	<!-- jQuery -->
 	<script src="../assets/js/jquery.min.js"></script>
 	<!-- AdminLTE App -->
