@@ -80,7 +80,8 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<div class="row sidebar_select" id="orderList_manage">
-										<a href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
+										<a
+											href="<%=request.getContextPath()%>/buylist/buylist.do?action=getBuyListByMemberId&memberId=<%=user.getUserId()%>">訂單管理</a>
 									</div>
 							</div>
 
@@ -88,7 +89,8 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingThree">
 									<div class="row sidebar_select" id="order_manage">
-                                        <a href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
+										<a
+											href="<%=request.getContextPath()%>/shelter/reservation.do?action=getByUserId&memberId=<%=user.getUserId()%>">預約管理</a>
 									</div>
 								</h2>
 							</div>
@@ -134,39 +136,44 @@
 												</thead>
 												<tbody>
 													<c:forEach var="buyList" items="${getAllBuylist}">
-														<td>${buyList.buylistId}</td>
-														<td>${buyList.seller.sellerNickname}</td>
-														<td>${buyList.buylistState.buylistStateName}</td>
-														<td>${buyList.buylistAmount}</td>
-														<td>付款方式</td>
-														<td><fmt:formatDate value="${buyList.buylistDate}"
-																pattern="yyyy-MM-dd"></fmt:formatDate></td>
-														<td>
-															<button class="btn-sm btn-primary btn_check"
-																data-bs-toggle="modal" data-bs-target="#check_order" value="${buyList.buylistId}">查看訂單</button>
-															<c:choose>
+														<tr>
+															<td>${buyList.buylistId}</td>
+															<td>${buyList.seller.sellerNickname}</td>
+															<td>${buyList.buylistState.buylistStateName}</td>
+															<td>${buyList.buylistAmount}</td>
+															<td>付款方式</td>
+															<td><fmt:formatDate value="${buyList.buylistDate}"
+																	pattern="yyyy-MM-dd"></fmt:formatDate></td>
+															<td>
+																<button class="btn-sm btn-primary btn_check"
+																	data-bs-toggle="modal" data-bs-target="#check_order"
+																	value="${buyList.buylistId}">查看訂單</button> <c:choose>
 
-																<c:when
-																	test="${buyList.buylistState.buylistStateName eq '待付款' || buyList.buylistState.buylistStateName eq '待出貨'}">
-																	<button class="btn-sm btn-danger btn_cancel"
-																		data-bs-toggle="modal" data-bs-target="#cancel_order" value="${buyList.buylistId}">取消</button>
-																</c:when>
+																	<c:when
+																		test="${buyList.buylistState.buylistStateName eq '待付款' || buyList.buylistState.buylistStateName eq '待出貨'}">
+																		<button class="btn-sm btn-danger btn_cancel"
+																			data-bs-toggle="modal" data-bs-target="#cancel_order"
+																			value="${buyList.buylistId}">取消</button>
+																	</c:when>
 
-																<c:when
-																	test="${buyList.buylistState.buylistStateName eq '訂單已完成'}">
-																	<c:choose>
-																		<c:when test="${buyList.memberEvaluateTime != null}">
-																		<button class="btn-sm btn-secondary btn_rate"
-																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}" disabled>已評價</button>
-																		</c:when>
-																		<c:otherwise>
-																		<button class="btn-sm btn-warning btn_rate"
-																			data-bs-toggle="modal" data-bs-target="#rate_order" value="${buyList.buylistId}">評價</button>
-																		</c:otherwise>
-																	</c:choose>
-																</c:when>
-															</c:choose>
-														</td>
+																	<c:when
+																		test="${buyList.buylistState.buylistStateName eq '訂單已完成'}">
+																		<c:choose>
+																			<c:when test="${buyList.memberEvaluateTime != null}">
+																				<button class="btn-sm btn-secondary btn_rate"
+																					data-bs-toggle="modal" data-bs-target="#rate_order"
+																					value="${buyList.buylistId}" disabled>已評價</button>
+																			</c:when>
+																			<c:otherwise>
+																				<button class="btn-sm btn-warning btn_rate"
+																					data-bs-toggle="modal" data-bs-target="#rate_order"
+																					value="${buyList.buylistId}">評價</button>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:when>
+																</c:choose>
+															</td>
+														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
@@ -207,7 +214,9 @@
 										</div>
 
 										<!-- 取消訂單 -->
-										<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post" id="cancel_orderForm">
+										<form
+											action="<%=request.getContextPath()%>/buylist/buylist.do"
+											method="post" id="cancel_orderForm">
 											<div class="modal fade" id="cancel_order" tabindex="-1"
 												aria-labelledby="cancelModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered">
@@ -228,8 +237,9 @@
 															<!-- 賣場名稱 -->
 															<div class="col-md-12 form-group mb-3">
 																<label for="shopname" class="form-label">賣場名稱</label> <input
-																	type="text" class="form-control col-md-12" id="shopname"
-																	name="shopname" placeholder="賣場名稱在這邊..." readonly>
+																	type="text" class="form-control col-md-12"
+																	id="shopname" name="shopname" placeholder="賣場名稱在這邊..."
+																	readonly>
 															</div>
 															<!-- 訂單金額 -->
 															<div class="col-md-12 form-group mb-3">
@@ -265,9 +275,10 @@
 																data-bs-dismiss="modal">取消</button>
 															<div class="col"></div>
 															<input type="hidden" name="action" value="cancelBuylist">
-															<input type="hidden" name="memberId" value=<%=user.getUserId()%>>
-															<input type="hidden" name="buylistId" value="">
-															<input type="hidden" name="sellerAcct" value="">
+															<input type="hidden" name="memberId"
+																value=<%=user.getUserId()%>> <input
+																type="hidden" name="buylistId" value=""> <input
+																type="hidden" name="sellerAcct" value="">
 														</div>
 													</div>
 												</div>
@@ -275,7 +286,9 @@
 										</form>
 
 										<!-- 評價 -->
-										<form action="<%=request.getContextPath()%>/buylist/buylist.do" method="post" id="rate_orderForm">
+										<form
+											action="<%=request.getContextPath()%>/buylist/buylist.do"
+											method="post" id="rate_orderForm">
 											<div class="modal fade" id="rate_order" tabindex="-1"
 												aria-labelledby="rateModalLabel" aria-hidden="true">
 												<div
@@ -287,10 +300,9 @@
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
 														<div class="row modal-body delete_box">
-															<span id="verify_rateStar"></span>																														
+															<span id="verify_rateStar"></span>
 															<div class="col rounded star_block" id="delete_content">
-																評價此訂單<br>
-																 <span class="star" data-star="1"><i
+																評價此訂單<br> <span class="star" data-star="1"><i
 																	class="fas fa-star"></i></span> <span class="star"
 																	data-star="2"><i class="fas fa-star"></i></span> <span
 																	class="star" data-star="3"><i
@@ -300,8 +312,8 @@
 																	class="fas fa-star"></i></span>
 															</div>
 															<div class="col-auto">
-																<span id="verify_rateComment"></span>
-																<label class="col-md-12" for="rateReason">評論：</label> <br>
+																<span id="verify_rateComment"></span> <label
+																	class="col-md-12" for="rateReason">評論：</label> <br>
 																<textarea class="col-md-12" id="rateReason"
 																	name="rateReason" rows="4" cols="80"
 																	placeholder="請輸入原因..."></textarea>
@@ -314,10 +326,11 @@
 															<button type="button" class="col-auto btn btn-secondary"
 																data-bs-dismiss="modal">取消</button>
 															<div class="col"></div>
-															<input type="hidden" name="action" value="memberRateBuylist">
-															<input type="hidden" name="ratedMemberId" value=<%=user.getUserId()%>>
-															<input type="hidden" name="retedBuylistId">
-															<input type="hidden" name="ratedStar">
+															<input type="hidden" name="action"
+																value="memberRateBuylist"> <input type="hidden"
+																name="ratedMemberId" value=<%=user.getUserId()%>>
+															<input type="hidden" name="retedBuylistId"> <input
+																type="hidden" name="ratedStar">
 														</div>
 													</div>
 												</div>

@@ -15,15 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    //user_ratescore
-
     $("#sidebar_title ,#btn_cancel").on("click", function () {
-        var targetPageURL = "./user_profile.html";
+        var targetPageURL = "./user_profile.jsp";
 
         // 使用 window.location.href 進行頁面跳轉
         window.location.href = targetPageURL;
     });
-
 
     var p_file_el = document.querySelector("#p_file");
     var preview_el = document.querySelector("#preview");
