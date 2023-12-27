@@ -139,9 +139,6 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)t
 	    } catch (IOException e) {
 	        e.printStackTrace(); 
 	    }
-	}else {
-		System.out.println("我沒有照片");
-		 res.getWriter().write("");
 	}
 	return "";
 	}
@@ -174,7 +171,11 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)t
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
-		password = Sha1Util.encodePwd(password);
+		System.out.println(password);
+
+		if(!password.equals("")) {
+			password = Sha1Util.encodePwd(password);
+		}
 		
 		String shelterPhoneNum = req.getParameter("shelterPhoneNum").trim();
 		String shelterAddress = req.getParameter("shelterAddress").trim();

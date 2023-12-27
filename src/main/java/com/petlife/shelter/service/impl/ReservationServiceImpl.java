@@ -76,5 +76,11 @@ public class ReservationServiceImpl implements ReservationService {
 		return dao.getResByCompositeQuery(query);
 		
 	}
+
+	@Override
+	public Reservation getResByResId(Integer resId) {
+	
+		return dao.getById(resId);
+	}
 	
 }

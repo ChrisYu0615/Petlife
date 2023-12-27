@@ -6,7 +6,7 @@
 	data-show-refresh="false" data-show-toggle="false"
 	data-show-columns="false" data-show-columns-toggle-all="true"
 	class="table table-sm  table-borderless" id="my_res_Table">
-  <thead class="table">
+  					<thead class="table">
                             <tr class="tb_header">
                                 <th scope="col" class="tb_header ">預約人</th>
                                 <th scope="col" class="tb_header">預約人手機</th>
