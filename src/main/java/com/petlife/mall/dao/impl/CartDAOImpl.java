@@ -71,4 +71,18 @@ public class CartDAOImpl implements CartDAO {
 	        return Collections.emptyList();
 	    }
 	}
+	
+	@Override
+	public List<Cart> getCartsByUserAndSortBySeller(User user) {
+	    try {
+	        Session session = getSession();
+	        List<Cart> carts = session.createQuery("FROM Cart c WHERE c.user = :user ORDER BY c.comm.seller.sellerId", Cart.class)
+	                .setParameter("user", user) // 注意这里的改动
+	                .getResultList();
+	        return carts; 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return Collections.emptyList();
+	    }
+	}
 }
