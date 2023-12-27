@@ -135,6 +135,8 @@ public class PetServlet extends HttpServlet {
 			System.out.println(req.getParameter("adopt_date"));
 			adoptDate = java.sql.Date.valueOf(req.getParameter("adopt_date"));
 		}
+		
+		
 		pet.setShelterId(shelterId);
 		pet.setPetGender(petGender);
 		pet.setPetVariety(petVarietyId);
@@ -148,7 +150,36 @@ public class PetServlet extends HttpServlet {
 		pet.setAdopted(adopted);
 		pet.setUserId(userId);
 		pet.setAdoptDate(adoptDate);
-		
+		// 準備集合抓取照片
+		for (Part part : req.getParts()) {
+			if (!part.getName().equals("petphoto"))
+				continue;
+			InputStream in = part.getInputStream();
+			byte[] petPhoto_byte = null;
+			if (in.available() != 0) {
+				petPhoto_byte = new byte[in.available()];
+				in.read(petPhoto_byte);
+				in.close();
+				// 將抓取的照片存進petphoto->table
+				PetPhoto petPhoto = new PetPhoto();
+				petPhoto.setPet(pet);
+				petPhoto.setPetPhoto(petPhoto_byte);
+				pet.getPetPhotos().add(petPhoto);
+			}
+		}
+		  String[] photoIds = req.getParameterValues("deletePhoto");
+		  if (photoIds != null) {
+		        System.out.println("delete Photo Entry:");
+		        for (String photoId : photoIds) {
+		        	Integer id=Integer.valueOf(photoId);
+		        	System.out.println(id);
+		        	PetPhoto petphoto = petPhotoService.getOnePetphoto(id);
+		        	pet.getPetPhotos().remove(petphoto);
+		        	petPhotoService.deletePetPhoto(id);
+		        }
+		    }
+		  
+		System.out.println(pet.getPetPhotos().size());
 		if(pet.getPetPhotos().size() != 0) {
 			
 		}
