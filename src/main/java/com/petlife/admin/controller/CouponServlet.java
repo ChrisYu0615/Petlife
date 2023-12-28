@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.petlife.admin.dao.CouponDAO;
@@ -77,6 +79,9 @@ public class CouponServlet extends HttpServlet {
 		case "updateCoupon":
 			forwardPath = updateCoupon(req, res);
 			break;
+		case "validateCoupon":
+			validateCoupon(req, res);
+			return; // validateCoupon 自己處理req, 所以直接return.
 		default:
 			forwardPath = "/select_page.jsp"; // !!!???
 		}
@@ -372,5 +377,30 @@ public class CouponServlet extends HttpServlet {
 //          RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 //          successView.forward(req, res);
 	}
+	
+	// 5. 驗證coupon卷
+	private void validateCoupon(HttpServletRequest req, HttpServletResponse res) throws IOException{
+		String couponCodeString = req.getParameter("couponCode");
+		
+		Coupon coupon = couponService.getCouponByCouponName(couponCodeString);
+		
+		PrintWriter out = res.getWriter();
+	    res.setContentType("application/json; charset=UTF-8");
 
+	    JSONObject jsonResponse = new JSONObject();
+	    
+	    if (coupon == null) {
+	    	jsonResponse.put("status", "failure");
+	        jsonResponse.put("message", "找不到這張coupon卷.");
+		} else if(coupon.getConditionsOfUse() == 1) {
+			jsonResponse.put("status", "success");
+	        jsonResponse.put("discount", coupon.getDiscountAmount());
+		} else {
+			jsonResponse.put("status", "failure");
+	        jsonResponse.put("message", "錯誤!");
+		}
+
+	    out.print(jsonResponse.toString());
+	    out.close();
+	}
 }

@@ -146,7 +146,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                     	<td>
                                     		<input type="checkbox" name="cartIds" value="${cart.cartId}" class="cart-item-checkbox"
                                     		data-price="${cart.comm.commOnsalePrice}" data-quantity="${cart.purchasingAmount}" 
-                                    		onchange="calculateTotal();handleCheckboxChange(this)"
+                                    		onchange="handleCheckboxChange(this);resetAndCalculateTotalAmount(0)"
                                     		data-seller-id="${cart.comm.seller.sellerId}" >
                                     	</td>
 										<!--  <td><img src="../assets/img/shop/cart-1.png" alt="img"></td> -->
@@ -175,13 +175,11 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 </div>
                                 <div class="cart_right_side">
 								<!-- coupon btn -->
-                                    <form action="#!" id="subscribe_form1">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Your coupon code"
-                                                required>
-                                            <button class="btn btn_theme btn_md" type="submit">Enter coupon</button>
-                                        </div>
-                                    </form>
+                                	<div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Your coupon code"
+                                         id="coupon_code" required>
+                                        <button class="btn btn_theme btn_md" type="button" onclick="applyCoupon()">Enter coupon</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -193,11 +191,11 @@ pageContext.setAttribute("totalAmount", totalAmount);
                     <div class="col-lg-4">
                         <div class="cart_area_total_wrapper">
                             <div class="cart_total_area">
-                                <h4 id="totalAmountDisplay">Total amount: <span>$<%= totalAmount %></span></h4>
-                                <h4 class="cart_voucher_amount">Coupon: <span><%= couponValue %></span></h4>
+                                <h4 id="total_amount_display">Total amount: <span>$ 0</span></h4>
+                                <h4 id="coupon_value" class="cart_voucher_amount">Coupon: <span>$ 0</span></h4>
                             </div>
                             <div class="cart_total_area bg_cart_item">
-                                <h4>Grand total: <span>$<%= grandTotal %> </span></h4>
+                                <h4 id="grand_amount_display">Grand total: <span>$ 0</span></h4>
                             </div>
                         </div>
 							<!-- 下單功能 -->
@@ -219,6 +217,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	<!-- dataTables -->
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 	<script>
+	// 刪除購物車內的商品
 	function deleteCartItem(cartId) {
 	    if(confirm('確定要刪除此項目嗎？')) {
 	        var xhr = new XMLHttpRequest();
@@ -246,26 +245,71 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	        xhr.send('action=delete_cart_item&cartId=' + cartId);
 	    }
 	}
+	// 全局優惠卷折扣價格
+	var currentCouponDiscount = 0;
 	
-	function calculateTotal() {
-	    try {
-	        var totalAmount = 0;
-	        var checkboxes = document.querySelectorAll('.cart-item-checkbox:checked');
-			
+	// Coupon卷使用計算
+	function applyCoupon() {
+		
+    var couponCode = document.getElementById('coupon_code').value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<%=request.getContextPath()%>/coupon/coupon.do', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+        if (this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            if(response.status === 'success') {
+            	currentCouponDiscount = parseFloat(response.discount);
+            	updateCouponDiscount(response.discount)
+            } else {
+            	currentCouponDiscount = 0;
+            	updateCouponDiscount(0);
+                alert(response.message);
+            }
+        } else {
+            console.error('Error occurred: ' + this.status);
+        }
+    };
+    xhr.send('action=validateCoupon&couponCode=' + couponCode);
+	}
+	
+	function updateCouponDiscount(discount) {
+	    document.getElementById('coupon_value').innerText = 'Coupon Discount: $' + discount;
+	    resetAndCalculateTotalAmount(discount);
+	}
+	
+	function resetAndCalculateTotalAmount(discount) {
 
-	        checkboxes.forEach(function(checkbox) {
-	            var price = parseFloat(checkbox.dataset.price);
-		        console.log('price ' + price);
-		        
-	            var quantity = parseInt(checkbox.dataset.quantity, 10);
-	            console.log('quantity ' + price);
-	            totalAmount += price * quantity;
-	        });
+	    var totalAmount = 0;
+	    var checkboxes = document.querySelectorAll('.cart-item-checkbox:checked');
+	    checkboxes.forEach(function(checkbox) {
+	        var price = parseFloat(checkbox.dataset.price);
+	        var quantity = parseInt(checkbox.dataset.quantity, 10);
+	        totalAmount += price * quantity;
+	    });
+	   
+	    grandAmount = totalAmount - currentCouponDiscount; 
 
-	        document.getElementById('totalAmountDisplay').innerText = '總金額: $' + totalAmount.toFixed(2);
-	    } catch (e) {
-	        console.error('計算總金額時發生錯誤:', e);
+	    if (grandAmount < 0) {
+	    	grandAmount = 0;
 	    }
+
+	    document.getElementById('total_amount_display').innerText = 'Total Amount: $' + totalAmount.toFixed(2);
+	    document.getElementById('grand_amount_display').innerText = 'Grand Amount: $' + grandAmount.toFixed(2);
+	}
+	
+	function handleCheckboxChange(checkbox) {
+	    var selectedSellerId = checkbox.dataset.sellerId;
+	    var isChecked = checkbox.checked;
+	    var checkboxes = document.querySelectorAll('.cart-item-checkbox');
+
+	    checkboxes.forEach(function(cb) {
+	        if (isChecked && cb.dataset.sellerId !== selectedSellerId) {
+	            cb.disabled = true;
+	        } else {
+	            cb.disabled = false;
+	        }
+	    });
 	}
 	
 	$(document).ready( function () {
@@ -288,28 +332,6 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	        }
 	    });
 	});
-	
-	function handleCheckboxChange(checkbox) {
-	    // 獲取被選擇的賣家ID
-	    var selectedSellerId = checkbox.dataset.sellerId;
-
-	    // 檢查checkbox是否被選中
-	    var isChecked = checkbox.checked;
-
-	    // 獲取所有的checkbox
-	    var checkboxes = document.querySelectorAll('.cart-item-checkbox');
-
-	    // 遍歷所有checkbox，根據條件啟用或禁用
-	    checkboxes.forEach(function(cb) {
-	        if (isChecked && cb.dataset.sellerId !== selectedSellerId) {
-	            // 如果選中了一個商品，則禁用其他賣家的商品
-	            cb.disabled = true;
-	        } else {
-	            // 如果沒有商品被選中，則啟用所有商品
-	            cb.disabled = false;
-	        }
-	    });
-	}
 </script>
 </body>
 </html>
