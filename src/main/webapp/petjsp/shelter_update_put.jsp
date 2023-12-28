@@ -120,8 +120,8 @@ int shelterPhotoLength = (shelter.getShelterPhoto() != null) ? shelter.getShelte
 								<span id="shelterAddress"></span>
 							</span> 
 							
-							<span class="material_list">
-							 <label for="shelter_introduction">簡介:</label>
+							<span class="material_list" style="display: flex; flex-direction: column; align-items: flex-start;">
+							 <label for="shelter_introduction" id="shelter_introduction">簡介:</label>
 							  <textarea id="shelterIntroduction" name="shelterIntroduction" rows="4"
 									cols="50">${shelter.shelterIntroduction}</textarea> 
 									<span id="shelterIntroduction"></span>

@@ -25,8 +25,10 @@
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- my_css -->
 <link rel="stylesheet" href="../dist/css/pet_date.css">
-<link rel="stylesheet"
-	href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
 	<% 
 	Integer id =null;
 	Shelter shelter = (Shelter) session.getAttribute("shelter");
@@ -75,16 +77,42 @@
 				<!-- <div class="card-body"> -->
 
 				<h1>新增&查詢可預約時間</h1>
+				
+				<div id="frame">
 				<span id="select_month"> <label for="monthSelector">選擇月份：</label>
 					<input type ="hidden" name="id" value="<%=id%>" id="shelterId" >
 					<input type="month" id="monthSelector"> <!-- 					<button type="button" id="first two weeks" onclick="generateCalendar()">上半月</button> -->
 					<button type="button" id="first_two_weeks" value="-14" onclick="generateCalendar()">上半月</button>
 					<button type="button" id="next_two_weeks" onclick="next_two_weeks_generateCalendar()" value="-15">下半月</button>
 				</span>
+				</div>
 				
 				<div id="put"></div>
 								
+<!-- ============================================================================ -->
+                    
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="button_result">
+  Launch static backdrop modal
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="result">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--==================================================================================== -->
 
 
 
@@ -114,15 +142,17 @@
 	<!-- jQuery UI 1.11.4 -->
 	<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-	<script>
-            $.widget.bridge('uibutton', $.ui.button)
-        </script>
+<!-- 	<script> -->
+<!-- //             $.widget.bridge('uibutton', $.ui.button) -->
+<!--         </script> -->
 	<!-- Bootstrap 4 -->
-	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- 	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 	<!-- overlayScrollbars -->
-	<script
-		src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- 	<script -->
+<!-- 		src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
 	<!-- AdminLTE App -->
+	  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 	<script src="../dist/js/adminlte.js"></script>
 	<script src="../dist/js/shelter_date.js"></script>
 
@@ -138,11 +168,6 @@
                  })
  
             });
-            
-            
-          
-
- 
        </script>
 
 

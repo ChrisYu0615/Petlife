@@ -52,9 +52,9 @@ select.form-select{
     display: inline;
 }
 
-div.button{
-    margin-left: 30%;
-}
+/* div.button{ */
+/*     margin-left: 30%; */
+/* } */
 
 button.save,button.delete{
     margin: 15px 30px;
@@ -113,3 +113,25 @@ input#s_blob{
 #preview img.preview_img{
     width: 100px;
   }
+  
+  /*input ->編輯樣式 ; button(確認修改)->樣式*/
+  
+input#forward,button#btn_shelter_update{
+ 	width:80px ;
+ 	background-color: #2B8BC1 ;
+ 	color:white;
+ 	border:0px;
+ 	margin-bottom:10px;
+ 	border-radius: 25px;
+ 	position: relative;
+    left: 50%;
+ 	
+}
+  /*input ->編輯樣式 ; button(確認修改)->樣式   [滑動變色]*/
+  
+input#forward:hover,button#btn_shelter_update:hover{
+	background-color:#7360DF ;
+}
+input.form-control{
+	width:300px;
+}
