@@ -8,7 +8,6 @@
 
 
 <%
-User user = (User)session.getAttribute("user");
 Article article = (Article)session.getAttribute("article");
 if (article == null) {
     article = (Article) request.getAttribute("article");
@@ -59,7 +58,7 @@ if (article == null) {
         </div>
     </div>
 
-    <div class="headerPage"></div>
+    <%@include file ="../components/header.jsp"%>
 
 
 
@@ -163,7 +162,6 @@ if (article == null) {
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">爬蟲類</li>
                                         <li class="list-group-item">木木梟</li>
                                     </ul>
@@ -249,7 +247,7 @@ if (article == null) {
 
 
 
-                <div class="footerPage"></div>
+                <%@include file ="../components/footer.jsp"%>
 
                 <script src="../assets/js/jquery.min.js"></script>
                 <!-- Bootstrap js -->
@@ -270,10 +268,7 @@ if (article == null) {
                 <script src="../assets/js/gallery-popup.js"></script>
                 <script src="../assets/js/custom.js"></script>
                 <script src="../assets/js/video.js"></script>
-                <script>
-                    $(".headerPage").load("../components/header.html");
-                    $(".footerPage").load("../components/footer.html");
-                </script>
+                
 <script>
     // 這是動物照片
 $("#petphoto").change(function () {

@@ -88,6 +88,12 @@ public class ArticleServlet extends HttpServlet {
 		case "getArticleById":
 			forwardPath = getArticleById(req, res);
 			break;
+		case "getTopArticlesByCTR":
+	        forwardPath = getTopArticlesByCTR(req, res);
+	        break;
+		case "getArticlesByForumId":
+	        forwardPath = getArticlesByForumId(req, res);
+	        break;	    
 		case "getArticleImgById":
 			getArticleImgById(req, res);
 			break;
@@ -101,7 +107,47 @@ public class ArticleServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
+	
+	private String getArticlesByForumId(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    // 从请求中获取论坛ID参数
+	    String ForumId = req.getParameter("forumId");
+	    Integer forumId = Integer.parseInt(ForumId);
 
+	    // 从服务层获取与论坛ID相关联的文章列表
+	    List<Article> articlesByForum = articleService.getArticlesByForumId(forumId);
+
+	    // 将文章列表设置为请求属性
+	    req.setAttribute("articlesByForum", articlesByForum);
+
+	    // 返回适当的 JSP 页面路径
+	    return "/article/ArticleBySort.jsp";
+	}
+	
+	private String getTopArticlesByCTR(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    // 从请求中获取论坛ID参数
+	    String strForumId = req.getParameter("forumId");
+	    Integer forumId = null;
+	    
+	    
+	    try {
+	        forumId = Integer.parseInt(strForumId);
+	    } catch (NumberFormatException e) {
+	        // 如果转换失败，可能需要重定向到错误页面或设置错误消息
+	        req.setAttribute("errorMessage", "无效的论坛ID");
+	        return "/article/ArticleTop.jsp"; // 替换为实际的错误页面路径
+	    }
+
+	    // 根据论坛ID获取热门文章
+	    List<Article> topArticles = articleService.getTopArticlesByCTR(forumId, 5);
+
+	    // 将获取到的热门文章列表设置到请求属性中
+	    req.setAttribute("topArticles", topArticles);
+
+	    // 返回适当的 JSP 页面路径
+	    return "/article/ArticleTop.jsp"; // 确保这是正确的JSP页面路径
+	}
+
+	
 	private void getArticleImgById(HttpServletRequest req, HttpServletResponse res) {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
 		ArticleImg articleImg = articleImgService.getArticleImgById(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
@@ -168,7 +214,9 @@ public class ArticleServlet extends HttpServlet {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
 		Article article = articleService.getArticleByArticleId(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
 		req.setAttribute("article", article); // 這裡會對應到 spec-blog的 <%Article article =
-												// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
+														// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
+		//瀏覽數			
+		articleService.updateView(articleId);
 		return "/article/spec-blog.jsp";
 	}
 
@@ -257,7 +305,6 @@ public class ArticleServlet extends HttpServlet {
 		}
 
 		/*************************** 2.開始查詢資料 *****************************************/
-//  CouponService coupoService = new CouponService();
 		Article article = articleService.getArticleByArticleId(articleId);
 
 		if (article == null) {
@@ -267,6 +314,7 @@ public class ArticleServlet extends HttpServlet {
 		if (!errorMsgs.isEmpty()) {
 			return "/article/select_page.jsp";// 程式中斷
 		}
+		
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 		req.setAttribute("artcle", article); // 資料庫取出的manage物件,存入req
@@ -311,8 +359,8 @@ public class ArticleServlet extends HttpServlet {
 			updateTime = new java.sql.Timestamp(System.currentTimeMillis());
 			errorMsgs.add("請輸入文章發布時間");
 		}
-//		Integer ctr = Integer.valueOf(req.getParameter("ctr"));
-		Integer ctr = 1000;
+//		articleService.getArticleByArticleId(articleId);
+//		Integer ctr = 1000;
 		Boolean state = Boolean.valueOf(req.getParameter("state"));
 		
 	    // 查找對應的論壇類別
@@ -323,14 +371,11 @@ public class ArticleServlet extends HttpServlet {
 	    }
 	    System.out.println(forumName);
 		
-		Article article = new Article();
-		article.setArticleId(articleId);
+		Article article = articleService.getArticleByArticleId(articleId);
+		
 		article.setArticleName(articleName);
 	    article.setArticleContent(articleContent);
-	    article.setUser(user);
 	    article.setForum(forum);
-	    article.setCtr(ctr);
-	    article.setState(state);
 	    article.setUpdateTime(updateTime);
 
 		// Send the use back to the form, if there were errors
@@ -400,7 +445,7 @@ public class ArticleServlet extends HttpServlet {
 		    }
 //		    Integer articleId = null;
 //		    System.out.println(articleId);
-		    Integer ctr = 1000;
+		    Integer ctr = 10;
 		    System.out.println(ctr);
 		    Boolean state = true;
 		    System.out.println(state);

@@ -23,4 +23,15 @@ public interface ArticleDAO {
 	public List<Article> searchByKeyword(String keyword);
 
 	public List<Article> getByCompositeQuery(Map<String, String> map);
+	
+	//瀏覽數
+	public void updateView(Integer articleId);
+	
+	//以瀏覽數和論壇ID來判斷熱門文章
+	List <Article> findTopArticlesByCTR(int forumId, int limit);
+	
+	//以論壇種類來找文章
+	
+	List <Article>  findArticlesByForumId(Integer forumId);
+	
 }

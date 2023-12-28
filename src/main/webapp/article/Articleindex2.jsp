@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="headerPage"></div>
+    <%@include file ="../components/header.jsp"%>
 
 
 
@@ -113,8 +113,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
-                                        <li class="list-group-item">浪浪的家</li>
+                                        <li class="list-group-item">狗狗的家</li>
                                     </ul>
                                 </div>
                                 <!-- 狗狗 -->
@@ -124,9 +123,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">貓貓的家</li>
-                                        <li class="list-group-item">貓貓保健</li>
                                     </ul>
                                 </div>
                                 <!-- 範例-3 -->
@@ -136,7 +133,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
+                                        <li class="list-group-item">來閒聊ㄅ</li>
                                         <!-- <li class="list-group-item">貓貓保健</li> -->
                                     </ul>
                                 </div>
@@ -146,7 +143,6 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">爬蟲類</li>
                                         <li class="list-group-item">木木梟</li>
                                     </ul>
@@ -164,7 +160,7 @@
                         	<div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             	<div class="blog_area_wrapper">
                                 	<div class="blog_area_img">
-                                    	<a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><img src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}" alt="img" style="width: 300px; height: 300px"></a>
+                                    	<a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><img src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}" alt="img" style="width: 470px; height: 400px; border-radius: 10px;"></a>
                                 	</div>
                                 	<div class="blog_area_content">
                                     	<a href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><h3>${article.articleName}</h3></a>
@@ -192,7 +188,7 @@
     	</section>
 
 
-    <div class="footerPage"></div>
+    <%@include file ="../components/footer.jsp"%>
 
 
 
@@ -216,8 +212,7 @@
     <script src="../assets/js/custom.js"></script>
     <script src="../assets/js/video.js"></script>
     <script>
-        $(".headerPage").load("../components/header.html");
-        $(".footerPage").load("../components/footer.html");
+       
         
         function goBack(){
         	history.back();

@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import = "com.petlife.user.entity.User"%>
-<% 
-User user = (User)session.getAttribute("user");
-%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -46,7 +44,7 @@ User user = (User)session.getAttribute("user");
         </div>
     </div>
 
-    <div class="headerPage"></div>
+    <%@include file ="../components/header.jsp"%>
 
 
 
@@ -117,7 +115,7 @@ User user = (User)session.getAttribute("user");
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
+                                        <li class="list-group-item">狗狗的家</li>
 
                                     </ul>
                                 </div>
@@ -128,9 +126,7 @@ User user = (User)session.getAttribute("user");
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">貓貓的家</li>
-                                        <li class="list-group-item">貓貓保健</li>
                                     </ul>
                                 </div>
                                 <!-- 範例-3 -->
@@ -140,7 +136,7 @@ User user = (User)session.getAttribute("user");
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
+                                        <li class="list-group-item">來閒聊ㄅ</li>
                                         <!-- <li class="list-group-item">貓貓保健</li> -->
                                     </ul>
                                 </div>
@@ -150,7 +146,6 @@ User user = (User)session.getAttribute("user");
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">爬蟲類</li>
                                         <li class="list-group-item">木木梟</li>
                                     </ul>
@@ -209,7 +204,7 @@ User user = (User)session.getAttribute("user");
                                             required=""></textarea>
                                     </div>
                                 </div>
-                        	    
+                        	    <input type="hidden" name = "ctr" value="0" readonly />
                         	    
                         
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -259,7 +254,7 @@ User user = (User)session.getAttribute("user");
 
 
 
-                <div class="footerPage"></div>
+                <%@include file ="../components/footer.jsp"%>
 
                 <script src="../assets/js/jquery.min.js"></script>
                 <!-- Bootstrap js -->
@@ -280,10 +275,7 @@ User user = (User)session.getAttribute("user");
                 <script src="../assets/js/gallery-popup.js"></script>
                 <script src="../assets/js/custom.js"></script>
                 <script src="../assets/js/video.js"></script>
-                <script>
-                    $(".headerPage").load("../components/header.html");
-                    $(".footerPage").load("../components/footer.html");
-                </script>
+              
 <script>
     // 這是動物照片
 $("#petphoto").change(function () {
