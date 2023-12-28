@@ -24,11 +24,14 @@ import com.petlife.admin.entity.Coupon;
 import com.petlife.mall.dao.BuylistDAO;
 import com.petlife.mall.dao.impl.BuylistDAOImpl;
 import com.petlife.mall.entity.Buylist;
+import com.petlife.mall.entity.BuylistDetails;
 import com.petlife.mall.entity.BuylistState;
 import com.petlife.mall.service.BuylistService;
 import com.petlife.mall.service.BuylistStateService;
 import com.petlife.mall.service.impl.BuylistServiceImpl;
 import com.petlife.mall.service.impl.BuylistStateServiceImpl;
+import com.petlife.mall.service.impl.BuylistDetailsServiceImpl;
+import com.petlife.mall.service.BuylistDetailsService;
 import com.petlife.seller.entity.Seller;
 import com.petlife.user.entity.User;
 import com.petlife.util.MailService;
@@ -92,6 +95,10 @@ public class BuylistServlet extends HttpServlet {
 		case "memberRateBuylist":
 			forwardPath = memberRateBuylist(req, res);
 			break;
+		case "showBuylistDetails":    //2023/12/27
+		    // 來自 listAllBuylist.jsp 或其他頁面，用於顯示 buylistDetails
+		    forwardPath = showBuylistDetails(req, res);
+		    break;
 		default:
 			forwardPath = "/buylist/listAllBuylist.jsp"; // 2023/12/18
 			break;
@@ -103,7 +110,19 @@ public class BuylistServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
-
+//================顯示buylistDetails2023/12/27=========================
+	private String showBuylistDetails(HttpServletRequest req, HttpServletResponse res) {
+	    Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
+	    
+	    // 使用 BuylistDetailsServiceImpl 取得相應的 buylistDetails
+	    BuylistDetailsService buylistDetailsService = new BuylistDetailsServiceImpl();
+	    List<BuylistDetails> buylistDetailsList = buylistDetailsService.getAllBuylistDetailss(buylistId);
+	    
+	    req.setAttribute("buylistDetailsList", buylistDetailsList);
+	    
+	    return "/buylist/listOneBuylistDetails.jsp"; // 設定顯示 buylistDetails 的 JSP 頁面
+	}
+//================/顯示buylistDetails2023/12/27=========================
 	private void getOneBuylistById(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
