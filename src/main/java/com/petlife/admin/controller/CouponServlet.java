@@ -392,6 +392,7 @@ public class CouponServlet extends HttpServlet {
 	    if (coupon != null && coupon.getCouponState() == true) {
 			jsonResponse.put("status", "success");
 	        jsonResponse.put("discount", coupon.getDiscountAmount());
+	        jsonResponse.put("couponId", coupon.getCouponId());
 		} else if(coupon == null) {
 			jsonResponse.put("status", "failure");
 	        jsonResponse.put("message", "此優惠卷找不到");
