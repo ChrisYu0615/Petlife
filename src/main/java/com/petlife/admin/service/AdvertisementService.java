@@ -17,6 +17,9 @@ public interface AdvertisementService {
 	// 查(單個)
 	Advertisement getAdvertisementById(Integer advertisementId);
 
-	// 改(全部)
+	// 查(全部)
 	List<Advertisement> getAll();
+	
+	// 查(有啟用狀態的)
+	List<Advertisement> getAllWithActived();
 }

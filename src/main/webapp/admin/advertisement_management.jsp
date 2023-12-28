@@ -265,9 +265,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 														<div class="form-group mb-3">
 															<label for="new_advertisement_content" class="form-label">廣告敘述
-															</label> <input type="text" class="form-control"
-																id="new_advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
+															</label>
+															<textarea class = "form-control col-12" id="new_advertisement_content" name="advertisement_content" rows="4"
+															cols="50" placeholder="請輸入廣告敘述"></textarea>																
 															<span id="verify_new_advertisement_content"></span>															
 														</div>
 
@@ -341,9 +341,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 														<div class="form-group mb-3">
 															<label for="advertisement_content" class="form-label">廣告敘述
-															</label> <input type="text" class="form-control"
-																id="advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
+															</label>
+															<textarea class = "form-control col-12" id="advertisement_content" name="advertisement_content" rows="4"
+															cols="50" placeholder="請輸入廣告敘述"></textarea>																		
 															<span id="verify_advertisement_content"></span>																
 														</div>
 

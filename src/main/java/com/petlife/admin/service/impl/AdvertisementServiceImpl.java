@@ -40,4 +40,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		return dao.getAll();
 	}
 
+	@Override
+	public List<Advertisement> getAllWithActived() {
+		return dao.getAllActived();
+	}
+
 }
