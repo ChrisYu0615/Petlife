@@ -158,8 +158,10 @@ pageContext.setAttribute("totalAmount", totalAmount);
 										<!-- sellerName -->
 										<td>${cart.comm.seller.sellerName}</td>
 										<!-- DELETE ajax version -->
-										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">§R°£${cart.cartId}</button>
-                                    	<input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
+										<td>
+											<button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">§R°£${cart.cartId}</button>
+											<!-- ¶Ç°epurchasingAmount -->
+	                                    	<input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
 										</td>
                                     </tr>
                                     </c:forEach>

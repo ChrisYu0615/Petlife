@@ -107,12 +107,7 @@ public class BuylistForUserServlet extends HttpServlet {
             	Integer purchasingAmount = Integer.parseInt(purchasingAmountStr);
             	BigDecimal commOnsalePrice = cart.getComm().getCommOnsalePrice();
             	BigDecimal totalAmount = commOnsalePrice.multiply(BigDecimal.valueOf(purchasingAmount));
-            	
-            	System.out.println(purchasingAmount);
-            	System.out.println(commOnsalePrice);
-            	System.out.println(totalAmount);
-
-                
+            	          
             	// 訂單狀態預設給予0 來代表"待付款"
             	BuylistState buylistState = buylistStateService.getBuylistStateByBuylistStateId(0);
             	
