@@ -90,13 +90,15 @@ public class User {
 	@Column(name = "user_create_time", updatable = false, insertable = false)
 	@Expose
 	private Timestamp userCreateTime;
-
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Reservation> reservations;
-
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@OrderBy("credit_card_id asc")
 	private Set<CreditCard> creditCards;
+	
+	
 	public User() {
 	}
 
@@ -133,7 +135,8 @@ public class User {
 		this.acctState = acctState;
 		this.acctType = acctType;
 		this.userCreateTime = userCreateTime;
-		this.userReportCount = userReportCount;
+		this.reservations = reservations;
+		this.creditCards = creditCards;
 	}
 
 	public Integer getUserId() {
@@ -255,7 +258,7 @@ public class User {
 	public void setUserCreateTime(Timestamp userCreateTime) {
 		this.userCreateTime = userCreateTime;
 	}
-
+	
 
 	public Set<Reservation> getReservations() {
 		return reservations;
@@ -263,6 +266,14 @@ public class User {
 
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+	
+	public Set<CreditCard> getCreditCards() {
+		return creditCards;
+	}
+
+	public void setCreditCards(Set<CreditCard> creditCards) {
+		this.creditCards = creditCards;
 	}
 
 	@Override
