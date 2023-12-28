@@ -288,31 +288,31 @@ th, td {
 			</table>
 			<!-- ========================================================== -->
 
-			<FORM METHOD="post" ACTION="comm.do">
-				<b>輸入商品編號:</b> <input type="text" name="commId"> <input
-					type="hidden" name="action" value="getOne_For_Display"> <input
-					type="submit" value="送出">
-			</FORM>
+<!-- 			<FORM METHOD="post" ACTION="comm.do"> -->
+<!-- 				<b>輸入商品編號:</b> <input type="text" name="commId"> <input -->
+<!-- 					type="hidden" name="action" value="getOne_For_Display"> <input -->
+<!-- 					type="submit" value="送出"> -->
+<!-- 			</FORM> -->
 
-			<jsp:useBean id="commSv" scope="page"
-				class="com.petlife.mall.service.impl.CommServiceImpl" />
-			<FORM METHOD="post" ACTION="comm.do">
-				<b>選擇商品編號:</b> <select size="1" name="commId">
-					<c:forEach var="comm" items="${commSv.getAll()}">
-						<option value="${comm.commId}">${comm.commId}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
+<%-- 			<jsp:useBean id="commSv" scope="page" --%>
+<%-- 				class="com.petlife.mall.service.impl.CommServiceImpl" /> --%>
+<!-- 			<FORM METHOD="post" ACTION="comm.do"> -->
+<!-- 				<b>選擇商品編號:</b> <select size="1" name="commId"> -->
+<%-- 					<c:forEach var="comm" items="${commSv.getAll()}"> --%>
+<%-- 						<option value="${comm.commId}">${comm.commId} --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 				<input type="submit" value="送出"> -->
+<!-- 			</FORM> -->
 
-			<FORM METHOD="post" ACTION="comm.do">
-				<b>選擇商品名稱:</b> <select size="1" name="commId">
-					<c:forEach var="comm" items="${commSv.getAll()}">
-						<option value="${comm.commId}">${comm.commName}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
+<!-- 			<FORM METHOD="post" ACTION="comm.do"> -->
+<!-- 				<b>選擇商品名稱:</b> <select size="1" name="commId"> -->
+<%-- 					<c:forEach var="comm" items="${commSv.getAll()}"> --%>
+<%-- 						<option value="${comm.commId}">${comm.commName} --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 				<input type="submit" value="送出"> -->
+<!-- 			</FORM> -->
 			<!-- ========================================================== -->
 			<table>
 				<tr>

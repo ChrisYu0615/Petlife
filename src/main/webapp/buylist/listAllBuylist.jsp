@@ -26,7 +26,8 @@ pageContext.setAttribute("list", list);
 <title>所有訂單編號資料</title>
 <!-- 讓Loading, please wait消失 -->
 <link rel="stylesheet" href="/buylist.css">
-
+<!-- Bootstrap css -->
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -43,13 +44,28 @@ pageContext.setAttribute("list", list);
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-img.brand-image{
-    background-color: antiquewhite;
+div.star_block {
+    display: inline-block;
+    position: relative;
+}
 
+div.star_block>span.star {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 3px;
 }
+
+div.star_block>span.star.-on {
+    color: yellow;
+}
+img.brand-image {
+	background-color: antiquewhite;
+}
+
 .brand-link .brand-image {
-    margin-left: 0rem;
+	margin-left: 0rem;
 }
+
 table#table-1 {
 	background-color: #CCCCFF;
 	border: 2px solid black;
@@ -193,11 +209,11 @@ th, td {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-<!-- 						<li class="nav-item"><a -->
-<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
-<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>訂單商品細項</p> -->
-<!-- 						</a></li> -->
+						<!-- 						<li class="nav-item"><a -->
+						<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+						<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>訂單商品細項</p> -->
+						<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
 						<li class="nav-item"><a href="#" class="nav-link active">
@@ -299,34 +315,34 @@ th, td {
 			</table>
 			<!-- ========================================================== -->
 
-			<FORM METHOD="post" ACTION="buylist.do">
-				<b>輸入訂單編號:</b> <input type="text" name="buylistId"> <input
-					type="hidden" name="action" value="getOne_For_Display"> <input
-					type="submit" value="送出">
-			</FORM>
+			<!-- 			<FORM METHOD="post" ACTION="buylist.do"> -->
+			<!-- 				<b>輸入訂單編號:</b> <input type="text" name="buylistId"> <input -->
+			<!-- 					type="hidden" name="action" value="getOne_For_Display"> <input -->
+			<!-- 					type="submit" value="送出"> -->
+			<!-- 			</FORM> -->
 
 
-			<jsp:useBean id="buylistSv" scope="page"
-				class="com.petlife.mall.service.impl.BuylistServiceImpl" />
+			<%-- 			<jsp:useBean id="buylistSv" scope="page" --%>
+			<%-- 				class="com.petlife.mall.service.impl.BuylistServiceImpl" /> --%>
 
-			<FORM METHOD="post" ACTION="buylist.do">
-				<b>選擇訂單編號:</b> <select size="1" name="buylistId">
-					<c:forEach var="buylist" items="${buylistSv.getAllBuylists()}">
-						<option value="${buylist.buylistId}">${buylist.buylistId}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
+			<!-- 			<FORM METHOD="post" ACTION="buylist.do"> -->
+			<!-- 				<b>選擇訂單編號:</b> <select size="1" name="buylistId"> -->
+			<%-- 					<c:forEach var="buylist" items="${buylistSv.getAllBuylists()}"> --%>
+			<%-- 						<option value="${buylist.buylistId}">${buylist.buylistId} --%>
+			<%-- 					</c:forEach> --%>
+			<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
+			<!-- 				<input type="submit" value="送出"> -->
+			<!-- 			</FORM> -->
 
 
-			<FORM METHOD="post" ACTION="buylist.do">
-				<b>選擇會員ID:</b> <select size="1" name="buylistId">
-					<c:forEach var="buylist" items="${buylistSv.getAllBuylists()}">
-						<option value="${buylist.buylistId}">${buylist.user.getUserId()}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
+			<!-- 			<FORM METHOD="post" ACTION="buylist.do"> -->
+			<!-- 				<b>選擇會員ID:</b> <select size="1" name="buylistId"> -->
+			<%-- 					<c:forEach var="buylist" items="${buylistSv.getAllBuylists()}"> --%>
+			<%-- 						<option value="${buylist.buylistId}">${buylist.user.getUserId()} --%>
+			<%-- 					</c:forEach> --%>
+			<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
+			<!-- 				<input type="submit" value="送出"> -->
+			<!-- 			</FORM> -->
 			<!-- ========================================================== -->
 			<table>
 				<tr>
@@ -342,6 +358,7 @@ th, td {
 					<th>訂單建立時間</th>
 					<th>修改</th>
 					<th>查看訂單細項</th>
+					<th>評價</th>
 					<!-- 					<th>刪除</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
@@ -379,6 +396,63 @@ th, td {
 									type="hidden" name="action" value="showBuylistDetails">
 							</FORM>
 						</td>
+<!-- ================================================================== -->
+						<td>
+							<button class="btn-sm btn-warning btn_rate"
+								data-bs-toggle="modal" data-bs-target="#rate_order"
+								value="${buyList.buylistId}">評價</button>
+								<form
+											action="<%=request.getContextPath()%>/buylist/buylist.do"
+											method="post" id="rate_orderForm">
+											<div class="modal fade" id="rate_order" tabindex="-1"
+												aria-labelledby="rateModalLabel" aria-hidden="true">
+												<div
+													class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="rateModalLabel">評價訂單</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="row modal-body delete_box">
+															<span id="verify_rateStar"></span>
+															<div class="col rounded star_block" id="delete_content">
+																評價此訂單<br> <span class="star" data-star="1"><i
+																	class="fas fa-star"></i></span> <span class="star"
+																	data-star="2"><i class="fas fa-star"></i></span> <span
+																	class="star" data-star="3"><i
+																	class="fas fa-star"></i></span> <span class="star"
+																	data-star="4"><i class="fas fa-star"></i></span> <span
+																	class="star" data-star="5"><i
+																	class="fas fa-star"></i></span>
+															</div>
+															<div class="col-auto">
+																<span id="verify_rateComment"></span> <label
+																	class="col-md-12" for="sellerEvaluateNarrative">評論：</label> <br>
+																<textarea class="col-md-12" id="sellerEvaluateNarrative"
+																	name="sellerEvaluateNarrative" rows="4" cols="80"
+																	placeholder="請輸入原因..."></textarea>
+															</div>
+														</div>
+
+														<div class="row modal-footer">
+															<div class="col"></div>
+															<button type="submit" class="col-auto btn btn-danger">評價</button>
+															<button type="button" class="col-auto btn btn-secondary"
+																data-bs-dismiss="modal">取消</button>
+															<div class="col"></div>
+															<input type="hidden" name="action"
+																value="sellerRateBuylist"> <input type="hidden"
+																name="ratedSellerId" value=<%=seller.getSellerId()%>>
+															<input type="hidden" name="buylistId"  value="${buylist.buylistId}"> <input
+																type="hidden" name="sellerRatingStars">
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+						</td>
+<!-- ================================================================== -->
 						<!-- 							測試=========== -->
 						<%-- <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"> --%>
 						<!-- 				<b>選擇訂單編號ID:</b> <select size="1" name="buylistDetailsId"> -->
@@ -403,7 +477,6 @@ th, td {
 				</c:forEach>
 			</table>
 			<%@ include file="page2.file"%>
-
 			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 				crossorigin="anonymous"></script>
 			<script
@@ -414,7 +487,8 @@ th, td {
 				crossorigin="anonymous"></script>
 			<script
 				src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
-
+			<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 		</div>
 		<!-- ./wrapper -->
@@ -435,6 +509,45 @@ th, td {
 			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="../dist/js/adminlte.js"></script>
+<!-- ================================================================== -->
+<script>
+$("#rate_orderForm").submit(function (event) {
+    let rateFlag = true;
+    let ratedComment = $("#sellerEvaluateNarrative").val();
+    let Star = $('input[name="sellerRatingStars"]').val();
+    console.log(Star);
+    console.log(ratedComment);
+
+    if (Star < 1) {
+        rateFlag = false;
+        $("#verify_rateStar").html(`<font color='red'><b>請選擇評分分數!!</font>`);
+    } else {
+        $("#verify_rateStar").html("");
+    }
+
+    if (ratedComment == null || ratedComment == "") {
+        rateFlag = false;
+        $("#verify_rateComment").html(`<font color='red'><b>請輸入評論!!</font>`);
+    } else {
+        $("#verify_rateComment").html("");
+    }
+
+    if (rateFlag == false) {
+        event.preventDefault();
+    }
+})
+
+    $('.star').click(function () {
+        var rating = $(this).attr('data-star');
+
+        $('.star').removeClass('-on');
+
+        $(this).prevAll('.star').addClass('-on');
+        $(this).addClass('-on');
+        $('input[name="sellerRatingStars"]').val(rating);
+    });
+</script>
+<!-- ================================================================== -->
 </body>
 
 </html>
