@@ -6,7 +6,7 @@
 	data-show-refresh="false" data-show-toggle="false"
 	data-show-columns="false" data-show-columns-toggle-all="true"
 	class="table table-sm  table-borderless" id="myTable">
-	<thead class="table ">
+	<thead class="table">
 		<tr class="tb_header">
 			<th scope="col" class="tb_header"></th>
 			<th scope="col" class="tb_header">入所入期</th>
