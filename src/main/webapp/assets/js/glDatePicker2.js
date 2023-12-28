@@ -1,199 +1,13 @@
-//撈資料
-$(document).on("change","#month",function(){
-	$("#mydate").click();
-	var checkMonth=$("#month").val();
-	console.log(month);
-	var checkbookingend= checkMonth + "-01";
-	
-	var checkbookingstart = checkMonth + "-31";
-
-	
-	var dataURL = `../project/shelterbooking.do?action=getAvalibleBookings&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}`;
-				
-	$.ajax({
-		url: dataURL,
-		method: "post",
-		async: false,
-		success: res => {
-			
-			 
-			 for(var j =0;j<res.length;j++){	
-				var dateString = res[j].shelterBookingDate;
-				dateString = dateString.split(',')[0].replace('月 ', '/');
-				var month = dateString.split('/')[0].padStart(2, '0');
-				var day = dateString.split('/')[1].padStart(2, '0');
-				dateString= month + '/'+ day;
-				console.log(dateString);
-
-//				 Jan 1, 1970, 1:30:00 PM
-					
-				for(var i = 0 ;i<document.getElementsByTagName('a').length;i++){
-					var a_element = document.getElementsByTagName('a')[i];
-					if(dateString === a_element.textContent){
-						if(res[j].shelterBookingTime.includes('AM')){
-							var button = a_element.closest("div.parent").querySelector("button.make_reservation_btn_am");
-//							button.style.backgroundColor="red";
-							button.id = res[j].id;
-							$(`#${res[j].id}`).addClass('on');
-						}else{
-							var button = a_element.closest("div.parent").querySelector("button.make_reservation_btn_pm");
-//							button.style.backgroundColor="red";
-							button.id = res[j].id;
-							$(`#${res[j].id}`).addClass('on');
-						}
-						
-					}
-					
-				}
-			}
-			
-			
-		}, error: function(jqXHR, textStatus, errorThrown) {
-			try {
-				console.log("Error code:", jqXHR.status);
-				console.log("Error message:", jqXHR.responseText);
-			} catch (e) {
-				console.error("Error parsing JSON response:", e);
-			}
-		},
-	});
-})
-
-
-//搜尋按鈕ajax
-$(document).on("click","#search_btn",function(){
-	var dataURL = '../project/pet.do?action=getCompositePetsQuery2';
-
-	var pet_type = $("select.pet_type").val();
-	if(pet_type != "選擇種類"){
-		dataURL = dataURL + `&type=${pet_type}`;
-	}
-	var pet_variety = $("select.pet_variety").val();
-	if(pet_variety != "請先選擇種類" && pet_variety != "請選擇品種"){
-		dataURL = dataURL + `&petVarietyId=${pet_variety}`;
-	}
-	var county = $("select.county").val();
-	var shelter_name = $("select.shelter").val();
-	if(county != "選擇縣市"){
-		dataURL = dataURL + `&shelter_name=${shelter_name}`;
-	}
-	
-		$.ajax({
-		url: dataURL,
-		method: "post",
-		async: false,
-		success: res => {
-			var result = document.getElementById("result");
-			result.innerHTML = res;
-			
-		}, error: function(jqXHR, textStatus, errorThrown) {
-			try {
-				console.log("Error code:", jqXHR.status);
-				console.log("Error message:", jqXHR.responseText);
-			} catch (e) {
-				console.error("Error parsing JSON response:", e);
-			}
-		},
-	});
-	
-	
-
-})
-
-$(document).on("change", "select.pet_type", function() {
-	var type = $(this).val();
-	var dataURL = `../project/pet?action=getCompositePetVarietiesQueryAsync&type=${type}`
-
-	$.ajax({
-		url: dataURL,
-		method: "post",
-		async: false,
-		dataType: 'json',
-		success: res => {
-			var select = $('#petVarietyId');
-			select.empty();
-			$('<option>').val('請選擇品種').text('請選擇品種').appendTo(select);
-			for (var i = 0; i < res.length; i++) {
-				$('<option>').val(res[i].id).text(res[i].variety).appendTo(select);
-			}
-		}, error: function(jqXHR, textStatus, errorThrown) {
-			try {
-				console.log("Error code:", jqXHR.status);
-				console.log("Error message:", jqXHR.responseText);
-			} catch (e) {
-				console.error("Error parsing JSON response:", e);
-			}
-		},
-	});
-})
-
-//預約按鈕
-//document.getElementById('mydate').addEventListener('click', function (event) {
-//        // 阻止事件傳播到包含它的 div
-//        event.stopPropagation();
-//    });
-//    
-////======我要預約按鈕=====
-//$(document).on("click","#make_reservation_btn",function(){
-//	var dataURL = '../project/shelterbooking.do?action=getCompositePetsQuery';
-//	
-//	$.ajax({
-//		type: "GET",
-//		url: "dataURL",
-//	})
-//})
-
-//收容所縣市搜尋
-$(function() {
-	$(".headerPage").load("../components/header.html");
-	$(".footerPage").load("../components/footer.html");
-
-    fetch('../assets/json/shelters_cities_final.json')
-		.then(response => response.json())
-		.then(data => {
-			var countySelect = document.getElementById('county');
-			for (var city in data) {
-				var option = document.createElement('option');
-				option.value = city;
-				option.textContent = city;
-				countySelect.appendChild(option);
-			}
-
-			// 在選擇縣市時會自動對應到該縣市有的收容所
-			countySelect.addEventListener('change', function() {
-				var selectedCity = countySelect.value;
-				var shelterSelect = document.getElementById('shelter');
-				shelterSelect.innerHTML = ''; // 清空行政區選項
-
-				if (selectedCity in data) {
-					var shelters = data[selectedCity];
-					for (var i = 0; i < shelters.length; i++) {
-						var shelterOption = document.createElement('option');
-						shelterOption.value = shelters[i];
-						shelterOption.textContent = shelters[i];
-						shelterSelect.appendChild(shelterOption);
-					}
-				}
-			});
-		})
-
-});
-function redirectPage(newUrl) {
-	window.location.href = newUrl;
-}
-
-$(document).on("click","#getOnePet",function(e){
-	e.preventDefault();
-	var id = $("#pet_id").val();
-	if(true){
-		$("#form").submit();
-	}
-	
-});
-
-//燈箱中的預約表
-
-;(function() {
+/*!
+ * glDatePicker v2.1 (Modified by Winter Lau -> http://my.oschina.net/javayou )
+ * http://glad.github.com/glDatePicker/
+ *
+ * Copyright (c) 2013 Gautam Lad.  All rights reserved.
+ * Released under the MIT license.
+ *
+ * Date: Tue Jan 1 2013
+ */
+ ;(function() {
 	$.fn.glDatePicker = function(options) {
 		var pluginName = 'glDatePicker';
 
@@ -356,7 +170,6 @@ $(document).on("click","#getOnePet",function(e){
 		onClick: (function(el, cell, date, data) {
 			//el.val(date.toLocaleDateString());
 			el.val(date.format(this.format));
-			
 		}),
 
 		// Callback that will trigger when the user hovers over a selectable date.
@@ -842,17 +655,17 @@ $(document).on("click","#getOnePet",function(e){
 										options.onClick(el, $(this), clickedData.date, clickedData.data);
 									}); //原656行
 // =================================================================================================================== 
-								var select_page  = "select_page_Basic.jsp";
+//								var select_page  = "select_page_Basic.jsp";
 //								var select_page2 = "https://tw.yahoo.com/index.html";
-var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_page_Basic.jsp";
+//var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_page_Basic.jsp";
 								var theDate = cellDateVal.year + '-' + (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1)) + '-' + ((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date);
 								cell.html("<div class='parent'>"
-	                           		 + "<button type='button' class='make_reservation_btn_am' value='am'><p>\u4E0A\u5348</p></button>"
-	                           		 + "<button type='button' class='make_reservation_btn_pm' value='pm'><p>\u4E0B\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_am' value='am'><p>\u4E0A\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_pm' value='pm'><p>\u4E0B\u5348</p></button>"
 //	                           		 + "<iframe src=\'" +select_page+ "?theDate=" + theDate + "\'" 
 //	                           		 + " style='background-color: white; border-color: black; border: 1px 1px 1px 1px;'"
 //	                           		 + " width=95% height=43% scrolling=no></iframe>"
-	                           		 + "<div class='date' id='date'>"
+	                           		 + "<div class='date'>"
 	                           		 + "<a>"
 	                           		 +  (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1))+"/"+((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date)
 //                                     +  (cellDateVal.month+1)+"/"+cellDateVal.date
@@ -1134,5 +947,3 @@ var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_pa
 		}
 	})();
 })();
-
-

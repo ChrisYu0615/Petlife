@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petlife.shelter.entity.ShelterBooking;
 import com.petlife.shelter.service.ShelterBookingService;
 import com.petlife.shelter.service.impl.ShelterBookingServiceImpl;
@@ -55,6 +58,9 @@ public class ShelterBookingServlet extends HttpServlet {
 		case "getCompositePetsQuery":
 			forwardPath = getCompositePetsQuery(req, res);
 			break;
+		case "getAvalibleBookings":
+			forwardPath = getAvalibleBookings(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -64,6 +70,23 @@ public class ShelterBookingServlet extends HttpServlet {
 		}
 	}
 	
+	private String getAvalibleBookings(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException  {
+		System.out.println("ShelterBookingServlet1: getAvalibleBookings Entry");
+		Map<String, String[]> map = req.getParameterMap();
+		
+		
+		if (map != null) {
+			List<ShelterBooking> shelterBookingList = shelterBookingService.getByCompositeQuery(map);
+			shelterBookingList = shelterBookingList.stream()
+							.filter(booking -> booking.getShelterBookingNum() != booking.getShelterBookingMax())
+							.collect(Collectors.toList());
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+			res.setContentType("application/json;charset=UTF-8");
+			res.getWriter().println(gson.toJson(shelterBookingList));
+		} 
+		return "";
+	}
+
 	private String getCompositePetsQuery(HttpServletRequest req, HttpServletResponse res) {
 		
 		System.out.println("ShelterBookingServlet: getCompositePetsQuery Entry");
