@@ -95,6 +95,9 @@ public class BuylistServlet extends HttpServlet {
 		case "memberRateBuylist":
 			forwardPath = memberRateBuylist(req, res);
 			break;
+		case "sellerRateBuylist":
+			forwardPath = sellerRateBuylist(req, res);
+			break;
 		case "showBuylistDetails":    //2023/12/27
 		    // 來自 listAllBuylist.jsp 或其他頁面，用於顯示 buylistDetails
 		    forwardPath = showBuylistDetails(req, res);
@@ -146,7 +149,21 @@ public class BuylistServlet extends HttpServlet {
 
 		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
-
+//賣家評價==============================================================
+	private String sellerRateBuylist(HttpServletRequest req, HttpServletResponse res) {
+		Integer buylistId = Integer.valueOf(req.getParameter("buylistId").trim());
+		
+		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
+		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
+		
+		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		buylist.setSellerRatingStars(sellerRatingStars);
+		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);
+		buylist.setSellerEvaluateTime(Timestamp.valueOf(LocalDateTime.now()));
+		
+		return "/buylist/listAllBuylist.jsp";
+	}
+//賣家評價/==============================================================
 	private String cancelBuylist(HttpServletRequest req, HttpServletResponse res) {
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId").trim());
 		Integer memberId = Integer.valueOf(req.getParameter("memberId").trim());

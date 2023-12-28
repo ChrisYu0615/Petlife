@@ -328,7 +328,7 @@ img.brand-image{
 				</tr>
 			</table>
 
-			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態)</span></h3>
+			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態、星等、敘述)</span></h3>
 
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
@@ -364,7 +364,7 @@ img.brand-image{
 							readonly /></td>
 					</tr>
 					<tr>
-						<td>訂單狀態ID:</td>
+						<td>訂單狀態:</td>
 						<td><select name="buylistState" required>
 								<option value="0"
 									<%=(buylist.getBuylistState().getBuylistStateId() == 0) ? "selected" : ""%>>待付款</option>
@@ -397,21 +397,20 @@ img.brand-image{
 						<td>賣家評價星等:</td>
 						<td><input name="sellerRatingStars" id="sellerRatingStars"
 							type="text" value="<%=buylist.getSellerRatingStars()%>" required
-							readonly></td>
+							></td>
 					</tr>
 					<tr>
 						<td>賣家評價敘述:</td>
 						<td><input name="sellerEvaluateNarrative"
 							id="sellerEvaluateNarrative" type="text"
 							value="<%=buylist.getSellerEvaluateNarrative()%>" required
-							readonly></td>
+							></td>
 					</tr>
 					<tr>
-						<td>賣家評價時間:</td>
+<!-- 						<td>賣家評價時間:</td> -->
 						<td><input name="sellerEvaluateTime" id="sellerEvaluateTime"
-							type="text" value="<%=buylist.getSellerEvaluateTime()%>" required
-							readonly>
-							<div>YYYY-MM-DD HH:mm:ss</div></td>
+							type="hidden" value="<%=buylist.getSellerEvaluateTime()%>" required
+							readonly></td>
 					</tr>
 					<tr>
 						<td>訂單金額:</td>
@@ -433,6 +432,31 @@ img.brand-image{
 			</FORM>
 
 			<script>
+			<!-- 帶入現在時間到sellerEvaluateTime -->
+		    document.addEventListener('DOMContentLoaded', function () {
+		        // 獲取當前日期和時間
+		        var currentDateTime = new Date();
+
+		        // 將日期格式化為 "yyyy-MM-dd HH:mm:ss"，這裡使用了自定義的 formatDate 函數
+		        var formattedDateTime = formatDate(currentDateTime);
+
+		        // 將格式化後的日期時間設置到輸入框的值中
+		        document.querySelector("input[name='sellerEvaluateTime']").value = formattedDateTime;
+		    });
+
+		    // 自定義的日期格式化函數
+		    function formatDate(date) {
+		        var year = date.getFullYear();
+		        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+		        var day = date.getDate().toString().padStart(2, '0');
+		        var hours = date.getHours().toString().padStart(2, '0');
+		        var minutes = date.getMinutes().toString().padStart(2, '0');
+		        var seconds = date.getSeconds().toString().padStart(2, '0');
+
+		        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+		    }
+					<!-- /帶入現在時間到sellerEvaluateTime -->
+			
 				function validateForm() {
 					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
 					var buylistDate = document.forms["form1"]["buylistDate"].value;
