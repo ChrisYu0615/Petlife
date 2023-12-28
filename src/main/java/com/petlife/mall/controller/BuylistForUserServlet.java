@@ -156,11 +156,14 @@ public class BuylistForUserServlet extends HttpServlet {
                 buylistDetails.setBuylistDetailsPurchaseAmount(purchasingAmount);
                 
                 buylistDetailsService.addBuylistDetails(buylistDetails);
+                cartService.delete(cartId);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         return "/comm_for_user/listAllCommForUser.jsp";
+        
+        // insert寫法邏輯 => 先建立buylist再建立buylistDetails.
     }
 
 }

@@ -8,7 +8,7 @@
 
 
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@page import="com.petlife.admin.*"%>
@@ -25,7 +25,7 @@ pageContext.setAttribute("list", list);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Åwªï¨Ó¨ìÃd·R¥Í¬¡ªº°Ó«°</title>
+<title>æ­¡è¿ä¾†åˆ°å¯µæ„›ç”Ÿæ´»çš„å•†åŸ</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -63,8 +63,8 @@ pageContext.setAttribute("list", list);
 			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
-	<!-- À³¸Ó¬Oheader ¥ı¤£ºŞ -->
-	<div class="headerPage"></div>
+	<!-- æ‡‰è©²æ˜¯header å…ˆä¸ç®¡ -->
+	<%@include file="../components/header.jsp"%>
 		    <section id="our_shop_main" class="section_padding">
         <div class="container">
             <div class="row">
@@ -82,41 +82,41 @@ pageContext.setAttribute("list", list);
 
                         <!-- accordion -->
                         <div class="accordion" id="accordionExample">
-                            <!-- ¿ß«} -->
+                            <!-- è²“å’ª -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                        ¿ß«}±M°Ï
+                                        è²“å’ªå°ˆå€
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">¿ß«}¹}®Æ</li>
-                                            <li class="list-group-item">¿ß«}¥D­¹Åø</li>
-                                            <li class="list-group-item">¿ß«}°Æ­¹Åø</li>
-                                            <li class="list-group-item">¿ß«}¹s­¹</li>
-                                            <li class="list-group-item">¿ß«}¥Î«~</li>
-                                            <li class="list-group-item">¿ß¨F</li>
+                                            <li class="list-group-item">è²“å’ªé£¼æ–™</li>
+                                            <li class="list-group-item">è²“å’ªä¸»é£Ÿç½</li>
+                                            <li class="list-group-item">è²“å’ªå‰¯é£Ÿç½</li>
+                                            <li class="list-group-item">è²“å’ªé›¶é£Ÿ</li>
+                                            <li class="list-group-item">è²“å’ªç”¨å“</li>
+                                            <li class="list-group-item">è²“æ²™</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!-- ª¯ª¯ -->
+                            <!-- ç‹—ç‹— -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        ª¯ª¯±M°Ï
+                                        ç‹—ç‹—å°ˆå€
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">ª¯ª¯¹}®Æ</li>
-                                            <li class="list-group-item">ª¯ª¯¥D­¹Åø</li>
-                                            <li class="list-group-item">ª¯ª¯°Æ­¹Åø</li>
-                                            <li class="list-group-item">ª¯ª¯¹s­¹</li>
-                                            <li class="list-group-item">ª¯ª¯¥Î«~</li>
+                                            <li class="list-group-item">ç‹—ç‹—é£¼æ–™</li>
+                                            <li class="list-group-item">ç‹—ç‹—ä¸»é£Ÿç½</li>
+                                            <li class="list-group-item">ç‹—ç‹—å‰¯é£Ÿç½</li>
+                                            <li class="list-group-item">ç‹—ç‹—é›¶é£Ÿ</li>
+                                            <li class="list-group-item">ç‹—ç‹—ç”¨å“</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -127,21 +127,21 @@ pageContext.setAttribute("list", list);
                 <div class="col-lg-9">
                     <div class="shop_main_area_wrapper">
                         <div class="shop_heading_sort_area">
-<!--                         	»¡©ú§ä¨ì´X­Ó°Ó«~ -->
+<!--                         	èªªæ˜æ‰¾åˆ°å¹¾å€‹å•†å“ -->
                             <div class="shop_main_area_heading">
                                 <h3>We found 29 items</h3>
                             </div>
                         </div>
                         <div class="shop_item_wrapper">
                             <div class="row">
-                                <!-- ¤@­Ó class="col-lg-4 col-md-6 col-sm-12 col-12" ´N¬O¤@­Ócomm_item-->
+                                <!-- ä¸€å€‹ class="col-lg-4 col-md-6 col-sm-12 col-12" å°±æ˜¯ä¸€å€‹comm_item-->
                                 <%@ include file="page1.file" %>
                                 <c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
 										end="<%=pageIndex+rowsPerPage-1%>">
 									<div class="col-lg-4 col-md-6 col-sm-12 col-12">
                                     <div class="shop_main_item">
                                         <div class="shop_item_img">
-<!--                                         	§ä³æ¿W¤@­Ócommªº«ö¶s -->
+<!--                                         	æ‰¾å–®ç¨ä¸€å€‹commçš„æŒ‰éˆ• -->
                                             <a href="shop-details.html"><img src="../assets/img/shop/shop-1.png"
                                                     alt="img"></a>
                                         </div>
@@ -158,7 +158,7 @@ pageContext.setAttribute("list", list);
 											            <input type="number" name="purchasing_amount" value="1" min="1">
 											        </div>
 											    </div>
-											    <input type="submit" value="¥[¤JÁÊª«¨®">
+											    <input type="submit" value="åŠ å…¥è³¼ç‰©è»Š">
 											    <input type="hidden" name="action" value="add_comm_to_cart">
 											    <input type="hidden" name="commId" value="${comm.commId}">
 											    
@@ -216,7 +216,7 @@ pageContext.setAttribute("list", list);
         </div>
     </section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script

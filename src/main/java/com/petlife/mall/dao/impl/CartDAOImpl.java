@@ -77,7 +77,7 @@ public class CartDAOImpl implements CartDAO {
 	    try {
 	        Session session = getSession();
 	        List<Cart> carts = session.createQuery("FROM Cart c WHERE c.user = :user ORDER BY c.comm.seller.sellerId", Cart.class)
-	                .setParameter("user", user) // 注意这里的改动
+	                .setParameter("user", user)
 	                .getResultList();
 	        return carts; 
 	    } catch (Exception e) {
