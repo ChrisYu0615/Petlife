@@ -59,10 +59,11 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
-				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
-				<span class="brand-text font-weight-light">PetLife後臺管理</span>
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+				class="brand-link"> <img src="../dist/img/main_logo.png"
+				alt="AdminLTE Logo" class="brand-image img-corners elevation-3 logo"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">PetLife後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -87,73 +88,60 @@ Admin admin = (Admin) session.getAttribute("admin");
 							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
 							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
 								<p>修改管理員資料</p>
-						</a></li>   	
+						</a></li>
 
-          				<li class="nav-item">
-          				  <a href="#" class="nav-link">
-          				    <i class="fas fa-solid fa-users"></i>
-          				    <p>
-          				      會員管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>一般會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>賣家會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>收容所會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待審核會員</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>		
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
+								<p>
+									會員管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>一般會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>賣家會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>收容所會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待審核會員</p>
+								</a></li>
+							</ul></li>
 
-          				<li class="nav-item menu-open">
-          				  <a href="#" class="nav-link active">
-          				    <i class="fas fa-solid fa-newspaper"></i>
-          				    <p>
-          				      文章管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>文章列表</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待處理檢舉</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>已處理檢舉</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>						
+						<li class="nav-item menu-open"><a href="#"
+							class="nav-link active"> <i class="fas fa-solid fa-newspaper"></i>
+								<p>
+									文章管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>文章列表</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待處理檢舉</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>已處理檢舉</p>
+								</a></li>
+							</ul></li>
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
@@ -167,8 +155,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
-								class="fas fa-sign-out-alt"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
 					</ul>
@@ -189,7 +178,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
+								<li class="breadcrumb-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">文章管理</li>
 							</ol>
 						</div>

@@ -41,7 +41,7 @@ public class ReportForum {
     @Expose
     private ReportType reportType;
 
-    @Column(name = "report_forum_time", nullable = false, insertable = false)
+    @Column(name = "report_forum_time", insertable = false)
     @Expose
     private Timestamp reportForumTime;
 
@@ -51,7 +51,6 @@ public class ReportForum {
 
     @ManyToOne	
     @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
-    @Expose
     private Admin admin;
 
     @Column(name = "admin_reply", columnDefinition = "longtext")
