@@ -39,8 +39,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return dao.getAll();
+    public List<Comment> getAllComments(Integer articleId) {
+        return dao.getAll(articleId);
     }
 
     // 可能的其他方法

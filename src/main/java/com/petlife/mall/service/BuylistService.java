@@ -25,8 +25,11 @@ public interface BuylistService {
 	List<Buylist> getAllBuylists();
 	
 	// 根據訂單狀態ID查詢
-    List<Buylist> getBuylistsByState(Integer buylistState);
+    List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId);
     
+    // Cart用增多個
+	void addMultipleBuylists(List<Buylist> buylists);
+
     Double getUserRatingScore(Integer userId);
 }
 

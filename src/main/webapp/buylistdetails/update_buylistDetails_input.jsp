@@ -465,28 +465,6 @@ th, td {
 							value="<%=buylistDetails.getBuylistDetailsPurchaseAmount()%>"
 							size="45" /></td>
 					</tr>
-					<tr>
-						<td>會員評價星等:</td>
-						<td><input type="TEXT" name="memberRatingStars"
-							value="<%=buylistDetails.getMemberRatingStars()%>" size="45" /></td>
-					</tr>
-					<tr>
-						<td>買家評價敘述:</td>
-						<td><input type="TEXT" name="buyerEvaluateNarrative"
-							value="<%=buylistDetails.getBuyerEvaluateNarrative()%>" size="45" /></td>
-					</tr>
-					<tr>
-						<td>買家評價時間:</td>
-						<td><input name="buyerEvaluateTime" id="buyerEvaluateTime"
-							type="text" value="<%=buylistDetails.getBuyerEvaluateTime()%>">
-							<div>YYYY-MM-DD HH:mm:ss</div></td>
-					</tr>
-					<tr>
-						<td>退貨原因:</td>
-						<td><input type="TEXT" name="returnReasons"
-							value="<%=buylistDetails.getReturnReasons()%>" size="45" /></td>
-					</tr>
-
 					<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
 					<!-- 	<tr> -->
 					<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->

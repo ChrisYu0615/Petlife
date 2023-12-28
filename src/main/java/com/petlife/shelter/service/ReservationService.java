@@ -15,6 +15,8 @@ public interface ReservationService {
 	
 	Reservation getResByResType(Integer resId);
 	
+	Reservation getResByResId(Integer resId);
+	
 	List<Reservation> getAll();
 	
 	List<Reservation> getAll(Integer userId);

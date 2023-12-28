@@ -22,7 +22,7 @@ import com.google.gson.annotations.Expose;
 public class PetPhoto implements java.io.Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "pet_photo_id", updatable = false)
+	@Column(name = "pet_photo_id")
 	@Expose
 	private Integer photoId;
 

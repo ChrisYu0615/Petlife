@@ -21,8 +21,12 @@ public class PetPhotoServiceImpl implements PetPhotoService {
 		return Petphoto;
 	}
 	@Override
-	public PetPhoto getOnePet(Integer id) {
+	public PetPhoto getOnePetphoto(Integer id) {
 		return dao.getById(id);
+	}
+	@Override
+	public void deletePetPhoto(Integer id) {
+		 dao.delete(id);
 	}
 
 	

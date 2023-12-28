@@ -1,3 +1,125 @@
+//petUpdate 讀取圖片
+function previewImage() {
+	var fileInput = document.getElementById('addPetPhoto');
+
+	// Check if any file is selected
+	if (fileInput.files.length > 0) {
+		for (var i = 0; i < fileInput.files.length; i++) {
+			// Get the reference to the table body
+			var tbody = document.getElementById("photoTable").getElementsByTagName('tbody')[0];
+		
+			// Create a new row and cells
+			var newRow = tbody.insertRow();//<tr></tr>
+			var td1 = newRow.insertCell(0);//<td></td>
+			var td2 = newRow.insertCell(1);//<td></td>
+			 
+			// Set cell content (you can customize this part)
+			td1.innerHTML = '<button type="button" onclick="deleteRow(this)" class="btn btn-primary put_delete_photo btn-sm">移除</button>';
+			var img = document.createElement('img');//<img></img>
+			img.name = "petphoto";
+			// Create a FileReader
+		  	var reader = new FileReader();
+		
+		 	// Set up the FileReader to load the image as a data URL
+		 	reader.onload = function() {
+		    // Set the data URL as the src attribute of the image
+		    	img.src = reader.result;
+			};
+		
+		  	// Read the selected file as a data URL
+		  	reader.readAsDataURL(fileInput.files[i]);
+			img.width = 100;
+			td2.appendChild(img);
+			
+		}
+	}
+}
+
+function ReAppendPhotos() {
+	// 取得隱藏input 標籤
+    var imageInput = document.getElementById('addPetPhoto');
+	imageInput.value = '';
+	var table = document.getElementById('photoTable');
+	//使用迴圈取得每一row
+    for (var i = 0; i < table.rows.length; i++) {
+      var row = table.rows[i];
+
+      // 取得目前<img>元素
+      var imgElement = row.cells[1].querySelector('img');
+		if (imgElement === null) continue;// 該行找不到照片
+		if (imgElement.id != '') continue;// 既有的照片
+		
+      	var blob = dataURItoBlob(imgElement.src);
+     
+        var newFile = new File([blob], 'image.jpg', { type: 'image/jpg' });
+
+        //將新file 加入
+        var existingFileList = imageInput.files;
+        var updatedFileList = appendToFileList(existingFileList, newFile);
+        imageInput.files = updatedFileList.files;
+    }
+}
+// Data URL->Blob
+  function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], { type: mimeString });
+ }
+function appendToFileList(existingFileList, newFile) {
+  // 建立新的array，將目前有的文件加入
+  var files = Array.from(existingFileList);
+
+  // 將文件添加到newFile
+  files.push(newFile);
+
+  // 建立 FileList 
+  var newFileList = new DataTransfer();
+  
+  //將文件添加到新的 FileList
+  files.forEach(function(file) {
+    newFileList.items.add(file);
+  });
+
+  return newFileList;
+}
+ 
+//刪除該tr
+function addRow() {
+	$('#addPetPhoto').click();
+}
+//刪除該tr
+function deleteRow(button) {
+	
+	var row = button.parentNode.parentNode;
+	var imgElement = row.cells[1].querySelector('img');
+	
+	if (imgElement.id != '') {
+		var deletePhto = document.createElement('input');
+		deletePhto.type="hidden";
+		deletePhto.name="deletePhoto";
+		deletePhto.value=imgElement.id;
+		
+		var petUpdate = document.getElementById('petUpdate');
+		petUpdate.appendChild(deletePhto);
+	
+		
+	}
+	
+
+	var table = document.getElementById("photoTable");
+
+	table.deleteRow(row.rowIndex);
+}
+
+
+
 $(document).on("click", "input.pet_type", function() {
 	var type = $(this).val();
 	var dataURL = `../project/pet?action=getCompositePetVarietiesQueryAsync&type=${type}`
@@ -48,16 +170,7 @@ $(document).on("click", "#search_btn", function() {
 	if (petVariety != "請先選擇種類"&& petVariety!="請選擇品種") {
 		dataURL = dataURL + `&petVarietyId=${petVariety}`;
 	}
-//	else if (petVariety === "請選擇品種") {
-//		var select = $('#petVarietyId');
-//		var allOptions = select.find('option');
-//
-//		// 在控制台中輸出所有選項的值和文本
-//		allOptions.each(function(index, option) {
-//			console.log('Value: ' + $(option).val() + ', Text: ' + $(option).text());
-//			dataURL = dataURL + `&petVarietyId=${$(option).val()}`;
-//		});
-//	}
+
 	var petNum = $("input[name='petNum']").val();
 	if (petNum != "") {
 		dataURL = dataURL + `&petNum=${petNum}`;
@@ -167,3 +280,9 @@ $(document).on("click", "input[name='adopted']", function() {
 		$("#pet_adopt_no").prop('checked', true);
 	}
 });
+
+$(document).on("click","#petUpdate",function(e){
+		e.preventDefault();
+		ReAppendPhotos();
+		$("#form_update").submit();
+})

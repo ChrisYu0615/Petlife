@@ -3,6 +3,7 @@ package com.petlife.forum.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.petlife.forum.entity.Article;
 import com.petlife.forum.entity.ArticleImg;
-import com.petlife.forum.service.ArticleService;
+import com.petlife.forum.entity.Forum;
 import com.petlife.forum.service.ArticleImgService;
+import com.petlife.forum.service.ArticleService;
+import com.petlife.forum.service.ForumService;
 import com.petlife.forum.service.impl.ArticleImgServiceImpl;
 import com.petlife.forum.service.impl.ArticleServiceImpl;
+import com.petlife.forum.service.impl.ForumServiceImpl;
+import com.petlife.pet.entity.PetPhoto;
+import com.petlife.user.entity.User;
 
 @WebServlet("/art/art.do")
 @MultipartConfig
@@ -81,6 +88,12 @@ public class ArticleServlet extends HttpServlet {
 		case "getArticleById":
 			forwardPath = getArticleById(req, res);
 			break;
+		case "getTopArticlesByCTR":
+	        forwardPath = getTopArticlesByCTR(req, res);
+	        break;
+		case "getArticlesByForumId":
+	        forwardPath = getArticlesByForumId(req, res);
+	        break;	    
 		case "getArticleImgById":
 			getArticleImgById(req, res);
 			break;
@@ -94,7 +107,47 @@ public class ArticleServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
+	
+	private String getArticlesByForumId(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    // 从请求中获取论坛ID参数
+	    String ForumId = req.getParameter("forumId");
+	    Integer forumId = Integer.parseInt(ForumId);
 
+	    // 从服务层获取与论坛ID相关联的文章列表
+	    List<Article> articlesByForum = articleService.getArticlesByForumId(forumId);
+
+	    // 将文章列表设置为请求属性
+	    req.setAttribute("articlesByForum", articlesByForum);
+
+	    // 返回适当的 JSP 页面路径
+	    return "/article/ArticleBySort.jsp";
+	}
+	
+	private String getTopArticlesByCTR(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    // 从请求中获取论坛ID参数
+	    String strForumId = req.getParameter("forumId");
+	    Integer forumId = null;
+	    
+	    
+	    try {
+	        forumId = Integer.parseInt(strForumId);
+	    } catch (NumberFormatException e) {
+	        // 如果转换失败，可能需要重定向到错误页面或设置错误消息
+	        req.setAttribute("errorMessage", "无效的论坛ID");
+	        return "/article/ArticleTop.jsp"; // 替换为实际的错误页面路径
+	    }
+
+	    // 根据论坛ID获取热门文章
+	    List<Article> topArticles = articleService.getTopArticlesByCTR(forumId, 5);
+
+	    // 将获取到的热门文章列表设置到请求属性中
+	    req.setAttribute("topArticles", topArticles);
+
+	    // 返回适当的 JSP 页面路径
+	    return "/article/ArticleTop.jsp"; // 确保这是正确的JSP页面路径
+	}
+
+	
 	private void getArticleImgById(HttpServletRequest req, HttpServletResponse res) {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
 		ArticleImg articleImg = articleImgService.getArticleImgById(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
@@ -153,7 +206,7 @@ public class ArticleServlet extends HttpServlet {
 				}
 			}
 		}
-//		req.setAttribute("articleImg", articleImg); //這裡會對應到 spec-blog的 <%Article article = (Article)request.getAttribute("article");%> 來設置他的值  注意名稱要對應到
+		req.setAttribute("articleImg", articleImg); //這裡會對應到 spec-blog的 <%Article article = (Article)request.getAttribute("article");%> 來設置他的值  注意名稱要對應到
 
 	}
 
@@ -161,7 +214,9 @@ public class ArticleServlet extends HttpServlet {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
 		Article article = articleService.getArticleByArticleId(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
 		req.setAttribute("article", article); // 這裡會對應到 spec-blog的 <%Article article =
-												// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
+														// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
+		//瀏覽數			
+		articleService.updateView(articleId);
 		return "/article/spec-blog.jsp";
 	}
 
@@ -195,7 +250,14 @@ public class ArticleServlet extends HttpServlet {
 		} else {
 			return "/art/art.do?action=getAllArticles";
 		}
-
+		
+	String selectArticle  =	req.getParameter("selectArticle");
+	if(selectArticle!=null && selectArticle.length()>0) {
+		List<Article> list = articleService.getArticlesByCompositeQuery(map);
+		req.setAttribute("list", list);
+		return "/article/Articleindex2.jsp";
+	}
+	
 		return "/admin/article_management.jsp";
 	}
 
@@ -243,7 +305,6 @@ public class ArticleServlet extends HttpServlet {
 		}
 
 		/*************************** 2.開始查詢資料 *****************************************/
-//  CouponService coupoService = new CouponService();
 		Article article = articleService.getArticleByArticleId(articleId);
 
 		if (article == null) {
@@ -253,18 +314,19 @@ public class ArticleServlet extends HttpServlet {
 		if (!errorMsgs.isEmpty()) {
 			return "/article/select_page.jsp";// 程式中斷
 		}
+		
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 		req.setAttribute("artcle", article); // 資料庫取出的manage物件,存入req
-		return "/article/listOneCoupon.jsp";
+		return "/article/listOneArticle.jsp";
 	}
-
+	/*************************** 1.更新一筆文章(Send the Success view) *************/
 	private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId"));
 		Article article = articleService.getArticleByArticleId(articleId);
 
 		req.setAttribute("article", article);
-		return "/article/update_article_input.jsp";
+		return "/article/blog-details2.jsp";
 	}
 
 	private String update(HttpServletRequest req, HttpServletResponse res) {
@@ -275,9 +337,14 @@ public class ArticleServlet extends HttpServlet {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 		Integer articleId = Integer.valueOf(req.getParameter("articleId"));
 
-		Integer usertId = Integer.valueOf(req.getParameter("userId"));
+		User user = (User) req.getSession().getAttribute("user");
+	    Integer userId = user.getUserId();
+	    	if (userId == null) {
+	        errorMsgs.add("無法獲取用戶信息");
+	    }
+	    System.out.println(user.getUserId());
 
-		Integer forumArtId = Integer.valueOf(req.getParameter("forumArtId"));
+	    Integer forumName = Integer.valueOf(req.getParameter("forumName"));
 
 		String articleName = req.getParameter("articleName");
 
@@ -292,119 +359,167 @@ public class ArticleServlet extends HttpServlet {
 			updateTime = new java.sql.Timestamp(System.currentTimeMillis());
 			errorMsgs.add("請輸入文章發布時間");
 		}
-		Integer ctr = Integer.valueOf(req.getParameter("ctr"));
-
+//		articleService.getArticleByArticleId(articleId);
+//		Integer ctr = 1000;
 		Boolean state = Boolean.valueOf(req.getParameter("state"));
-//  Timestamp endDate  = null;
-//  try {
-//   endDate = java.sql.Timestamp.valueOf(req.getParameter("endDate").trim());
-//  } catch (IllegalArgumentException e) {
-//   endDate = new java.sql.Timestamp(System.currentTimeMillis());
-//   errorMsgs.add("請輸入管理員最後上線時間!");
-//  }
-
-//  Integer discountAmount =  Integer.valueOf(req.getParameter("discountAmount"));
-
-		Article article = new Article();
-		article.setArticleId(articleId);
-//  article.setUserId(usertId);
-//  article.setForumArtId(forumArtId);
-		article.setArticleContent(articleContent);
-//  article.setUpdatTime(updateTime);
-		article.setCtr(ctr);
-		article.setState(state);
+		
+	    // 查找對應的論壇類別
+	    ForumService forumService = new ForumServiceImpl();
+	    Forum forum = forumService.getForumById(forumName);
+	    if (forum == null) {
+	        errorMsgs.add("找不到對應的論壇類別");
+	    }
+	    System.out.println(forumName);
+		
+		Article article = articleService.getArticleByArticleId(articleId);
+		
+		article.setArticleName(articleName);
+	    article.setArticleContent(articleContent);
+	    article.setForum(forum);
+	    article.setUpdateTime(updateTime);
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("article", article); // 含有輸入格式錯誤的manage物件,也存入req
-			return "/article/update_article_input.jsp"; // 程式中斷
+			return "/article/blog-details2.jsp"; // 程式中斷
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
 		articleService.updateArticle(article);
-		req.setAttribute("article", articleService.getArticleByArticleId(articleId));
+//		req.setAttribute("article", articleService.getArticleByArticleId(articleId));
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 		req.setAttribute("article", article); // 資料庫update成功後,正確的的manage物件,存入req
-		return "/article/listarticle.jsp";
+		return "/article/spec-blog.jsp";
 	}
 
-	private String insert(HttpServletRequest req, HttpServletResponse res) {
-		// 錯誤處理
-		List<String> errorMsgs = new ArrayList<>();
-		req.setAttribute("errorMsgs", errorMsgs);
-		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-//  String couponName = req.getParameter("couponName");
-//  String couponNameReg = "^[\\u4e00-\\u9fa5]{2,}$";
-//   if (couponName == null || couponName.trim().length() == 0) {
-//    errorMsgs.add("管理員姓名: 請勿空白");
-//   } else if (!couponName.trim().matches(couponNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-//    errorMsgs.add("管理員姓名: 只能是中文, 且長度必需大於2個字");
-//   }
-//
-//  String couponContent = req.getParameter("couponContent"); 
-//  
-//  Integer conditionsOfUse = Integer.valueOf(req.getParameter("conditionsOfUse"));
-//  
-//  Timestamp startDate  = null;                                              
-//  try {
-//   startDate = java.sql.Timestamp.valueOf(req.getParameter("startDate").trim());
-//  } catch (IllegalArgumentException e) {
-//   startDate = new java.sql.Timestamp(System.currentTimeMillis());
-//   errorMsgs.add("請輸入管理員最後上線時間!");
-//  }
-//  
-//  java.sql.Timestamp endDate  = null;                                             
-//  try {
-//   endDate = java.sql.Timestamp.valueOf(req.getParameter("endDate").trim());
-//  } catch (IllegalArgumentException e) {
-//   endDate = new java.sql.Timestamp(System.currentTimeMillis());
-//   errorMsgs.add("請輸入管理員最後上線時間!");
-//  }
-//  
-//  Integer discountAmount =  Integer.valueOf(req.getParameter("discountAmount"));
-		Integer usertId = Integer.valueOf(req.getParameter("userId"));
+	private String insert(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+//		 System.out.println("ArtServlet :  Entry");
+		    // 錯誤處理
+		    List<String> errorMsgs = new ArrayList<>();
+		    req.setAttribute("errorMsgs", errorMsgs);
+		    
+//		    ArticleImg articleImg = new ArticleImg();
+		    
+		    for (Part part : req.getParts()) {
+				if (!part.getName().equals("articlePhoto"))
+					continue;
+				InputStream in = part.getInputStream();
+				byte[] articlePhoto = null;
+				if (in.available() != 0) {
+					articlePhoto = new byte[in.available()];
+					in.read(articlePhoto);
+					in.close();
+					// 將抓取的照片存進petphoto->table
+					ArticleImg articleImg = new ArticleImg();
+//					articleImg.setArticle(article);
+					articleImg.setArticleImg(articlePhoto);
+//					articleImg.getArticleImg().;
+				}
+			}
+		    
+		    
+		    // 1.接收請求參數 - 輸入格式的錯誤處理
+		    Article article = new Article();
+//		    String articleId = req.getParameter("articleId");
+		    String articleName = req.getParameter("articleName");
+		    System.out.println(articleName);
+		    String articleContent = req.getParameter("articleContent");
+		    System.out.println(articleContent);
+		    Integer forumName = Integer.valueOf(req.getParameter("forumName")); // 使用 forumName 而不是 forumId
+		    System.out.println(forumName);
+		    if (articleName == null || articleName.trim().isEmpty()) {
+		        errorMsgs.add("文章名稱不得為空");
+		    }
+		    if (articleContent == null || articleContent.trim().isEmpty()) {
+		        errorMsgs.add("文章內容不得為空");
+		    }
+//		    if (forumName == null || forumName.trim().isEmpty()) {
+//		        errorMsgs.add("請選擇論壇分類");
+//		    }
 
-		Integer forumArtId = Integer.valueOf(req.getParameter("forumArtId"));
+		    // 如果有錯誤，返回表單頁面
+		    if (!errorMsgs.isEmpty()) {
+		        req.setAttribute("article", new Article());
+		        return "/article/addArticle.jsp";
+		    }
+//		    Integer articleId = null;
+//		    System.out.println(articleId);
+		    Integer ctr = 10;
+		    System.out.println(ctr);
+		    Boolean state = true;
+		    System.out.println(state);
+		    System.out.println(req.getParameter("articlePhoto"));
+		    try {
+//		        ctr = Integer.valueOf(req.getParameter("ctr"));
+//		        state = Boolean.valueOf(req.getParameter("state"));
+		    } catch (NumberFormatException e) {
+		        errorMsgs.add("計數器或狀態格式不正確");
+		    } 
+		  
 
-		String articleContent = req.getParameter("articleContent");
+		
+		    User user = (User) req.getSession().getAttribute("user");
+		    Integer userId = user.getUserId();
+		    if (userId == null) {
+		        errorMsgs.add("無法獲取用戶信息");
+		    }
+		    System.out.println(user.getUserId());
 
-		Timestamp updateTime = null;
-		try {
-			updateTime = java.sql.Timestamp.valueOf(req.getParameter("updateTime").trim());
-		} catch (IllegalArgumentException e) {
-			updateTime = new java.sql.Timestamp(System.currentTimeMillis());
-			errorMsgs.add("請輸入文章發布時間");
+		    // 查找對應的論壇類別
+		    ForumService forumService = new ForumServiceImpl();
+		    Forum forum = forumService.getForumById(forumName);
+		    if (forum == null) {
+		        errorMsgs.add("找不到對應的論壇類別");
+		    }
+		    System.out.println(forumName);
+
+		    // 如果有錯誤，返回表單頁面
+		    if (!errorMsgs.isEmpty()) {
+		        req.setAttribute("article", new Article());
+		        return "/article/addArticle.jsp";
+		    }
+		    
+//		    Integer user= 100000005;
+//		    System.out.println(user);
+		    // 建立文章對象並設置其屬性
+//		    Article article = new Article();
+		    article.setArticleName(articleName);
+		    article.setArticleContent(articleContent);
+		    article.setUser(user);
+		    article.setForum(forum);
+		    article.setCtr(ctr);
+		    article.setState(state);
+		    
+		    for (Part part : req.getParts()) {
+				if (!part.getName().equals("articlePhoto"))
+					continue;
+				InputStream in = part.getInputStream();
+				byte[] articlePhoto = null;
+				if (in.available() != 0) {
+					articlePhoto = new byte[in.available()];
+					in.read(articlePhoto);
+					in.close();
+					// 將抓取的照片存進petphoto->table
+					ArticleImg articleImg = new ArticleImg();
+					articleImg.setArticle(article);
+					articleImg.setArticleImg(articlePhoto);
+					article.getArticleImgs().add(articleImg);
+				}
+			}
+
+		    // 2.開始新增資料
+		    articleService.addArticle(article);
+		    
+		    
+		    // 3.新增完成,準備轉交
+		    return "/article/Articleindex.jsp";
 		}
-		Integer ctr = Integer.valueOf(req.getParameter("ctr"));
-		Boolean state = Boolean.valueOf(req.getParameter("state"));
-
-		Article article = new Article();
-//  article.setUserId(usertId);
-//  article.setForumArtId(forumArtId);
-		article.setArticleContent(articleContent);
-//  article.setUpdatTime(updateTime);
-		article.setCtr(ctr);
-		article.setState(state);
-
-		// Send the use back to the form, if there were errors
-		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("article", article); // 含有輸入格式錯誤的empVO物件,也存入req
-			return "/article/addarticle.jsp";
-		}
-
-		/*************************** 2.開始新增資料 ***************************************/
-
-		articleService.addArticle(article);
-
-		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-		return "/coupon/listAllCoupon.jsp";
-	}
 
 	private String delete(HttpServletRequest req, HttpServletResponse res) {
 //    List<String> errorMsgs = new List<String>();
-		// Store this set in the request scope, in case we need to
-		// send the ErrorPage view.
+//		 Store this set in the request scope, in case we need to
+//		 send the ErrorPage view.
 //          req.setAttribute("errorMsgs", errorMsgs);
 
 		/** 1.接收請求參數 **/
@@ -414,7 +529,7 @@ public class ArticleServlet extends HttpServlet {
 		articleService.deleteArticle(articleId);
 
 		/** 3.刪除完成,準備轉交(Send the Success view) **/
-		return "/article/listAllarticle.jsp";
+		return "/article/listAllArticle.jsp";
 //          String url = "/coupon/listAllCoupon.jsp";
 //          RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 //          successView.forward(req, res);

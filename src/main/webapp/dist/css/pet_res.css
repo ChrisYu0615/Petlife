@@ -1,11 +1,27 @@
+*{
+    box-sizing: border-box;
+    /* font-size: 20px; */
+}
+/*將lable 與 inputdate 併同一行*/
+label.date{
+	display:inline-block;
+	 height:30px;
+	margin:0px !important;
+	margin-top:15px !important;
+	margin-left:30px !important;
+/* 	 border: 1px solid black; */
+}
 
 div.res_one{
     display: inline-block;
     /* border: 1px solid black; */
     position: relative;
     width: 800px;
-    left: 75%;
-    margin-top: 30px;
+    left: 50%;
+/*     margin-top: 30px; */
+    background-color: #FFF2CC;
+     border-radius: 25px;
+     height:135px;
 }
 /* 選擇日期 */
 input#search_start, input#search_end{
@@ -38,7 +54,7 @@ button.btn{
 
 span.button{
     position: relative;
-     left: 68%;
+     left: 10%;
     margin-top: 20px;
     display: inline-block;
     width: 585px;
@@ -62,21 +78,21 @@ button.res{
 /* 預約紀錄 */
 
 div.res{
-    width: 550px;
+    width: 620px;
     /* border: 1px black solid; */
     border-radius: 8px;
     text-align: center;
     background-color: #B4B4B3;
     position: relative;
-    left: 70%;
+     left: 8%;
     height: 30px;
     padding-top: 5px;
     margin-bottom: 30px;
 }
 /* 點擊按鈕變色 */
 button.res.on{
-    color: black;
-    background-color: blanchedalmond;
+    color: white;
+    background-color: #3559E0;
 }
 
 /* table 裡面按鈕 */
@@ -97,7 +113,7 @@ img.brand-image{
 /* 標題 */
 h1{
     position: relative;
-    left: 50%;
+    left: 55%;
     background-color: lightblue;
     border-radius: 25px;
     text-align: center;
@@ -105,6 +121,15 @@ h1{
     box-shadow: 3px 3px 3px lightgray;
     /* border: 1px solid black; */
 }
+
+#button_result{
+	display:none;
+}
+/*============table -> css================ */
+table#my_res_Table{
+	  margin-top:10px;
+}
+
 
 /* 表格 header*/
 th.tb_header{
@@ -114,28 +139,49 @@ th.tb_header{
     margin-left: -50px;
     
 }
-
-
-/* 內容 間隔 */
-tr{
-    /* border: 1px solid black; */
-    display: block;
-    margin: 5px 0;
-
-}
 /* 內容長度,圓角 */
 tr.tb_con{
     background-color: #FFF2CC;
     border-radius: 25px;
     width: 850px;
 }
+th.tb_header:first-child {
+    border-radius: 15px 0 0 15px; /* 設置第一個th的左上角為圓弧形狀 */
+}
+th.tb_header:last-child {
+    border-radius: 0 15px  15px 0; /* 設置第一個th的左上角為圓弧形狀 */
+}
+tr{
+    /* border: 1px solid black; */
+    display: block;
+    margin: 5px 0;
+    width: 750px;
+     border-radius:15px;
+    box-shadow: 5px 5px 5px lightgray;
+   
+}
+
+tr.tb_header{
+	 background-color: lightgray;
+	 width:850px;
+}
 /* 內容的一格一格寬度 */
 td.tb_con{  
     width: 130px;
     text-align: center;
-    padding-top: 2px;
-    /* border: 1px solid red; */
+   
 }
+/*將所有td格式統一*/
+td{
+	padding:8px 0px 5px 0px !important;;
+    height:40px;
+}
+/*將所有th格式統一*/
+th{
+	padding:5px 0px  !important;;
+    height:35px;
+}
+
 /* 把文字敘述拿掉 */
 div.float-left{
     display: none;
@@ -143,18 +189,10 @@ div.float-left{
 /* 整個表格的邊框 */
 table.table{
     border: 0px;
-     position: relative;
-    left: 55%;
 }
 /* 表格最後一個因底下的按鈕 長度拉長 */
 th:nth-child(6n){
     width: 180px;
-}
-/* 整個表格拉到正中 */
-div.fixed-table-body{
-    position: relative;
-    left: 45%;
-    width: 900px;
 }
 /* 頁籤拉到正中 */
 div.float-right{
@@ -162,3 +200,75 @@ div.float-right{
     left: 30%;
 }
 
+/*===============================================================*/
+
+/* 頁籤區塊 */
+div.tab_container{
+	margin-top:40px;
+}
+
+div.tab_container div.tab_list_block{
+  padding-left: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 頁籤列表 */
+div.tab_container div.tab_list_block ul.tab_list{
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+div.tab_container div.tab_list_block ul.tab_list > li{
+  display: inline-block;
+}
+div.tab_container div.tab_list_block ul.tab_list > li > button{
+  text-decoration: none;
+  display: inline-block;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom:0px;
+  
+/*   border-bottom: 1px solid black; */
+  padding: 2px 20px;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  color: black;
+}
+
+/* 畫出底部黑線 */
+
+div.tab_container div.tab_list_block ul.tab_list > li > button.-on{
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid white;
+  background-color:#6C5F5B;
+  color: white;
+}
+
+/* 頁籤內容區塊 */
+div.tab_container div.tab_contents{
+  border: 1px solid black;
+  position: relative;
+  top: -1px;
+  
+  z-index: 1;
+}
+div.tab_container div.tab_contents div.tab{
+  padding: 10px;
+  display: none;
+}
+div.tab_container div.tab_contents div.tab.-on{
+  display: block;
+}
+hr{
+	margin:0px !important;
+}
+#res_result{
+	margin:0px !important;
+	padding:0px !important;
+	margin-top:40px !important;
+}

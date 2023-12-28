@@ -72,7 +72,7 @@
   <jsp:useBean id="articleSvc" scope="page" class="com.petlife.forum.service.impl.ArticleServiceImpl" />
    
   <li>
-     <FORM METHOD="post" ACTION="article.do" >
+     <FORM METHOD="post" ACTION="art.do" >
        <b>選擇文章編號:</b>
        <select size="1" name="articleId">
          <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 
@@ -85,7 +85,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="article.do" >
+     <FORM METHOD="post" ACTION="art.do" >
        <b>選擇文章標題:</b>
        <select size="1" name="articleId">
          <c:forEach var="article" items="${articleSvc.getAllArticle()}" > 

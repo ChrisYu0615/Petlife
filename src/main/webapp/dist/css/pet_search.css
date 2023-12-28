@@ -174,7 +174,13 @@ img.logo{
 table.table{
     border: 0px;
 }
-
+/*讓thead 有圓弧形*/
+.tb_header:first-child {
+    border-radius: 15px 0 0 15px; /* 設置第一個th的左上角為圓弧形狀 */
+}
+.tb_header:last-child {
+    border-radius: 0 15px  15px 0; /* 設置第一個th的左上角為圓弧形狀 */
+}
 div.fixed-table-body{
     position: relative;
     left: 50%;
@@ -187,16 +193,27 @@ th.tb_header{
     width: 120px;
     text-align: center;
     background-color: lightgray;
-    /* border: 1px solid blue; */
+
     
 }
+th.tb_header{
+    width: 120px;
+    text-align: center;
+    background-color: lightgray;
 
+    
+}
+thead.table{
+	 border-radius: 25px;
+}
 
 tr{
     /* border: 1px solid black; */
     display: block;
     margin: 5px 0;
-    width: 600px;
+    width: 750px;
+     border-radius:15px;
+    box-shadow: 5px 5px 5px lightgray;
    
 }
 tr.tb_con{

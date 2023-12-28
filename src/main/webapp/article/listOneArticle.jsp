@@ -81,13 +81,13 @@
 			<td><%=article.getState()%></td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="更新文章">
 			     <input type="hidden" name="articleId"  value="${article.articleId}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/art/art.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="下架文章">
 			     <input type="hidden" name="articleId"  value="${article.articleId}">
 			     <input type="hidden" name="action" value="delete"></FORM>

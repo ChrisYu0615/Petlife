@@ -40,4 +40,9 @@ public class CouponServiceImpl implements CouponService {
 	public List<Coupon> getAllCoupons() {
 		return dao.getAll();
 	}
+	
+	@Override
+	public Coupon getCouponByCouponName(String couponNameString) {
+		return dao.getCouponByCouponName(couponNameString);
+	}
 }

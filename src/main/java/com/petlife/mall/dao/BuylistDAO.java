@@ -18,9 +18,10 @@ public interface BuylistDAO {
 	
 	public List<Buylist> getAll();
 	//根據訂單狀態ID查詢
-	 List<Buylist> getBuylistsByState(Integer buylistState);
+	 List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId);
 
 	 Double getUserRating(Integer userId);
+	
 	}
 
 
