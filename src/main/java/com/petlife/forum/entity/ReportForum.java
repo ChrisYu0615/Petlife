@@ -51,6 +51,7 @@ public class ReportForum {
 
     @ManyToOne	
     @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
+    @Expose
     private Admin admin;
 
     @Column(name = "admin_reply", columnDefinition = "longtext")
