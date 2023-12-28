@@ -40,7 +40,7 @@ public class User {
 	@Expose
 	private String userPwd;
 
-	@Column(name = "user_name", updatable = false)
+	@Column(name = "user_name")
 	@Expose
 	private String userName;
 
@@ -52,7 +52,7 @@ public class User {
 	@Expose
 	private Integer userPwdErrTimes;
 
-	@Column(name = "birthday", updatable = false)
+	@Column(name = "birthday")
 	@Expose
 	private Date birthday;
 
@@ -64,7 +64,7 @@ public class User {
 	@Expose
 	private String phoneNum;
 
-	@Column(name = "gender", updatable = false)
+	@Column(name = "gender")
 	@Expose
 	private Boolean gender;
 
