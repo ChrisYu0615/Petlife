@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-	$(".headerPage").load("../components/header.html");
-	$(".footerPage").load("../components/footer.html");
 
 	// 添加獲取驗證碼按鈕的點擊事件處理程序
 	var getauthencode_btn = document.getElementById('getauthencode');
@@ -280,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					if (data.endsWith("html")) {
+					if (data.endsWith("jsp")) {
 						redirectPage(data);
 						return;
 					}

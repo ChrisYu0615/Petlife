@@ -12,6 +12,7 @@ import com.petlife.util.Idao;
 
 
 
+
 public class PetPhotoDAOImpl implements Idao<PetPhoto> {
 private SessionFactory factory;
 	
@@ -49,14 +50,18 @@ private SessionFactory factory;
 
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("PetPhotoDAOImpl : delete Entry");
+		Session session = getSession();
+		PetPhoto petPhoto = session.get(PetPhoto.class, id);
+		if (petPhoto != null) session.delete(petPhoto);
+//		PetPhoto petPhoto = new PetPhoto();
+//		petPhoto.setPhotoId(id);
+//		session.delete(petPhoto);
 	}
 
 	@Override
 	public PetPhoto getById(Integer id) {
 		try {
-			System.out.println(id);
 			PetPhoto petPhoto = getSession().createQuery("from PetPhoto where photoId =" + id, PetPhoto.class).uniqueResult();
 			return petPhoto;
 		} catch (Exception e) {

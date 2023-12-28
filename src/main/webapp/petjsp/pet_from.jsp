@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="com.petlife.shelter.entity.Shelter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,14 @@
     <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- my_css -->
     <link rel="stylesheet" href="../dist/css/form.css">
+    <% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
+%>
 	
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -65,13 +74,7 @@
                         <!--   收容所到時后關起來,種類打開  -->
                         <span id="showForm"></span>
                         <div class="col ">
-                                <label>收容所:</label>
-                                <select class="form-select form-select-sm  select1" aria-label=".form-select-sm example" name="shelterId" id="shelterId">
-                                    <option selected>請選擇收容所</option>
-                                    <option value="300000001">臺北市動物之家</option>
-                                    <option value="300000002">新北市新店動物之家</option>
-                                    <option value="300000003">新北市板橋區公立動物之家</option>
-                                </select>
+                             <input type="hidden" name="id" value="<%=id %>" id="shelterId" >
                     
                             </div>
 	                        

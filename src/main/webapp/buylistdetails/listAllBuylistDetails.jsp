@@ -5,7 +5,7 @@
 <%@page import="com.petlife.mall.service.BuylistDetailsService"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
 <%@page import="com.petlife.mall.entity.Comm"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 
@@ -22,8 +22,8 @@ pageContext.setAttribute("list", list);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>©Ò¦³­q³æ½s¸¹²Ó¶µ¸ê®Æ</title>
-<!-- ÅıLoading, please wait®ø¥¢ -->
+<title>æ‰€æœ‰è¨‚å–®ç·¨è™Ÿç´°é …è³‡æ–™</title>
+<!-- è®“Loading, please waitæ¶ˆå¤± -->
 <link rel="stylesheet" href="/buylist.css">
 
 <!-- Google Font: Source Sans Pro -->
@@ -82,47 +82,47 @@ th, td {
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
-		<!-- ¤W¤èNavbar -->
+		<!-- ä¸Šæ–¹Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- ¤W¤è¥ªÃäLeft navbar links -->
+			<!-- ä¸Šæ–¹å·¦é‚ŠLeft navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a
-					href="test.html" class="nav-link">Home</a></li>
-				<!-- ³o¬Ocontact bar -->
+<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+<!-- 					href="test.html" class="nav-link">Home</a></li> -->
+				<!-- é€™æ˜¯contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> -->
 			</ul>
 
-			<!-- ¤W¤è¥kÃäRight navbar links -->
+			<!-- ä¸Šæ–¹å³é‚ŠRight navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-				<li class="nav-item"><a class="nav-link"
-					data-widget="navbar-search" href="#" role="button"> <i
-						class="fas fa-search"></i>
-				</a>
-					<div class="navbar-search-block">
-						<form class="form-inline">
-							<div class="input-group input-group-sm">
-								<input class="form-control form-control-navbar" type="search"
-									placeholder="Search" aria-label="Search">
-								<div class="input-group-append">
-									<button class="btn btn-navbar" type="submit">
-										<i class="fas fa-search"></i>
-									</button>
-									<button class="btn btn-navbar" type="button"
-										data-widget="navbar-search">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div></li>
+<!-- 				<li class="nav-item"><a class="nav-link" -->
+<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
+<!-- 						class="fas fa-search"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="navbar-search-block"> -->
+<!-- 						<form class="form-inline"> -->
+<!-- 							<div class="input-group input-group-sm"> -->
+<!-- 								<input class="form-control form-control-navbar" type="search" -->
+<!-- 									placeholder="Search" aria-label="Search"> -->
+<!-- 								<div class="input-group-append"> -->
+<!-- 									<button class="btn btn-navbar" type="submit"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 									<button class="btn btn-navbar" type="button" -->
+<!-- 										data-widget="navbar-search"> -->
+<!-- 										<i class="fas fa-times"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 					</div></li> -->
 
-				<!-- ³oÃä¬O¤W¤è¥kÃä²á¤Ñ³qª¾¦C -->
+				<!-- é€™é‚Šæ˜¯ä¸Šæ–¹å³é‚ŠèŠå¤©é€šçŸ¥åˆ— -->
 				<!-- Messages Dropdown Menu -->
 				<!-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -186,52 +186,52 @@ th, td {
                     </div>
                 </li> -->
 
-				<!-- ³o¸Ì¬O¤W¤è¥kÃä°T®§³qª¾¦C -->
+				<!-- é€™è£¡æ˜¯ä¸Šæ–¹å³é‚Šè¨Šæ¯é€šçŸ¥åˆ— -->
 				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown"><a class="nav-link"
-					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-						class="badge badge-warning navbar-badge">15</span>
-				</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15
-							Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-envelope mr-2"></i> 4 new messages <span
-							class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-users mr-2"></i> 8 friend requests <span
-							class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-							3 new reports <span class="float-right text-muted text-sm">2
-								days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All
-							Notifications</a>
-					</div></li>
+<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
+<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
+<!-- 						class="badge badge-warning navbar-badge">15</span> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+<!-- 						<span class="dropdown-item dropdown-header">15 -->
+<!-- 							Notifications</span> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
+<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i -->
+<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
+<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
+<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
+<!-- 								days</span> -->
+<!-- 						</a> -->
+<!-- 						<div class="dropdown-divider"></div> -->
+<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
+<!-- 							Notifications</a> -->
+<!-- 					</div></li> -->
 
-				<!-- ³o­Ó¬O¤W¤è¥kÃä¥ş¿Ã¹õ¼Ò¦¡ -->
+				<!-- é€™å€‹æ˜¯ä¸Šæ–¹å³é‚Šå…¨è¢å¹•æ¨¡å¼ -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
 
-				<!-- ³o¸Ì¥i¥H°µµn¤J­×§ï©Îµn¥X¥\¯à -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown"
-					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false"> <i
-						class="fas fa-solid fa-user"></i>
-				</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-						<a class="dropdown-item" href="/google">­×§ï±b¸¹¸ê°T</a> <a
-							class="dropdown-item" href="/yahoo">µn¥X</a>
-					</div></li>
-			</ul>
+				<!-- é€™è£¡å¯ä»¥åšç™»å…¥ä¿®æ”¹æˆ–ç™»å‡ºåŠŸèƒ½ -->
+<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
+<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
+<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
+<!-- 						class="fas fa-solid fa-user"></i> -->
+<!-- 				</a> -->
+<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
+<!-- 						<a class="dropdown-item" href="/google">ä¿®æ”¹å¸³è™Ÿè³‡è¨Š</a> <a -->
+<!-- 							class="dropdown-item" href="/yahoo">ç™»å‡º</a> -->
+<!-- 					</div></li> -->
+<!-- 			</ul> -->
 		</nav>
 		<!-- /.navbar -->
 
@@ -245,7 +245,7 @@ th, td {
 			<a href="test.html" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Ãd·R¥Í¬¡«á»OºŞ²z</span>
+				<span class="brand-text font-weight-light">å¯µæ„›ç”Ÿæ´»å¾Œè‡ºç®¡ç†</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -257,7 +257,7 @@ th, td {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block"><%=seller.getSellerName()%>½æ®a¡A§A¦n</a>
+						<a href="#" class="d-block"><%=seller.getSellerName()%>è³£å®¶ï¼Œä½ å¥½</a>
 					</div>
 				</div>
 
@@ -269,91 +269,91 @@ th, td {
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
 						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>³qª¾</p> -->
+						<!-- 								<p>é€šçŸ¥</p> -->
 						<!-- 						</a></li> -->
-						<!-- ¥H¤U¬O¥i¦ùÁYªº°¼ÃäÄæ -->
+						<!-- ä»¥ä¸‹æ˜¯å¯ä¼¸ç¸®çš„å´é‚Šæ¬„ -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									­q³æºŞ²z <i class="right fas fa-angle-left"></i>
+									è¨‚å–®ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylist.jsp" class="nav-link active">
 										<i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³­q³æ</p>
+										<p>æ‰€æœ‰è¨‚å–®</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState0.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>0:«İ¥I´Ú</p>
+										<p>0:å¾…ä»˜æ¬¾</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState1.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>1:«İ¥X³f</p>
+										<p>1:å¾…å‡ºè²¨</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState2.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>2:¹B°e¤¤</p>
+										<p>2:é‹é€ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState3.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>3:­q³æ¤w§¹¦¨</p>
+										<p>3:è¨‚å–®å·²å®Œæˆ</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState4.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>4:­q³æ¤w¨ú®ø</p>
+										<p>4:è¨‚å–®å·²å–æ¶ˆ</p>
 								</a></li>
 								<li class="nav-item"><a
 									href="../buylist/listAllBuylistState5.jsp" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>5:°h³f/°h´Ú</p>
+										<p>5:é€€è²¨/é€€æ¬¾</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 						<li class="nav-item"><a
 							href="../buylistdetails/listAllBuylistDetails.jsp"
 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>­q³æ°Ó«~²Ó¶µ</p>
+								<p>è¨‚å–®å•†å“ç´°é …</p>
 						</a></li>
 						<!-- ========================================================== -->
 
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
-									°Ó«~ºŞ²z <i class="right fas fa-angle-left"></i>
+									å•†å“ç®¡ç† <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>¤W¬[°Ó«~</p>
+										<p>ä¸Šæ¶å•†å“</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllComm.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>©Ò¦³°Ó«~</p>
+										<p>æ‰€æœ‰å•†å“</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllCommState0.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>0:³c°â¤¤</p>
+										<p>0:è²©å”®ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllCommState1.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>1:¯Ê³f¤¤</p>
+										<p>1:ç¼ºè²¨ä¸­</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllCommState2.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>2:¤U¬[</p>
+										<p>2:ä¸‹æ¶</p>
 								</a></li>
 								<li class="nav-item"><a href="../comm/listAllCommState3.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>3:¹H³W¤U¬[</p>
+										<p>3:é•è¦ä¸‹æ¶</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
@@ -361,16 +361,17 @@ th, td {
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
 						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>¹wÄı½æ³õ</p> -->
+						<!-- 								<p>é è¦½è³£å ´</p> -->
 						<!-- 						</a></li> -->
 
 						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
 						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
-						<!-- 								<p>½æ®a¼Æ¾Ú¤¤¤ß</p> -->
+						<!-- 								<p>è³£å®¶æ•¸æ“šä¸­å¿ƒ</p> -->
 						<!-- 						</a></li> -->
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-ad"></i>
-								<p>µn¥X</p>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
+								<p>ç™»å‡º</p>
 						</a></li>
 					</ul>
 				</nav>
@@ -382,7 +383,7 @@ th, td {
 
 
 
-		<!-- ³oÃä¬O¥D¤º®e¤W¤èªº¤å¦r±Ô­z -->
+		<!-- é€™é‚Šæ˜¯ä¸»å…§å®¹ä¸Šæ–¹çš„æ–‡å­—æ•˜è¿° -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -390,15 +391,15 @@ th, td {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">­q³æºŞ²z</h1>
+							<h1 class="m-0">è¨‚å–®ç®¡ç†</h1>
 						</div>
 						<!-- /.col -->
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">­q³æºŞ²z</li>
-							</ol>
-						</div>
+<!-- 						<div class="col-sm-6"> -->
+<!-- 							<ol class="breadcrumb float-sm-right"> -->
+<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+<!-- 								<li class="breadcrumb-item active">è¨‚å–®ç®¡ç†</li> -->
+<!-- 							</ol> -->
+<!-- 						</div> -->
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -408,71 +409,67 @@ th, td {
 			<!-- /.content-header -->
 
 
-			<!-- //³oÃä¶ë¥D¤º®e¤å¦r -->
+			<!-- //é€™é‚Šå¡ä¸»å…§å®¹æ–‡å­— -->
 			<!-- /.content-wrapper -->
 			<div class="card-header">
 				<a href='addBuylistDetails.jsp'><button type="button"
 						class="btn btn-primary" id="btn_addcoupon" data-bs-toggle="modal"
-						data-bs-target="#add_coupon">·s¼W­q³æ²Ó¶µ</button></a>
+						data-bs-target="#add_coupon">æ–°å¢è¨‚å–®ç´°é …</button></a>
 			</div>
 
 			<table id="table-1">
 				<tr>
 					<td>
-						<h3>©Ò¦³­q³æ°Ó«~²Ó¶µ¸ê®Æ</h3> <!-- 						<h4> --> <!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
-						<!-- 								width="100" height="32" border="0">¦^­º­¶</a> --> <!-- 						</h4> -->
+						<h3>æ‰€æœ‰è¨‚å–®å•†å“ç´°é …è³‡æ–™</h3> <!-- 						<h4> --> <!-- 							<a href="select_page.jsp"><img src="images/back1.gif" -->
+						<!-- 								width="100" height="32" border="0">å›é¦–é </a> --> <!-- 						</h4> -->
 					</td>
 				</tr>
 			</table>
 			<!-- ====================== -->
 
 			<FORM METHOD="post" ACTION="buylistdetails.do">
-				<b>¿é¤J­q³æ°Ó«~²Ó¶µ½s¸¹:</b> <input type="text" name="buylistDetailsId">
+				<b>è¼¸å…¥è¨‚å–®å•†å“ç´°é …ç·¨è™Ÿ:</b> <input type="text" name="buylistDetailsId">
 				<input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="°e¥X">
+				<input type="submit" value="é€å‡º">
 			</FORM>
 
-			<!-- id§ï¬°Sv¨¾­«½Æ -->
+			<!-- idæ”¹ç‚ºSvé˜²é‡è¤‡ -->
 			<jsp:useBean id="buylistDetailsSv" scope="page"
 				class="com.petlife.mall.service.impl.BuylistDetailsServiceImpl" />
 
 			<FORM METHOD="post" ACTION="buylistdetails.do">
-				<b>¿ï¾Ü­q³æ°Ó«~²Ó¶µ½s¸¹:</b> <select size="1" name="buylistDetailsId">
+				<b>é¸æ“‡è¨‚å–®å•†å“ç´°é …ç·¨è™Ÿ:</b> <select size="1" name="buylistDetailsId">
 					<c:forEach var="buylistDetails"
 						items="${buylistDetailsSv.getAllBuylistDetailss()}">
 						<option value="${buylistDetails.buylistDetailsId}">${buylistDetails.buylist.getBuylistId()}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="°e¥X">
+				<input type="submit" value="é€å‡º">
 			</FORM>
 
 
 
 			<FORM METHOD="post" ACTION="buylistdetails.do">
-				<b>¿ï¾Ü°Ó«~ID:</b> <select size="1" name="buylistDetailsId">
+				<b>é¸æ“‡å•†å“ID:</b> <select size="1" name="buylistDetailsId">
 					<c:forEach var="buylistDetails"
 						items="${buylistDetailsSv.getAllBuylistDetailss()}">
 						<option value="${buylistDetails.buylistDetailsId}">${buylistDetails.comm.getCommId()}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="°e¥X">
+				<input type="submit" value="é€å‡º">
 			</FORM>
 			<
 
 			<!-- ====================== -->
 			<table>
 				<tr>
-					<th>­q³æ°Ó«~²Ó¶µID</th>
-					<th>­q³æ½s¸¹ID</th>
-					<th>°Ó«~ID</th>
-					<th>­q³æ°Ó«~²Ó¶µ»ù®æ</th>
-					<th>­q³æ°Ó«~²Ó¶µÁÊ¶R¶q</th>
-					<th>·|­ûµû»ù¬Pµ¥</th>
-					<th>¶R®aµû»ù±Ô­z</th>
-					<th>¶R®aµû»ù®É¶¡</th>
-					<th>°h³f­ì¦]</th>
-					<th>­×§ï</th>
-					<th>§R°£</th>
+					<th>è¨‚å–®å•†å“ç´°é …ID</th>
+					<th>è¨‚å–®ç·¨è™ŸID</th>
+					<th>å•†å“ID</th>
+					<th>è¨‚å–®å•†å“ç´°é …åƒ¹æ ¼</th>
+					<th>è¨‚å–®å•†å“ç´°é …è³¼è²·é‡</th>
+					<th>ä¿®æ”¹</th>
+<!-- 					<th>åˆªé™¤</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
 				<c:forEach var="buylistDetails" items="${list}"
@@ -484,30 +481,26 @@ th, td {
 						<td>${buylistDetails.comm.commId}</td>
 						<td>${buylistDetails.buylistDetailsPrice}</td>
 						<td>${buylistDetails.buylistDetailsPurchaseAmount}</td>
-						<td>${buylistDetails.memberRatingStars}</td>
-						<td>${buylistDetails.buyerEvaluateNarrative}</td>
-						<td>${buylistDetails.buyerEvaluateTime}</td>
-						<td>${buylistDetails.returnReasons}</td>
 						<td>
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"
 								style="margin-bottom: 0px;">
-								<input type="submit" value="­×§ï"> <input type="hidden"
+								<input type="submit" value="ä¿®æ”¹"> <input type="hidden"
 									name="buylistDetailsId"
 									value="${buylistDetails.buylistDetailsId}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>
-						<td>
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"
-								style="margin-bottom: 0px;">
-								<input type="submit" value="§R°£"> <input type="hidden"
-									name="buylistDetailsId"
-									value="${buylistDetails.buylistDetailsId}"> <input
-									type="hidden" name="action" value="delete">
-							</FORM>
-						</td>
+<!-- 						<td> -->
+<!-- 							<FORM METHOD="post" -->
+<%-- 								ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do" --%>
+<!-- 								style="margin-bottom: 0px;"> -->
+<!-- 								<input type="submit" value="åˆªé™¤"> <input type="hidden" -->
+<!-- 									name="buylistDetailsId" -->
+<%-- 									value="${buylistDetails.buylistDetailsId}"> <input --%>
+<!-- 									type="hidden" name="action" value="delete"> -->
+<!-- 							</FORM> -->
+<!-- 						</td> -->
 					</tr>
 				</c:forEach>
 			</table>

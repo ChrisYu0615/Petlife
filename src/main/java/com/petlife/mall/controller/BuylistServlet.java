@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -71,12 +73,13 @@ public class BuylistServlet extends HttpServlet {
 		case "insert":
 			// 來自listAllBuylist.jsp
 			forwardPath = insert(req, res);
-			System.out.println("=================================="+forwardPath+"=================================");
+			System.out
+					.println("==================================" + forwardPath + "=================================");
 			break;
 		case "delete":
 			// 來自listAllBuylist.jsp
 			forwardPath = delete(req, res);
-			break; // 新加的break
+			break; 
 		case "getBuyListByMemberId":
 			forwardPath = getBuyListByMemberId(req, res);
 			break;
@@ -86,8 +89,11 @@ public class BuylistServlet extends HttpServlet {
 		case "cancelBuylist":
 			forwardPath = cancelBuylist(req, res);
 			break;
+		case "memberRateBuylist":
+			forwardPath = memberRateBuylist(req, res);
+			break;
 		default:
-			forwardPath = "/buylist/listAllBuylist.jsp"; //2023/12/18
+			forwardPath = "/buylist/listAllBuylist.jsp"; // 2023/12/18
 			break;
 		}
 
@@ -106,6 +112,20 @@ public class BuylistServlet extends HttpServlet {
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String buylistJson = gson.toJson(buylist);
 		out.print(buylistJson);
+	}
+
+	private String memberRateBuylist(HttpServletRequest req, HttpServletResponse res) {
+		Integer buylistId = Integer.valueOf(req.getParameter("retedBuylistId").trim());
+		Integer memberId = Integer.valueOf(req.getParameter("ratedMemberId").trim());
+		Double memberRatingStar = Double.valueOf(req.getParameter("ratedStar").trim());
+		String rateReason = req.getParameter("rateReason").trim();
+
+		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
+		buylist.setMemberRatingStars(memberRatingStar);
+		buylist.setMemberEvaluateNarrative(rateReason);
+		buylist.setMemberEvaluateTime(Timestamp.valueOf(LocalDateTime.now()));
+
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
 
 	private String cancelBuylist(HttpServletRequest req, HttpServletResponse res) {
@@ -128,7 +148,7 @@ public class BuylistServlet extends HttpServlet {
 		default:
 			cancelReason = req.getParameter("cancelReason").trim();
 		}
-		
+
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
 		BuylistStateService buylistStateService = new BuylistStateServiceImpl();
 		BuylistState buylistState = buylistStateService.getBuylistStateByBuylistStateId(4);
@@ -140,7 +160,7 @@ public class BuylistServlet extends HttpServlet {
 			MailService.cancelBuylist(buylistId, sellerAcct, cancelReason);
 		});
 		thread.start();
-		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId="+memberId;
+		return "/buylist/buylist.do?action=getBuyListByMemberId&memberId=" + memberId;
 	}
 
 	private String getBuyListByMemberId(HttpServletRequest req, HttpServletResponse res) {
@@ -158,6 +178,22 @@ public class BuylistServlet extends HttpServlet {
 			forwardPath = "/buylist/listAllBuylist.jsp";
 			break;
 		}
+		//================================================================
+//		String sellerId = req.getParameter("sellerId");
+//		System.out.println("===========================" + sellerId + "============================");
+//		
+//		
+//		switch (sellerId.charAt(0)) {
+//		case '1':
+//			buylistList = buylistService.getAllBuylists(sellerId);
+//			forwardPath = "/buylist/listAllBuylist.jsp";
+//			break;
+//		case '2':
+//			buylistList = buylistService.getAllBuylists(sellerId);
+//			forwardPath = "/buylist/listAllBuylist.jsp";
+//			break;
+//		}
+		//================================================================
 		req.setAttribute("getAllBuylist", buylistList);
 		return forwardPath;
 	}
@@ -217,10 +253,10 @@ public class BuylistServlet extends HttpServlet {
 	private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
 //		System.out.println(req.getParameter("buylistId"));
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId")); // 20231206
-		System.out.println("+++" + buylistId);
+//		System.out.println("+++" + buylistId);
 
 		Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
-		System.out.println(buylist);
+//		System.out.println(buylist);
 
 		req.setAttribute("buylist", buylist);
 		return "/buylist/update_buylist_input.jsp";
@@ -335,11 +371,19 @@ public class BuylistServlet extends HttpServlet {
 		Integer userId = Integer.parseInt(req.getParameter("user"));
 		Integer sellerId = Integer.parseInt(req.getParameter("seller"));
 		Integer buylistStateId = Integer.parseInt(req.getParameter("buylistState"));
-		Integer couponId = Integer.parseInt(req.getParameter("coupon"));
+
+		Integer couponId;
+		try {
+			couponId = Integer.parseInt(req.getParameter("coupon"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			couponId = null;
+		}
+
 		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
 		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
 		// ----
-		System.out.println("sellerEvaluateTime String: " + req.getParameter("sellerEvaluateTime"));
+//		System.out.println("sellerEvaluateTime String: " + req.getParameter("sellerEvaluateTime"));
 		Timestamp sellerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("sellerEvaluateTime").trim());
 
 //		Timestamp sellerEvaluateTime;
@@ -368,7 +412,7 @@ public class BuylistServlet extends HttpServlet {
 			// 例如，提供默認值
 			buylistAmount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		}
-		System.out.println("buylistDate String: " + req.getParameter("buylistDate"));
+//		System.out.println("buylistDate String: " + req.getParameter("buylistDate"));
 		Timestamp buylistDate = java.sql.Timestamp.valueOf(req.getParameter("buylistDate").trim());
 //		Timestamp buylistDate = java.sql.Timestamp.valueOf(req.getParameter("buylistDate"));
 //		Timestamp buylistDate;
@@ -396,9 +440,13 @@ public class BuylistServlet extends HttpServlet {
 		buylistState.setBuylistStateId(buylistStateId);
 		buylist.setBuylistState(buylistState);
 
-		Coupon coupon = new Coupon();
-		coupon.setCouponId(couponId);
-		buylist.setCoupon(coupon);
+		if(couponId==null) {
+			buylist.setCoupon(null);
+		}else {
+			Coupon coupon = new Coupon();
+			coupon.setCouponId(couponId);
+			buylist.setCoupon(coupon);
+		}
 
 		buylist.setSellerRatingStars(sellerRatingStars);
 		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);

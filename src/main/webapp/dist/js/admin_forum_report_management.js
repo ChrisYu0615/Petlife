@@ -252,7 +252,7 @@ $(function () {
         console.log(reportForumId);
         $("input[name='reportId']").val(reportForumId);
         $("#verify_adminReply").html("");
-        
+
         let formData = new FormData();
         let url = "/Petlife/reportForum/reportForum.do?action=getOne";
         formData.append("reportForumId", reportForumId);
@@ -307,7 +307,7 @@ $(function () {
                 $("#reply_reportContent").val(data.reportForumReason);
                 $("#reply_reportTime").val(data.reportForumTime);
 
-                $("#reply_adminId").val(data.adminId);
+                $("#reply_adminId").val(data.admin.adminId + "(" + data.admin.adminNickname + ")");
                 $("#reply_adminReply").val(data.adminReply);
                 $("#reply_adminReplyTime").val(data.adminReplyTime);
             }

@@ -22,8 +22,9 @@ import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/login/login.do")
 @MultipartConfig
@@ -57,9 +58,10 @@ public class LoginServlet extends HttpServlet {
 
 	// 一般會員登入
 	private void userLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String userAcct = req.getParameter("account");
-		String userPwd = req.getParameter("password");
-		UserServeice userServeice = new UserServiceImpl();
+		String userAcct = req.getParameter("account").trim();
+		String userPwd = req.getParameter("password").trim();
+		userPwd = Sha1Util.encodePwd(userPwd);
+		UserService userServeice = new UserServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -112,8 +114,9 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void sellerLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String sellerAcct = req.getParameter("account");
-		String sellerPwd = req.getParameter("password");
+		String sellerAcct = req.getParameter("account").trim();
+		String sellerPwd = req.getParameter("password").trim();
+		sellerPwd = Sha1Util.encodePwd(sellerPwd);
 		SellerService sellerService = new SellerServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");
@@ -176,8 +179,9 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void shelterLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String shelterAcct = req.getParameter("account");
-		String shelterPwd = req.getParameter("password");
+		String shelterAcct = req.getParameter("account").trim();
+		String shelterPwd = req.getParameter("password").trim();
+		shelterPwd = Sha1Util.encodePwd(shelterPwd);
 		ShelterService shelterService = new ShelterServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");
@@ -203,7 +207,7 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/petjsp/shelter_update.jsp");
 						return;
 					}
 				} catch (Exception ignored) {
@@ -240,8 +244,9 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void adminLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String adminAcct = req.getParameter("account");
-		String adminPwd = req.getParameter("password");
+		String adminAcct = req.getParameter("account").trim();
+		String adminPwd = req.getParameter("password").trim();
+		adminPwd = Sha1Util.encodePwd(adminPwd);
 		AdminService adminService = new AdminServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");

@@ -135,10 +135,10 @@ public class BuylistDetailsServlet extends HttpServlet {
 	private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
 //		System.out.println(req.getParameter("buylistDetailsId"));
 		Integer buylistDetailsId = Integer.valueOf(req.getParameter("buylistDetailsId")); // 20231206
-		System.out.println("+++" + buylistDetailsId);
+//		System.out.println("+++" + buylistDetailsId);
 
 		BuylistDetails buylistDetails = buylistDetailsService.getBuylistDetailsByBuylistDetailsId(buylistDetailsId);
-		System.out.println(buylistDetails);
+//		System.out.println(buylistDetails);
 
 		req.setAttribute("buylistDetails", buylistDetails);
 		return "/buylistdetails/update_buylistDetails_input.jsp";
@@ -212,11 +212,7 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
 		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
-		buylistDetails.setMemberRatingStars(memberRatingStars);
 
-		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
-		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
-		buylistDetails.setReturnReasons(returnReasons);
 
 //==========================================		
 		// Send the use back to the form, if there were errors
@@ -245,7 +241,7 @@ public class BuylistDetailsServlet extends HttpServlet {
 //		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 		String buylistDetailsName = req.getParameter("buylistDetailsName");
-		System.out.println(req.getParameter("buylistDetailsName"));
+//		System.out.println(req.getParameter("buylistDetailsName"));
 		String buylistDetailsNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$"; // 英文數字中文
 //		if (buylistDetailsName == null || buylistDetailsName.trim().length() == 0) {
 //			errorMsgs.add("名稱格式不對");
@@ -302,11 +298,6 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
 		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
-		buylistDetails.setMemberRatingStars(memberRatingStars);
-
-		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
-		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
-		buylistDetails.setReturnReasons(returnReasons);
 
 		// ==========================================
 
@@ -359,7 +350,6 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		Integer buylistId = Integer.valueOf(req.getParameter("buylistId"));
 		List<BuylistDetails> buylistDetailsList = buylistDetailsService.getAllBuylistDetailss(buylistId);
-
 		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String buylistJson = gson.toJson(buylistDetailsList);
 		out.print(buylistJson);

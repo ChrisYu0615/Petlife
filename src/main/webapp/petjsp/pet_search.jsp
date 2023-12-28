@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="com.petlife.shelter.entity.Shelter"%>
+	<!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
@@ -36,7 +38,17 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+	
+<% 
+	Integer id =null;
+	Shelter shelter = (Shelter) session.getAttribute("shelter");
+    if(shelter!= null){
+    	id = shelter.getShelterId();
+    	request.setAttribute("id", id);
+}
 
+
+%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -70,16 +82,17 @@
 				<!-- <div class="row"> -->
 				<div class="col-lg-6">
 					<span id="update_form"></span>
-					<!-- <div class="card"> -->
-					<!-- <div class="card-body"> -->
+
 					<h1>篩選收容動物條件</h1>
 
 					<form id="search" action="/HelloHibernateEx/project/pet.do"
 						class="from" method="post">
 						<!-- 第一行  -->
 						<div class="search_pet">
+						
+								<input type ="hidden" name="id" value="<%=id%>" id="id" >
 
-							<span class="mar"> <!-- 						種類 -->
+							<span class="mar">
 								<p>種類:</p>
 
 								<div class="form-check form-check-inline">
@@ -150,7 +163,7 @@
 								<label for="adopt_date_start" class="come_in_date_start">領養日期起:</label>
 								<input type="date" class="form-control" id="adopt_date_start"
 									name="start_adopt_date" placeholder="選擇日期">
-								<spanclass="search_thr"> ~ </span> <label
+								<span class="search_thr"> ~ </span> <label
 									for="adopt_date_end" class="come_in_date_end">迄:</label> <input
 									type="date" class="form-control" id="adopt_date_end"
 									name="end_adopt_date" placeholder="選擇日期">
@@ -186,6 +199,7 @@
 					<div id="result">
 
 					</div>
+					
 				</div>
 			</div>
 

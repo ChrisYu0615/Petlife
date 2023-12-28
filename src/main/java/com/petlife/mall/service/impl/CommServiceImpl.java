@@ -46,9 +46,19 @@ public class CommServiceImpl implements CommService{
 	}
 
 	@Override
-	public List<Comm> getCommsByState(Integer commState) {
+	public List<Comm> getCommsByState(Integer commState, Integer sellerId) {
 		// TODO Auto-generated method stub
-		return dao.getCommsByState(commState);
+		return dao.getCommsByState(commState, sellerId);
+	}
+	
+	@Override
+	public void updateView(Integer commId) {
+		dao.updateView(commId);
+	}
+
+	@Override
+	public List<Comm> getAll(String memberId) {
+		return dao.getAll(memberId);
 	}
 	
 }

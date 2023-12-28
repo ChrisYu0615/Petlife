@@ -37,7 +37,7 @@ public class UserLoginFilter implements Filter {
 			// 把目前頁面存放到session中
 			session.setAttribute("location", req.getRequestURI());
 			// 重導至登入頁面
-			res.sendRedirect(req.getContextPath() + "/login/member_login.html");
+			res.sendRedirect(req.getContextPath() + "/login/member_login.jsp");
 			return;
 		} else {
 			// 有取得登入資訊，先從session中找是否有前頁面的資訊

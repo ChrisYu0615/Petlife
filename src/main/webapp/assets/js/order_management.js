@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $(".headerPage").load("../components/header.html");
-    $(".footerPage").load("../components/footer.html");
 
     $("#sidebar_title ,#btn_cancel").on("click", function () {
         var targetPageURL = "./user_profile.html";
@@ -272,8 +270,7 @@ $(document).ready(function () {
 
         $(this).prevAll('.star').addClass('-on');
         $(this).addClass('-on');
-
-        console.log('您的評分是：', rating);
+        $('input[name="ratedStar"]').val(rating);
     });
 
     $(".btn_check").on("click", function () {
@@ -369,6 +366,40 @@ $(document).ready(function () {
         }
 
         if (cancelFlag == false) {
+            event.preventDefault();
+        }
+    });
+
+    $(".btn_rate").on("click", function () {
+        let buylistId = $(this).val();
+        $('input[name="retedBuylistId"]').val(buylistId);
+
+        $("#verify_rateStar").html("");
+        $("#verify_rateComment").html("");
+    });
+
+    $("#rate_orderForm").submit(function (event) {
+        let rateFlag = true;
+        let ratedComment = $("#rateReason").val();
+        let Star = $('input[name="ratedStar"]').val();
+        console.log(Star);
+        console.log(ratedComment);
+
+        if (Star < 1) {
+            rateFlag = false;
+            $("#verify_rateStar").html(`<font color='red'><b>請選擇評分分數!!</font>`);
+        } else {
+            $("#verify_rateStar").html("");
+        }
+
+        if (ratedComment == null || ratedComment == "") {
+            rateFlag = false;
+            $("#verify_rateComment").html(`<font color='red'><b>請輸入評論!!</font>`);
+        } else {
+            $("#verify_rateComment").html("");
+        }
+
+        if (rateFlag == false) {
             event.preventDefault();
         }
     })

@@ -93,7 +93,7 @@ public class CouponServlet extends HttpServlet {
 	}
 
 	private String updateCoupon(HttpServletRequest req, HttpServletResponse res) {
-		Integer couponId = Integer.valueOf(req.getParameter("couponId"));
+		Integer couponId = Integer.valueOf(req.getParameter("couponId").trim());
 		String couponName = req.getParameter("coupon_name").trim();
 		String couponContent = req.getParameter("coupon_content").trim();
 		Integer couponRestrict = Integer.valueOf(req.getParameter("coupon_restrict").trim());

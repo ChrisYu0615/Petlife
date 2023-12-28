@@ -173,7 +173,7 @@ div.button {
 
 					<!--   收容所到時后關起來,種類打開  -->
 					<div class="con">
-						<label>收容所:</label> <span>${pet.sheltername.shelterName} </span>
+						<label>收容所:</label> <span>${pet.shelter.shelterName} </span>
 					</div>
 
 

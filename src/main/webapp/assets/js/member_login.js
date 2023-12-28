@@ -1,6 +1,6 @@
 $(function() {
-	$(".headerPage").load("../components/header.html");
-	$(".footerPage").load("../components/footer.html");
+//	$(".headerPage").load("../components/header.jsp");
+//	$(".footerPage").load("../components/footer.jsp");
 
 	// 表單驗證，判斷是否有填入帳號與密碼
 	var loginFlag = true;

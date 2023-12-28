@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -48,7 +51,7 @@
 		</div>
 	</div>
 
-	<div class="headerPage"></div>
+	<%@include file="../components/header.jsp"%>
 
 	<div class="row justify-content-around" id="forget_password_menu">
 		<div class="col-4 card card-outline card-warning">
@@ -121,7 +124,7 @@
 					</div>
 				</form>
 				<p class="mt-3 mb-1">
-					<a href="./member_login.html">返回會員登入</a><br> <a href="./backend_login.html">返回後台登入</a><br> <a
+					<a href="./member_login.jsp">返回會員登入</a><br> <a href="./backend_login.jsp">返回後台登入</a><br> <a
 						href="#">返回首頁</a>
 				</p>
 			</div>
@@ -129,7 +132,7 @@
 		</div>
 	</div>
 	<!-- /.login-box -->
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 	<!-- jQuery -->
 	<script src="../assets/js/jquery.min.js"></script>
 	<!-- AdminLTE App -->

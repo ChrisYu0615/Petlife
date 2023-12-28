@@ -283,12 +283,6 @@ $(function () {
         let adStartDate = $.trim($("#new_advertisement_stardate").val());
         let adEndDate = $.trim($("#new_advertisement_enddate").val());
 
-        console.log(adTitle);
-        console.log(adContent);
-        console.log(adImg);
-        console.log(adStartDate);
-        console.log(adEndDate);
-
         if (adTitle == null || adTitle == '') {
             insertFlag = false;
             $("#verify_new_advertisement_name").html(`<font color="red"><b>請輸入廣告標題!!</font>`);
@@ -372,7 +366,7 @@ $(function () {
             $("#verify_advertisement_ednddate").html("");
         }
 
-        if (adStartDate > adEndDate) {
+        if ((adStartDate != "" && adEndDate != "") && adStartDate > adEndDate) {
             modifyFlag = false;
             $("#verify_advertisement_stardate").html(`<font color="red"><b>開始日不能大於結束日!!</font>`);
         }
@@ -387,7 +381,6 @@ $(function () {
     // 修改(使用ajax)
     $(".btn_check").on("click", function () {
         let advertisementId = $(this).val();
-        console.log(advertisementId);
         $("#advertisement_Id").val(advertisementId);
         $("#verify_advertisement_name").html("");
         $("#verify_advertisement_content").html("");
@@ -407,8 +400,6 @@ $(function () {
             processData: false,
             cache: false,
             success: function (data) {
-                console.log(data);
-                console.log("成功!!");
                 $("#advertisement_id").val(data.ad.advertisementId
                 );
                 $("#advertisement_name").val(data.ad.advertisementTitle);
@@ -426,6 +417,10 @@ $(function () {
                 $("#advertisement_enddate").val(data.ad.endDate);
             }
         });
+    });
+    
+    $("#logout").on("click", function () {
+        alert("您已成功登出!!");
     });
 })
 

@@ -27,6 +27,13 @@ public interface CommDAO {
 	// 查全部
 	public List<Comm> getAll();
 	
+	public List<Comm> getAll(String memberId);
 	//根據訂單狀態ID查詢
-	List<Comm> getCommsByState(Integer commState);
+	List<Comm> getCommsByState(Integer commState, Integer sellerId);
+	
+	//瀏覽數
+	 public void updateView(Integer commId) ;
+		
+
+//	public List<Comm> getCommImg(Integer commId);
 }

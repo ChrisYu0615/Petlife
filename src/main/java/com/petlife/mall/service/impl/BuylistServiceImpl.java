@@ -42,14 +42,15 @@ public class BuylistServiceImpl implements BuylistService {
 	}
 
 	@Override
-	public List<Buylist> getBuylistsByState(Integer buylistState) {
-		return dao.getBuylistsByState(buylistState);
+	public List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId) {
+		return dao.getBuylistsByState(buylistState, sellerId);
 	}
 
 	@Override
 	public List<Buylist> getAllBuylists() {
 		return dao.getAll();
 	}
+
 	
 	@Override
 	public void addMultipleBuylists(List<Buylist> buylists) {
@@ -57,4 +58,10 @@ public class BuylistServiceImpl implements BuylistService {
             dao.add(buylist);
         }
     }
+
+
+	@Override
+	public Double getUserRatingScore(Integer userId) {
+		return dao.getUserRating(userId);
+	}
 }

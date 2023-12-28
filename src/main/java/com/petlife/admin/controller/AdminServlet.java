@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.petlife.admin.entity.Admin;
 import com.petlife.admin.service.AdminService;
 import com.petlife.admin.service.impl.AdminServiceImpl;
 import com.petlife.seller.entity.Seller;
@@ -25,6 +26,7 @@ import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
+import com.petlife.util.Sha1Util;
 
 @WebServlet("/admin/admin.do")
 @MultipartConfig
@@ -46,12 +48,6 @@ public class AdminServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String forwardPath = "";
 		switch (action) {
-		case "adminRegister":
-			adminRegister(req, resp);
-			break;
-		case "verify":
-			authencation(req, resp);
-			break;
 		case "getAuthenCode":
 			getAuthenCode(req, resp);
 			break;
@@ -60,6 +56,9 @@ public class AdminServlet extends HttpServlet {
 			break;
 		case "getAllMembers":
 			forwardPath = getAllMembers(req, resp);
+			break;
+		case "updateAdminProfile":
+			forwardPath = updateAdminProfile(req, resp);
 			break;
 		default:
 			forwardPath = "";
@@ -98,10 +97,8 @@ public class AdminServlet extends HttpServlet {
 	}
 
 	private void setNewPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String adminAcct = req.getParameter("account");
-		System.out.println(adminAcct);
-		String authenCode = req.getParameter("authencode");
-		System.out.println(authenCode);
+		String adminAcct = req.getParameter("account").trim();
+		String authenCode = req.getParameter("authencode").trim();
 
 		Map<String, String> errorMsg = new HashMap<>();
 		resp.setContentType("application/json; charset=UTF-8");
@@ -110,7 +107,6 @@ public class AdminServlet extends HttpServlet {
 		if (!adminService.exisAdminAccount(adminAcct)) {
 			errorMsg.put("accountErr", "帳號不存在!!");
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 			return;
 		}
@@ -119,14 +115,13 @@ public class AdminServlet extends HttpServlet {
 		if (authenCodeFromJedis == null) {
 			errorMsg.put("authenCodeErr", "請先取得驗證碼!!");
 		} else {
-			if (!authenCode.equals(authenCodeFromJedis)) {
+			if (!authenCode.equalsIgnoreCase(authenCodeFromJedis)) {
 				errorMsg.put("authenCodeErr", "驗證碼輸入錯誤");
 			}
 		}
 
 		if (errorMsg.size() > 0) {
 			String errorMsgJson = gson.toJson(errorMsg);
-			System.out.println(errorMsgJson);
 			out.print(errorMsgJson);
 		} else {
 			String result = adminService.getNewPwd(adminAcct);
@@ -137,14 +132,20 @@ public class AdminServlet extends HttpServlet {
 		}
 	}
 
-	private void authencation(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private String updateAdminProfile(HttpServletRequest req, HttpServletResponse resp) {
+		Integer adminId = Integer.valueOf(req.getParameter("adminId").trim());
+		String adminPwd = req.getParameter("admin_pwd");
+		String adminNickname = req.getParameter("admin_nickname").trim();
+		Admin admin = adminService.getAdminByAdminId(adminId);
 
-	}
+		if (adminPwd != null && adminPwd.length() > 0) {
+			admin.setAdminPwd(Sha1Util.encodePwd(adminPwd.trim()));
+		}
 
-	private void adminRegister(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
+		admin.setAdminNickname(adminNickname);
+		adminService.updateAdmin(admin);
+		req.getSession().setAttribute("admin", admin);
+		return "/user/user.do?action=getAll";
 	}
 
 }

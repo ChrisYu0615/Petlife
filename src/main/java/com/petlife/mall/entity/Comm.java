@@ -46,7 +46,7 @@ public class Comm {
 	private Timestamp listDatetime;
 
 	@Lob // 告知為大型Object
-	@Column(name = "comm_img", updatable = true)
+	@Column(name = "comm_img", updatable = true, columnDefinition = "longblob")
 	private byte[] commImg;
 
 //	等做完商品分類表再回來
