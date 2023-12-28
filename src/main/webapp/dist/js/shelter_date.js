@@ -421,9 +421,9 @@ function uploadData() {
 		var time = $(button).hasClass("morning") ? "早" : "晚";
 
 		if (time === "早") {
-			time = "10:00"
+			time = "10:00:00"
 		} else {
-			time = "13:00"
+			time = "13:00:00"
 		}
 
 		data.push({
@@ -455,8 +455,8 @@ function uploadData() {
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			$("#button_result").click();
-			$("#staticBackdropLabel").html("查詢結果");
-			$("#result").html("請先選擇月份");
+			$("#staticBackdropLabel").html("新增結果");
+			$("#result").html("新增失敗");
 			try {
 				console.log("Error code:", jqXHR.status);
 				console.log("Error message:", jqXHR.responseText);
