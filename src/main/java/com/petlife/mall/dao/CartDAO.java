@@ -9,7 +9,7 @@ public interface CartDAO {
 	//增
 	public Integer add(Cart cart);
 	//刪
-	public void delete(Integer cartId);
+	public Integer delete(Integer cartId);
 	//改
 	public Integer update(Cart cart);
 	//查(單個)
@@ -17,4 +17,5 @@ public interface CartDAO {
 	//查(多個)
 	public List<Cart> getAll();
 	public List<Cart> getCartsByUser(User user);
+	public List<Cart> getCartsByUserAndSortBySeller(User user);
 }

@@ -2,6 +2,7 @@ package com.petlife.shelter.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,6 @@ public class ReservationServlet extends HttpServlet {
 
 		String action = req.getParameter("action");
 		String forwardPath = "";
-		System.out.println(action);
 		switch (action) {
 		case "getAll":
 			forwardPath = getAllReservations(req, res);
@@ -119,7 +119,7 @@ public class ReservationServlet extends HttpServlet {
 	}
 
 	// 更新過1215詩涵
-	private String getCompositeReservationQuery(HttpServletRequest req, HttpServletResponse res) {
+	private String getCompositeReservationQuery(HttpServletRequest req, HttpServletResponse res)throws IOException {
 
 		System.out.println("ReservationServlet: getCompositePetsQuery Entry");
 

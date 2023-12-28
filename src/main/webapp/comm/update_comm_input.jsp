@@ -34,6 +34,13 @@ Comm comm = (Comm) request.getAttribute("comm");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
+img.brand-image{
+    background-color: antiquewhite;
+
+}
+.brand-link .brand-image {
+    margin-left: 0rem;
+}
 body {
 	font-family: 'Source Sans Pro', sans-serif;
 	background-color: #f4f6f9;
@@ -126,148 +133,16 @@ label {
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
-				<!-- 					href="test.html" class="nav-link">Home</a></li> -->
-				<!-- 這是contact bar -->
-				<!-- <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li> -->
 			</ul>
 
 			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Navbar Search -->
-				<!-- 				<li class="nav-item"><a class="nav-link" -->
-				<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
-				<!-- 						class="fas fa-search"></i> -->
-				<!-- 				</a> -->
-				<!-- 					<div class="navbar-search-block"> -->
-				<!-- 						<form class="form-inline"> -->
-				<!-- 							<div class="input-group input-group-sm"> -->
-				<!-- 								<input class="form-control form-control-navbar" type="search" -->
-				<!-- 									placeholder="Search" aria-label="Search"> -->
-				<!-- 								<div class="input-group-append"> -->
-				<!-- 									<button class="btn btn-navbar" type="submit"> -->
-				<!-- 										<i class="fas fa-search"></i> -->
-				<!-- 									</button> -->
-				<!-- 									<button class="btn btn-navbar" type="button" -->
-				<!-- 										data-widget="navbar-search"> -->
-				<!-- 										<i class="fas fa-times"></i> -->
-				<!-- 									</button> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</form> -->
-				<!-- 					</div></li> -->
-
-				<!-- 這邊是上方右邊聊天通知列 -->
-				<!-- Messages Dropdown Menu -->
-				<!-- <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li> -->
-
-				<!-- 這裡是上方右邊訊息通知列 -->
-				<!-- Notifications Dropdown Menu -->
-				<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
-				<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
-				<!-- 						class="badge badge-warning navbar-badge">15</span> -->
-				<!-- 				</a> -->
-				<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
-				<!-- 						<span class="dropdown-item dropdown-header">15 -->
-				<!-- 							Notifications</span> -->
-				<!-- 						<div class="dropdown-divider"></div> -->
-				<!-- 						<a href="#" class="dropdown-item"> <i -->
-				<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
-				<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
-				<!-- 						</a> -->
-				<!-- 						<div class="dropdown-divider"></div> -->
-				<!-- 						<a href="#" class="dropdown-item"> <i -->
-				<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
-				<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
-				<!-- 						</a> -->
-				<!-- 						<div class="dropdown-divider"></div> -->
-				<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
-				<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
-				<!-- 								days</span> -->
-				<!-- 						</a> -->
-				<!-- 						<div class="dropdown-divider"></div> -->
-				<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
-				<!-- 							Notifications</a> -->
-				<!-- 					</div></li> -->
 
 				<!-- 這個是上方右邊全螢幕模式 -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
-
-				<!-- 這裡可以做登入修改或登出功能 -->
-				<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
-				<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
-				<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
-				<!-- 						class="fas fa-solid fa-user"></i> -->
-				<!-- 				</a> -->
-				<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
-				<!-- 						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a -->
-				<!-- 							class="dropdown-item" href="/yahoo">登出</a> -->
-				<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -279,7 +154,7 @@ label {
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="<%=request.getContextPath() %>/buylist/listAllBuylist.jsp" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">寵愛生活後臺管理</span>
@@ -309,9 +184,10 @@ label {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
-						<li class="nav-item menu-open"><a href="#"
-							class="nav-link active"> <i
-								class="nav-icon fas fa-tachometer-alt"></i>
+
+						<li class="nav-item"><a href="#" class="nav-link active">
+								<i class="nav-icon fas fa-tachometer-alt"></i>
+
 								<p>
 									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -354,15 +230,16 @@ label {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-						<li class="nav-item"><a
-							href="../buylistdetails/listAllBuylistDetails.jsp"
-							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>訂單商品細項</p>
-						</a></li>
+<!-- 						<li class="nav-item"><a -->
+<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+<!-- 								<p>訂單商品細項</p> -->
+<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
-						<li class="nav-item menu-open"><a href="#"
-							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
+						<li class="nav-item"><a href="#" class="nav-link active">
+								<i class="nav-icon fas far fa-copy"></i>
+
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -394,17 +271,6 @@ label {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-
-
-						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
-						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>預覽賣場</p> -->
-						<!-- 						</a></li> -->
-
-						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
-						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
-						<!-- 								<p>賣家數據中心</p> -->
-						<!-- 						</a></li> -->
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/logout/logout.do"
 							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
@@ -476,7 +342,7 @@ label {
 			</c:if>
 
 			<form method="post" action="comm.do" name="form1"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onsubmit="return validateForm()">
 				<table>
 					<tr>
 						<td>商品編號:<font color=red><b>*</b></font></td>
@@ -488,8 +354,7 @@ label {
 					<!-- 	</tr> -->
 					<tr>
 						<td>賣家ID:</td>
-						<td><input type="text" name="seller"
-							value="<%=comm.getSeller().getSellerId()%>" size="45" /></td>
+						<td><%=comm.getSeller().getSellerId()%></td>
 					</tr>
 					<tr>
 						<td>商品名稱:</td>
@@ -522,13 +387,17 @@ label {
 					<!-- 					</tr> -->
 					<tr>
 						<td>上架時間:</td>
-						<td><input type="text" name="listDatetime"
-							value="<%=comm.getListDatetime()%>" size="45" /></td>
+						<td><%=comm.getListDatetime()%></td>
 					</tr>
 					<tr>
 						<td>商品縮圖:</td>
 						<td><input type="file" name="commImg"
 							value="<%=comm.getCommImg()%>" size="45" /></td>
+            
+						<td><img
+							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+							width="110px" height="110px"></td>
+
 					</tr>
 					<td>商品分類:</td>
 					<td><select name="commCat" required>
@@ -581,11 +450,13 @@ label {
 						<td><input type="text" name="commOnsalePrice"
 							value="<%=comm.getCommOnsalePrice()%>" size="45" /></td>
 					</tr>
-					<tr>
-						<td>瀏覽數:</td>
-						<td><input type="text" name="commViewCount"
-							value="<%=comm.getCommViewCount()%>" size="45" /></td>
-					</tr>
+
+					<!-- 	<tr> -->
+					<!-- 	<td>瀏覽數:</td> -->
+					<!-- 	<td><input type="text" name="commViewCount" -->
+					<%-- 			value="<%=comm.getCommViewCount()%>" size="45" /></td> --%>
+					<!-- 	</tr> -->
+
 
 
 
@@ -597,20 +468,17 @@ label {
 
 			<script>
 				function validateForm() {
-					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
-					var buylistDate = document.forms["form1"]["buylistDate"].value;
+					var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
+					var commOnsalePrice = parseFloat(document.forms["form1"]["commOnsalePrice"].value);
 
-					// 檢查日期格式
-					var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
-
-					if (!dateRegex.test(sellerEvaluateTime)
-							|| !dateRegex.test(buylistDate)) {
-						alert("請輸入正確的日期格式（YYYY-MM-DD HH:mm:ss 或 YYYY-MM-DD HH:mm:ss.S 或 YYYY-MM-DD HH:mm:ss.SSS 或 YYYY-MM-DD）。");
+					if (commOnsalePrice >= commPrice) {
+						alert("商品優惠價不得大於或等於商品價格。");
 						return false;
 					}
+
+					return true; // 如果所有驗證都通過，返回 true；否則返回 false
 				}
 			</script>
-</body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	crossorigin="anonymous"></script>

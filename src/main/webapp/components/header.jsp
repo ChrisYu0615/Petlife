@@ -100,10 +100,10 @@ User user = (User) session.getAttribute("user");
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 														<ul class="dropdown-menu" style="left: -50px;">
 															<li class="nav-item"><a
-																href="../login/member_login.html" class="nav-link">一般會員登入</a>
+																href="../login/member_login.jsp" class="nav-link">一般會員登入</a>
 															</li>
 															<li class="nav-item"><a
-																href="../login/backend_login.html" class="nav-link">後臺管理登入</a>
+																href="../login/backend_login.jsp" class="nav-link">後臺管理登入</a>
 															</li>
 														</ul></li>
 												</c:when>
@@ -112,8 +112,8 @@ User user = (User) session.getAttribute("user");
 													<li class="nav-item"><a href="#" class="nav-link">
 															<img
 															src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=user.getUserId()%>"
-															alt="" class="preview_img rounded-circle"
-															style="width: 35px ;height:35px;"> <span
+															alt="" class="preview_img shadow rounded-circle"
+															style="width: 35px ;height:35px; background-color:white;"> <span
 															style="font-size: 15px;"><%=user.getUserName()%></span>
 															<i class="fas fa-angle-down"></i>
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->

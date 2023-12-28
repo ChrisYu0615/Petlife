@@ -468,10 +468,6 @@ th, td {
 					<th>商品ID</th>
 					<th>訂單商品細項價格</th>
 					<th>訂單商品細項購買量</th>
-					<th>會員評價星等</th>
-					<th>買家評價敘述</th>
-					<th>買家評價時間</th>
-					<th>退貨原因</th>
 					<th>修改</th>
 <!-- 					<th>刪除</th> -->
 				</tr>
@@ -485,10 +481,6 @@ th, td {
 						<td>${buylistDetails.comm.commId}</td>
 						<td>${buylistDetails.buylistDetailsPrice}</td>
 						<td>${buylistDetails.buylistDetailsPurchaseAmount}</td>
-						<td>${buylistDetails.memberRatingStars}</td>
-						<td>${buylistDetails.buyerEvaluateNarrative}</td>
-						<td>${buylistDetails.buyerEvaluateTime}</td>
-						<td>${buylistDetails.returnReasons}</td>
 						<td>
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"

@@ -3,6 +3,7 @@ package com.petlife.pet.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,10 @@ import com.petlife.pet.service.PetVarietyService;
 import com.petlife.pet.serviceimpl.PetPhotoServiceImpl;
 import com.petlife.pet.serviceimpl.PetServiceImpl;
 import com.petlife.pet.serviceimpl.PetVarietyServiceImpl;
+import com.petlife.shelter.entity.Reservation;
+import com.petlife.shelter.service.ReservationService;
 import com.petlife.shelter.service.ShelterService;
+import com.petlife.shelter.service.impl.ReservationServiceImpl;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 
 
@@ -50,6 +54,7 @@ public class PetServlet extends HttpServlet {
 	private PetVarietyService petVarietyService;
 	private PetPhotoService petPhotoService;
 	private ShelterService shelterService;
+	private ReservationService reservationService;
 
 	@Override
 	public void init() throws ServletException {
@@ -57,6 +62,7 @@ public class PetServlet extends HttpServlet {
 		petVarietyService = new PetVarietyServiceImpl();
 		petPhotoService = new PetPhotoServiceImpl();
 		shelterService=new ShelterServiceImpl();
+		reservationService = new ReservationServiceImpl();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -102,6 +108,10 @@ public class PetServlet extends HttpServlet {
 		case "update_put":
 			forwardPath = update_put(req, res);
 			break;
+			
+		case "updatePet":
+			 updatePet(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -111,6 +121,24 @@ public class PetServlet extends HttpServlet {
 		}
 	}
 	
+	private void updatePet(HttpServletRequest req, HttpServletResponse res)throws IOException {
+		Integer resId = Integer.valueOf(req.getParameter("resId"));
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		Reservation reservation = reservationService.getResByResId(resId);
+		Integer petId =reservation.getPetId();
+		Pet pet = petService.getOnePet(petId);
+		Boolean adopt = Boolean.valueOf(req.getParameter("adopt"));
+		System.out.println(adopt);
+		pet.setAdopt(adopt);
+		
+			petService.updatePet(pet);
+			
+			out.print("<font color='red'>已將收容動物重新上架!!</font>");
+			
+		
+	}
+
 	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
 		Pet pet = petService.getOnePet(Id);
@@ -135,6 +163,8 @@ public class PetServlet extends HttpServlet {
 			System.out.println(req.getParameter("adopt_date"));
 			adoptDate = java.sql.Date.valueOf(req.getParameter("adopt_date"));
 		}
+		
+		
 		pet.setShelterId(shelterId);
 		pet.setPetGender(petGender);
 		pet.setPetVariety(petVarietyId);
@@ -148,7 +178,36 @@ public class PetServlet extends HttpServlet {
 		pet.setAdopted(adopted);
 		pet.setUserId(userId);
 		pet.setAdoptDate(adoptDate);
-		
+		// 準備集合抓取照片
+		for (Part part : req.getParts()) {
+			if (!part.getName().equals("petphoto"))
+				continue;
+			InputStream in = part.getInputStream();
+			byte[] petPhoto_byte = null;
+			if (in.available() != 0) {
+				petPhoto_byte = new byte[in.available()];
+				in.read(petPhoto_byte);
+				in.close();
+				// 將抓取的照片存進petphoto->table
+				PetPhoto petPhoto = new PetPhoto();
+				petPhoto.setPet(pet);
+				petPhoto.setPetPhoto(petPhoto_byte);
+				pet.getPetPhotos().add(petPhoto);
+			}
+		}
+		  String[] photoIds = req.getParameterValues("deletePhoto");
+		  if (photoIds != null) {
+		        System.out.println("delete Photo Entry:");
+		        for (String photoId : photoIds) {
+		        	Integer id=Integer.valueOf(photoId);
+		        	System.out.println(id);
+		        	PetPhoto petphoto = petPhotoService.getOnePetphoto(id);
+		        	pet.getPetPhotos().remove(petphoto);
+		        	petPhotoService.deletePetPhoto(id);
+		        }
+		    }
+		  
+		System.out.println(pet.getPetPhotos().size());
 		if(pet.getPetPhotos().size() != 0) {
 			
 		}

@@ -17,4 +17,5 @@ public interface CartService {
 	//查(多個)
 	public List<Cart> getAll();
 	public List<Cart> getCartsByUser(User user);
+	public List<Cart> getCartsByUserAndSortBySeller(User user); 
 }

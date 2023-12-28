@@ -83,6 +83,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
+								<p>修改管理員資料</p>
+						</a></li>   						
+
           				<li class="nav-item">
           				  <a href="#" class="nav-link">
           				    <i class="fas fa-solid fa-users"></i>

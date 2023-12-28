@@ -22,7 +22,7 @@ import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.util.Sha1Util;
 
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 		String userAcct = req.getParameter("account").trim();
 		String userPwd = req.getParameter("password").trim();
 		userPwd = Sha1Util.encodePwd(userPwd);
-		UserServeice userServeice = new UserServiceImpl();
+		UserService userServeice = new UserServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();

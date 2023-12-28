@@ -2,7 +2,7 @@
 <%@page import="com.petlife.mall.service.BuylistService"%>
 <%@page import="com.petlife.mall.entity.Buylist"%>
 <%@page import="com.petlife.admin.*"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -10,8 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>�Ҧ��q��s�����</title>
-<!-- ��Loading, please wait���� -->
+<title>所有訂單編號資料</title>
+<!-- 讓Loading, please wait消失 -->
 <link rel="stylesheet" href="/buylist.css">
 
 <!-- Google Font: Source Sans Pro -->
@@ -57,22 +57,22 @@ h4 {
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
-		<!-- �W��Navbar -->
+		<!-- 上方Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- �W�襪��Left navbar links -->
+			<!-- 上方左邊Left navbar links -->
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a
 					href="test.html" class="nav-link">Home</a></li>
-				<!-- �o�Ocontact bar -->
+				<!-- 這是contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> -->
 			</ul>
 
-			<!-- �W��k��Right navbar links -->
+			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
 				<li class="nav-item"><a class="nav-link"
@@ -97,7 +97,7 @@ h4 {
 						</form>
 					</div></li>
 
-				<!-- �o��O�W��k���ѳq���C -->
+				<!-- 這邊是上方右邊聊天通知列 -->
 				<!-- Messages Dropdown Menu -->
 				<!-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -161,7 +161,7 @@ h4 {
                     </div>
                 </li> -->
 
-				<!-- �o�̬O�W��k��T���q���C -->
+				<!-- 這裡是上方右邊訊息通知列 -->
 				<!-- Notifications Dropdown Menu -->
 				<li class="nav-item dropdown"><a class="nav-link"
 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
@@ -190,21 +190,21 @@ h4 {
 							Notifications</a>
 					</div></li>
 
-				<!-- �o�ӬO�W��k����ù��Ҧ� -->
+				<!-- 這個是上方右邊全螢幕模式 -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
 
-				<!-- �o�̥i�H���n�J�ק�εn�X�\�� -->
+				<!-- 這裡可以做登入修改或登出功能 -->
 				<li class="nav-item dropdown"><a class="nav-link dropdown"
 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> <i
 						class="fas fa-solid fa-user"></i>
 				</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-						<a class="dropdown-item" href="/google">�ק�b����T</a> <a
-							class="dropdown-item" href="/yahoo">�n�X</a>
+						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a
+							class="dropdown-item" href="/yahoo">登出</a>
 					</div></li>
 			</ul>
 		</nav>
@@ -220,7 +220,7 @@ h4 {
 			<a href="test.html" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">�d�R�ͬ���O�޲z</span>
+				<span class="brand-text font-weight-light">寵愛生活後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -232,7 +232,7 @@ h4 {
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">OOO�޲z���A�A�n</a>
+						<a href="#" class="d-block">OOO管理員，你好</a>
 					</div>
 				</div>
 
@@ -242,92 +242,105 @@ h4 {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>�q��</p>
-						</a></li>
-						<!-- �H�U�O�i���Y�������� -->
+<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+<!-- 								<p>通知</p> -->
+<!-- 						</a></li> -->
+						<!-- 以下是可伸縮的側邊欄 -->
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									�q��޲z <i class="right fas fa-angle-left"></i>
+									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+								<li class="nav-item"><a href="listAllBuylist.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>0:�ݥI��</p>
+										<p>所有訂單</p>
+								</a></li>
+								<li class="nav-item"><a href="listAllBuylistState0.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:待付款</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState1.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>1:�ݥX�f</p>
+										<p>1:待出貨</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState2.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>2:�B�e��</p>
+										<p>2:運送中</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState3.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>3:�q��w����</p>
+										<p>3:訂單已完成</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState4.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>4:�q��w����</p>
+										<p>4:訂單已取消</p>
 								</a></li>
 								<li class="nav-item"><a href="listAllBuylistState5.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>5:�h�f/�h��</p>
+										<p>5:退貨/退款</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 						<li class="nav-item"><a
 							href="../buylistdetails/listAllBuylistDetails.jsp"
 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>�q��ӫ~�Ӷ�</p>
+								<p>訂單商品細項</p>
 						</a></li>
 						<!-- ========================================================== -->
+
 						<li class="nav-item menu-open"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
-									�ӫ~�޲z <i class="right fas fa-angle-left"></i>
+									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./index.html"
+								<li class="nav-item"><a href="../comm/addComm.jsp"
 									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>�X�⤤</p>
+										<p>上架商品</p>
+								</a></li>
+								<li class="nav-item"><a href="../comm/listAllComm.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>所有商品</p>
+								</a></li>
+								<li class="nav-item"><a href="./index.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>0:販售中</p>
+								</a></li>
+								<li class="nav-item"><a href="./index3.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>1:缺貨中</p>
 								</a></li>
 								<li class="nav-item"><a href="./index2.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>�w�U�[</p>
+										<p>2:下架</p>
 								</a></li>
-								<li class="nav-item"><a href="./index3.html"
+								<li class="nav-item"><a href="./index2.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>�ʳf��</p>
-								</a></li>
-								<li class="nav-item"><a href="./index3.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>�W�[�ӫ~</p>
+										<p>3:違規下架</p>
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
 
 
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>�w�����</p>
-						</a></li>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
+						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>預覽賣場</p> -->
+						<!-- 						</a></li> -->
 
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-								<i class="nav-icon fas fa-shopping-cart"></i>
-								<p>��a�ƾڤ���</p>
+						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
+						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
+						<!-- 								<p>賣家數據中心</p> -->
+						<!-- 						</a></li> -->
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
+								<p>登出</p>
 						</a></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-ad"></i>
-								<p>�n�X</p>
-						</a></li>
-
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -338,7 +351,7 @@ h4 {
 
 
 
-		<!-- �o��O�D���e�W�誺��r�ԭz -->
+		<!-- 這邊是主內容上方的文字敘述 -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -346,13 +359,13 @@ h4 {
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">�q��޲z</h1>
+							<h1 class="m-0">訂單管理</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="test.html">Home</a></li>
-								<li class="breadcrumb-item active">�q��޲z</li>
+								<li class="breadcrumb-item active">訂單管理</li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -364,24 +377,24 @@ h4 {
 			<!-- /.content-header -->
 
 
-			<!-- //�o���D���e��r -->
+			<!-- //這邊塞主內容文字 -->
 			<!-- /.content-wrapper -->
 
 
 			<table id="table-1">
 				<tr>
-					<td><h3>�q��s��: ����</h3>
+					<td><h3>訂單編號: 首頁</h3>
 						<h4>Seller Buylist</h4></td>
 				</tr>
 			</table>
 
 			<!-- <p>This is the Home page for IBM Buylist: Home</p> -->
 
-			<h3>��Ƭd��:</h3>
+			<h3>資料查詢:</h3>
 
-			<%-- ���~���C --%>
+			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">�Эץ��H�U���~:</font>
+				<font style="color: red">請修正以下錯誤:</font>
 				<ul>
 					<c:forEach var="message" items="${errorMsgs}">
 						<li style="color: red">${message}</li>
@@ -391,14 +404,14 @@ h4 {
 
 			<ul>
 				<li><a href='listAllBuylist.jsp'>List</a> all Buylists. <br>
-				<br></li>
+					<br></li>
 
 
 				<li>
 					<FORM METHOD="post" ACTION="buylist.do">
-						<b>��J�q��s��:</b> <input type="text" name="buylistId"> <input
+						<b>輸入訂單編號:</b> <input type="text" name="buylistId"> <input
 							type="hidden" name="action" value="getOne_For_Display"> <input
-							type="submit" value="�e�X">
+							type="submit" value="送出">
 					</FORM>
 				</li>
 
@@ -406,29 +419,29 @@ h4 {
 					class="com.petlife.mall.service.impl.BuylistServiceImpl" />
 				<li>
 					<FORM METHOD="post" ACTION="buylist.do">
-						<b>��ܭq��s��:</b> <select size="1" name="buylistId">
+						<b>選擇訂單編號:</b> <select size="1" name="buylistId">
 							<c:forEach var="buylist" items="${buylistSvc.getAllBuylists()}">
 								<option value="${buylist.buylistId}">${buylist.buylistId}
 							</c:forEach>
 						</select> <input type="hidden" name="action" value="getOne_For_Display">
-						<input type="submit" value="�e�X">
+						<input type="submit" value="送出">
 					</FORM>
 				</li>
 
 				<li>
 					<FORM METHOD="post" ACTION="buylist.do">
-						<b>��ܷ|��ID:</b> <select size="1" name="buylistId">
+						<b>選擇會員ID:</b> <select size="1" name="buylistId">
 							<c:forEach var="buylist" items="${buylistSvc.getAllBuylists()}">
 								<option value="${buylist.buylistId}">${buylist.user.getUserId()}
 							</c:forEach>
 						</select> <input type="hidden" name="action" value="getOne_For_Display">
-						<input type="submit" value="�e�X">
+						<input type="submit" value="送出">
 					</FORM>
 				</li>
 			</ul>
 
 
-			<h3>�q��s���޲z</h3>
+			<h3>訂單編號管理</h3>
 
 			<ul>
 				<li><a href='addBuylist.jsp'>Add</a> a new Buylist.</li>

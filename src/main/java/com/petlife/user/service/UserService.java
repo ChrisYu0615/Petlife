@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.petlife.user.entity.User;
 
-public interface UserServeice {
+public interface UserService {
 
 	// 增
 	User addUser(User user);

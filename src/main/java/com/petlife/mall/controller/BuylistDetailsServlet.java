@@ -212,11 +212,7 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
 		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
-		buylistDetails.setMemberRatingStars(memberRatingStars);
 
-		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
-		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
-		buylistDetails.setReturnReasons(returnReasons);
 
 //==========================================		
 		// Send the use back to the form, if there were errors
@@ -302,11 +298,6 @@ public class BuylistDetailsServlet extends HttpServlet {
 
 		buylistDetails.setBuylistDetailsPrice(buylistDetailsPrice);
 		buylistDetails.setBuylistDetailsPurchaseAmount(buylistDetailsPurchaseAmount);
-		buylistDetails.setMemberRatingStars(memberRatingStars);
-
-		buylistDetails.setBuyerEvaluateNarrative(buyerEvaluateNarrative);
-		buylistDetails.setBuyerEvaluateTime(buyerEvaluateTime);
-		buylistDetails.setReturnReasons(returnReasons);
 
 		// ==========================================
 
