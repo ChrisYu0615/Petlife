@@ -315,7 +315,7 @@ th, td {
 						</a></li>
 						<!-- ========================================================== -->
 
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>

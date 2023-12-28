@@ -267,7 +267,7 @@ th, td {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i
 								class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
@@ -319,7 +319,7 @@ th, td {
 						</a></li>
 						<!-- ========================================================== -->
 
-						<li class="nav-item menu-open"><a href="#"
+						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
@@ -517,8 +517,8 @@ th, td {
 						<td><input type="text" name="commOnsalePrice" size="45" /></td>
 					</tr>
 					<tr>
-						<td>瀏覽數:</td>
-						<td><input type="text" name="commViewCount" size="45" value="0" readonly/></td>
+<!-- 						<td>瀏覽數:</td> -->
+						<input type="hidden" name="commViewCount" size="45" value="0" readonly/>
 					</tr>
 				</table>
 				<br> <input type="hidden" name="action" value="insert">
