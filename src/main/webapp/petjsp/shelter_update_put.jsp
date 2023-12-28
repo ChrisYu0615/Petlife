@@ -3,7 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import="com.petlife.*"%>
+
+<%@page import="com.petlife.shelter.entity.Shelter"%>
+<% 
+Integer id =null;
+Shelter shelter = (Shelter) session.getAttribute("shelter");
+if(shelter!= null){
+	id = shelter.getShelterId();
+	request.setAttribute("id", id);
+}
+int shelterPhotoLength = (shelter.getShelterPhoto() != null) ? shelter.getShelterPhoto().length : 0;
+%>
 
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -53,7 +63,7 @@
 			</ul>
 		</nav>
 		<!-- 		<!-- /.navbar -->
-		-->
+
 
 		<!-- Main Sidebar Container -->
 		<%@ include file="sidebar.jsp"%>
@@ -116,16 +126,9 @@
 									cols="50">${shelter.shelterIntroduction}</textarea> 
 									<span id="shelterIntroduction"></span>
 							</span> 
-							
-<!-- 							<span class="material_list">  -->
-<!-- 							<span class="e_photo">環境照片:<input type="file" id="e_photo" multiple></span> -->
-<!-- 								<div id="preview"> -->
-<!-- 									<span class="text">預覽圖(可一次選擇多張)</span> -->
-<!-- 								</div> -->
-<!-- 							</span> -->
+					
 
 							<div class="button">
-<!-- 								<input type="submit" value="確認修改" id="btn_shelter_update"> -->
 								  <button type="submit" class="btn btn-primary put_on btn-sm" id="btn_shelter_update">確認修改</button>
 								<input type="hidden" name="action" value="update_put">
 							</div>
@@ -134,7 +137,13 @@
 							<!-- 							右上角大頭貼   -->
 							<div class="img">
 								<span>
-									<div class="s_img" id="s_img" ></div>
+									<div id="s_img">
+										<% if (shelterPhotoLength != 0) { %>
+                               				 <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+											  width="100px" height="100px" style="border-radius: 50%;" >
+										<% } %>
+									</div>
+									
 								</span> <input type="file" id="s_blob" name="shelterblob">
 							</div>
 						</form>

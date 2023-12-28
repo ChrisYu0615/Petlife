@@ -82,8 +82,7 @@
 				<!-- <div class="row"> -->
 				<div class="col-lg-6">
 					<span id="update_form"></span>
-					<!-- <div class="card"> -->
-					<!-- <div class="card-body"> -->
+
 					<h1>篩選收容動物條件</h1>
 
 					<form id="search" action="/HelloHibernateEx/project/pet.do"
@@ -164,7 +163,7 @@
 								<label for="adopt_date_start" class="come_in_date_start">領養日期起:</label>
 								<input type="date" class="form-control" id="adopt_date_start"
 									name="start_adopt_date" placeholder="選擇日期">
-								<spanclass="search_thr"> ~ </span> <label
+								<span class="search_thr"> ~ </span> <label
 									for="adopt_date_end" class="come_in_date_end">迄:</label> <input
 									type="date" class="form-control" id="adopt_date_end"
 									name="end_adopt_date" placeholder="選擇日期">
@@ -200,6 +199,7 @@
 					<div id="result">
 
 					</div>
+					
 				</div>
 			</div>
 

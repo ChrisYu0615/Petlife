@@ -134,8 +134,10 @@ th, td {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
+
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
+
 								<p>
 									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -180,6 +182,7 @@ th, td {
 
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas far fa-copy"></i>
+
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>

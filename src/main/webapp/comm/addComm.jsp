@@ -181,8 +181,10 @@ label {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
+
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
+
 								<p>
 									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -234,6 +236,7 @@ label {
 
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas far fa-copy"></i>
+
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -419,7 +422,7 @@ label {
 						<td><input type="text" name="commOnsalePrice" size="45" /></td>
 					</tr>
 					<tr>
-						<!-- 						<td>瀏覽數:</td> -->
+						<!-- 	<td>瀏覽數:</td> -->
 						<input type="hidden" name="commViewCount" size="45" value="0"
 							readonly />
 					</tr>

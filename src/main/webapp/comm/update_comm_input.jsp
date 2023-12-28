@@ -184,8 +184,10 @@ label {
 						<!-- 								<p>通知</p> -->
 						<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
+
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
+
 								<p>
 									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -237,6 +239,7 @@ label {
 
 						<li class="nav-item"><a href="#" class="nav-link active">
 								<i class="nav-icon fas far fa-copy"></i>
+
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -390,9 +393,11 @@ label {
 						<td>商品縮圖:</td>
 						<td><input type="file" name="commImg"
 							value="<%=comm.getCommImg()%>" size="45" /></td>
+            
 						<td><img
 							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 							width="110px" height="110px"></td>
+
 					</tr>
 					<td>商品分類:</td>
 					<td><select name="commCat" required>
@@ -445,11 +450,13 @@ label {
 						<td><input type="text" name="commOnsalePrice"
 							value="<%=comm.getCommOnsalePrice()%>" size="45" /></td>
 					</tr>
-					<!-- 					<tr> -->
-					<!-- 						<td>瀏覽數:</td> -->
-					<!-- 						<td><input type="text" name="commViewCount" -->
-					<%-- 							value="<%=comm.getCommViewCount()%>" size="45" /></td> --%>
-					<!-- 					</tr> -->
+
+					<!-- 	<tr> -->
+					<!-- 	<td>瀏覽數:</td> -->
+					<!-- 	<td><input type="text" name="commViewCount" -->
+					<%-- 			value="<%=comm.getCommViewCount()%>" size="45" /></td> --%>
+					<!-- 	</tr> -->
+
 
 
 
@@ -472,7 +479,6 @@ label {
 					return true; // 如果所有驗證都通過，返回 true；否則返回 false
 				}
 			</script>
-</body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	crossorigin="anonymous"></script>

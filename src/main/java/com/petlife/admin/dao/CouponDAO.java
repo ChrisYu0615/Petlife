@@ -15,4 +15,6 @@ public interface CouponDAO {
 	public Coupon findByPK(Integer couponId);
 	//查(多個)
 	public List<Coupon> getAll();
+	// 使用者驗證coupon
+	Coupon getCouponByCouponName(String couponNameString);
 }

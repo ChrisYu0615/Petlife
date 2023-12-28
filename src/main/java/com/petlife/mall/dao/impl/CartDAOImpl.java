@@ -28,11 +28,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public void delete(Integer cartId) {
+	public Integer delete(Integer cartId) {
 		Cart cart = getSession().get(Cart.class, cartId);
 		if (cart != null) {
 			getSession().delete(cart);
+			return 1;
 		} else {
+			return -1;
 		}
 	}
 
@@ -62,6 +64,20 @@ public class CartDAOImpl implements CartDAO {
 	        Session session = getSession();
 	        List<Cart> carts = session.createQuery("from Cart where user.userId = :userId", Cart.class)
 	                .setParameter("userId", user.getUserId())
+	                .getResultList();
+	        return carts; 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return Collections.emptyList();
+	    }
+	}
+	
+	@Override
+	public List<Cart> getCartsByUserAndSortBySeller(User user) {
+	    try {
+	        Session session = getSession();
+	        List<Cart> carts = session.createQuery("FROM Cart c WHERE c.user = :user ORDER BY c.comm.seller.sellerId", Cart.class)
+	                .setParameter("user", user) // 注意这里的改动
 	                .getResultList();
 	        return carts; 
 	    } catch (Exception e) {

@@ -51,6 +51,15 @@ public class BuylistServiceImpl implements BuylistService {
 		return dao.getAll();
 	}
 
+	
+	@Override
+	public void addMultipleBuylists(List<Buylist> buylists) {
+        for (Buylist buylist : buylists) {
+            dao.add(buylist);
+        }
+    }
+
+
 	@Override
 	public Double getUserRatingScore(Integer userId) {
 		return dao.getUserRating(userId);

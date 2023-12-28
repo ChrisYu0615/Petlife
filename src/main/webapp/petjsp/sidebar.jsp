@@ -68,8 +68,7 @@
 				</li>
 				
 				<li class="nav-item">
-				<c:url var="petresUrl" value="/petjsp/pet_res.jsp" /> 
-				<a href="${petresUrl}" class="nav-link"> 
+				<a href="<%= request.getContextPath()%>/logout/logout.do" class="nav-link">
 				<i class="fas fa-sign-out-alt"></i>
 						<p>登出</p>
 				</a></li>
