@@ -16,6 +16,8 @@ import com.petlife.forum.entity.Article;
 import com.petlife.forum.service.ArticleService;
 
 public class ArticleServiceImpl implements ArticleService {
+	
+
 	private ArticleDAO dao;
 
 	public ArticleServiceImpl() {
@@ -106,7 +108,25 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> getAllArticle(Integer userId) {
 		return dao.getAll(userId);
 	}
+	
+	@Override
+	public void updateView(Integer articleId) {
+		dao.updateView(articleId);
+	}
+	//依照論壇ID瀏覽數來找查文章
+	@Override
+	public List<Article> getTopArticlesByCTR(int forumId, int limit) {
+	    
+	    return dao.findTopArticlesByCTR(forumId, limit);
+	}
 
-	// 可能的其他方法
-	// ...
+
+	@Override
+	public List<Article> getArticlesByForumId(Integer forumId) {
+        return dao.findArticlesByForumId(forumId);
+    }
+	
+	
+	
+	
 }

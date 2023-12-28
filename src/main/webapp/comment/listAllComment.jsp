@@ -80,7 +80,7 @@
 		
 		<tr>
 			<td>${comment.commentId}</td>
-			<td>${comment.user.userId}</td>
+			<td>${comment.user.userName}</td>
 			<td>${comment.article.articleId}</td>
 			<td>${comment.commentText}</td>
 			<td>${comment.commentDatetime}</td> 

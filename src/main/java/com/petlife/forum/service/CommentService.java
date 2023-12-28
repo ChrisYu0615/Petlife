@@ -21,7 +21,7 @@ public interface CommentService {
     public Comment getCommentById(Integer commentId);
 
     // 獲得所有評論
-    public List<Comment> getAllComments();
+    public List<Comment> getAllComments(Integer articleId);
    
 
     // 可能的其他方法

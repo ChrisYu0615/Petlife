@@ -127,7 +127,32 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return query.getResultList();
 	}
+	@Override
+	public void updateView(Integer articleId) {
+		Article article = getSession().get(Article.class, articleId);
+		article.setCtr(article.getCtr() + 1);
+	}
+	//以瀏覽數和論壇ID來判斷熱門文章
+	public List<Article> findTopArticlesByCTR(int forumId, int limit) {
+	    String hql = "FROM Article a WHERE a.forum.forumId = :forumId ORDER BY a.ctr DESC";
+	    Query<Article> query = getSession().createQuery(hql, Article.class);
+	    query.setParameter("forumId", forumId); // 使用論壇ID作為查詢參數
+	    query.setMaxResults(limit); // 使用传入的limit参数
+	    return query.getResultList();
+	}
 
-	// 其他可能的方法
-	// ...
+
+	 @Override
+	 public List<Article> findArticlesByForumId(Integer forumId) {
+		    List<Article> articles = new ArrayList<>();
+		    // 实现数据库查询逻辑
+		    String hql = "FROM Article a WHERE a.forum.forumId = :forumId";
+		    Query<Article> query = getSession().createQuery(hql, Article.class); 
+		    query.setParameter("forumId", forumId);
+		    articles = query.getResultList();
+		    return articles;
+		}
+	
+	
+	
 }

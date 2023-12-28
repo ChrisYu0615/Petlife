@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -7,38 +9,38 @@
     <!-- Title -->
     <title>Home - Furry </title>
     <!-- Bootstrap css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <!-- animate css -->
-    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
     <!-- Fontawesome css -->
-    <link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome.all.min.css">
     <!-- owl.carousel css -->
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
     <!-- owl.theme.default css -->
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
     <!-- Magnific popup css -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.min.css">
     <!-- navber css -->
-    <link rel="stylesheet" href="assets/css/navber.css">
+    <link rel="stylesheet" href="../assets/css/navber.css">
     <!-- meanmenu css -->
-    <link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="../assets/css/meanmenu.css">
     <!-- Style css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 </head>
 
 <body>
     <!-- preloader Area -->
     <div id="preloader">
         <div id="status">
-            <img src="assets/img/loader.gif" alt="img">
+            <img src="../assets/img/loader.gif" alt="img">
         </div>
     </div>
 
-    <div class="headerPage"></div>
+    <%@include file ="../components/header.jsp"%>
 
     <!-- search -->
     <div class="search-overlay">
@@ -76,15 +78,15 @@
 
                         <div class="banner_main_services">
                             <div class="banner_main_service_item">
-                                <img src="assets/img/icon/banner-1.png" alt="img">
+                                <img src="../assets/img/icon/banner-1.png" alt="img">
                                 <h5>寵物商城</h5>
                             </div>
                             <div class="banner_main_service_item">
-                                <img src="assets/img/icon/banner-2.png" alt="img">
+                                <img src="../assets/img/icon/banner-2.png" alt="img">
                                 <h5>寵物領養</h5>
                             </div>
                             <div class="banner_main_service_item">
-                                <img src="assets/img/icon/banner-3.png" alt="img">
+                                <img src="../assets/img/icon/banner-3.png" alt="img">
                                 <h5>寵物論壇</h5>
                             </div>
                         </div>
@@ -102,15 +104,15 @@
                             data-interval="1">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="assets/img/SIMPLE/pngtree-cute-dog-image_826484.jpg" class="d-block w-100"
+                                    <img src="../assets/img/SIMPLE/pngtree-cute-dog-image_826484.jpg" class="d-block w-100"
                                         alt="img">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="assets/img/SIMPLE/b387b857af951f34824558dbbe36a023.jpg"
+                                    <img src="../assets/img/SIMPLE/b387b857af951f34824558dbbe36a023.jpg"
                                         class="d-block w-100" alt="img">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="assets/img/SIMPLE/S__26607622.jpg" class="d-block w-100" alt="img">
+                                    <img src="../assets/img/SIMPLE/S__26607622.jpg" class="d-block w-100" alt="img">
                                 </div>
                             </div>
                         </div>
@@ -166,7 +168,7 @@
             <span class="col-lg-4 col-md-6 col-sm-12 col-12">
                 <div class="shop_main_item">
                     <div class="shop_item_img">
-                        <a href="shop-details.html"><img src="assets/img/shop/shop-1.png" alt="img"></a>
+                        <a href="shop-details.html"><img src="../assets/img/shop/shop-1.png" alt="img"></a>
                         <span class="shop_badge in_stock">In stock</span>
                     </div>
                     <div class="shop_item_content">
@@ -200,7 +202,7 @@
             <span class="col-lg-4 col-md-6 col-sm-12 col-12">
                 <div class="shop_main_item">
                     <div class="shop_item_img">
-                        <a href="shop-details.html"><img src="assets/img/shop/shop-1.png" alt="img"></a>
+                        <a href="shop-details.html"><img src="../assets/img/shop/shop-1.png" alt="img"></a>
                         <span class="shop_badge in_stock">In stock</span>
                     </div>
                     <div class="shop_item_content">
@@ -235,7 +237,7 @@
             <span class="col-lg-4 col-md-6 col-sm-12 col-12">
                 <div class="shop_main_item">
                     <div class="shop_item_img">
-                        <a href="shop-details.html"><img src="assets/img/shop/shop-1.png" alt="img"></a>
+                        <a href="shop-details.html"><img src="../assets/img/shop/shop-1.png" alt="img"></a>
                         <span class="shop_badge in_stock">In stock</span>
                     </div>
                     <div class="shop_item_content">
@@ -341,7 +343,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="blog_area_wrapper">
                     <div class="blog_area_img">
-                        <a href="blog-details.html"><img src="assets/img/blog/blog-1.png" alt="img"></a>
+                        <a href="blog-details.html"><img src="../assets/img/blog/blog-1.png" alt="img"></a>
                     </div>
                     <div class="blog_area_content">
                         <h3><a href="blog-details.html">Top cat foods to consider if you are a
@@ -352,7 +354,7 @@
                         </p>
                         <div class="blog_area_author_wrappe">
                             <div class="blog_area_author_img">
-                                <img src="assets/img/blog/blog-post-1.png" alt="img">
+                                <img src="../assets/img/blog/blog-post-1.png" alt="img">
                             </div>
                             <div class="blog_area_author_text">
                                 <h5>Jennifer lawrence</h5>
@@ -365,7 +367,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="blog_area_wrapper">
                     <div class="blog_area_img">
-                        <a href="blog-details.html"><img src="assets/img/blog/blog-2.png" alt="img"></a>
+                        <a href="blog-details.html"><img src="../assets/img/blog/blog-2.png" alt="img"></a>
                     </div>
                     <div class="blog_area_content">
                         <h3><a href="blog-details.html">5 crazy things dogs do when
@@ -376,7 +378,7 @@
                         </p>
                         <div class="blog_area_author_wrappe">
                             <div class="blog_area_author_img">
-                                <img src="assets/img/blog/blog-post-2.png" alt="img">
+                                <img src="../assets/img/blog/blog-post-2.png" alt="img">
                             </div>
                             <div class="blog_area_author_text">
                                 <h5>Jennifer lawrence</h5>
@@ -389,7 +391,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="blog_area_wrapper">
                     <div class="blog_area_img">
-                        <a href="blog-details.html"><img src="assets/img/blog/blog-3.png" alt="img"></a>
+                        <a href="blog-details.html"><img src="../assets/img/blog/blog-3.png" alt="img"></a>
                     </div>
                     <div class="blog_area_content">
                         <h3><a href="blog-details.html">Your dog desperately needs
@@ -400,7 +402,7 @@
                         </p>
                         <div class="blog_area_author_wrappe">
                             <div class="blog_area_author_img">
-                                <img src="assets/img/blog/blog-post-3.png" alt="img">
+                                <img src="../assets/img/blog/blog-post-3.png" alt="img">
                             </div>
                             <div class="blog_area_author_text">
                                 <h5>Jennifer lawrence</h5>
@@ -413,7 +415,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                 <div class="blog_area_wrapper">
                     <div class="blog_area_img">
-                        <a href="blog-details.html"><img src="assets/img/blog/blog-3.png" alt="img"></a>
+                        <a href="blog-details.html"><img src="../assets/img/blog/blog-3.png" alt="img"></a>
                     </div>
                     <div class="blog_area_content">
                         <h3><a href="blog-details.html">Your dog desperately needs
@@ -424,7 +426,7 @@
                         </p>
                         <div class="blog_area_author_wrappe">
                             <div class="blog_area_author_img">
-                                <img src="assets/img/blog/blog-post-3.png" alt="img">
+                                <img src="../assets/img/blog/blog-post-3.png" alt="img">
                             </div>
                             <div class="blog_area_author_text">
                                 <h5>Jennifer lawrence</h5>
@@ -442,7 +444,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="about_area_right_img">
-                                <img src="assets/img/common/about.png" alt="img">
+                                <img src="../assets/img/common/about.png" alt="img">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -460,21 +462,21 @@
                                     <div class="about_round_check_wrapper">
                                         <div class="about_round_check_item">
                                             <div class="about_round_check_inner">
-                                                <img src="assets/img/icon/round-check.png" alt="icon">
+                                                <img src="../assets/img/icon/round-check.png" alt="icon">
                                                 <p>Certified goomer</p>
                                             </div>
                                             <div class="about_round_check_inner">
-                                                <img src="assets/img/icon/round-check.png" alt="icon">
+                                                <img src="../assets/img/icon/round-check.png" alt="icon">
                                                 <p>Pet care service</p>
                                             </div>
                                         </div>
                                         <div class="about_round_check_item">
                                             <div class="about_round_check_inner">
-                                                <img src="assets/img/icon/round-check.png" alt="icon">
+                                                <img src="../assets/img/icon/round-check.png" alt="icon">
                                                 <p>Animal lover</p>
                                             </div>
                                             <div class="about_round_check_inner">
-                                                <img src="assets/img/icon/round-check.png" alt="icon">
+                                                <img src="../assets/img/icon/round-check.png" alt="icon">
                                                 <p>Adoption pets</p>
                                             </div>
                                         </div>
@@ -566,55 +568,55 @@
                     <div class="col-lg-12">
                         <div class="testmoinal_main_slider owl-theme owl-carousel">
                             <div class="testimonial_area_item">
-                                <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
+                                <img src="../assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
                                 <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur
                                     notted adipisicing elit sed do eiusm menos tdolore magna aliqua
                                     andhn.</p>
-                                <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
+                                <img src="../assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
                                 <div class="test_destination">
                                     <h3>Adam brown</h3>
                                     <p>Businessman</p>
                                 </div>
                             </div>
                             <div class="testimonial_area_item">
-                                <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
+                                <img src="../assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
                                 <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur
                                     notted adipisicing elit sed do eiusm menos tdolore magna aliqua
                                     andhn.</p>
-                                <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
+                                <img src="../assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
                                 <div class="test_destination">
                                     <h3>Adam brown</h3>
                                     <p>Businessman</p>
                                 </div>
                             </div>
                             <div class="testimonial_area_item">
-                                <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
+                                <img src="../assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
                                 <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur
                                     notted adipisicing elit sed do eiusm menos tdolore magna aliqua
                                     andhn.</p>
-                                <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
+                                <img src="../assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
                                 <div class="test_destination">
                                     <h3>Adam brown</h3>
                                     <p>Businessman</p>
                                 </div>
                             </div>
                             <div class="testimonial_area_item">
-                                <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
+                                <img src="../assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
                                 <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur
                                     notted adipisicing elit sed do eiusm menos tdolore magna aliqua
                                     andhn.</p>
-                                <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
+                                <img src="../assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
                                 <div class="test_destination">
                                     <h3>Adam brown</h3>
                                     <p>Businessman</p>
                                 </div>
                             </div>
                             <div class="testimonial_area_item">
-                                <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
+                                <img src="../assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
                                 <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur
                                     notted adipisicing elit sed do eiusm menos tdolore magna aliqua
                                     andhn.</p>
-                                <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
+                                <img src="../assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
                                 <div class="test_destination">
                                     <h3>Adam brown</h3>
                                     <p>Businessman</p>
@@ -635,33 +637,30 @@
         
 
 
-        <div class="footerPage"></div>
+        <%@include file ="../components/footer.jsp"%>
 
 
 
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="../assets/js/jquery.min.js"></script>
         <!-- Bootstrap js -->
-        <script src="assets/js/bootstrap.bundle.js"></script>
+        <script src="../assets/js/bootstrap.bundle.js"></script>
         <!-- Meanu js -->
-        <script src="assets/js/jquery.meanmenu.js"></script>
+        <script src="../assets/js/jquery.meanmenu.js"></script>
         <!-- Magnific Popup js -->
-        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="../assets/js/jquery.magnific-popup.min.js"></script>
         <!-- owl carousel js -->
-        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="../assets/js/owl.carousel.min.js"></script>
         <!-- wow.js -->
-        <script src="assets/js/wow.min.js"></script>
+        <script src="../assets/js/wow.min.js"></script>
         <!-- waypoints.js -->
-        <script src="assets/js/waypoints.min.js"></script>
+        <script src="../assets/js/waypoints.min.js"></script>
         <!-- counterup.js -->
-        <script src="assets/js/jquery.counterup.min.js"></script>
+        <script src="../assets/js/jquery.counterup.min.js"></script>
         <!-- Custom js -->
         <!-- <script src="assets/js/gallery-popup.js"></script> -->
-        <script src="assets/js/custom.js"></script>
+        <script src="../assets/js/custom.js"></script>
         <!-- <script src="assets/js/video.js"></script> -->
-        <script>
-            $(".headerPage").load("./components/header.html");
-            $(".footerPage").load("./components/footer.html");
-        </script>
+
 </body>
 
 </html>
