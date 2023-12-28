@@ -389,15 +389,18 @@ public class CouponServlet extends HttpServlet {
 
 	    JSONObject jsonResponse = new JSONObject();
 	    
-	    if (coupon == null) {
-	    	jsonResponse.put("status", "failure");
-	        jsonResponse.put("message", "找不到這張coupon卷.");
-		} else if(coupon.getConditionsOfUse() == 1) {
+	    if (coupon != null && coupon.getConditionsOfUse() == 1) {
 			jsonResponse.put("status", "success");
 	        jsonResponse.put("discount", coupon.getDiscountAmount());
+		} else if(coupon == null) {
+			jsonResponse.put("status", "failure");
+	        jsonResponse.put("message", "此優惠卷找不到");
+		} else if(coupon.getConditionsOfUse() == 0){
+			jsonResponse.put("status", "failure");
+	        jsonResponse.put("message", "此優惠卷還沒生效");
 		} else {
 			jsonResponse.put("status", "failure");
-	        jsonResponse.put("message", "錯誤!");
+	        jsonResponse.put("message", "3");
 		}
 
 	    out.print(jsonResponse.toString());
