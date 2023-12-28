@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -55,6 +56,8 @@ public class BuylistForUserServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String forwardPath = "";
 
+
+
 		switch (action) {
 		
 		case "insert":
@@ -77,7 +80,7 @@ public class BuylistForUserServlet extends HttpServlet {
 	private String insert(HttpServletRequest req, HttpServletResponse res) {
 		User currentUser = (User) req.getSession().getAttribute("user");
 	    if (currentUser == null) {
-	        // 如果user沒有登的話
+	        // 如果user沒有登的話(其實user不會沒有登)
 	    	return "/cart/cart.jsp"; // 暫時先回cart.jsp, 之後應該是到錯誤頁面.
 	    }
 	    
@@ -89,6 +92,13 @@ public class BuylistForUserServlet extends HttpServlet {
         List<Buylist> buylists = new ArrayList<>();
         for (String cartIdStr : cartIds) {
             try {
+            	
+        		Enumeration<String> parameterNames = req.getParameterNames();
+        		while (parameterNames.hasMoreElements()) {
+        		    String paramName = parameterNames.nextElement();
+        		    System.out.println(paramName + ": " + req.getParameter(paramName));
+        		}
+        		
             	Integer cartId = Integer.parseInt(cartIdStr); // 就是只有cartId
             	
             	Cart cart = cartService.findByPK(cartId);

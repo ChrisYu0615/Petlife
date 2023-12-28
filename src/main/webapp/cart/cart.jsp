@@ -27,9 +27,9 @@
 
 <!-- ================= -->
 <!-- 以下偵測使用者版本 -->
+<%@ include file="../components/header.jsp" %>
 
 <%
-User user = (User) session.getAttribute("user");
 CartService cartSvc = new CartServiceImpl();
 
 List<Cart> list = cartSvc.getCartsByUserAndSortBySeller(user);
@@ -114,7 +114,6 @@ pageContext.setAttribute("totalAmount", totalAmount);
 		</div>
 	</div>
 	<!-- header -->
-	<div class="headerPage"></div>
 <!-- 		購買勾選商品的傳送url -->
 		<form action="<%=request.getContextPath()%>/buylist_for_user/buylist_for_user.do" method="post">
 		
@@ -159,11 +158,10 @@ pageContext.setAttribute("totalAmount", totalAmount);
 										<!-- sellerName -->
 										<td>${cart.comm.seller.sellerName}</td>
 										<!-- DELETE ajax version -->
-										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button></td>
-										
+										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button>
+                                    	<input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
+										</td>
                                     </tr>
-                                    <input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
-
                                     </c:forEach>
                                 </tbody>
                             </table>
@@ -177,7 +175,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 								<!-- coupon btn -->
                                 	<div class="input-group">
                                         <input type="text" class="form-control" placeholder="Your coupon code"
-                                         id="coupon_code" required>
+                                         id="coupon_code">
                                         <button class="btn btn_theme btn_md" type="button" onclick="applyCoupon()">Enter coupon</button>
                                     </div>
                                 </div>
@@ -209,7 +207,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
     </section>
 	</form>
 	<!-- footer -->
-	<div class="footerPage"></div>
+	<%@ include file="../components/footer.jsp" %>
 	<script src="../assets/js/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
