@@ -68,13 +68,13 @@
                 <div class="col-lg-3">
                     <div class="sidebar_boxed_wrapper">
                         <div class="sidebar_common_heading">
-                            <h3>Sidebar</h3>
+                            <h3>搜尋商城</h3>
                         </div>
                         <!-- search bar -->
                         <form action="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do" method="post">
                        		<div class="input-group mb-3">
                            	 	<input type="text" class="form-control" name="searchQuery" placeholder="Search">
-                            	<input type="submit" value="搜尋" class="btn btn_theme btn_sm">
+                            	<input type="submit" value="搜尋名稱" class="btn btn_theme btn_sm">
                             	
                         	</div>
                         </form>
