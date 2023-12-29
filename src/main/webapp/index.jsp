@@ -197,7 +197,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 				<span class="col-lg-4 col-md-6 col-sm-12 col-12">
 					<div class="shop_main_item">
 						<div class="shop_item_img">
-							<a href="shop-details.html"><img
+							<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?commId=${comm.commId}"><img
 								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 								style="width: 405px; height: 300px;"></a>
 						</div>
