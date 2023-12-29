@@ -129,13 +129,18 @@ public class CommDAOImpl implements CommDAO {
 	}
 
 	@Override
-	public List<Comm> getPopularComm() {
-		try {
-			Session session = getSession();
-			// 使用 HQL 查詢，按照 commViewCount 降序排列，並限制結果集為前三個
-			List<Comm> popularComms = session.createQuery("FROM Comm ORDER BY commViewCount DESC", Comm.class)
-					.setMaxResults(3).getResultList();
-			return popularComms;
+    public List<Comm> getPopularComm() {
+        try {
+            Session session = getSession();
+            // 使用 HQL 查詢，按照 commViewCount 降序排列，並限制結果集為前三個
+            List<Comm> popularComms = session.createQuery("FROM Comm ORDER BY commViewCount DESC", Comm.class)
+                    .setMaxResults(3).getResultList();
+            return popularComms;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public List<Comm> getCommByCategoryId(Integer commCatId) {
 	    try {

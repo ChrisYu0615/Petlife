@@ -199,8 +199,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 						<div class="shop_item_img">
 							<a href="shop-details.html"><img
 								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
-								style="width: 405px; height: 300px;"></a> <span
-								class="shop_badge in_stock">In stock</span>
+								style="width: 405px; height: 300px;"></a>
 						</div>
 						<div class="shop_item_content">
 							<h3>
