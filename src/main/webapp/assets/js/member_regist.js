@@ -318,7 +318,7 @@ $(function() {
 				data: JSON.stringify(userData),             // 將物件資料(不用雙引號) 傳送到指定的 url
 				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
 				success: function(data) {      // request 成功取得回應後執行
-					if (data.endsWith("html")) {
+					if (data.endsWith("jsp")) {
 						redirectPage(data);
 						return;
 					}
