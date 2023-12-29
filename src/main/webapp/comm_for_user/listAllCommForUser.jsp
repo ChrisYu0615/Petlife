@@ -157,9 +157,16 @@
                                         <div class="shop_item_content">
                                             <h3><a href="shop-details.html">${comm.commName}</a></h3>
                                             <div class="shop_item_price">
-                                                <p>${comm.commPrice}</p>
-                                                <h5>${comm.commOnsalePrice}</h5>
-                                            </div>
+											    <c:choose>
+											        <c:when test="${comm.commOnsalePrice == comm.commPrice}">
+											        	<h5>${comm.commPrice}</h5>
+											        </c:when>
+											        <c:otherwise>
+											        	<p>${comm.commPrice}</p>
+											        	<h5>${comm.commOnsalePrice}</h5>
+											        </c:otherwise>
+											    </c:choose>
+											</div>
                                             
                                             <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cart/cart.do" style="margin-bottom: 0px;">
 											    <div class="shop_quent_wrapper">
