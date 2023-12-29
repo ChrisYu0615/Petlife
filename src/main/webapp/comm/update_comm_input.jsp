@@ -34,13 +34,14 @@ Comm comm = (Comm) request.getAttribute("comm");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-img.brand-image{
-    background-color: antiquewhite;
+img.brand-image {
+	background-color: antiquewhite;
+}
 
-}
 .brand-link .brand-image {
-    margin-left: 0rem;
+	margin-left: 0rem;
 }
+
 body {
 	font-family: 'Source Sans Pro', sans-serif;
 	background-color: #f4f6f9;
@@ -154,10 +155,11 @@ label {
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="<%=request.getContextPath() %>/buylist/listAllBuylist.jsp" class="brand-link"> <img
-				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">寵愛生活後臺管理</span>
+			<a href="<%=request.getContextPath()%>/buylist/listAllBuylist.jsp"
+				class="brand-link"> <img src="../dist/img/main_logo.png"
+				alt="AdminLTE Logo" class="brand-image img-corners elevation-3"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">寵愛生活後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -230,11 +232,11 @@ label {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-<!-- 						<li class="nav-item"><a -->
-<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
-<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>訂單商品細項</p> -->
-<!-- 						</a></li> -->
+						<!-- 						<li class="nav-item"><a -->
+						<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+						<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>訂單商品細項</p> -->
+						<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
 						<li class="nav-item"><a href="#" class="nav-link active">
@@ -393,7 +395,7 @@ label {
 						<td>商品縮圖:</td>
 						<td><input type="file" name="commImg"
 							value="<%=comm.getCommImg()%>" size="45" /></td>
-            
+
 						<td><img
 							src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 							width="110px" height="110px"></td>
@@ -467,57 +469,55 @@ label {
 			</FORM>
 
 			<script>
-			 function validateForm() {
-			        var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
-			        var commOnsalePriceInput = document.forms["form1"]["commOnsalePrice"];
-
-			        // 如果商品優惠價格尚未填寫，則自動帶入商品價格
-			        if (commOnsalePriceInput.value.trim() === '') {
-			            commOnsalePriceInput.value = commPrice;
-			        }
-
-			        // 檢查商品優惠價不得大於或等於商品價格
-			        var commOnsalePrice = parseFloat(commOnsalePriceInput.value);
-			        if (commOnsalePrice > commPrice) {
-			            alert("商品優惠價不得大於或等於商品價格。");
-			            return false;
-			        }
-
-			        return true; // 如果所有驗證都通過，返回 true；否則返回 false
-			    }
-			</script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+			function validateForm() {
+		        var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
+		        var commOnsalePriceInput = document.forms["form1"]["commOnsalePrice"];
+		        // 如果商品優惠價格尚未填寫，則自動帶入商品價格
+		        if (commOnsalePriceInput.value.trim() === '') {
+		            commOnsalePriceInput.value = commPrice;
+		        }
+		        // 檢查商品優惠價不得大於或等於商品價格
+		        var commOnsalePrice = parseFloat(commOnsalePriceInput.value);
+		        if (commOnsalePrice > commPrice) {
+		            alert("商品優惠價不得大於商品價格。");
+		            return false;
+		        }
+		        return true; // 如果所有驗證都通過，返回 true；否則返回 false
+		    }
+		</script>
 
 
-</div>
-<!-- ./wrapper -->
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
 
 
-<!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-	$.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script
-	src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.js"></script>
+		</div>
+		<!-- ./wrapper -->
+
+
+		<!-- jQuery -->
+		<script src="../plugins/jquery/jquery.min.js"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button)
+		</script>
+		<!-- Bootstrap 4 -->
+		<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- overlayScrollbars -->
+		<script
+			src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="../dist/js/adminlte.js"></script>
 </body>
 
 </html>
