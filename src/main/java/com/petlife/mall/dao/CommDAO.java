@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
+import com.petlife.mall.entity.CommCat;
 
 public interface CommDAO {
 	// 增
@@ -32,8 +33,14 @@ public interface CommDAO {
 	// 根據訂單狀態ID查詢
 	List<Comm> getCommsByState(Integer commState, Integer sellerId);
 
-	// 瀏覽數
-	public void updateView(Integer commId);
+	//瀏覽數
+	 public void updateView(Integer commId) ;
+
+	// 查, 藉由分類
+	public List<Comm> getCommByCategoryId(Integer categoryId);
+
+	// 查, 藉由搜尋語句(搜尋商品名稱)
+	public List<Comm> getCommBySearchQuery(String searchQuery);
 
 //	public List<Comm> getCommImg(Integer commId);
 

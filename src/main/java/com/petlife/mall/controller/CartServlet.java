@@ -75,9 +75,9 @@ public class CartServlet extends HttpServlet{
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		try {
-			int userId = 100000001; // 暫時先用, 之後要從session裡面抓.
-			int commId = Integer.parseInt(req.getParameter("commId"));
-			int purchasingAmount = Integer.parseInt(req.getParameter("purchasing_amount"));
+			Integer userId = Integer.parseInt(req.getParameter("userId"));; // 暫時先用, 之後要從session裡面抓.
+			Integer commId = Integer.parseInt(req.getParameter("commId"));
+			Integer purchasingAmount = Integer.parseInt(req.getParameter("purchasing_amount"));
 			
 			Cart cart = new Cart();
 			

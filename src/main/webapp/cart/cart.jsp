@@ -27,9 +27,9 @@
 
 <!-- ================= -->
 <!-- 以下偵測使用者版本 -->
+<%@ include file="../components/header.jsp" %>
 
 <%
-User user = (User) session.getAttribute("user");
 CartService cartSvc = new CartServiceImpl();
 
 List<Cart> list = cartSvc.getCartsByUserAndSortBySeller(user);
@@ -114,8 +114,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 		</div>
 	</div>
 	<!-- header -->
-	<div class="headerPage"></div>
-<!-- 		購買勾選商品的傳送url -->
+		<!-- 購買勾選商品的傳送url -->
 		<form action="<%=request.getContextPath()%>/buylist_for_user/buylist_for_user.do" method="post">
 		
 		<input type="hidden" name="action" value="insert">
@@ -159,11 +158,17 @@ pageContext.setAttribute("totalAmount", totalAmount);
 										<!-- sellerName -->
 										<td>${cart.comm.seller.sellerName}</td>
 										<!-- DELETE ajax version -->
-										<td><button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button></td>
-										
+										<td>
+											<button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button>
+											<!-- 傳送purchasingAmount -->
+	                                    	<input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
+	                                    	<!-- 傳送sellerId -->
+	                                    	<input type="hidden" name="sellerId" value="${cart.comm.seller.sellerId}">
+	                                    	<!-- 傳送couponId -->
+											<input type="hidden" id="coupon_id" name="couponId" value="0">
+											<input type="hidden" id="grand_amount" name="grandAmount" value="">
+										</td>
                                     </tr>
-                                    <input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
-
                                     </c:forEach>
                                 </tbody>
                             </table>
@@ -177,7 +182,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 								<!-- coupon btn -->
                                 	<div class="input-group">
                                         <input type="text" class="form-control" placeholder="Your coupon code"
-                                         id="coupon_code" required>
+                                         id="coupon_code">
                                         <button class="btn btn_theme btn_md" type="button" onclick="applyCoupon()">Enter coupon</button>
                                     </div>
                                 </div>
@@ -209,7 +214,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
     </section>
 	</form>
 	<!-- footer -->
-	<div class="footerPage"></div>
+	<%@ include file="../components/footer.jsp" %>
 	<script src="../assets/js/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -261,6 +266,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
             if(response.status === 'success') {
             	currentCouponDiscount = parseFloat(response.discount);
             	updateCouponDiscount(response.discount)
+            	document.getElementById('coupon_id').value = response.couponId;
             } else {
             	currentCouponDiscount = 0;
             	updateCouponDiscount(0);
@@ -296,6 +302,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 
 	    document.getElementById('total_amount_display').innerText = 'Total Amount: $' + totalAmount.toFixed(2);
 	    document.getElementById('grand_amount_display').innerText = 'Grand Amount: $' + grandAmount.toFixed(2);
+	    document.getElementById('grand_amount').value = grandAmount;
 	}
 	
 	function handleCheckboxChange(checkbox) {

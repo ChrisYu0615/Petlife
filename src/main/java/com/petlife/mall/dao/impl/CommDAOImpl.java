@@ -136,6 +136,27 @@ public class CommDAOImpl implements CommDAO {
 			List<Comm> popularComms = session.createQuery("FROM Comm ORDER BY commViewCount DESC", Comm.class)
 					.setMaxResults(3).getResultList();
 			return popularComms;
+
+	public List<Comm> getCommByCategoryId(Integer commCatId) {
+	    try {
+	    	return getSession()
+	    			.createQuery("FROM Comm WHERE commCat.commCatId = :commCatId AND commState = 0 AND seller.acctState.acctStateId = 0", Comm.class)
+	    			.setParameter("commCatId", commCatId)
+	    			.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
+	@Override
+	public List<Comm> getCommBySearchQuery(String searchQuery) {
+		try {
+			return getSession()
+					.createQuery("FROM Comm WHERE commName LIKE :searchQuery AND commState = 0 AND seller.acctState.acctStateId = 0", Comm.class)
+					.setParameter("searchQuery", "%" + searchQuery + "%")
+					.getResultList();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

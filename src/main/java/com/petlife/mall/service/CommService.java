@@ -37,4 +37,9 @@ public interface CommService {
 
 	// 抓熱門商品三筆
 	public List<Comm> getPopularComm();
+
+	public List<Comm> getCommByCategoryId(Integer commCatId);
+
+	public List<Comm> getCommBySearchQuery(String searchQuery);
+
 }
