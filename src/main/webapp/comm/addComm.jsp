@@ -479,7 +479,7 @@ label {
         // 檢查商品優惠價不得大於或等於商品價格
         var commOnsalePrice = parseFloat(commOnsalePriceInput.value);
         if (commOnsalePrice > commPrice) {
-            alert("商品優惠價不得大於或等於商品價格。");
+            alert("商品優惠價不得大於商品價格。");
             return false;
         }
 
