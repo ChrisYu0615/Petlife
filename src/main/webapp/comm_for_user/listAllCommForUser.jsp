@@ -48,8 +48,8 @@
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-<!--     datatables -->
-<!--     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"> -->
+	<!-- datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 </head>
 
 
@@ -196,8 +196,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
-<!-- 	<!-- dataTables --> -->
-<!-- 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script> -->
+	<!-- dataTables -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <!-- 	<script> -->
 		
 <!-- 	</script> -->
