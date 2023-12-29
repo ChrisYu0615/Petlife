@@ -365,7 +365,7 @@ label {
 						<td><input type="text" name="commDesc" size="45" /></td>
 					</tr>
 					<tr>
-						<td>商品狀態ID:</td>
+						<td>商品狀態:</td>
 						<td><select name="commState" id="f_date1" required>
 								<option value="" selected disabled hidden>請選擇訂單狀態</option>
 								<option value="0">販售中</option>
