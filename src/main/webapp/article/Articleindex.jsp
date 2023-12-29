@@ -106,15 +106,7 @@ Article article = (Article) request.getAttribute("article");
 				<div class="col-lg-3">
 					<div class="sidebar_boxed_wrapper">
 						<div class="sidebar_common_heading">
-							<div class="sidebar_search_wrapper">
-
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="Search">
-									<button class="btn btn_theme btn_sm">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
-							</div>
+							<div class="sidebar_search_wrapper"></div>
 
 							<div class="accordion" id="accordionExample">
 								<!-- 狗狗 -->
@@ -123,11 +115,11 @@ Article article = (Article) request.getAttribute("article");
 										<h3>狗狗</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=1">熱門文章</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=1">熱門文章</a>
 										</li>
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1">狗狗的家</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1">狗狗的家</a>
 										</li>
 									</ul>
 								</div>
@@ -138,11 +130,11 @@ Article article = (Article) request.getAttribute("article");
 										<h3>貓貓</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=2">熱門文章</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=2">熱門文章</a>
 										</li>
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2">貓貓的家</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2">貓貓的家</a>
 										</li>
 									</ul>
 								</div>
@@ -152,11 +144,11 @@ Article article = (Article) request.getAttribute("article");
 										<h3>閒聊</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=3">熱門文章</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=3">熱門文章</a>
 										</li>
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3">來閒聊ㄅ</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3">來閒聊ㄅ</a>
 										</li>
 									</ul>
 								</div>
@@ -165,11 +157,11 @@ Article article = (Article) request.getAttribute("article");
 										<h3>特殊</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=4">熱門文章</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=4">熱門文章</a>
 										</li>
-										<li class="list-group-item">
-										<a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
 										</li>
 										<li class="list-group-item">木木梟</li>
 									</ul>
@@ -270,7 +262,8 @@ Article article = (Article) request.getAttribute("article");
 										<a
 											href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}"><img
 											src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}"
-											alt="img" style="width: 470px; height: 400px; border-radius: 10px;"></a>
+											alt="img"
+											style="width: 470px; height: 400px; border-radius: 10px;"></a>
 									</div>
 									<div class="blog_area_content">
 										<a

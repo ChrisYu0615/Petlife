@@ -28,6 +28,7 @@ pageContext.setAttribute("list", list);
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 <!-- Title -->
 <title>Blog - Furry</title>
 <!-- Bootstrap css -->
@@ -112,12 +113,12 @@ pageContext.setAttribute("list", list);
 						<div class="sidebar_common_heading">
 							<div class="sidebar_search_wrapper">
 
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="Search">
-									<button class="btn btn_theme btn_sm">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
+<!-- 								<div class="input-group mb-3"> -->
+<!-- 									<input type="text" class="form-control" placeholder="Search"> -->
+<!-- 									<button class="btn btn_theme btn_sm"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
 							</div>
 
 							<div class="accordion" id="accordionExample">
@@ -187,9 +188,9 @@ pageContext.setAttribute("list", list);
 												alt="img" style="width: 50px; height: 50px">
 										</div>
 										<div class="blog_area_author_text">
-											<h5>Jennifer lawrence</h5>
+											<h5>${article.user.userName}</h5>
 											<p>
-												<span>發文時間</span> <i class="fas fa-circle"></i> <span>8
+												<span>${article.updateTime}</span> <i class="fas fa-circle"></i> <span>8
 													min read</span>
 											</p>
 										</div>

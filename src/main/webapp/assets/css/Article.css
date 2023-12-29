@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* 未选中时的按钮样式 */
+.btn-outline-primary {
+    color: #FF4500; /* 暗橘色文字 */
+    background-color: #FFF8DC; /* 淡橘黄色背景 */
+    border-color: #FFA500; /* 明亮的橘黄色边框 */
+}
+
+/* 当按钮被选中时的样式 */
+.btn-check:checked + .btn-outline-primary {
+    background-color: #FFA500; /* 明亮的橘黄色背景 */
+    border-color: #FF4500; /* 暗橘色边框 */
+    color: #FFF8DC; /* 淡橘黄色文字 */
+}
+
+/* 鼠标悬停在按钮上时的样式 */
+.btn-outline-primary:hover {
+    background-color: #FFA500; /* 明亮的橘黄色背景 */
+    border-color: #FFD700; /* 金色边框 */
+    color: white; /* 白色文字 */
+}

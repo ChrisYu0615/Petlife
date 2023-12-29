@@ -64,7 +64,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public List<Article> getAll() {
-		return getSession().createQuery("from Article", Article.class).getResultList();
+		return getSession().createQuery("from Article where state = true", Article.class).getResultList();
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 //關鍵字搜尋
 	@Override
 	public List<Article> searchByKeyword(String keyword) {
-		String hql = "from Article where article_name like :keyword or article_content like :keyword";
+		String hql = "from Article where articleName like :keyword or articleContent like :keyword";
 		Query<Article> query = getSession().createQuery(hql, Article.class);
 		query.setParameter("keyword", "%" + keyword + "%");
 		return query.getResultList();
