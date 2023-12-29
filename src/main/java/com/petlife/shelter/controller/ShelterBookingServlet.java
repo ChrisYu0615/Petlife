@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.oracle.wls.shaded.org.apache.bcel.generic.IF_ACMPEQ;
 import com.petlife.shelter.entity.ShelterBooking;
 import com.petlife.shelter.service.ShelterBookingService;
 import com.petlife.shelter.service.impl.ShelterBookingServiceImpl;
@@ -70,6 +71,7 @@ public class ShelterBookingServlet extends HttpServlet {
 		}
 	}
 	
+	//取得可以預約的判斷
 	private String getAvalibleBookings(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException  {
 		System.out.println("ShelterBookingServlet1: getAvalibleBookings Entry");
 		Map<String, String[]> map = req.getParameterMap();
@@ -77,14 +79,22 @@ public class ShelterBookingServlet extends HttpServlet {
 		
 		if (map != null) {
 			List<ShelterBooking> shelterBookingList = shelterBookingService.getByCompositeQuery(map);
-			shelterBookingList = shelterBookingList.stream()
-							.filter(booking -> booking.getShelterBookingNum() != booking.getShelterBookingMax())
-							.collect(Collectors.toList());
+			shelterBookingList = shelterBookingList.stream()	//轉stream
+							.filter(booking -> booking.getShelterBookingNum() != booking.getShelterBookingMax())	//->之後是取出TRUE的資料
+							.collect(Collectors.toList());	//再轉回list
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 			res.setContentType("application/json;charset=UTF-8");
 			res.getWriter().println(gson.toJson(shelterBookingList));
 		} 
 		return "";
+	}
+	
+	//新增預約數+1
+	private void addBookingNum(HttpServletRequest req, HttpServletResponse res) {
+		String id = req.getParameter("id");
+		ShelterBooking idData = shelterBookingService.getOneShelterBooking(Integer.valueOf(id));
+		idData.setShelterBookingNum(idData.getShelterBookingNum() + 1);
+		shelterBookingService.updateShelterBooking(idData);
 	}
 
 	private String getCompositePetsQuery(HttpServletRequest req, HttpServletResponse res) {

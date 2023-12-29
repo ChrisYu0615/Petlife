@@ -30,16 +30,15 @@ private SessionFactory factory;
 			
 
 			getSession().save(entity);
-			
 
 			System.out.println("no");
-			
-		return  1;
-	}catch(Exception e) {
-		System.out.println(e.getMessage());
-		getSession().getTransaction().rollback();
-	}
-	return -1;
+
+			return 1;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			getSession().getTransaction().rollback();
+		}
+		return -1;
 	}
 
 	@Override
@@ -62,7 +61,8 @@ private SessionFactory factory;
 	@Override
 	public PetPhoto getById(Integer id) {
 		try {
-			PetPhoto petPhoto = getSession().createQuery("from PetPhoto where photoId =" + id, PetPhoto.class).uniqueResult();
+			PetPhoto petPhoto = getSession().createQuery("from PetPhoto where photoId =" + id, PetPhoto.class)
+					.uniqueResult();
 			return petPhoto;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,9 +72,9 @@ private SessionFactory factory;
 		return null;
 	}
 
-	@Override
-	public List<PetPhoto> getAll() {
-		// TODO Auto-generated method stub
+	public List<PetPhoto> getAll(Integer petId) {
+		getSession().createQuery("from PetPhoto where pet.petId=:petId", PetPhoto.class).setParameter("petId", petId)
+				.getResultList();
 		return null;
 	}
 
@@ -83,5 +83,11 @@ private SessionFactory factory;
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public List<PetPhoto> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

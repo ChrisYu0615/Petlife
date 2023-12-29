@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="../assets/css/responsive.css">
 <!-- Adoption css -->
 <link rel="stylesheet" href="../assets/css/adoption.css">
+<link rel="stylesheet" href="../assets/css/index.css">
 <link href="../assets/css/glDatePicker.default2.css" rel="stylesheet"
 	type="text/css">
 <!-- 此版自定 -->
@@ -45,31 +46,33 @@
 	type="text/css">
 
 <!-- 此版自定 -->
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script src="../assets/js/jquery.min.js"></script>
-	<!-- Bootstrap js -->
-	<script src="../assets/js/bootstrap.bundle.js"></script>
-	<!-- Meanu js -->
-	<script src="../assets/js/jquery.meanmenu.js"></script>
-	<!-- Magnific Popup js -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- owl carousel js -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
-	<!-- wow.js -->
-	<script src="../assets/js/wow.min.js"></script>
-	<!-- waypoints.js -->
-	<script src="../assets/js/waypoints.min.js"></script>
-	<!-- counterup.js -->
-	<script src="../assets/js/jquery.counterup.min.js"></script>
-	<!-- Custom js -->
-	<script src="../assets/js/gallery-popup.js"></script>
-	<script src="../assets/js/custom.js"></script>
-	<script src="../assets/js/video.js"></script>
-	<!-- 原版預設 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<!-- Bootstrap js -->
+<script src="../assets/js/bootstrap.bundle.js"></script>
+<!-- Meanu js -->
+<script src="../assets/js/jquery.meanmenu.js"></script>
+<!-- Magnific Popup js -->
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+<!-- owl carousel js -->
+<script src="../assets/js/owl.carousel.min.js"></script>
+<!-- wow.js -->
+<script src="../assets/js/wow.min.js"></script>
+<!-- waypoints.js -->
+<script src="../assets/js/waypoints.min.js"></script>
+<!-- counterup.js -->
+<script src="../assets/js/jquery.counterup.min.js"></script>
+<!-- Custom js -->
+<script src="../assets/js/gallery-popup.js"></script>
+<script src="../assets/js/custom.js"></script>
+<script src="../assets/js/video.js"></script>
+<!-- 原版預設 -->
 <script src="../assets/js/jquery.min.js"></script>
 <!-- <script src="../assets/js/glDatePicker2.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/glad/glDatePicker/glDatePicker.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/gh/glad/glDatePicker/glDatePicker.min.js"></script>
 <script src="../assets/js/adoption.js"></script>
 
 <!-- lightbox 日期 -->
@@ -86,8 +89,9 @@ a:hover, a:active {
 	color: blue;
 	text-decoration: none;
 }
-.on{
-background-color:red;
+
+.on {
+	background-color: red;
 }
 </style>
 <body>
@@ -229,9 +233,43 @@ background-color:red;
 			</div>
 			<div class="row gx-0">
 				<div class="col-lg-4">
-					<div class="adoption_details_big_img">
-						<img src="../assets\img\adoption\cat1.png" alt="img">
+<!-- 										<div class="adoption_details_big_img"> -->
+<!-- 											<img src="../assets\img\adoption\cat1.png" alt="img"> -->
+<!-- 										</div> -->
+<%-- 					<c:forEach var="photo" items="${pet.petPhotos}"> --%>
+									
+								
+<!-- 									<img -->
+<%-- 										src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}" --%>
+<!-- 										class="d-block w-100 adImg" alt="img"> -->
+								
+<%-- 							</c:forEach> --%>
+					<div id="carouselExampleSlidesOnly"
+						class="carousel slide adoption_details_big_img"
+						data-bs-ride="carousel">
+						<div class="carousel-inner" id="carouselInner">
+							<c:forEach var="photo" items="${pet.petPhotos}">
+
+ 								<div class="carousel-item ">
+ 									<img
+										src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}"
+										class="d-block w-100 adImg" alt="img">
+ 								</div>
+ 							</c:forEach> 
+						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
+
+
 				</div>
 				<div class="col-lg-8">
 					<div class="adoption_details_main_content">
@@ -262,8 +300,7 @@ background-color:red;
 											: "未絕育");
 								</script></li>
 								<li><span>籠 舍：</span>${pet.petCage}</li>
-								<li><span>是否開放領養：</span>
-								<script>
+								<li><span>是否開放領養：</span> <script>
 									// 使用布林值直接判斷
 									document
 											.write("${pet.adopted}" ? "是" : "否");
@@ -284,38 +321,41 @@ background-color:red;
 		</div>
 
 	</section>
-	
-
-	
 
 
-	
-	
+
+
+
+
+
 	<!-- Button trigger modal -->
 	<div class="row">
-		<button type="button" class="make_reservation_btn" name="action" id="make_reservation_btn"
-			value="" data-bs-toggle="modal"	data-bs-target="#exampleModal">我要預約</button>
-		<input type="hidden" name="shelter_Id" value="${pet.shelter.shelterId}" id="shelter_Id">	
+		<button type="button" class="make_reservation_btn" name="action"
+			id="make_reservation_btn" value="" data-bs-toggle="modal"
+			data-bs-target="#exampleModal">我要預約</button>
+		<input type="hidden" name="shelter_Id"
+			value="${pet.shelter.shelterId}" id="shelter_Id">
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"  
-		aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-fullscreen-xxl-down">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="exampleModalLabel">選擇預約日期/時段</h1>
 					<input type="month" name="month" id="month">
-					<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-				
+
 					<input class="mydate" gldp-id="mydate" id="mydate" value="所選日期"
 						style="width: 1000px; height: 30px; visibility: visible; color: gray; font-weight: bold;"
-						type="text"/>
-						
+						type="text" />
+
 					<div gldp-el="mydate" id="mydateContainer">
-					
-					<script>
+
+						<script>
 						$('#mydate').glDatePicker(
 								{
 									showAlways : true,       // 預設為 false

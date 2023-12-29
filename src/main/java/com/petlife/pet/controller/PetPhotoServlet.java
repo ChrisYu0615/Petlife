@@ -3,6 +3,8 @@ package com.petlife.pet.controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,6 +55,9 @@ public class PetPhotoServlet extends HttpServlet {
 		case "getPetPhotoTest":
 			forwardPath = getPetPhotoTest(req, res);
 			break;
+		case "getPetPhotoTest2":
+			forwardPath = getPetPhotoTest2(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -96,6 +101,32 @@ public class PetPhotoServlet extends HttpServlet {
 //		return "";
 
 	}
+	
+	//思涵1229新增，搜尋頁取照片
+	private String getPetPhotoTest2(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		System.out.println("comtroler getPetPhotoTest2");
+			Integer id=(Integer.valueOf(req.getParameter("photoId")));
+			
+			System.out.println(id + "photoId");
+			PetPhoto petPhoto = petPhotoService.getOnePetphoto(id);
+
+//			// Check if the pet photo is not null
+			if (petPhoto != null) {
+			    res.setContentType("image/gif");
+			    
+			    // Assuming getPhotoData() returns a byte array representing the image data
+			    byte[] imageData = petPhoto.getPetPhoto();
+
+			    try (ServletOutputStream out = res.getOutputStream()) {
+			        // Write the image data to the response output stream
+			        out.write(imageData);
+			    } catch (IOException e) {
+			        e.printStackTrace(); // Handle the exception appropriately
+			    }
+			}
+			return "";
+	}
+	
 	private String readJsonRequest(HttpServletRequest request) throws IOException {
 		System.out.println("readJsonRequest Entry");
 		StringBuilder stringBuilder = new StringBuilder();
