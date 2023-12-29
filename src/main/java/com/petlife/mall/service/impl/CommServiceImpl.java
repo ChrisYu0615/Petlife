@@ -7,9 +7,9 @@ import com.petlife.mall.dao.impl.CommDAOImpl;
 import com.petlife.mall.entity.Comm;
 import com.petlife.mall.service.CommService;
 
-public class CommServiceImpl implements CommService{
+public class CommServiceImpl implements CommService {
 	private CommDAO dao;
-	
+
 	public CommServiceImpl() {
 		dao = new CommDAOImpl();
 	}
@@ -50,7 +50,7 @@ public class CommServiceImpl implements CommService{
 		// TODO Auto-generated method stub
 		return dao.getCommsByState(commState, sellerId);
 	}
-	
+
 	@Override
 	public void updateView(Integer commId) {
 		dao.updateView(commId);
@@ -60,5 +60,10 @@ public class CommServiceImpl implements CommService{
 	public List<Comm> getAll(String memberId) {
 		return dao.getAll(memberId);
 	}
-	
+
+	@Override
+	public List<Comm> getPopularComm() {
+		return dao.getPopularComm();
+	}
+
 }

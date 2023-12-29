@@ -34,13 +34,14 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-img.brand-image{
-    background-color: antiquewhite;
+img.brand-image {
+	background-color: antiquewhite;
+}
 
-}
 .brand-link .brand-image {
-    margin-left: 0rem;
+	margin-left: 0rem;
 }
+
 body {
 	font-family: 'Source Sans Pro', sans-serif;
 	background-color: #f4f6f9;
@@ -151,10 +152,11 @@ label {
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="<%=request.getContextPath() %>/buylist/listAllBuylist.jsp" class="brand-link"> <img
-				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-				class="brand-image img-corners elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">寵愛生活後臺管理</span>
+			<a href="<%=request.getContextPath()%>/buylist/listAllBuylist.jsp"
+				class="brand-link"> <img src="../dist/img/main_logo.png"
+				alt="AdminLTE Logo" class="brand-image img-corners elevation-3"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">寵愛生活後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -227,11 +229,11 @@ label {
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-<!-- 						<li class="nav-item"><a -->
-<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
-<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>訂單商品細項</p> -->
-<!-- 						</a></li> -->
+						<!-- 						<li class="nav-item"><a -->
+						<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+						<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>訂單商品細項</p> -->
+						<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
 						<li class="nav-item"><a href="#" class="nav-link active">
@@ -431,7 +433,7 @@ label {
 				<input type="submit" value="提交新增">
 			</form>
 			<script>
-			<!-- 帶入現在時間到buylistDate -->
+    <!-- 帶入現在時間到buylistDate -->
     document.addEventListener('DOMContentLoaded', function () {
         // 獲取當前日期和時間
         var currentDateTime = new Date();
@@ -454,14 +456,13 @@ label {
 
         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
-			<!-- /帶入現在時間到buylistDate -->
+    <!-- /帶入現在時間到buylistDate -->
 
     function validateForm() {
         var listDatetime = document.forms["form1"]["listDatetime"].value;
         var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
-        var commOnsalePrice = parseFloat(document.forms["form1"]["commOnsalePrice"].value);
+        var commOnsalePriceInput = document.forms["form1"]["commOnsalePrice"];
         
-
         // 檢查日期格式
         var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
 
@@ -470,11 +471,17 @@ label {
             return false;
         }
 
-        if (commOnsalePrice >= commPrice) {
+        // 如果商品優惠價格尚未填寫，則自動帶入商品價格
+        if (commOnsalePriceInput.value.trim() === '') {
+            commOnsalePriceInput.value = commPrice;
+        }
+
+        // 檢查商品優惠價不得大於或等於商品價格
+        var commOnsalePrice = parseFloat(commOnsalePriceInput.value);
+        if (commOnsalePrice > commPrice) {
             alert("商品優惠價不得大於或等於商品價格。");
             return false;
         }
-
 
         return true; // 如果所有驗證都通過，返回 true；否則返回 false
     }

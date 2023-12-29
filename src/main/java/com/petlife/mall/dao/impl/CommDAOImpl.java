@@ -83,7 +83,9 @@ public class CommDAOImpl implements CommDAO {
 	public List<Comm> getCommsByState(Integer commState, Integer sellerId) {
 		try {
 			Session session = getSession();
-			List<Comm> comms = session.createQuery("from Comm where commState.commState = :state and seller.sellerId = :sellerId", Comm.class)
+			List<Comm> comms = session
+					.createQuery("from Comm where commState.commState = :state and seller.sellerId = :sellerId",
+							Comm.class)
 					.setParameter("state", commState).setParameter("sellerId", sellerId).getResultList();
 			return comms;
 		} catch (Exception e) {
@@ -117,11 +119,26 @@ public class CommDAOImpl implements CommDAO {
 		case '2':
 			// 2開頭(賣家會員)
 			Integer sellerId = Integer.valueOf(memberId);
-			System.out.println("``````````````````````````````````````"+sellerId+"```````````````````````````````````````");
+			System.out.println(
+					"``````````````````````````````````````" + sellerId + "```````````````````````````````````````");
 			return getSession().createQuery("from Comm where seller.sellerId=:sellerId", Comm.class)
 					.setParameter("sellerId", sellerId).getResultList();
 		}
 
 		return getSession().createQuery("from Comm", Comm.class).getResultList();
+	}
+
+	@Override
+	public List<Comm> getPopularComm() {
+		try {
+			Session session = getSession();
+			// 使用 HQL 查詢，按照 commViewCount 降序排列，並限制結果集為前三個
+			List<Comm> popularComms = session.createQuery("FROM Comm ORDER BY commViewCount DESC", Comm.class)
+					.setMaxResults(3).getResultList();
+			return popularComms;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
