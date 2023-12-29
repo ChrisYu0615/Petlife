@@ -155,7 +155,7 @@
                                                     alt="img"></a>
                                         </div>
                                         <div class="shop_item_content">
-                                            <h3><a href="shop-details.html">${comm.commName}</a></h3>
+                                            <h3><a href="#">${comm.commName}</a></h3>
                                             <div class="shop_item_price">
 											    <c:choose>
 											        <c:when test="${comm.commOnsalePrice == comm.commPrice}">
