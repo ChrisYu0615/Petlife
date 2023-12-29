@@ -177,6 +177,8 @@
 											    <input type="submit" value="加入購物車">
 											    <input type="hidden" name="action" value="add_comm_to_cart">
 											    <input type="hidden" name="commId" value="${comm.commId}">
+											    <input type="hidden" name="userId" value="${user.userId}">
+											    
 											</FORM>
                                         </div>
                                     </div>
