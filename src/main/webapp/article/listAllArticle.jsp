@@ -86,7 +86,7 @@
 		<tr>
 			<td>${article.articleId}</td>
 			<td>${article.user.userId}</td>
-			<td>${article.forum}</td>
+			<td>${article.forum.sortName}</td>
 			<td>${article.articleName}</td>
 			<td>${article.articleContent}</td>
 			<td>${article.updateTime}</td> 

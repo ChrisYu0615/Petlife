@@ -3,17 +3,30 @@
 <%@page import="com.petlife.forum.entity.Comment"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
 
-	User user = (User)session.getAttribute("account");
-	if(user!=null){
-		System.out.print(user.getUserId());
-	}
+<%
+    // 從session中獲取User對象
+    User user = (User) session.getAttribute("user");
+    if (user != null) {
+        // 輸出用戶ID到服務器日誌
+        System.out.println(user.getUserId());
+
+        // 從session或request中獲取Article對象
+        Article article = (Article) session.getAttribute("article");
+        if (article == null) {
+            article = (Article) request.getAttribute("article");
+            if (article == null) {
+                article = new Article(); // 如果仍然為null，則創建一個新的Article對象
+            }
+        }
+      
+    }
 %>
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>文章新增 - addArticle.jsp</title>
+<title>留言新增 - addComment.jsp</title>
 
 <style>
     table#table-1 {
@@ -80,10 +93,8 @@
         </ul>
     </c:if>
 
-    <% 
-    // 從請求中取得之前錯誤提交的 Article 物件
-    Comment comment = (Comment)request.getAttribute("comment"); 
-    %>
+
+
 
     <FORM METHOD="post" ACTION="comment.do" name="form1">
     <table>

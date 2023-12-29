@@ -124,7 +124,7 @@
 
                         <div class="button">
 <!--                             <button type="button" class="btn btn-primary save" onclick="redirectToOtherJSP()">編輯</button> -->
-                            <input type="submit"  value="編輯">
+                            <input type="submit"  value="編輯" id="forward">
                             <input type="hidden" name="action" value="update_forward">
                             
                         </div>

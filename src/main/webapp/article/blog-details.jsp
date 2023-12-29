@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import = "com.petlife.user.entity.User"%>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -42,7 +44,7 @@
         </div>
     </div>
 
-    <div class="headerPage"></div>
+    <%@include file ="../components/header.jsp"%>
 
 
 
@@ -113,7 +115,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
+                                        <li class="list-group-item">狗狗的家</li>
 
                                     </ul>
                                 </div>
@@ -124,9 +126,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">貓貓的家</li>
-                                        <li class="list-group-item">貓貓保健</li>
                                     </ul>
                                 </div>
                                 <!-- 範例-3 -->
@@ -136,7 +136,7 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
+                                        <li class="list-group-item">來閒聊ㄅ</li>
                                         <!-- <li class="list-group-item">貓貓保健</li> -->
                                     </ul>
                                 </div>
@@ -146,7 +146,6 @@
                                     </span>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">最新文章</li>
                                         <li class="list-group-item">爬蟲類</li>
                                         <li class="list-group-item">木木梟</li>
                                     </ul>
@@ -183,7 +182,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="form-group">
                                             <input type="text" name="articleName" class="form-control" placeholder="請輸入你的文章標題"
-                                                required="">
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +191,8 @@
                                         <label for="inputGroupFile02">照片:</label>
                                         <input type="file" class="form-control" id="articlePhoto" name="articlePhoto" multiple>
                                     
+<%--                         	     <div><input type="text" name = "user" value ="<%=user.getUserId()%>"></div> --%>
+<!--                         	     <div><input type="text" name = "user">UserId</div> -->
             
                                     
                                         <div class="pet_img"><span class="pet_img">預覽圖</span></div>
@@ -203,6 +204,8 @@
                                             required=""></textarea>
                                     </div>
                                 </div>
+                        	    <input type="hidden" name = "ctr" value="0" readonly />
+                        	    
                         
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="submit_btn">
@@ -251,7 +254,7 @@
 
 
 
-                <div class="footerPage"></div>
+                <%@include file ="../components/footer.jsp"%>
 
                 <script src="../assets/js/jquery.min.js"></script>
                 <!-- Bootstrap js -->
@@ -272,10 +275,7 @@
                 <script src="../assets/js/gallery-popup.js"></script>
                 <script src="../assets/js/custom.js"></script>
                 <script src="../assets/js/video.js"></script>
-                <script>
-                    $(".headerPage").load("../components/header.html");
-                    $(".footerPage").load("../components/footer.html");
-                </script>
+              
 <script>
     // 這是動物照片
 $("#petphoto").change(function () {

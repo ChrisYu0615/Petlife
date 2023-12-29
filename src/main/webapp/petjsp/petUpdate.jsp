@@ -139,13 +139,13 @@
     
 
        		<tr>
-					<td>照片:</td>
+					
 					<td>
 						<table id="photoTable">
 							<thead>
 								<tr>
-						            <th>#</th>
-						            <th>預覽圖</th>
+						            <th></th>
+						            <th>照片:預覽圖</th>
 						        </tr>
 							</thead>
 							<tbody>

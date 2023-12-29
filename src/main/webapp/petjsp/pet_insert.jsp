@@ -236,7 +236,7 @@ div.button {
 								items="${pet.petPhotos}"> 
 								<img 
 									src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}" 
-									width="100px"> 
+									width="100px" height="100px"> 
 							</c:forEach> 
 						</span> 
 					</div>

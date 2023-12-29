@@ -30,6 +30,13 @@ public interface ArticleService {
 
 	List<Article> getArticlesByCompositeQuery(Map<String, String[]> map);
 
-    // 可能的其他方法
-    // ...
+    //  點閱數
+	
+	public void updateView(Integer articleId);
+    
+	// 依照點閱數和論壇ID找查文章 
+	
+	public List<Article> getTopArticlesByCTR(int forumId, int limit);
+	
+	public List<Article> getArticlesByForumId(Integer forumId); 
 }

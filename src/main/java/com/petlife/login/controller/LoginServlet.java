@@ -86,12 +86,12 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/index.jsp");
 						return;
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -142,12 +142,12 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/buylist/listAllBuylist.jsp");
 						return;
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -212,7 +212,7 @@ public class LoginServlet extends HttpServlet {
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -273,7 +273,7 @@ public class LoginServlet extends HttpServlet {
 						return;
 					}
 				} catch (Exception ignore) {
-					out.print(req.getContextPath() + "/user/user.do?action=getAll");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:

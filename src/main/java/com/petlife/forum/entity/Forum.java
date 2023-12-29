@@ -17,7 +17,7 @@ public class Forum {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 自增鍵
-    @Column(name = "forum_id", updatable = false, insertable = false ) // updatable = false --> update SQL 不包括此欄位
+    @Column(name = "forum_id", updatable = false ) // updatable = false --> update SQL 不包括此欄位
     private Integer forumId;
     
 //    @OneToMany(mappedBy = forum,cascade = CascadeType.ALL)    

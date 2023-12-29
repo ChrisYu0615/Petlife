@@ -2,24 +2,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.petlife.pet.entity.Pet"%>
 <%@ page import="com.petlife.shelter.entity.Shelter"%>
-<c:forEach var="pet" items="${petList}">
+
 <div class="tab-content" id="nav-tabContent">
 							<div class="tab-pane fade show active" id="nav-home"
 								role="tabpanel" aria-labelledby="nav-home-tab">
 								<div class="adoption_tab_item_wrapper">
 									<div class="row">
+									<c:forEach var="pet" items="${petList}">
 										<div class="col-lg-3 col-md-6 col-sm-12 col-12">
 											<div class="adoption_card_wrapper">
 												<div class="adoption_item_img img_hover">
-													<a href="adoption-details.html"><img
-														src="../assets/img/adoption/cat1.png" alt="img"></a>
+													<img src="../assets/img/adoption/cat1.png" alt="img">
 														
 														
 												</div>
 							<form id="form" action="${pageContext.request.contextPath}/project/pet.do" method="post">
 												<div class="adoption_item_content">
 													<div class="adoption_info_btn" id="adoption_info_btn">
-														<button type="submit" id="getOnPet">更多資訊</button>
+														<button type="submit" id="getOnePet">更多資訊</button>
 														<input type="hidden" name="id" value="${pet.id}" id="pet_id">	
 														<input type="hidden" name="action" value="getPetById2">
 													</div>
@@ -37,8 +37,9 @@
 								</form>
 											</div>
 										</div>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
 						</div>
-							</c:forEach>
+							

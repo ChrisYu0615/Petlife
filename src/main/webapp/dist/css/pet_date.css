@@ -15,10 +15,8 @@ h1{
 /* 下拉選擇日期 */
 span#select_month{
     display: inline-block;
-    /* border: 1px solid red; */
-    position: relative;
-    left: 50%;
     margin-top: 20px;
+    margin-left:50px;
 }
 
 
@@ -38,14 +36,8 @@ table.table:nth-child(4n){
     margin-top: 0;
 }
 
-tr.tb_header{
-    background-color: lightgray; 
-   
-}
 
-th{
-    text-align: center;
-}
+
 tr.week{
     height: 30px;
 }
@@ -81,9 +73,7 @@ button.morning{
     cursor: pointer
 }
 
-th{
-	width:100px;
-}
+
 /* 點擊後呈現顏色 */
 button.on{
     background-color: rgb(98, 150, 227);
@@ -122,23 +112,26 @@ img.brand-image{
 /*回傳table 格式*/
 table.table{
     border: 0px;
-}
-
-div.fixed-table-body{
     position: relative;
-    left: 50%;
-    width: 800px;
-    margin-top: 40px;
-  
+    left: 5%;
+}
+.table thead th {
+    text-align: center !important;
+     background-color: lightgray !important;
+     width:130px !important;
+}
+th.tb_header:first-child {
+    border-radius: 15px 0 0 15px !important; /* 設置第一個th的左上角為圓弧形狀 */
+}
+th.tb_header:last-child {
+    border-radius: 0 15px  15px 0 !important; 
 }
 
 th.tb_header{
     width: 120px;
     text-align: center;
-    background-color: lightgray;
-    
-    /* border: 1px solid blue; */
-    
+    background-color: lightgray;   
+    /* border: 1px solid blue; */  
 }
 
 
@@ -199,4 +192,16 @@ td#booking_list{
 #button{
 	position: relative;
      left: 95%;
+}
+div#frame{
+	position: relative;
+    left: 60%;
+    background-color: #FFF2CC;
+    border-radius: 25px;
+    width:600px;
+    height:80px;
+}
+/*modal 按鈕*/
+button#button_result{
+	display:none;
 }

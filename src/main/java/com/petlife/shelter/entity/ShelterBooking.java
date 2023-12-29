@@ -1,6 +1,7 @@
 package com.petlife.shelter.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class ShelterBooking {
 	
 	@Column(name = "shelter_booking_time",columnDefinition = "TIME")
 	@Expose
-	private LocalTime   shelterBookingTime  ;
+	private Timestamp  shelterBookingTime  ;
 
 
 	@Column(name = "shelter_booking_num",columnDefinition = "TINYINT")
@@ -53,7 +54,7 @@ public class ShelterBooking {
 	@OneToMany(mappedBy = "shelterBooking", cascade = CascadeType.ALL)
 	private Set<Reservation> reservations;
 	//===============預約人
-	public ShelterBooking(Integer id, Integer shelterId, Date shelterBookingDate, LocalTime   shelterBookingTime,
+	public ShelterBooking(Integer id, Integer shelterId, Date shelterBookingDate, Timestamp   shelterBookingTime,
 			Integer shelterBookingNum, Integer shelterBookingMax) {
 		super();
 		this.id = id;
@@ -95,14 +96,14 @@ public class ShelterBooking {
 		this.shelterBookingDate = shelterBookingDate;
 	}
 
-	public LocalTime   getShelterBookingTime() {
+	public Timestamp   getShelterBookingTime() {
 	
 		return shelterBookingTime;
 	}
 	
 	 
 	 
-	public void setShelterBookingTime(LocalTime   shelterBookingTime) {
+	public void setShelterBookingTime(Timestamp   shelterBookingTime) {
 	
 		this.shelterBookingTime = shelterBookingTime ;
 	}

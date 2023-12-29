@@ -85,50 +85,22 @@
                             <input type="date" class="form-control" id="search_end" name="search_end" placeholder="選擇日期">
                         </label>
     						<input type ="hidden" name="id" value="<%=id%>" id="shelterId" >
-                            <!-- <div class="button col"> -->
-<!--                                 <button type="button" class="btn btn-secondary">清除</button> -->
-<!--                                 <button type="button" class="btn btn-primary">搜尋</button> -->
-    
-                            <!-- </div> -->
-                      
-                       
-                  
-    
-<!--                     <div class="container"> -->
-<!--                         <span class="button"> -->
-<!--                             <button type="button" class="btn btn-primary res " id="res" name="res_one" value="1">待確認</button> -->
-<!--                             <button type="button" class="btn btn-primary res" id="res"  name="res_two" value="2">已確認</button> -->
-<!--                             <button type="button" class="btn btn-primary res" id="res"  name="res_two" value="3">已取消</button> -->
-<!--                             <button type="button" class="btn btn-primary res" id="res" name="res_the" value="4">待審核</button> -->
-<!--                             <button type="button" class="btn btn-primary res" id="res" name="res_four"  value="5">成功領養</button> -->
-<!--                             <button type="button" class="btn btn-primary res" id="res" name="res_five"  value="6">未成功領養</button> -->
-								               
-<!--                         </span> -->
-                        
-<!--                     </div> -->
-<div class="tab_container">
-  
-  <div class="tab_list_block">
-    <ul class="tab_list">
-<!--       <li><a href="#" data-target="tab1" class="tab -on">頁籤一</a></li> -->
-<!--       <li><a href="#" data-target="tab2" class="tab">頁籤二</a></li> -->
-<!--       <li><a href="#" data-target="tab3" class="tab">頁籤三</a></li> -->
-<li><button type="button"  class="tab -on" id="res" name="res_one" value="1"  >待確認</button></li>
-<li> <button type="button" class="tab" id="res"  name="res_two" value="2">已確認</button></li>
-<li><button type="button" class="tab" id="res"  name="res_two" value="3">已取消</button></li>
-<li><button type="button" class="tab"  id="res" name="res_the" value="4">待審核</button></li>
-<li><button type="button" class="tab"  id="res" name="res_four"  value="5">成功領養</button></li>
-<li>   <button type="button" class="tab"  id="res" name="res_five"  value="6">未成功領養</button></li>
 
-    </ul>
-    <hr>
-  </div>
-                    
-                    
-    
-<!--                     <div class="container"> -->
-<!--                         <div class="res ">預約紀錄</div> -->
-<!--                     </div>   -->
+							<div class="tab_container">
+									  
+									  <div class="tab_list_block">
+									    <ul class="tab_list">
+											<li><button type="button"  class="tab -on" id="res" name="res_one" value="1"  >待確認</button></li>
+											<li> <button type="button" class="tab" id="res"  name="res_two" value="2">已確認</button></li>
+											<li><button type="button" class="tab" id="res"  name="res_two" value="3">已取消</button></li>
+											<li><button type="button" class="tab"  id="res" name="res_the" value="4">待審核</button></li>
+											<li><button type="button" class="tab"  id="res" name="res_four"  value="5">成功領養</button></li>
+											<li><button type="button" class="tab"  id="res" name="res_five"  value="6">未成功領養</button></li>
+									
+									    </ul>
+									    	<hr>
+							  </div>
+
                     
                  </div>
             <div id="res_result" class="container"></div>        

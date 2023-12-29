@@ -35,11 +35,61 @@
 <link rel="stylesheet" href="../assets/css/responsive.css">
 <!-- Adoption css -->
 <link rel="stylesheet" href="../assets/css/adoption.css">
+<link href="../assets/css/glDatePicker.default2.css" rel="stylesheet"
+	type="text/css">
+<!-- 此版自定 -->
+<link href="../assets/css/glDatePicker.darkneon1.css" rel="stylesheet"
+	type="text/css">
+<!-- 原版預設 -->
+<link href="../assets/css/glDatePicker.flatwhite1.css" rel="stylesheet"
+	type="text/css">
+
+<!-- 此版自定 -->
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="../assets/js/jquery.min.js"></script>
+	<!-- Bootstrap js -->
+	<script src="../assets/js/bootstrap.bundle.js"></script>
+	<!-- Meanu js -->
+	<script src="../assets/js/jquery.meanmenu.js"></script>
+	<!-- Magnific Popup js -->
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- owl carousel js -->
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<!-- wow.js -->
+	<script src="../assets/js/wow.min.js"></script>
+	<!-- waypoints.js -->
+	<script src="../assets/js/waypoints.min.js"></script>
+	<!-- counterup.js -->
+	<script src="../assets/js/jquery.counterup.min.js"></script>
+	<!-- Custom js -->
+	<script src="../assets/js/gallery-popup.js"></script>
+	<script src="../assets/js/custom.js"></script>
+	<script src="../assets/js/video.js"></script>
+	<!-- 原版預設 -->
+<script src="../assets/js/jquery.min.js"></script>
+<!-- <script src="../assets/js/glDatePicker2.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/glad/glDatePicker/glDatePicker.min.js"></script>
+<script src="../assets/js/adoption.js"></script>
 
 <!-- lightbox 日期 -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.5/air-datepicker.min.css" rel="stylesheet"> -->
+<!--
+ <link href="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.5/air-datepicker.min.css" rel="stylesheet"> -->
 </head>
+<style>
+a:visited, a:link {
+	color: inherit;
+	text-decoration: none;
+}
 
+a:hover, a:active {
+	color: blue;
+	text-decoration: none;
+}
+.on{
+background-color:red;
+}
+</style>
 <body>
 	<!-- preloader Area -->
 	<div id="preloader">
@@ -205,22 +255,24 @@
 									document.write(daysInShelter);
 								</script></li>
 								<li><span>入所日期：</span>${pet.comeInDate}</li>
-								<li><span>性　　別：</span>${pet.petGender}</li>
-								<li><span>絕　　育：</span>
+								<li><span>性 別：</span>${pet.petGender}</li>
+								<li><span>絕 育：</span> <script>
+									// 使用布林值直接判斷
+									document.write("${pet.petLigation}" ? "已絕育"
+											: "未絕育");
+								</script></li>
+								<li><span>籠 舍：</span>${pet.petCage}</li>
+								<li><span>是否開放領養：</span>
 								<script>
 									// 使用布林值直接判斷
-									document.write("${pet.petLigation}" ? "已絕育" : "未絕育");
-								</script></li>
-								<li><span>籠　　舍：</span>${pet.petCage}</li>
-								<li><span>是否開放領養：</span><script>
-									// 使用布林值直接判斷
-									document.write("${pet.adopted}" ? "是" : "否");
+									document
+											.write("${pet.adopted}" ? "是" : "否");
 								</script></li>
 								<li><span>收容編號：</span>${pet.petNum}</li>
 								<li><span>動物類別：</span>${pet.variety.type}</li>
-								<li><span>品　　種：</span>${pet.variety.variety}</li>
-								<li><span>毛　　色：</span>${pet.petColor}</li>
-								<li><span>描　　述：</span>${pet.petContent}</li>
+								<li><span>品 種：</span>${pet.variety.variety}</li>
+								<li><span>毛 色：</span>${pet.petColor}</li>
+								<li><span>描 述：</span>${pet.petContent}</li>
 								<li><span>收容所：</span>${pet.shelter.shelterName}</li>
 								<li><span>收容所電話：</span>${pet.shelter.shelterPhoneNum}</li>
 								<li><span>收容所地址：</span>${pet.shelter.shelterAddress}</li>
@@ -230,32 +282,120 @@
 				</div>
 			</div>
 		</div>
-		<div>
-			<button type="button" class="make_reservation_btn">我要預約</button>
-		</div>
+
 	</section>
+	
+
+	
 
 
-	<!-- <div id="lightbox" class="lightbox">
-        <article>
-            <form>
-                <div class="lightbox">
-                    <div>
-                        <button type="button" class="make_reservation_am" value="am">上午<br>(10:00至12:00)</button>
-                    </div>
-                    <div>
-                        <button type="button" class="make_reservation_pm" value="pm">下午<br>(13:30至16:00)</button>
-                    </div>
-                </div>
-                <p>請選日期</p>
-                Air datepicker Html element
-                <input id="myDatepicker" data-language="en" name="date">
-            </form>
-            <button type="button" class="btn_modal_close">關閉</button>
-        </article>        
-    </div> -->
+	
+	
+	<!-- Button trigger modal -->
+	<div class="row">
+		<button type="button" class="make_reservation_btn" name="action" id="make_reservation_btn"
+			value="" data-bs-toggle="modal"	data-bs-target="#exampleModal">我要預約</button>
+		<input type="hidden" name="shelter_Id" value="${pet.shelter.shelterId}" id="shelter_Id">	
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1"  
+		aria-labelledby="exampleModalLabel" aria-hidden="true" >
+		<div class="modal-dialog modal-xl modal-fullscreen-xxl-down">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">選擇預約日期/時段</h1>
+					<input type="month" name="month" id="month">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				
+					<input class="mydate" gldp-id="mydate" id="mydate" value="所選日期"
+						style="width: 1000px; height: 30px; visibility: visible; color: gray; font-weight: bold;"
+						type="text"/>
+						
+					<div gldp-el="mydate" id="mydateContainer">
+					
+					<script>
+						$('#mydate').glDatePicker(
+								{
+									showAlways : true,       // 預設為 false
+					 				cssName: 'default',      // 可用 'default' 或  'darkneon' 或  'flatwhite'
+//					              format: 'yyyy-mm-dd',    // 預設
+//					              dowOffset: 0,            // 預設
+//					              allowMonthSelect: false, // 預設
+//					              allowYearSelect: true,   // 預設
+//					              prevArrow: '\u25c4',     // 預設
+//					              nextArrow: '\u25ba',     // 預設
+					                dowNames : [ '<font color=red>星期日</font>', '星期一', '星期二', '星期三', '星期四', '星期五', '<font color=red>星期六</font>' ], //自定
+					                monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'], //自定
+					                
+					// ====================================================================================================              
+//					              以下的'月'為陣列index，加1才為正確的幾月
+
+					                
+//					 			    selectedDate: new Date(),             // 今天的日期        (藍色-->橘色)(預設原有)
+//					 			    selectedDate: new Date(2023, 10, 15), // 自選選定的日期 (藍色)
 
 
+//					 			    selectableDates: // 可選的數個日期 (白色)
+//					 			    [
+//					 			        { date: new Date(2023, 10, 15) },
+//					 			        { date: new Date(2023, 10, 20) },
+//					 			        { date: new Date(2023, 10, 25) }
+//					 			    ],
+
+
+//					 			    selectableDateRange: // 可選的日期範圍 (白色)
+//					 			    [
+//					 			        { from: new Date(2023, 10, 15),  to: new Date(2023, 10, 18)  },
+//					 			        { from: new Date(2023, 10, 25),  to: new Date(2023, 10, 28) }
+//					 			    ],
+
+
+//					 			    selectableYears:  [2022, 2023, 2024], //可選的年份
+//					 			    selectableMonths: [06, 07, 08],       //可選的月份
+
+
+//					 			    specialDates: [                       // 特殊日期的日期 + 信息 (綠色)
+//					 			        {
+//					 			            date: new Date(2023, 0, 15),
+//					 			            data: { message: '每月15日會議' },
+//					 			            repeatMonth: true
+//					 			        },
+//					 			        {
+//					 			            date: new Date(0, 0, 1),
+//					 			            data: { message: '新年快樂!' },
+//					 			            repeatYear: true
+//					 			        },
+//					 			    ],
+
+
+//					 			    selectableDOW: [1, 3, 5], //每週可選的星期幾 (白色)
+
+
+
+					                onClick: function(target, cell, date, data) {
+						                 target.val(date.getFullYear() + '-' +
+						                		   (((date.getMonth()+1)<10)? "0"+(date.getMonth()+1):(date.getMonth()+1)) + '-' +
+								                   ((date.getDate()<10)? "0"+date.getDate():date.getDate()));
+
+						                 if(data != null) {
+						                     alert(data.message + '\n' + date);
+						                 }
+					                }
+
+								});
+					</script>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">關閉</button>
+					<button type="button" class="btn btn-primary">確認</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Footer Area -->
 	<footer id="footer_area" style="background-color: #FFF2CC;">
@@ -409,67 +549,6 @@
 	</div>
 
 
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-	<script>
-		$("button.make_reservation_btn").on("click", function() {
-			$("#lightbox").fadeIn(1000);
-		});
-
-		$("button.make_reservation_btn_close, #lightbox").on("click",
-				function() {
-					$("#lightbox").fadeOut(1000);
-				});
-
-		$("#lightbox > article").on("click", function(e) {
-			e.stopPropagation();
-		});
-	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/air-datepicker@3.3.5/air-datepicker.min.js"></script>
-	<script>
-		const en = {
-			days : [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-					'Friday', 'Saturday' ],
-			daysShort : [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-			daysMin : [ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ],
-			months : [ 'January', 'February', 'March', 'April', 'May', 'June',
-					'July', 'August', 'September', 'October', 'November',
-					'December' ],
-			monthsShort : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-					'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-			today : 'Today',
-			clear : 'Clear',
-			dateFormat : 'MM/dd/yyyy',
-			timeFormat : 'hh:mm aa',
-			firstDay : 0
-		}
-
-		const datepicker = new AirDatepicker('#myDatepicker', {
-			locale : en, // Set language
-		})
-	</script>
-	<script src="../assets/js/jquery.min.js"></script>
-	<!-- Bootstrap js -->
-	<script src="../assets/js/bootstrap.bundle.js"></script>
-	<!-- Meanu js -->
-	<script src="../assets/js/jquery.meanmenu.js"></script>
-	<!-- Magnific Popup js -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- owl carousel js -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
-	<!-- wow.js -->
-	<script src="../assets/js/wow.min.js"></script>
-	<!-- waypoints.js -->
-	<script src="../assets/js/waypoints.min.js"></script>
-	<!-- counterup.js -->
-	<script src="../assets/js/jquery.counterup.min.js"></script>
-	<!-- Custom js -->
-	<script src="../assets/js/gallery-popup.js"></script>
-	<script src="../assets/js/custom.js"></script>
-	<script src="../assets/js/video.js"></script>
 
 </body>
 

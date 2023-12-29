@@ -15,5 +15,5 @@ public interface CommentDAO {
 	
     public Comment findByPK(Integer commentId);
 
-    public List<Comment> getAll();
+    public List<Comment> getAll(Integer articleId);
 }

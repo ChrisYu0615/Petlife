@@ -196,9 +196,21 @@ $(document).on("click", "#search_btn", function() {
 		method: "post",
 		async: false,
 		success: res => {
-			var result = document.getElementById("result");
-			result.innerHTML = res;
-			$('#myTable').bootstrapTable({});
+			var search_result = document.getElementById("search_result");
+			search_result.innerHTML = res;
+//			$('#myTable').bootstrapTable({});
+							var tbody=$("tbody.tb_con")
+	            			if(tbody.find('tr').length > 0){
+	            				$('#myTable').bootstrapTable;
+	            			}else{
+	            				result.innerHTML="";
+	            				$("#myTable").empty();
+	            				$("#button_result").click();
+	            				$("#staticBackdropLabel").html("查詢結果");
+	            				$("#result").html("查無資料");
+	            				
+	            			}
+			
 		}, error: function(jqXHR, textStatus, errorThrown) {
 			try {
 				console.log("Error code:", jqXHR.status);
@@ -210,32 +222,7 @@ $(document).on("click", "#search_btn", function() {
 	});
 
 })
-$(document).on("click", "input.pet_type", function() {
-	var type = $(this).val();
-	var dataURL = `../project/pet?action=getCompositePetsQuery&type=${type}`
 
-	$.ajax({
-		url: dataURL,
-		method: "post",
-		async: false,
-		dataType: 'json',
-		success: res => {
-			var select = $('#petVarietyId');
-			select.empty();
-			$('<option>').val('請選擇品種').text('請選擇品種').appendTo(select);
-			for (var i = 0; i < res.length; i++) {
-				$('<option>').val(res[i].id).text(res[i].variety).appendTo(select);
-			}
-		}, error: function(jqXHR, textStatus, errorThrown) {
-			try {
-				console.log("Error code:", jqXHR.status);
-				console.log("Error message:", jqXHR.responseText);
-			} catch (e) {
-				console.error("Error parsing JSON response:", e);
-			}
-		},
-	});
-})
 $(document).on("click", "td.pet_id", function() {
 	var clickedRowId = $(this).data('row-id');
 	var dataURL = `../project/pet.do?action=update&rowId=${clickedRowId}`

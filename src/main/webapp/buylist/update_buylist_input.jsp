@@ -34,6 +34,13 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
+img.brand-image{
+    background-color: antiquewhite;
+
+}
+.brand-link .brand-image {
+    margin-left: 0rem;
+}
     body {
         font-family: 'Source Sans Pro', sans-serif;
         background-color: #f4f6f9;
@@ -139,138 +146,12 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 
 			<!-- 上方右邊Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Navbar Search -->
-<!-- 				<li class="nav-item"><a class="nav-link" -->
-<!-- 					data-widget="navbar-search" href="#" role="button"> <i -->
-<!-- 						class="fas fa-search"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="navbar-search-block"> -->
-<!-- 						<form class="form-inline"> -->
-<!-- 							<div class="input-group input-group-sm"> -->
-<!-- 								<input class="form-control form-control-navbar" type="search" -->
-<!-- 									placeholder="Search" aria-label="Search"> -->
-<!-- 								<div class="input-group-append"> -->
-<!-- 									<button class="btn btn-navbar" type="submit"> -->
-<!-- 										<i class="fas fa-search"></i> -->
-<!-- 									</button> -->
-<!-- 									<button class="btn btn-navbar" type="button" -->
-<!-- 										data-widget="navbar-search"> -->
-<!-- 										<i class="fas fa-times"></i> -->
-<!-- 									</button> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
-<!-- 					</div></li> -->
-
-				<!-- 這邊是上方右邊聊天通知列 -->
-				<!-- Messages Dropdown Menu -->
-				<!-- <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> -->
-				<!-- Message Start -->
-				<!-- <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div> -->
-				<!-- Message End -->
-				<!-- </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li> -->
-
-				<!-- 這裡是上方右邊訊息通知列 -->
-				<!-- Notifications Dropdown Menu -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link" -->
-<!-- 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span -->
-<!-- 						class="badge badge-warning navbar-badge">15</span> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
-<!-- 						<span class="dropdown-item dropdown-header">15 -->
-<!-- 							Notifications</span> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-envelope mr-2"></i> 4 new messages <span -->
-<!-- 							class="float-right text-muted text-sm">3 mins</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i -->
-<!-- 							class="fas fa-users mr-2"></i> 8 friend requests <span -->
-<!-- 							class="float-right text-muted text-sm">12 hours</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> -->
-<!-- 							3 new reports <span class="float-right text-muted text-sm">2 -->
-<!-- 								days</span> -->
-<!-- 						</a> -->
-<!-- 						<div class="dropdown-divider"></div> -->
-<!-- 						<a href="#" class="dropdown-item dropdown-footer">See All -->
-<!-- 							Notifications</a> -->
-<!-- 					</div></li> -->
 
 				<!-- 這個是上方右邊全螢幕模式 -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
 				</a></li>
-
-				<!-- 這裡可以做登入修改或登出功能 -->
-<!-- 				<li class="nav-item dropdown"><a class="nav-link dropdown" -->
-<!-- 					href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" -->
-<!-- 					aria-haspopup="true" aria-expanded="false"> <i -->
-<!-- 						class="fas fa-solid fa-user"></i> -->
-<!-- 				</a> -->
-<!-- 					<div class="dropdown-menu" aria-labelledby="navbarDropdown2"> -->
-<!-- 						<a class="dropdown-item" href="/google">修改帳號資訊</a> <a -->
-<!-- 							class="dropdown-item" href="/yahoo">登出</a> -->
-<!-- 					</div></li> -->
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -282,7 +163,7 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="test.html" class="brand-link"> <img
+			<a href="listAllBuylist.jsp" class="brand-link"> <img
 				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 				class="brand-image img-corners elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">寵愛生活後臺管理</span>
@@ -305,12 +186,6 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-
-<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
-<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>通知</p> -->
-<!-- 						</a></li> -->
 						<!-- 以下是可伸縮的側邊欄 -->
 						<li class="nav-item"><a href="#"
 							class="nav-link active"> <i
@@ -350,11 +225,11 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-						<li class="nav-item"><a
-							href="../buylistdetails/listAllBuylistDetails.jsp"
-							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i>
-								<p>訂單商品細項</p>
-						</a></li>
+<!-- 						<li class="nav-item"><a -->
+<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+<!-- 								<p>訂單商品細項</p> -->
+<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
 						<li class="nav-item"><a href="#"
@@ -394,17 +269,6 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-
-
-						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i -->
-						<!-- 								class="nav-icon fas fa-solid fa-id-card"></i> -->
-						<!-- 								<p>預覽賣場</p> -->
-						<!-- 						</a></li> -->
-
-						<!-- 						<li class="nav-item"><a href="#" class="nav-link"> <i class="nav-icon fas fa-copy"></i> -->
-						<!-- 								<i class="nav-icon fas fa-shopping-cart"></i> -->
-						<!-- 								<p>賣家數據中心</p> -->
-						<!-- 						</a></li> -->
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/logout/logout.do"
 							class="nav-link" id="logout"> <i class="nav-icon fas fa-ad"></i>
@@ -464,7 +328,7 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 				</tr>
 			</table>
 
-			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態)</span></h3>
+			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態、星等、敘述)</span></h3>
 
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
@@ -500,7 +364,7 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 							readonly /></td>
 					</tr>
 					<tr>
-						<td>訂單狀態ID:</td>
+						<td>訂單狀態:</td>
 						<td><select name="buylistState" required>
 								<option value="0"
 									<%=(buylist.getBuylistState().getBuylistStateId() == 0) ? "selected" : ""%>>待付款</option>
@@ -533,21 +397,20 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 						<td>賣家評價星等:</td>
 						<td><input name="sellerRatingStars" id="sellerRatingStars"
 							type="text" value="<%=buylist.getSellerRatingStars()%>" required
-							readonly></td>
+							></td>
 					</tr>
 					<tr>
 						<td>賣家評價敘述:</td>
 						<td><input name="sellerEvaluateNarrative"
 							id="sellerEvaluateNarrative" type="text"
 							value="<%=buylist.getSellerEvaluateNarrative()%>" required
-							readonly></td>
+							></td>
 					</tr>
 					<tr>
-						<td>賣家評價時間:</td>
+<!-- 						<td>賣家評價時間:</td> -->
 						<td><input name="sellerEvaluateTime" id="sellerEvaluateTime"
-							type="text" value="<%=buylist.getSellerEvaluateTime()%>" required
-							readonly>
-							<div>YYYY-MM-DD HH:mm:ss</div></td>
+							type="hidden" value="<%=buylist.getSellerEvaluateTime()%>" required
+							readonly></td>
 					</tr>
 					<tr>
 						<td>訂單金額:</td>
@@ -561,18 +424,6 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 						<td><input name="buylistDate" id="buylistDate" type="text"
 							value="<%=buylist.getBuylistDate()%>" required readonly></td>
 					</tr>
-
-
-					<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.dept.model.DeptService" /> --%>
-					<!-- 	<tr> -->
-					<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
-					<!-- 		<td><select size="1" name="deptno"> -->
-					<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-					<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-					<%-- 			</c:forEach> --%>
-					<!-- 		</select></td> -->
-					<!-- 	</tr> -->
-
 				</table>
 				<br> <input type="hidden" name="action" value="update">
 				<input type="hidden" name="buylistId"
@@ -581,6 +432,31 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 			</FORM>
 
 			<script>
+			<!-- 帶入現在時間到sellerEvaluateTime -->
+		    document.addEventListener('DOMContentLoaded', function () {
+		        // 獲取當前日期和時間
+		        var currentDateTime = new Date();
+
+		        // 將日期格式化為 "yyyy-MM-dd HH:mm:ss"，這裡使用了自定義的 formatDate 函數
+		        var formattedDateTime = formatDate(currentDateTime);
+
+		        // 將格式化後的日期時間設置到輸入框的值中
+		        document.querySelector("input[name='sellerEvaluateTime']").value = formattedDateTime;
+		    });
+
+		    // 自定義的日期格式化函數
+		    function formatDate(date) {
+		        var year = date.getFullYear();
+		        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+		        var day = date.getDate().toString().padStart(2, '0');
+		        var hours = date.getHours().toString().padStart(2, '0');
+		        var minutes = date.getMinutes().toString().padStart(2, '0');
+		        var seconds = date.getSeconds().toString().padStart(2, '0');
+
+		        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+		    }
+					<!-- /帶入現在時間到sellerEvaluateTime -->
+			
 				function validateForm() {
 					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
 					var buylistDate = document.forms["form1"]["buylistDate"].value;

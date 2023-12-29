@@ -79,16 +79,33 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-	
-		<filter>
+
+	<filter>
 		<filter-name>sellerLoginFilter</filter-name>
 		<filter-class>com.petlife.filter.SellerLoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>sellerLoginFilter</filter-name>
-<!-- 		<url-pattern>/buylist/*</url-pattern> -->
-<!-- 		<url-pattern>/buylistdetails/*</url-pattern> -->
-		<url-pattern>/comm/*</url-pattern>
+		<url-pattern>/buylist/addBuylist.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylist.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState0.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState1.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState2.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState3.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState4.jsp</url-pattern>
+		<url-pattern>/buylist/listAllBuylistState5.jsp</url-pattern>
+		<url-pattern>/buylist/listOneBuylist.jsp</url-pattern>
+		<url-pattern>/buylist/listOneBuylistDetails.jsp</url-pattern>
+		<url-pattern>/buylist/update_buylist_input.jsp</url-pattern>
+		<url-pattern>/buylistdetails/*</url-pattern>
+		<url-pattern>/comm/addComm.jsp</url-pattern>
+		<url-pattern>/comm/listAllComm.jsp</url-pattern>
+		<url-pattern>/comm/listAllCommState0.jsp</url-pattern>
+		<url-pattern>/comm/listAllCommState1.jsp</url-pattern>
+		<url-pattern>/comm/listAllCommState2.jsp</url-pattern>
+		<url-pattern>/comm/listAllCommState3.jsp</url-pattern>
+		<url-pattern>/comm/listOneComm.jsp</url-pattern>
+		<url-pattern>/comm/update_comm_input.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
