@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petlife.mall.entity.Buylist;
 import com.petlife.mall.entity.Comm;
+import com.petlife.mall.entity.CommCat;
 
 public interface CommDAO {
 	// 增
@@ -33,7 +34,10 @@ public interface CommDAO {
 	
 	//瀏覽數
 	 public void updateView(Integer commId) ;
-		
+
+	// 查, 藉由分類
+	public List<Comm> getCommByCategoryId(Integer categoryId);
+
 
 //	public List<Comm> getCommImg(Integer commId);
 }

@@ -124,4 +124,17 @@ public class CommDAOImpl implements CommDAO {
 
 		return getSession().createQuery("from Comm", Comm.class).getResultList();
 	}
+
+	@Override
+	public List<Comm> getCommByCategoryId(Integer commCatId) {
+	    try {
+	    	return getSession()
+	    			.createQuery("FROM Comm WHERE commCat.commCatId = :commCatId", Comm.class)
+	    			.setParameter("commCatId", commCatId)
+	    			.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 }

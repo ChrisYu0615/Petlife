@@ -13,12 +13,6 @@
 <%@ page import="java.util.*"%>
 <%@page import="com.petlife.admin.*"%>
 
-
-<%
-CommService commSvc = new CommServiceImpl();
-List<Comm> list = commSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -54,6 +48,8 @@ pageContext.setAttribute("list", list);
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<!--     datatables -->
+<!--     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"> -->
 </head>
 
 
@@ -63,7 +59,7 @@ pageContext.setAttribute("list", list);
 			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
-	<!-- 應該是header 先不管 -->
+	<!-- header -->
 	<%@include file="../components/header.jsp"%>
 		    <section id="our_shop_main" class="section_padding">
         <div class="container">
@@ -92,12 +88,21 @@ pageContext.setAttribute("list", list);
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">貓咪飼料</li>
-                                            <li class="list-group-item">貓咪主食罐</li>
-                                            <li class="list-group-item">貓咪副食罐</li>
-                                            <li class="list-group-item">貓咪零食</li>
-                                            <li class="list-group-item">貓咪用品</li>
-                                            <li class="list-group-item">貓沙</li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1000">貓咪飼料</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1001">貓咪主食罐</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1002">貓咪副食罐</a>
+                                            </li>
+                                            <li class="list-group-item">
+	                                            <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1003">貓咪零食</a>
+                                            </li>
+                                            <li class="list-group-item">
+    	                                        <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1004">貓咪用品</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -112,11 +117,21 @@ pageContext.setAttribute("list", list);
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">狗狗飼料</li>
-                                            <li class="list-group-item">狗狗主食罐</li>
-                                            <li class="list-group-item">狗狗副食罐</li>
-                                            <li class="list-group-item">狗狗零食</li>
-                                            <li class="list-group-item">狗狗用品</li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2000">狗狗飼料</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2001">狗狗主食罐</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2002">狗狗副食罐</a>
+                                            </li>
+                                            <li class="list-group-item">
+	                                            <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2003">狗狗零食</a>
+                                            </li>
+                                            <li class="list-group-item">
+    	                                        <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2004">狗狗用品</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -126,18 +141,10 @@ pageContext.setAttribute("list", list);
                 </div>
                 <div class="col-lg-9">
                     <div class="shop_main_area_wrapper">
-                        <div class="shop_heading_sort_area">
-<!--                         	說明找到幾個商品 -->
-                            <div class="shop_main_area_heading">
-                                <h3>We found 29 items</h3>
-                            </div>
-                        </div>
                         <div class="shop_item_wrapper">
                             <div class="row">
                                 <!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
-                                <%@ include file="page1.file" %>
-                                <c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
-										end="<%=pageIndex+rowsPerPage-1%>">
+                                <c:forEach var="comm" items="${list}">
 									<div class="col-lg-4 col-md-6 col-sm-12 col-12">
                                     <div class="shop_main_item">
                                         <div class="shop_item_img">
@@ -161,59 +168,17 @@ pageContext.setAttribute("list", list);
 											    <input type="submit" value="加入購物車">
 											    <input type="hidden" name="action" value="add_comm_to_cart">
 											    <input type="hidden" name="commId" value="${comm.commId}">
-											    
 											</FORM>
                                         </div>
                                     </div>
                                 </div>	
-										
 								</c:forEach>
-                                <%@ include file="page2.file"%>
-                                
-<!--                                 <div class="col-lg-4 col-md-6 col-sm-12 col-12"> -->
-<!--                                     <div class="shop_main_item"> -->
-<!--                                         <div class="shop_item_img"> -->
-<!--                                             <a href="shop-details.html"><img src="../assets/img/shop/shop-2.png" -->
-<!--                                                     alt="img"></a> -->
-
-<!--                                         </div> -->
-<!--                                         <div class="shop_item_content"> -->
-<!--                                             <h3><a href="shop-details.html">Cat toilet bowl</a></h3> -->
-<!--                                             <div class="shop_item_price"> -->
-<!--                                                 <p>Tk. 500.00/KG</p> -->
-<!--                                                 <h5>Tk. 300.00/KG</h5> -->
-<!--                                             </div> -->
-<!--                                             <div class="shop_item_rating"> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <span>729</span> -->
-<!--                                             </div> -->
-<!--                                             <div class="shop_quent_wrapper"> -->
-<!--                                                 <div class="shop_quentiy_item"> -->
-<!--                                                     <button><i class="fas fa-minus-circle"></i></button> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="shop_quentiy_item_shows"> -->
-<!--                                                     <input type="number" value="1"> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="shop_quentiy_item"> -->
-<!--                                                     <button><i class="fas fa-plus-circle"></i></button> -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-                                
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
     </section>
 
 	<%@include file="../components/footer.jsp"%>
@@ -222,6 +187,13 @@ pageContext.setAttribute("list", list);
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
+<!-- 	<!-- dataTables --> -->
+<!-- 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script> -->
+<!-- 	<script> -->
+		
+<!-- 	</script> -->
+	
+	
 </body>
 
 </html>
