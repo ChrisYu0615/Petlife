@@ -71,11 +71,13 @@
                             <h3>Sidebar</h3>
                         </div>
                         <!-- search bar -->
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button>
-                        </div>
-
+                        <form action="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do" method="post">
+                       		<div class="input-group mb-3">
+                           	 	<input type="text" class="form-control" name="searchQuery" placeholder="Search">
+                            	<input type="submit" value="搜尋" class="btn btn_theme btn_sm">
+                            	
+                        	</div>
+                        </form>
                         <!-- accordion -->
                         <div class="accordion" id="accordionExample">
                             <!-- 貓咪 -->

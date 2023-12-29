@@ -137,4 +137,17 @@ public class CommDAOImpl implements CommDAO {
 	        return null;
 	    }
 	}
+
+	@Override
+	public List<Comm> getCommBySearchQuery(String searchQuery) {
+		try {
+			return getSession()
+					.createQuery("FROM Comm WHERE commName LIKE :searchQuery", Comm.class)
+					.setParameter("searchQuery", "%" + searchQuery + "%")
+					.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -38,6 +38,9 @@ public interface CommDAO {
 	// 查, 藉由分類
 	public List<Comm> getCommByCategoryId(Integer categoryId);
 
+	// 查, 藉由搜尋語句(搜尋商品名稱)
+	public List<Comm> getCommBySearchQuery(String searchQuery);
+
 
 //	public List<Comm> getCommImg(Integer commId);
 }

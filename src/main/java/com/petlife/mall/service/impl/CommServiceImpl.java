@@ -65,4 +65,9 @@ public class CommServiceImpl implements CommService{
 	public List<Comm> getCommByCategoryId(Integer categoryId) {
 		return dao.getCommByCategoryId(categoryId);
 	}
+
+	@Override
+	public List<Comm> getCommBySearchQuery(String searchQuery) {
+		return dao.getCommBySearchQuery(searchQuery);
+	}
 }

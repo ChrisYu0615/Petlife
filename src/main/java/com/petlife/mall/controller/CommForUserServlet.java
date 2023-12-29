@@ -52,6 +52,7 @@ public class CommForUserServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		String searchQuery = req.getParameter("searchQuery");
 		String forwardPath = "";
 		
 		Map<String, Integer> actionMap = new HashMap<>();
@@ -70,8 +71,8 @@ public class CommForUserServlet extends HttpServlet {
 		
 		if(action != null && !action.isEmpty()) {
 			list = commService.getCommByCategoryId(actionMap.get(action));
-		} else if(action == null){
-			list = commService.getAll();
+		} else if(searchQuery != null && !searchQuery.isEmpty()){
+			list = commService.getCommBySearchQuery(searchQuery);
 		} else {
 			list = commService.getAll();
 		}
