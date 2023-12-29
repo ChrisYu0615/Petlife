@@ -11,6 +11,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
     <title>後臺切版測試</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -28,7 +31,7 @@
     <link rel="stylesheet" href="../dist/css/pet_edit.css">
     
     
-     <% 
+<% 
 	Integer id =null;
 	Shelter shelter = (Shelter) session.getAttribute("shelter");
     if(shelter!= null){
@@ -36,8 +39,12 @@
     	request.setAttribute("id", id);
 }
 
-
+   
+    int shelterPhotoLength = (shelter.getShelterPhoto() != null) ? shelter.getShelterPhoto().length : 0;
 %>
+
+    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -88,12 +95,7 @@
                         			<span>${shelter.shelterAcct}</span>
                         </span>
 
-                        <span class="material_list">
-                            <label for="shelter_password1">密碼:</label>
-<!--                             <input class="form-control" type="text" placeholder="請再次輸入密碼" -->
-<!--                                 aria-label="default input example" id="shelter_password1"> -->
-                        			<span>${shelter.shelterPwd}</span>
-                        </span>
+
 
                         <span class="material_list">
                             <label for="shelter_phone">電話:</label>
@@ -106,15 +108,11 @@
 
                         <span class="material_list">
                             <label for="shelter_adress">詳細地址:</label>
-<!--                             <input class="form-control" type="text" placeholder="請輸入詳細地址" -->
-<!--                                 aria-label="default input example" id="shelter_adress"> -->
                         <span>${shelter.shelterAddress}</span>
                         </span>
 
                         <span class="material_list">
                             <label for="shelter_introduction">簡介:</label>
-<!--                             <input class="form-control" type="text" placeholder="請輸入簡介" -->
-<!--                                 aria-label="default input example" id="shelter_introduction"> -->
                         		<span>${shelter.shelterIntroduction}</span>
                         </span>
 
@@ -126,18 +124,26 @@
 
                         <div class="button">
 <!--                             <button type="button" class="btn btn-primary save" onclick="redirectToOtherJSP()">編輯</button> -->
-                            <input type="submit"  value="編輯">
+                            <input type="submit"  value="編輯" id="forward">
                             <input type="hidden" name="action" value="update_forward">
                             
                         </div>
 
 
                         <!-- 右上角大頭貼  -->
+                  
                         <div class="img">
                             <span> 
-                                <div class="s_img" id="s_img"></div>
+                                
+                              
+                             <div class="s_img" id="s_img">
+                             <% if (shelterPhotoLength != 0) { %>
+                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+									width="100px" height="100px" style="border-radius: 50%;" >
+							<% } %>
+									 </div>
                             </span>
-                            <input type="file" id="s_blob">
+                          
                         </div>
                         </form>
                     </div>

@@ -84,6 +84,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
+							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
+								<p>修改管理員資料</p>
+						</a></li>   						
+
           				<li class="nav-item">
           				  <a href="#" class="nav-link">
           				    <i class="fas fa-solid fa-users"></i>
@@ -259,9 +265,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 														<div class="form-group mb-3">
 															<label for="new_advertisement_content" class="form-label">廣告敘述
-															</label> <input type="text" class="form-control"
-																id="new_advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
+															</label>
+															<textarea class = "form-control col-12" id="new_advertisement_content" name="advertisement_content" rows="4"
+															cols="50" placeholder="請輸入廣告敘述"></textarea>																
 															<span id="verify_new_advertisement_content"></span>															
 														</div>
 
@@ -335,9 +341,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 														<div class="form-group mb-3">
 															<label for="advertisement_content" class="form-label">廣告敘述
-															</label> <input type="text" class="form-control"
-																id="advertisement_content" name="advertisement_content"
-																placeholder="請輸入廣告敘述">
+															</label>
+															<textarea class = "form-control col-12" id="advertisement_content" name="advertisement_content" rows="4"
+															cols="50" placeholder="請輸入廣告敘述"></textarea>																		
 															<span id="verify_advertisement_content"></span>																
 														</div>
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.petlife.admin.dao.CouponDAO;
 import com.petlife.admin.entity.Coupon;
@@ -56,4 +57,11 @@ public class CouponDAOImpl implements CouponDAO {
 		return getSession().createQuery("from Coupon ", Coupon.class).getResultList();
 	}
 
+	@Override
+	public Coupon getCouponByCouponName(String couponNameString) {
+	    String hql = "FROM Coupon WHERE couponName = :couponName";
+	    Query<Coupon> query = getSession().createQuery(hql, Coupon.class);
+	    query.setParameter("couponName", couponNameString);
+	    return query.uniqueResult();
+	}
 }

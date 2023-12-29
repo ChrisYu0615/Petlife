@@ -50,15 +50,17 @@ public class PetDAOImpl implements Idao<Pet> {
 
 	@Override
 	public Pet update(Pet entity) {
+		getSession().flush();
 		try {
+			System.out.println("PetDAOImpl  update: Entry");
 			getSession().update(entity);
-			System.out.println("ok");
 			return entity;
 		} catch (Exception e) {
 			System.out.println("3");
 			getSession().getTransaction().rollback();
+			return entity;
 		}
-		return entity;
+		
 	}
 
 	@Override

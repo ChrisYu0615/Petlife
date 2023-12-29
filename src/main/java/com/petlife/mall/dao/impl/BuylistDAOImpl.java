@@ -70,12 +70,12 @@ public class BuylistDAOImpl implements BuylistDAO {
 	}
 
 	@Override
-	public List<Buylist> getBuylistsByState(Integer buylistState) {
+	public List<Buylist> getBuylistsByState(Integer buylistState, Integer sellerId) {
 		try {
 			Session session = getSession();
 			List<Buylist> buylists = session
-					.createQuery("from Buylist where buylistState.buylistStateId = :state", Buylist.class)
-					.setParameter("state", buylistState).getResultList();
+					.createQuery("from Buylist where buylistState.buylistStateId = :state and seller.sellerId = :sellerId", Buylist.class)
+					.setParameter("state", buylistState).setParameter("sellerId", sellerId).getResultList();
 			return buylists;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,6 +86,13 @@ public class BuylistDAOImpl implements BuylistDAO {
 	@Override
 	public List<Buylist> getAll() {
 		return getSession().createQuery("from Buylist ", Buylist.class).getResultList();
+	}
+
+	@Override
+	public Double getUserRating(Integer userId) {
+		return getSession().createQuery(
+				"select AVG(memberRatingStars) from Buylist where user.userId=:userId and memberRatingStars is not null",
+				Double.class).setParameter("userId", userId).getSingleResult();
 	}
 
 }

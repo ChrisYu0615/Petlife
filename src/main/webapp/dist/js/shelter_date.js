@@ -1,8 +1,3 @@
-//$(document).ready(function(){
-//	$("#first_two_weeks").click(generateCalendar);	
-//})
-
-
 function generateCalendar() {
 		
 		//抓取使用者 填寫的年月份
@@ -36,7 +31,9 @@ function generateCalendar() {
 				
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert("請選擇月份")
+				$("#button_result").click();
+			$("#staticBackdropLabel").html("查詢結果");
+			$("#result").html("請先選擇月份");
 				try {
 					console.log("Error code:", jqXHR.status);
 					console.log("Error message:", jqXHR.responseText);
@@ -98,7 +95,9 @@ function next_two_weeks_generateCalendar() {
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert("請選擇月份")
+				$("#button_result").click();
+			$("#staticBackdropLabel").html("查詢結果");
+			$("#result").html("請先選擇月份");
 				try {
 					console.log("Error code:", jqXHR.status);
 					console.log("Error message:", jqXHR.responseText);
@@ -257,7 +256,7 @@ function Automatic_next_two_weeks(){
 
 
 
-// 自動生成下半月
+// 自動生成上半月
 function Automatic_generated(){
 //	clearCalendar();
 
@@ -422,9 +421,9 @@ function uploadData() {
 		var time = $(button).hasClass("morning") ? "早" : "晚";
 
 		if (time === "早") {
-			time = "10:00"
+			time = "10:00:00"
 		} else {
-			time = "13:00"
+			time = "13:00:00"
 		}
 
 		data.push({
@@ -446,10 +445,18 @@ function uploadData() {
 		data: jsonString,
 		async: false,
 		success: function(response) {
-			alert("新增成功")
+			$("button.morning").prop("disabled",true);
+			$("button.afternoon").prop("disabled",true);
+			$("div.row").empty();
+			$("#button_result").click();
+			$("#staticBackdropLabel").html("新增結果");
+			$("#result").html("新增成功");
+			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("請選擇月份")
+			$("#button_result").click();
+			$("#staticBackdropLabel").html("新增結果");
+			$("#result").html("新增失敗");
 			try {
 				console.log("Error code:", jqXHR.status);
 				console.log("Error message:", jqXHR.responseText);

@@ -204,12 +204,14 @@ pageContext.setAttribute("list", list);
 									<h3>${article.articleContent}</h3>
 								</div>
 
-								<span class="col-lg-2 col-md-6 col-sm-12 col-12">
-									<button class="btn btn-primary" type="submit"
-										style="background-color: darkorange;">
-										<a href="/furry/blog-details.html"
-											style="font-size: 20px; color: brown; padding: left 10px;">
-											我要檢舉 </a>
+								<span class="col-lg-2 col-md-6 col-sm-12 col-12"> <c:if
+										test="${article.user.userId != user.userId}">
+										<button class="btn btn-primary" type="button" id="btn_report"
+											value="${user.userId}" data-bs-toggle="modal"
+											data-bs-target="#addReport"
+											style="background-color: darkorange; font-size: 20px; color: brown; padding: left 10px;">
+											我要檢舉</button>
+									</c:if>
 								</span> <span class="col-lg-2 col-md-6 col-sm-12 col-12">
 									<form method="post"
 										action="<%=request.getContextPath()%>/art/art.do"
@@ -225,13 +227,57 @@ pageContext.setAttribute("list", list);
 									</form>
 								</span>
 
-
-
-
 							</div>
 							<hr style="border: 1px solid #ff8c00; Width: 765.6px;">
 
+							<form
+								action="<%=request.getContextPath()%>/reportForum/reportForum.do"
+								method="post" id="reportForm">
+								<div class="modal fade" id="addReport" tabindex="-1"
+									aria-labelledby="addModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
 
+											<div class="modal-header">
+												<h5 class="modal-title" id="addModalLabel">檢舉文章</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+
+											<div class="modal-body">
+
+												<input type="hidden" id="article" name="article"
+													value="<%=article.getArticleId()%>">
+
+												<div class="form-group mb-3">
+													<label for="reportTypeId" class="form-label">選擇原因</label> <select
+														class="form-control" id="reportTypeId" name="reportTypeId">
+														<option value="1">分類錯誤</option>
+														<option value="2">內容違規</option>
+														<option value="3">其他</option>
+													</select>
+												</div>
+
+												<div class="form-group mb-3">
+													<label for="reportForumReason" class="form-label">檢舉原因
+													</label>
+													<textarea class="col-12" id="reportForumReason"
+														name="reportForumReason" rows="5" cols="50"
+														placeholder="請輸入原因..."></textarea>
+												</div>
+											</div>
+
+											<div class="row modal-footer">
+												<button type="submit" class="col-auto btn btn-danger"
+													name="action" value="addReport">檢舉</button>
+												<button type="button" class="col-auto btn btn-secondary"
+													data-bs-dismiss="modal">取消</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</form>
 
 						</div>
 						<div class="row">
@@ -342,7 +388,40 @@ pageContext.setAttribute("list", list);
 	<script src="../assets/js/gallery-popup.js"></script>
 	<script src="../assets/js/custom.js"></script>
 	<script src="../assets/js/video.js"></script>
+	<script>
+		$(document).ready(function() {
+			let userId = $("#btn_report").val();
+			console.log(userId);
+			let isLogin = false;
 
+			if (userId != null && userId != "") {
+				isLogin = true;
+			}
+
+			if (!isLogin) {
+				$("#addReport").on('show.bs.modal', function(e) {
+					e.preventDefault();
+				})
+			}
+
+			$("#btn_report").on("click", function() {
+				if (!isLogin) {
+					alert("你沒有登入");
+					window.location.href = "../login/member_login.jsp"
+				}
+			});
+
+			$("#reportForm").submit(function(event) {
+				let reportReason = $.trim($("#reportForumReason").val());
+
+				if (reportReason == null || reportReason == "") {
+					alert("請輸入檢舉原因");
+					event.preventDefault();
+				}
+			});
+
+		})
+	</script>
 </body>
 
 </html>

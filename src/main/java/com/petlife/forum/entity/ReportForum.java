@@ -41,7 +41,7 @@ public class ReportForum {
     @Expose
     private ReportType reportType;
 
-    @Column(name = "report_forum_time", nullable = false, insertable = false)
+    @Column(name = "report_forum_time", insertable = false)
     @Expose
     private Timestamp reportForumTime;
 

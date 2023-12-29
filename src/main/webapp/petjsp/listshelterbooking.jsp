@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <table data-toggle="table" data-sortable="true"
 	data-sort-class="table-active" data-pagination="true"
 	data-search="false" data-show-search-clear-button="false"
@@ -24,7 +25,9 @@
 			<tr class="tb_con"  >
 				<td scope="row" id="booking_list" class="tb_con shelterBooking_id" data-row-id="${shelterbooking.id}" ><a href="#" >查看</a></td>
 				<td class="tb_con" id="booking_list">${shelterbooking.shelterBookingDate}</td>
-				<td class="tb_con" id="booking_list">${shelterbooking.shelterBookingTime}</td>
+				<td class="tb_con" id="booking_list">
+				<fmt:formatDate value="${shelterbooking.shelterBookingTime}" pattern="HH:mm"/>
+				</td>
 				<td class="tb_con" id="booking_list">${shelterbooking.shelterBookingNum}</td>
  			
 					<c:if test="${shelterbooking.shelterBookingNum eq shelterbooking.shelterBookingMax }">	

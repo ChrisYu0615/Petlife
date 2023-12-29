@@ -16,7 +16,7 @@ User user = (User) session.getAttribute("user");
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
 <title>寵愛生活Petlife</title>
-<link rel="stylesheet" href="../assets/css/header.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/header.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@ User user = (User) session.getAttribute("user");
 				<div class="container">
 					<div class="main-responsive-menu">
 						<div class="logo">
-							<img src="../assets/img/favicon.png" alt="logo"> <a
+							<img src="<%=request.getContextPath()%>/assets/img/favicon.png" alt="logo"> <a
 								href="index.html"> </a>
 						</div>
 					</div>
@@ -39,7 +39,7 @@ User user = (User) session.getAttribute("user");
 					<div class="row">
 						<nav class="navbar navbar-expand-md">
 							<a class="navbar-brand col-2" href="#"> <img
-								src="../assets/img/main_logo.png" alt="logo">
+								src="<%=request.getContextPath()%>/assets/img/main_logo.png" alt="logo">
 							</a>
 							<div class="collapse navbar-collapse mean-menu"
 								id="navbarSupportedContent">
@@ -88,7 +88,7 @@ User user = (User) session.getAttribute("user");
 								<div class="others-options d-flex align-items-center">
 									<div class="option-item" style="left: -50px;">
 										<a href="#" class="nav-link shopping-cart"> <i
-											class="fas fa-shopping-cart">購物車(?)</i>
+											class="fas fa-shopping-cart">購物車</i>
 										</a>
 									</div>
 									<div class="option-item" style="left: -50px;">
@@ -100,10 +100,10 @@ User user = (User) session.getAttribute("user");
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 														<ul class="dropdown-menu" style="left: -50px;">
 															<li class="nav-item"><a
-																href="../login/member_login.html" class="nav-link">一般會員登入</a>
+																href="<%=request.getContextPath()%>/login/member_login.jsp" class="nav-link">一般會員登入</a>
 															</li>
 															<li class="nav-item"><a
-																href="../login/backend_login.html" class="nav-link">後臺管理登入</a>
+																href="<%=request.getContextPath()%>/login/backend_login.jsp" class="nav-link">後臺管理登入</a>
 															</li>
 														</ul></li>
 												</c:when>
@@ -112,8 +112,8 @@ User user = (User) session.getAttribute("user");
 													<li class="nav-item"><a href="#" class="nav-link">
 															<img
 															src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=user.getUserId()%>"
-															alt="" class="preview_img rounded-circle"
-															style="width: 35px ;height:35px;"> <span
+															alt="" class="preview_img shadow rounded-circle"
+															style="width: 35px ;height:35px; background-color:white;"> <span
 															style="font-size: 15px;"><%=user.getUserName()%></span>
 															<i class="fas fa-angle-down"></i>
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
@@ -147,24 +147,24 @@ User user = (User) session.getAttribute("user");
 		</div>
 	</header>
 
-	<script src="../assets/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.min.js"></script>
 	<!-- Bootstrap js -->
-	<script src="../assets/js/bootstrap.bundle.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/bootstrap.bundle.js"></script>
 	<!-- Meanu js -->
-	<script src="../assets/js/jquery.meanmenu.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.meanmenu.js"></script>
 	<!-- Magnific Popup js -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.magnific-popup.min.js"></script>
 	<!-- owl carousel js -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/owl.carousel.min.js"></script>
 	<!-- wow.js -->
-	<script src="../assets/js/wow.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/wow.min.js"></script>
 	<!-- waypoints.js -->
-	<script src="../assets/js/waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/waypoints.min.js"></script>
 	<!-- counterup.js -->
-	<script src="../assets/js/jquery.counterup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.counterup.min.js"></script>
 	<!-- Custom js -->
 <!-- 	<script src="../assets/js/gallery-popup.js"></script> -->
-	<script src="../assets/js/custom.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/custom.js"></script>
 	<%-- <script src="assets/js/video.js"></script> --%>
 </body>
 

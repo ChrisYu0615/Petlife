@@ -20,4 +20,7 @@ public interface CouponService {
 
 	// 查(多個)
 	List<Coupon> getAllCoupons();
+	
+	// 使用者驗證coupon
+	Coupon getCouponByCouponName(String couponNameString);
 }

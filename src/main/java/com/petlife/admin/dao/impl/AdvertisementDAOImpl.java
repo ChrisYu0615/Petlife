@@ -55,4 +55,9 @@ public class AdvertisementDAOImpl implements AdvertisementDAO {
 		return getSession().createQuery("from Advertisement", Advertisement.class).getResultList();
 	}
 
+	@Override
+	public List<Advertisement> getAllActived() {
+		return getSession().createQuery("from Advertisement where adStatus=true", Advertisement.class).getResultList();
+	}
+
 }

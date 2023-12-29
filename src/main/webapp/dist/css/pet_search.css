@@ -42,7 +42,7 @@ span.mar,div.search_two{
     /* margin: 10px 0px; */
 }
 select.pet_variety{
-    width: 125px;
+    width: 140px;
     display: inline;
     height: 27px;
     border-radius: 30px;
@@ -173,8 +173,24 @@ img.logo{
 /* 表格 */
 table.table{
     border: 0px;
+     position: relative;
+     left:50%;
+     margin-top:50px;
 }
-
+th.tb_header{
+    width: 130px;
+    text-align: center;
+    background-color: lightgray !important;
+    margin-left: -50px;
+    
+}
+/*讓thead 有圓弧形*/
+.tb_header:first-child {
+    border-radius: 15px 0 0 15px; /* 設置第一個th的左上角為圓弧形狀 */
+}
+.tb_header:last-child {
+    border-radius: 0 15px  15px 0; /* 設置第一個th的左上角為圓弧形狀 */
+}
 div.fixed-table-body{
     position: relative;
     left: 50%;
@@ -182,33 +198,31 @@ div.fixed-table-body{
     margin-top: 40px;
   
 }
-
-th.tb_header{
-    width: 120px;
-    text-align: center;
-    background-color: lightgray;
-    /* border: 1px solid blue; */
-    
+thead.table{
+	 border-radius: 25px;
 }
-
 
 tr{
     /* border: 1px solid black; */
     display: block;
     margin: 5px 0;
-    width: 600px;
+    width: 750px;
+     border-radius:15px;
+/*     box-shadow: 5px 5px 5px lightgray; */
    
 }
 tr.tb_con{
     background-color: #FFF2CC;
     border-radius: 25px;
-    width: 710px;
+    width: 750px;
     /* height: 30px; */
 }
-td.tb_con{  
-    width: 100px;
+td{  
+ 	padding:0px !important;
+    width: 130px;
     text-align: center;
-    padding: 0px 10px;
+    padding :5px 0px !important;
+    height:20px !important;
 
 }
 div.float-left{
@@ -247,4 +261,9 @@ div.th-inner {
 .back{
 	text-decoration:none;
 	color:white;
+}
+
+/*modal 按鈕隱藏*/
+button#button_result{
+	display:none;
 }

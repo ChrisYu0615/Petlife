@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +56,9 @@ public class AdvertisementServlet extends HttpServlet {
 			break;
 		case "updateAdvertisement":
 			forwardPath = updateAdvertisement(req, resp);
+			break;
+		case "getAdImg":
+			getAdImg(req, resp);
 			break;
 		default:
 			forwardPath = "";
@@ -128,9 +132,23 @@ public class AdvertisementServlet extends HttpServlet {
 
 	private String getAllAdvertisements(HttpServletRequest req, HttpServletResponse resp) {
 		List<Advertisement> advertisements = advertisementService.getAll();
-		System.out.println(advertisements);
 		req.setAttribute("getAllAdvertisements", advertisements);
 		return "/admin/advertisement_management.jsp";
+	}
+
+	private void getAdImg(HttpServletRequest req, HttpServletResponse resp) {
+		Integer advertisementId = Integer.valueOf(req.getParameter("adId"));
+		Advertisement advertisement = advertisementService.getAdvertisementById(advertisementId);
+		byte[] adImg = advertisement.getAdvertisementImg();
+		resp.setContentType("image/png");
+		
+		try {
+			ServletOutputStream out = resp.getOutputStream();
+			out.write(adImg);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private byte[] getImgBytes(Part part) {

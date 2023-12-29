@@ -6,7 +6,7 @@ import com.petlife.forum.entity.ReportForum;
 
 public interface ReportForumService {
     // 新增檢舉
-    ReportForum addReportForum(ReportForum reportForum);
+    Integer addReportForum(ReportForum reportForum);
 
     // 更新檢舉
     Integer updateReportForum(ReportForum reportForum);

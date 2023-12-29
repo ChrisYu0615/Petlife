@@ -3,6 +3,7 @@ package com.petlife.forum.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,14 +20,20 @@ import com.google.gson.GsonBuilder;
 import com.petlife.admin.entity.Admin;
 import com.petlife.admin.service.AdminService;
 import com.petlife.admin.service.impl.AdminServiceImpl;
+import com.petlife.forum.entity.Article;
 import com.petlife.forum.entity.ReportForum;
+import com.petlife.forum.entity.ReportType;
+import com.petlife.forum.service.ArticleService;
 import com.petlife.forum.service.ReportForumService;
+import com.petlife.forum.service.impl.ArticleServiceImpl;
 import com.petlife.forum.service.impl.ReportForumServiceImpl;
+import com.petlife.user.entity.User;
 
 @WebServlet("/reportForum/reportForum.do")
 @MultipartConfig
 public class ReportForumServlet extends HttpServlet {
 	private ReportForumService reportForumService;
+	private ArticleService articleService;
 
 	@Override
 	public void init() throws ServletException {
@@ -52,8 +59,12 @@ public class ReportForumServlet extends HttpServlet {
 		case "adminReply":
 			forwardPath = adminReply(req, resp);
 			break;
+		case "addReport":
+			forwardPath = addReport(req, resp);
+			break;
 		default:
 			forwardPath = "";
+			break;
 		}
 
 		if (!forwardPath.isEmpty()) {
@@ -103,5 +114,63 @@ public class ReportForumServlet extends HttpServlet {
 		List<ReportForum> reportForumList = reportForumService.getAllReportForums(condition);
 		req.setAttribute("getAllReports", reportForumList);
 		return "/admin/forum_report_management.jsp";
+	}
+
+	private String addReport(HttpServletRequest req, HttpServletResponse resp) {
+//		System.out.print(reportTypeId);
+//		System.out.println(reportForumReason);
+		// 錯誤處理
+		List<String> errorMsgs = new ArrayList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+		// 檢舉原因不能為空
+//			try {
+//				if (reportForumReason!=null && !reportForumReason.trim().isEmpty()) {
+//					//addReport(req,resp);
+//				}else {
+//					System.out.println("請輸入原因");		
+//				}
+//			}catch (Exception  e) {
+//					System.out.println("檢舉失敗" + e.getMessage());
+//				}
+
+		// ============================================
+
+//			Integer reportForumId = Integer.valueOf(req.getParameter("reportForumId"));
+
+		Integer reportTypeId = Integer.valueOf(req.getParameter("reportTypeId"));
+		Integer articleId = Integer.valueOf(req.getParameter("article"));
+		String reportForumReason = req.getParameter("reportForumReason");
+
+		ReportForum reportForum = new ReportForum();
+		reportForum.setReportForumReason(reportForumReason);
+
+		ReportType reportType = new ReportType();
+		reportType.setReportTypeId(reportTypeId);
+		reportForum.setReportType(reportType);
+
+		User user = (User) req.getSession().getAttribute("user");
+		reportForum.setUser(user);
+		
+		ArticleService articleService = new ArticleServiceImpl();
+		Article article = articleService.getArticleByArticleId(articleId);
+		reportForum.setArticle(article);
+		
+		
+
+		/*************************** 2.開始新增資料 ***************************************/
+//			try {
+//				System.out.println("檢舉成功");
+//			} catch (Exception e) {
+//				System.out.println("檢舉失敗" + e.getMessage());
+//				e.getMessage();
+//			};
+		
+		reportForumService.addReportForum(reportForum);
+		req.setAttribute("article", article);
+		
+		return "/article/spec-blog.jsp";
+
 	}
 }

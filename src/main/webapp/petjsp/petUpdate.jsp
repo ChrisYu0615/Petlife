@@ -26,7 +26,7 @@
 
 
 <h1 id='update_pet'>修改收容寵物資料</h1>
-<form id="form_update" action="${pageContext.request.contextPath}/project/pet.do" class="from" method="post">
+<form id="form_update" action="${pageContext.request.contextPath}/project/pet.do" class="from" method="post" enctype="multipart/form-data">
 
         <table id="mytable">
             <tbody>
@@ -138,19 +138,43 @@
         </tr>
     
 
-        <tr id="pet_photo">
-            <td >照片:</td>
-            <td> <input type="file" class="form-control"id="inputGroupFile02"  name=""></td>
-            <td class="photo"> 
-            <c:forEach var="photo"
-								items="${pet.petPhotos}">
-								<img
-									src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}"
-									width="100px">
-							</c:forEach>
-            </td>
-
-        </tr>
+       		<tr>
+					
+					<td>
+						<table id="photoTable">
+							<thead>
+								<tr>
+						            <th></th>
+						            <th>照片:預覽圖</th>
+						        </tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input type="file" class="form-control" id="addPetPhoto" 
+													multiple name="petphoto" onchange="previewImage()"
+													accept="image/jpeg, image/jpg, image/png, image/gif"
+													style="display: none;">
+										<button type="button" onclick="addRow()" class="btn btn-primary put_add_photo btn-sm">新增</button>
+									</td>
+									<td></td>
+								</tr>
+								<c:forEach var="photo" items="${pet.petPhotos}">
+									<tr>
+										<td>
+											<button type="button" onclick="deleteRow(this)" class="btn btn-primary put_delete_photo btn-sm">移除</button>
+										</td>
+										<td id="photo">
+											<img
+												src="<%=request.getContextPath()%>/project/petphoto.do?action=getPetPhotoTest&photoId=${photo.photoId}"
+												id="${photo.photoId}" width="100px">
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</td>
+				</tr> 
 
 
 		<tr >
@@ -188,7 +212,7 @@
     	 
     	  
     	  
-        <button type="submit" class="btn btn-primary put_on btn-sm" >確認修改</button>
+        <button type="submit" class="btn btn-primary put_on btn-sm" id="petUpdate" >確認修改</button>
         <input type="hidden" name="id"  value="${pet.id}">
         <input type="hidden" name="action" value="update_put">
         

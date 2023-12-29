@@ -22,7 +22,7 @@ import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.user.entity.User;
-import com.petlife.user.service.UserServeice;
+import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
 import com.petlife.util.Sha1Util;
 
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 		String userAcct = req.getParameter("account").trim();
 		String userPwd = req.getParameter("password").trim();
 		userPwd = Sha1Util.encodePwd(userPwd);
-		UserServeice userServeice = new UserServiceImpl();
+		UserService userServeice = new UserServiceImpl();
 
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -86,12 +86,12 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/index.jsp");
 						return;
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -142,12 +142,12 @@ public class LoginServlet extends HttpServlet {
 						out.print(location);
 						return;
 					} else {
-						out.print(req.getContextPath() + "/index.html");
+						out.print(req.getContextPath() + "/buylist/listAllBuylist.jsp");
 						return;
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -212,7 +212,7 @@ public class LoginServlet extends HttpServlet {
 					}
 				} catch (Exception ignored) {
 					// 重導回首頁
-					out.print(req.getContextPath() + "/index.html");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
@@ -273,7 +273,7 @@ public class LoginServlet extends HttpServlet {
 						return;
 					}
 				} catch (Exception ignore) {
-					out.print(req.getContextPath() + "/user/user.do?action=getAll");
+					out.print(req.getContextPath() + "/index.jsp");
 				}
 				break;
 			case 1:
