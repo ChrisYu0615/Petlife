@@ -161,11 +161,13 @@
 											<div class="shop_item_img">
 												<!-- 找單獨一個comm的按鈕 -->
 												<a href="shop-details.html"><img
-													src="../assets/img/shop/shop-1.png" alt="img"></a>
+													src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+													width="100px"></a>
 											</div>
 											<div class="shop_item_content">
 												<h3>
-													<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?commId=${comm.commId}">${comm.commName}</a>
+													<a
+														href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?commId=${comm.commId}">${comm.commName}</a>
 												</h3>
 												<div class="shop_item_price">
 													<c:choose>
