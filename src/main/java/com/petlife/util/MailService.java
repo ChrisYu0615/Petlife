@@ -11,6 +11,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.petlife.forum.entity.Article;
+
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
@@ -134,6 +136,18 @@ public class MailService {
 		String subject = "寵愛生活-訂單取消通知";
 		// 內容
 		String messageText = "您的訂單(編號" + buylistId + ")已被取消" + "\n" + "以下為原因：" + "\n" + cancelReason;
+
+		MailService mailService = new MailService();
+		mailService.sendMail(account, subject, messageText);
+	}
+
+	// 回覆檢舉訊息
+	public static void replyReportMsg(Article article, String account, String replyMsg) {
+		// 主旨
+		String subject = "寵愛生活-檢舉文章回覆";
+		// 內容
+		String messageText = "您所檢舉的文章--" + article.getArticleName() + "(編號" + article.getArticleId() + ")已經管理員查證過後"
+				+ "\n" + "回覆如下：" + "\n" + replyMsg + "\n" + "如有其他問題可寄信與我們聯繫!!";
 
 		MailService mailService = new MailService();
 		mailService.sendMail(account, subject, messageText);
