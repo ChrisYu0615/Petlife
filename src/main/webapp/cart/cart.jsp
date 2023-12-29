@@ -113,7 +113,6 @@ pageContext.setAttribute("totalAmount", totalAmount);
 			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
-	<!-- header -->
 		<!-- 購買勾選商品的傳送url -->
 		<form action="<%=request.getContextPath()%>/buylist_for_user/buylist_for_user.do" method="post">
 		

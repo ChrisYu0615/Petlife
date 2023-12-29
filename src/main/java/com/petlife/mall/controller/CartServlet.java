@@ -49,7 +49,7 @@ public class CartServlet extends HttpServlet{
 		switch (action) {
 		// 編號1
 		case "add_comm_to_cart":
-			// 來自singleCommDetail.jsp 還沒出現
+			// 來自singleCommForUser.jsp
 			// 來自listAllCommForUser.jsp
 			forwardPath = addCommToCart(req, res);
 			break;
