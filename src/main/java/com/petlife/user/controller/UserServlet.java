@@ -331,7 +331,7 @@ public class UserServlet extends HttpServlet {
 			req.getSession().setAttribute("user", user);
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			Gson gson = new Gson();
-			String redirectPath = gson.toJson(req.getContextPath() + "/index.html");
+			String redirectPath = gson.toJson(req.getContextPath() + "/index.jsp");
 			out.print(redirectPath);
 
 			// 寄信表示註冊成功
