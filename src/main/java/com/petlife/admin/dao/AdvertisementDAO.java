@@ -19,4 +19,7 @@ public interface AdvertisementDAO {
 
 	// 查(多個)
 	public List<Advertisement> getAll();
+	
+	// 查(全部已啟用的)
+	public List<Advertisement> getAllActived();
 }

@@ -167,7 +167,7 @@ $(document).on("click", "#submit_btn", function(e) {
 	}
 
 	if (verifyFlag == false) {
-//		window.document.documentElement.scrollTop=0;
+		window.document.documentElement.scrollTop=0;
 		return;
 	}
 	

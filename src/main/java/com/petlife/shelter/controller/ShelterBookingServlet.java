@@ -2,7 +2,10 @@ package com.petlife.shelter.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,9 +54,6 @@ public class ShelterBookingServlet extends HttpServlet {
 			break;
 		case "getAllShelterBooking":
 			forwardPath = getAllShelterBooking(req, res, jsonNode);
-			break;
-		case "update":
-			forwardPath = update(req, res);
 			break;
 		case "getCompositePetsQuery":
 			forwardPath = getCompositePetsQuery(req, res);
@@ -104,28 +104,6 @@ public class ShelterBookingServlet extends HttpServlet {
 		return "";
 	}
 
-	private String update(HttpServletRequest req, HttpServletResponse res)  {
-		System.out.println("ShelterBookingServlet : update Entry");
-		Integer id = Integer.valueOf(req.getParameter("res_id").trim());
-		ShelterBooking shelterBooking = shelterBookingService.getOneShelterBooking(id);
-		Integer shelterId = 300000001;
-		java.sql.Date shelterBookingDate = null;
-		shelterBookingDate = java.sql.Date.valueOf(req.getParameter("res_date"));
-		java.time.LocalTime shelterBookingTime=null;
-		shelterBookingTime = java.time.LocalTime.parse(req.getParameter("res_time"));
-		
-		
-		shelterBooking.setShelterBookingDate(shelterBookingDate);
-		shelterBooking.setShelterBookingNum(1);
-		shelterBooking.setShelterBookingTime(shelterBookingTime);
-		shelterBooking.setShelterId(shelterId);
-		try {
-			shelterBookingService.updateShelterBooking(shelterBooking);
-		}catch(Exception e) {
-			e.getStackTrace();
-		}
-		return "/petjsp/booking.jsp";
-	}
 
 	private String insert(HttpServletRequest req, HttpServletResponse res , JsonNode node)throws IOException {
 		System.out.println("ShelterBookingServlet : insert Entry");
@@ -138,6 +116,18 @@ public class ShelterBookingServlet extends HttpServlet {
             	 ShelterBooking shelterBooking =new ShelterBooking();
             	 String date = shelterBookingJson.get("date").asText();
             	 String time=shelterBookingJson.get("time").asText();
+            	 SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm");
+            	 String outputTimeString = "";
+            	
+            	 try {
+            		    Date inputDate = inputFormat.parse(time);
+            		    java.sql.Timestamp shelterBookingTime = new java.sql.Timestamp(inputDate.getTime());
+					shelterBooking.setShelterBookingTime(shelterBookingTime);
+            	 } catch (ParseException e) {
+					e.printStackTrace();
+				}
+            	 System.out.println(outputTimeString);
+            	 
             	 String shelter=shelterBookingJson.get("shelter").asText();
             	 String shlterBookingNum=shelterBookingJson.get("shelter_num").asText();
             	 String shlterBookingNumMax=shelterBookingJson.get("shelter_num_Max").asText();
@@ -148,13 +138,12 @@ public class ShelterBookingServlet extends HttpServlet {
             	Integer shelterNumMax=Integer.valueOf(shlterBookingNumMax);
             	java.sql.Date shelterBookingDate = null;
             	shelterBookingDate = java.sql.Date.valueOf(date);
-            	java.time.LocalTime shelterBookingTime=null;
-        		shelterBookingTime = java.time.LocalTime.parse(time);
+           
         		
         		
         		shelterBooking.setShelterBookingDate(shelterBookingDate);
         		shelterBooking.setShelterBookingNum(shelterNum);
-        		shelterBooking.setShelterBookingTime(shelterBookingTime);
+        		
         		shelterBooking.setShelterId(shelterId);
         		shelterBooking.setShelterBookingMax(shelterNumMax);
         		

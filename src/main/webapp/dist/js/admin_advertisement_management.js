@@ -381,6 +381,13 @@ $(function () {
     // 修改(使用ajax)
     $(".btn_check").on("click", function () {
         let advertisementId = $(this).val();
+        console.log("查看觸發");
+        $("#advertisement_name").val("");
+        $("#advertisement_content").val("");
+        $("#advertisement_img_preview").attr("src","");
+        $("#advertisement_stardate").val("");
+        $("#advertisement_enddate").val("");
+        
         $("#advertisement_Id").val(advertisementId);
         $("#verify_advertisement_name").html("");
         $("#verify_advertisement_content").html("");

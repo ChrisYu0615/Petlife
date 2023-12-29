@@ -11,7 +11,7 @@
 
 <!-- Title -->
 <title>寵愛生活Petlife</title>
-<link rel="stylesheet" href="../assets/css/footer.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/footer.css">
 
 </head>
 
@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-12 col-sm-12 col-12">
 					<div class="footer_area_about">
-						<img src="../assets/img/main_logo.png" alt="img">
+						<img src="<%=request.getContextPath()%>/assets/img/main_logo.png" alt="img">
 						<p id="footer_p">
 							我們致力於提供最優質的寵物平台，在這裡飼主可以為寵物添加需要的物品；同時我們也提供與各地收容所的媒介服務，希望能夠讓更多想要養寵物的人可以以領養替代購買的方式，找到自己的最佳夥伴；如果有遇到相關寵物議題，也歡迎大家在論壇中踴躍發言。
 						</p>
