@@ -22,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
 		// 清空session
 		session.invalidate();
 		// 重導回首頁
-		resp.sendRedirect(req.getContextPath()+"/index.html");
+		resp.sendRedirect(req.getContextPath()+"/index.jsp");
 	}
 
 }

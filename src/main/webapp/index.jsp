@@ -22,39 +22,39 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 <!-- Title -->
 <title>寵愛生活</title>
 <!-- Bootstrap css -->
-<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <!-- animate css -->
-<link rel="stylesheet" href="../assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
 <!-- Fontawesome css -->
-<link rel="stylesheet" href="../assets/css/fontawesome.all.min.css">
+<link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
 <!-- owl.carousel css -->
-<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
 <!-- owl.theme.default css -->
-<link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
 <!-- Magnific popup css -->
-<link rel="stylesheet" href="../assets/css/magnific-popup.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.min.css">
 <!-- navber css -->
-<link rel="stylesheet" href="../assets/css/navber.css">
+<link rel="stylesheet" href="assets/css/navber.css">
 <!-- meanmenu css -->
-<link rel="stylesheet" href="../assets/css/meanmenu.css">
+<link rel="stylesheet" href="assets/css/meanmenu.css">
 <!-- Style css -->
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 <!-- Responsive css -->
-<link rel="stylesheet" href="../assets/css/responsive.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="../assets/img/favicon.png">
-<link rel="stylesheet" href="../assets/css/index.css">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/index.css">
 </head>
 
 <body>
 	<!-- preloader Area -->
 	<div id="preloader">
 		<div id="status">
-			<img src="../assets/img/loader.gif" alt="img">
+			<img src="assets/img/loader.gif" alt="img">
 		</div>
 	</div>
 
-	<%@include file="../components/header.jsp"%>
+	<%@include file="components/header.jsp"%>
 
 	<!-- search -->
 	<div class="search-overlay">
@@ -120,15 +120,15 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 						<div class="banner_main_services">
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item">
-								<img src="../assets/img/icon/banner-1.png" alt="img">
+								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-1.png" alt="img">
 								<h5>寵物商城</h5>
 							</div>
 							<div class="banner_main_service_item">
-								<img src="../assets/img/icon/banner-2.png" alt="img">
+								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-2.png" alt="img">
 								<h5>寵物領養</h5>
 							</div>
 							<div class="banner_main_service_item">
-								<img src="../assets/img/icon/banner-3.png" alt="img">
+								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-3.png" alt="img">
 								<h5>寵物論壇</h5>
 							</div>
 							<div class="banner_main_service_item invisible"></div>
@@ -186,7 +186,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 				<div class="shop_main_item">
 					<div class="shop_item_img">
 						<a href="shop-details.html"><img
-							src="../assets/img/shop/shop-1.png" alt="img"></a> <span
+							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
 							class="shop_badge in_stock">In stock</span>
 					</div>
 					<div class="shop_item_content">
@@ -223,7 +223,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 				<div class="shop_main_item">
 					<div class="shop_item_img">
 						<a href="shop-details.html"><img
-							src="../assets/img/shop/shop-1.png" alt="img"></a> <span
+							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
 							class="shop_badge in_stock">In stock</span>
 					</div>
 					<div class="shop_item_content">
@@ -260,7 +260,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 				<div class="shop_main_item">
 					<div class="shop_item_img">
 						<a href="shop-details.html"><img
-							src="../assets/img/shop/shop-1.png" alt="img"></a> <span
+							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
 							class="shop_badge in_stock">In stock</span>
 					</div>
 					<div class="shop_item_content">
@@ -369,7 +369,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="../assets/img/blog/blog-1.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-1.png" alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -381,7 +381,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="../assets/img/blog/blog-post-1.png" alt="img">
+									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-1.png" alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -398,7 +398,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="../assets/img/blog/blog-2.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-2.png" alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -410,7 +410,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="../assets/img/blog/blog-post-2.png" alt="img">
+									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-2.png" alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -427,7 +427,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="../assets/img/blog/blog-3.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png" alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -439,7 +439,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="../assets/img/blog/blog-post-3.png" alt="img">
+									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png" alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -456,7 +456,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="../assets/img/blog/blog-3.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png" alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -468,7 +468,7 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="../assets/img/blog/blog-post-3.png" alt="img">
+									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png" alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -504,12 +504,12 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 				<div class="col-lg-12">
 					<div class="testmoinal_main_slider owl-theme owl-carousel">
 						<div class="testimonial_area_item">
-							<img src="../assets/img/testimonial/test-2.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="../assets/img/testimonial/quote.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -517,12 +517,12 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="../assets/img/testimonial/test-3.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="../assets/img/testimonial/quote.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -530,12 +530,12 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="../assets/img/testimonial/test-2.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="../assets/img/testimonial/quote.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -543,12 +543,12 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="../assets/img/testimonial/test-3.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="../assets/img/testimonial/quote.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -556,12 +556,12 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="../assets/img/testimonial/test-2.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="../assets/img/testimonial/quote.png"
+							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -574,37 +574,26 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 		</div>
 	</section>
 
+	<%@include file="components/footer.jsp"%>
 
-
-
-
-
-
-
-
-
-	<%@include file="../components/footer.jsp"%>
-
-
-
-	<script src="../assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
 	<!-- Bootstrap js -->
-	<script src="../assets/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/bootstrap.bundle.js"></script>
 	<!-- Meanu js -->
-	<script src="../assets/js/jquery.meanmenu.js"></script>
+	<script src="assets/js/jquery.meanmenu.js"></script>
 	<!-- Magnific Popup js -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
 	<!-- owl carousel js -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
 	<!-- wow.js -->
-	<script src="../assets/js/wow.min.js"></script>
+	<script src="assets/js/wow.min.js"></script>
 	<!-- waypoints.js -->
-	<script src="../assets/js/waypoints.min.js"></script>
+	<script src="assets/js/waypoints.min.js"></script>
 	<!-- counterup.js -->
-	<script src="../assets/js/jquery.counterup.min.js"></script>
+	<script src="assets/js/jquery.counterup.min.js"></script>
 	<!-- Custom js -->
 	<!-- <script src="assets/js/gallery-popup.js"></script> -->
-	<script src="../assets/js/custom.js"></script>
+	<script src="assets/js/custom.js"></script>
 	<!-- <script src="assets/js/video.js"></script> -->
 
 </body>
