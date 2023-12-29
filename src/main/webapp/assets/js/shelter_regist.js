@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// 按下取消按鈕(直接返回首頁)
 	$("#btn_cancel").on("click", function() {
-		window.location.href = "/Petlife/index.html";
+		window.location.href = "/Petlife/index.jsp";
 	});
 
 	// 前端驗證區塊
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				processData: false,
 				catch: false,
 				success: function(data) {      // request 成功取得回應後執行
-					if (data.endsWith("jsp")) {
+					if (typeof data === 'string' && data.endsWith("jsp")) {
 						redirectPage(data);
 						return;
 					}

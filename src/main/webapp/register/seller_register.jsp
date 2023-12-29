@@ -191,7 +191,6 @@
 										<label for="bankcode" class="form-label">金融機構代號 <span
 												class="must_insert">*</span>
 										</label> <select class="form-select" id="bankcode" name="bankcode">
-											<option value="004">(004)台灣銀行</option>
 										</select>
 									</div>
 								</div>

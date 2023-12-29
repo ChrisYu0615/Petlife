@@ -26,7 +26,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
-<title>寵愛生活</title>
+<title>寵愛生活Petlife</title>
 <!-- Bootstrap css -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <!-- animate css -->
