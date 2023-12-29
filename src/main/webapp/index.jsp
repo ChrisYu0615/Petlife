@@ -2,6 +2,9 @@
 <%@page import="com.petlife.admin.service.impl.AdvertisementServiceImpl"%>
 <%@page import="com.petlife.admin.service.AdvertisementService"%>
 <%@page import="com.petlife.admin.entity.Advertisement"%>
+<%@page import="com.petlife.mall.service.impl.CommServiceImpl"%>
+<%@page import="com.petlife.mall.service.CommService"%>
+<%@page import="com.petlife.mall.entity.Comm"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -10,6 +13,9 @@
 AdvertisementService advertisementService = new AdvertisementServiceImpl();
 List<Advertisement> advertisementList = advertisementService.getAllWithActived();
 pageContext.setAttribute("allActivedAd", advertisementList);
+CommService commSvc = new CommServiceImpl();
+List<Comm> popularCommList = commSvc.getPopularComm();
+pageContext.setAttribute("popularCommList", popularCommList);
 %>
 
 <!DOCTYPE html>
@@ -120,15 +126,21 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 						<div class="banner_main_services">
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item">
-								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-1.png" alt="img">
+								<img
+									src="<%=request.getContextPath()%>/assets/img/icon/banner-1.png"
+									alt="img">
 								<h5>寵物商城</h5>
 							</div>
 							<div class="banner_main_service_item">
-								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-2.png" alt="img">
+								<img
+									src="<%=request.getContextPath()%>/assets/img/icon/banner-2.png"
+									alt="img">
 								<h5>寵物領養</h5>
 							</div>
 							<div class="banner_main_service_item">
-								<img src="<%=request.getContextPath()%>/assets/img/icon/banner-3.png" alt="img">
+								<img
+									src="<%=request.getContextPath()%>/assets/img/icon/banner-3.png"
+									alt="img">
 								<h5>寵物論壇</h5>
 							</div>
 							<div class="banner_main_service_item invisible"></div>
@@ -178,128 +190,47 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 			</div>
 		</div>
 	</div>
-
 	<div class="shop_item_wrapper">
 		<div class="row">
-			<!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
-			<span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
-							class="shop_badge in_stock">In stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
+			<c:forEach var="comm" items="${popularCommList}">
+				<!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
+				<span class="col-lg-4 col-md-6 col-sm-12 col-12">
+					<div class="shop_main_item">
+						<div class="shop_item_img">
+							<a href="shop-details.html"><img
+								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+								style="width: 405px; height: 300px;"></a>
 						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
+						<div class="shop_item_content">
+							<h3>
+								<a href="shop-details.html">${comm.commName}</a>
+							</h3>
+							<div class="shop_item_price">
+								<c:choose>
+									<c:when test="${comm.commOnsalePrice == comm.commPrice}">
+										<h5>${comm.commPrice}</h5>
+									</c:when>
+									<c:otherwise>
+										<p>${comm.commPrice}</p>
+										<h5>${comm.commOnsalePrice}</h5>
+									</c:otherwise>
+								</c:choose>
 							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
+							<!-- 其他商品屬性的顯示 -->
+							<div class="shop_item_rating">
+								<!-- 商品評分的顯示 -->
 							</div>
 						</div>
 					</div>
-				</div>
-			</span> <span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
-							class="shop_badge in_stock">In stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
-						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
-							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</span> <span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png" alt="img"></a> <span
-							class="shop_badge in_stock">In stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
-						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
-							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</span>
+				</span>
+			</c:forEach>
 		</div>
+	</div>
 
 
 
 
-		<!-- <div></div> 
+	<!-- <div></div> 
     <div class="row">
         <div class="col-lg-12">
             <div class="testmoinal_main_slider owl-theme owl-carousel">
@@ -369,7 +300,8 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-1.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-1.png"
+								alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -381,7 +313,9 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-1.png" alt="img">
+									<img
+										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-1.png"
+										alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -398,7 +332,8 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-2.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-2.png"
+								alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -410,7 +345,9 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-2.png" alt="img">
+									<img
+										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-2.png"
+										alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -427,7 +364,8 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png"
+								alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -439,7 +377,9 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png" alt="img">
+									<img
+										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png"
+										alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -456,7 +396,8 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 					<div class="blog_area_wrapper">
 						<div class="blog_area_img">
 							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png" alt="img"></a>
+								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png"
+								alt="img"></a>
 						</div>
 						<div class="blog_area_content">
 							<h3>
@@ -468,7 +409,9 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</p>
 							<div class="blog_area_author_wrappe">
 								<div class="blog_area_author_img">
-									<img src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png" alt="img">
+									<img
+										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png"
+										alt="img">
 								</div>
 								<div class="blog_area_author_text">
 									<h5>Jennifer lawrence</h5>
@@ -504,12 +447,14 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 				<div class="col-lg-12">
 					<div class="testmoinal_main_slider owl-theme owl-carousel">
 						<div class="testimonial_area_item">
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -517,12 +462,14 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -530,12 +477,14 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -543,12 +492,14 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>
@@ -556,12 +507,14 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 							</div>
 						</div>
 						<div class="testimonial_area_item">
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
 								class="test_main_img" alt="img">
 							<p class="test_main_para">Lorem ipsum dolor sit amet,
 								consectetur notted adipisicing elit sed do eiusm menos tdolore
 								magna aliqua andhn.</p>
-							<img src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
+							<img
+								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
 								class="test_quote_img" alt="icon">
 							<div class="test_destination">
 								<h3>Adam brown</h3>

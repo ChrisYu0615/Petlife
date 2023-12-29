@@ -467,17 +467,24 @@ label {
 			</FORM>
 
 			<script>
-				function validateForm() {
-					var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
-					var commOnsalePrice = parseFloat(document.forms["form1"]["commOnsalePrice"].value);
+			 function validateForm() {
+			        var commPrice = parseFloat(document.forms["form1"]["commPrice"].value);
+			        var commOnsalePriceInput = document.forms["form1"]["commOnsalePrice"];
 
-					if (commOnsalePrice >= commPrice) {
-						alert("商品優惠價不得大於或等於商品價格。");
-						return false;
-					}
+			        // 如果商品優惠價格尚未填寫，則自動帶入商品價格
+			        if (commOnsalePriceInput.value.trim() === '') {
+			            commOnsalePriceInput.value = commPrice;
+			        }
 
-					return true; // 如果所有驗證都通過，返回 true；否則返回 false
-				}
+			        // 檢查商品優惠價不得大於或等於商品價格
+			        var commOnsalePrice = parseFloat(commOnsalePriceInput.value);
+			        if (commOnsalePrice > commPrice) {
+			            alert("商品優惠價不得大於或等於商品價格。");
+			            return false;
+			        }
+
+			        return true; // 如果所有驗證都通過，返回 true；否則返回 false
+			    }
 			</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"

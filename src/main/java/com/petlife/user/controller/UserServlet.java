@@ -163,6 +163,7 @@ public class UserServlet extends HttpServlet {
 			acctState = acctStateService.getByAcctStateId(1);
 		} else if (modify != null && "recoverUser".equals(modify)) {
 			acctState = acctStateService.getByAcctStateId(0);
+			user.setUserReportCount(0);
 		}
 
 		user.setAcctState(acctState);
