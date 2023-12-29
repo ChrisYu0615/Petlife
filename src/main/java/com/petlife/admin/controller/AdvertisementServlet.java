@@ -140,7 +140,6 @@ public class AdvertisementServlet extends HttpServlet {
 		Integer advertisementId = Integer.valueOf(req.getParameter("adId"));
 		Advertisement advertisement = advertisementService.getAdvertisementById(advertisementId);
 		byte[] adImg = advertisement.getAdvertisementImg();
-		System.out.println(adImg);
 		resp.setContentType("image/png");
 		
 		try {
