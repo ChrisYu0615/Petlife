@@ -405,7 +405,10 @@ function uploadData() {
 			shelter_num_Max = 0;// 最大可已預約人數
 		}
 		var date = $(button).closest("tr.button").closest("table").find(`th[id=${button_value}]`).text();
-		date = currentYear + "/" + date;
+		var getEnter = $("#monthSelector").val();
+		var parts = getEnter.split('-');
+		var year = parts[0];
+		date = year + "/" + date;
 
 		date = formatDate(date);
 		function formatDate(dateString) {

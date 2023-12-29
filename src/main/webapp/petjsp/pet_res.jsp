@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/form_update.css"> --%>
 <% 
 	Integer id =null;
 	Shelter shelter = (Shelter) session.getAttribute("shelter");
@@ -37,6 +38,7 @@
 
 
 %>
+
 
 </head>
 
@@ -103,6 +105,7 @@
 
                     
                  </div>
+                 <div id="pet"></div>
             <div id="res_result" class="container"></div>        
 <!-- ============================================================================ -->
                     
@@ -179,6 +182,14 @@
             		method: "post",
             		async: false,
             		success: res => {
+            			if(res === ""){
+            				console.log(res);
+            				result.innerHTML="";
+            				$("#button_result").click();
+            				$("#staticBackdropLabel").html("成功領養");
+            				$("#result").html("已將此收容動物登記為已被收容");
+            			}
+            			
             			 var row = $(this).closest("tr"); // 使用 closest 方法找到最接近的 tr 元素
             	            row.remove();
             		}, error: function(jqXHR, textStatus, errorThrown) {
