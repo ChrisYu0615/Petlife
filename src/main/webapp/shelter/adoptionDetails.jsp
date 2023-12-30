@@ -349,84 +349,11 @@ a:hover, a:active {
 				</div>
 				<div class="modal-body">
 
-					<input class="mydate" gldp-id="mydate" id="mydate" value="所選日期"
+					<input class="mydate" gldp-id="mydate" id="mydate" value="" 
 						style="width: 1000px; height: 30px; visibility: visible; color: gray; font-weight: bold;"
 						type="text" />
 
-					<div gldp-el="mydate" id="mydateContainer">
-
-						<script>
-						$('#mydate').glDatePicker(
-								{
-									showAlways : true,       // 預設為 false
-					 				cssName: 'default',      // 可用 'default' 或  'darkneon' 或  'flatwhite'
-//					              format: 'yyyy-mm-dd',    // 預設
-//					              dowOffset: 0,            // 預設
-//					              allowMonthSelect: false, // 預設
-//					              allowYearSelect: true,   // 預設
-//					              prevArrow: '\u25c4',     // 預設
-//					              nextArrow: '\u25ba',     // 預設
-					                dowNames : [ '<font color=red>星期日</font>', '星期一', '星期二', '星期三', '星期四', '星期五', '<font color=red>星期六</font>' ], //自定
-					                monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'], //自定
-					                
-					// ====================================================================================================              
-//					              以下的'月'為陣列index，加1才為正確的幾月
-
-					                
-//					 			    selectedDate: new Date(),             // 今天的日期        (藍色-->橘色)(預設原有)
-//					 			    selectedDate: new Date(2023, 10, 15), // 自選選定的日期 (藍色)
-
-
-//					 			    selectableDates: // 可選的數個日期 (白色)
-//					 			    [
-//					 			        { date: new Date(2023, 10, 15) },
-//					 			        { date: new Date(2023, 10, 20) },
-//					 			        { date: new Date(2023, 10, 25) }
-//					 			    ],
-
-
-//					 			    selectableDateRange: // 可選的日期範圍 (白色)
-//					 			    [
-//					 			        { from: new Date(2023, 10, 15),  to: new Date(2023, 10, 18)  },
-//					 			        { from: new Date(2023, 10, 25),  to: new Date(2023, 10, 28) }
-//					 			    ],
-
-
-//					 			    selectableYears:  [2022, 2023, 2024], //可選的年份
-//					 			    selectableMonths: [06, 07, 08],       //可選的月份
-
-
-//					 			    specialDates: [                       // 特殊日期的日期 + 信息 (綠色)
-//					 			        {
-//					 			            date: new Date(2023, 0, 15),
-//					 			            data: { message: '每月15日會議' },
-//					 			            repeatMonth: true
-//					 			        },
-//					 			        {
-//					 			            date: new Date(0, 0, 1),
-//					 			            data: { message: '新年快樂!' },
-//					 			            repeatYear: true
-//					 			        },
-//					 			    ],
-
-
-//					 			    selectableDOW: [1, 3, 5], //每週可選的星期幾 (白色)
-
-
-
-					                onClick: function(target, cell, date, data) {
-						                 target.val(date.getFullYear() + '-' +
-						                		   (((date.getMonth()+1)<10)? "0"+(date.getMonth()+1):(date.getMonth()+1)) + '-' +
-								                   ((date.getDate()<10)? "0"+date.getDate():date.getDate()));
-
-						                 if(data != null) {
-						                     alert(data.message + '\n' + date);
-						                 }
-					                }
-
-								});
-					</script>
-					</div>
+					<div gldp-el="mydate" id="mydateContainer"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
