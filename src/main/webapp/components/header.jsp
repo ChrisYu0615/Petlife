@@ -72,7 +72,7 @@ User user = (User) session.getAttribute("user");
 											</li>
 										</ul></li>
 
-									<li class="nav-item"><a href="#" class="nav-link">
+									<li class="nav-item"><a href="<%=request.getContextPath()%>/article/Articleindex.jsp" class="nav-link">
 											寵物論壇 <i class="fas fa-angle-down"></i>
 									</a>
 										<ul class="dropdown-menu" style="left: -50px;">
