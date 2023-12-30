@@ -1,5 +1,7 @@
 package com.petlife.pet.serviceimpl;
 
+import java.util.List;
+
 import com.petlife.pet.dao.impl.PetPhotoDAOImpl;
 import com.petlife.pet.entity.PetPhoto;
 import com.petlife.pet.service.PetPhotoService;
@@ -27,6 +29,10 @@ public class PetPhotoServiceImpl implements PetPhotoService {
 	@Override
 	public void deletePetPhoto(Integer id) {
 		 dao.delete(id);
+	}
+	@Override
+	public List<PetPhoto> getAllPetPhotos() {
+		return dao.getAll();
 	}
 
 	

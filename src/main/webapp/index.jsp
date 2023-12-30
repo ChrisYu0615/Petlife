@@ -26,7 +26,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
-<title>寵愛生活</title>
+<title>寵愛生活Petlife</title>
 <!-- Bootstrap css -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <!-- animate css -->
@@ -116,14 +116,13 @@ pageContext.setAttribute("popularCommList", popularCommList);
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
-						<!-- 輪播元素結束 -->
-						<!-- <img src="assets/img/SIMPLE/S__26607622.jpg" alt="img" class="animation-img-one"> -->
 					</div>
 				</div>
 
 				<div class="col-md-12">
 					<div class="main_banner_text_wrapper">
 						<div class="banner_main_services">
+							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item">
 								<img
@@ -144,43 +143,15 @@ pageContext.setAttribute("popularCommList", popularCommList);
 								<h5>寵物論壇</h5>
 							</div>
 							<div class="banner_main_service_item invisible"></div>
+							<div class="banner_main_service_item invisible"></div>							
 						</div>
 					</div>
 				</div>
-				<!-- <div class="col-lg-6">
-                    <div class="main_banner_img_left">
-                        <img src="assets/img/SIMPLE/S__26607622.jpg" alt="img" class="animation-img-one">
-                    </div>
-                </div> -->
 			</div>
 
 		</div>
 	</section>
 
-	<!-- Banner Bottom Area -->
-	<!-- <section id="banner_bottom_area" class="section_padding">
-        <h2 class="col-lg-6">熱門商品</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-1.png" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-2.png" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-3.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h2 class="d-none">Hidden</h2>
-    </section> -->
 
 	<div class="row">
 		<div class="col-lg-6 offset-lg-3">
@@ -227,62 +198,6 @@ pageContext.setAttribute("popularCommList", popularCommList);
 		</div>
 	</div>
 
-
-
-
-	<!-- <div></div> 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="testmoinal_main_slider owl-theme owl-carousel">
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-	</div>
 	<br>
 	<section>
 		<div class="row">

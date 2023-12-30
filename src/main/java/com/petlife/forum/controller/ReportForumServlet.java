@@ -33,6 +33,7 @@ import com.petlife.forum.service.impl.ReportForumServiceImpl;
 import com.petlife.user.entity.User;
 import com.petlife.user.service.UserService;
 import com.petlife.user.service.impl.UserServiceImpl;
+import com.petlife.util.MailService;
 
 @WebServlet("/reportForum/reportForum.do")
 @MultipartConfig
@@ -98,7 +99,7 @@ public class ReportForumServlet extends HttpServlet {
 			Integer userReportCountInteger = user.getUserReportCount();
 			if (userReportCountInteger < 5) {
 				user.setUserReportCount(user.getUserReportCount() + 1);
-			} else{
+			} else {
 				AcctStateService acctStateService = new AcctStateServiceImpl();
 				AcctState acctState = acctStateService.getByAcctStateId(1);
 				user.setAcctState(acctState);
@@ -116,6 +117,10 @@ public class ReportForumServlet extends HttpServlet {
 		reportForum.setAdminReplyTime(timestamp);
 
 		reportForumService.updateReportForum(reportForum);
+		Thread thread = new Thread(() -> {
+			MailService.replyReportMsg(article, user.getUserAcct(), replyMsg);
+		});
+		thread.start();
 
 		return "/reportForum/reportForum.do?action=getAllReports&condition=unReply";
 	}

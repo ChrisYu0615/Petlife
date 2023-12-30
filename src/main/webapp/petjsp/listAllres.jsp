@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <table data-toggle="table" data-sortable="true"
 	data-sort-class="table-active" data-pagination="true"
 	data-search="false" data-show-search-clear-button="false"
@@ -25,7 +26,9 @@
 				<td class="tb_con">${reservation.user.phoneNum}</td>
 				<td class="tb_con">${reservation.pet.petNum}</td>
 				<td class="tb_con">${reservation.shelterBooking.shelterBookingDate}</td>
-				<td class="tb_con">${reservation.shelterBooking.shelterBookingTime}</td>
+				<td class="tb_con">
+				<fmt:formatDate value="${reservation.shelterBooking.shelterBookingTime}" pattern="HH:mm"/>
+				</td>
  				<td>
  				 
  					<c:if test="${reservation.resType.resTypeId eq 1}">

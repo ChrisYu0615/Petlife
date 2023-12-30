@@ -47,7 +47,7 @@
 <body>
 	<div id="preloader">
 		<div id="status">
-			<img src="../assets/img/loader.gif" alt="img">
+			<img src="${pageContext.request.contextPath}/assets/img/loader.gif" alt="img">
 		</div>
 	</div>
 
@@ -56,7 +56,7 @@
 	<div class="row justify-content-around" id="forget_password_menu">
 		<div class="col-4 card card-outline card-warning">
 			<div class="card-header text-center">
-				<img src="../assets/img/Big_logo_v4.png" alt="" class="h1" id="top_logo">
+				<img src="${pageContext.request.contextPath}/assets/img/Big_logo_v4.png" alt="" class="h1" id="top_logo">
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">
@@ -124,8 +124,8 @@
 					</div>
 				</form>
 				<p class="mt-3 mb-1">
-					<a href="./member_login.jsp">返回會員登入</a><br> <a href="./backend_login.jsp">返回後台登入</a><br> <a
-						href="#">返回首頁</a>
+					<a href="${pageContext.request.contextPath}/member_login.jsp">返回會員登入</a><br> <a href="${pageContext.request.contextPath}/backend_login.jsp">返回後台登入</a><br> <a
+						href="${pageContext.request.contextPath}/index.jsp">返回首頁</a>
 				</p>
 			</div>
 			<!-- /.login-card-body -->
@@ -134,10 +134,10 @@
 	<!-- /.login-box -->
 	<%@include file="../components/footer.jsp"%>
 	<!-- jQuery -->
-	<script src="../assets/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="../dist/js/adminlte.min.js"></script>
-	<script src="../assets/js/forget_password.js"></script>
+	<script src="${pageContext.request.contextPath}/dist/js/adminlte.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/forget_password.js"></script>
 </body>
 
 </html>
