@@ -90,7 +90,9 @@
     <!--Our Blog-->
     <section id="our_blog_area" class="section_padding">
         <!-- <a href="/furry/blog-details.html" style="font-size:  50px; color: chocolate; padding: left 10px;">我要發文</a> -->
-
+		<input class="btn btn-primary" onclick="goBack()" type="submit"
+			value="回上一頁"
+			style="height: 50px; width: 300px; font-size: 30px; color: brown; background-color: darkorange;">
 
 
         </button>
@@ -102,10 +104,10 @@
                         <div class="sidebar_common_heading">
                             <div class="sidebar_search_wrapper">
 
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button>
-                                </div>
+<!--                                 <div class="input-group mb-3"> -->
+<!--                                     <input type="text" class="form-control" placeholder="Search"> -->
+<!--                                     <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button> -->
+<!--                                 </div> -->
                             </div>
 
                             <div class="accordion" id="accordionExample">
@@ -162,8 +164,6 @@
 										</li>
 										<li class="list-group-item"><a
 											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
-										</li>
-										<li class="list-group-item">木木梟</li>
 									</ul>
 								</div>
 							</div>
@@ -288,7 +288,11 @@
                 <script src="../assets/js/gallery-popup.js"></script>
                 <script src="../assets/js/custom.js"></script>
                 <script src="../assets/js/video.js"></script>
-              
+            <script>
+		function goBack() {
+			history.back();
+		}
+	</script>  
 <script>
     // 這是動物照片
 $("#articlePhoto").change(function () {

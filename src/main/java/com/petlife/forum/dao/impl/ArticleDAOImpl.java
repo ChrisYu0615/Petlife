@@ -152,6 +152,27 @@ public class ArticleDAOImpl implements ArticleDAO {
 		    articles = query.getResultList();
 		    return articles;
 		}
+
+	@Override
+	public List<Article> findPopArticlesByCRT() {
+		try {
+			Session session = getSession();
+			List<Article> popArticlesByCRT = session.createQuery("FROM Article ORDER BY ctr DESC",Article.class)
+					.setMaxResults(4).getResultList();
+			return popArticlesByCRT;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		
+//		List<Article> articles = new ArrayList<>();
+//		String hql = "FROM Article ORDER BY ctr DESC";
+//		Query<Article> query = getSession().createQuery(hql, Article.class); 
+//		query.setMaxResults(4);
+//	    return articles;
+	}
 	
 	
 	

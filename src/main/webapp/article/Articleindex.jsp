@@ -162,8 +162,6 @@ Article article = (Article) request.getAttribute("article");
 										</li>
 										<li class="list-group-item"><a
 											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
-										</li>
-										<li class="list-group-item">木木梟</li>
 									</ul>
 								</div>
 							</div>

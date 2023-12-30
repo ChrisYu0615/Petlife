@@ -38,7 +38,7 @@
 							<ul>
 								<li><a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a></li>
 								<li><a href="#">寵物商城</a></li>
-								<li><a href="#">寵物論壇</a></li>
+								<li><a href="<%=request.getContextPath()%>/article/Articleindex.jsp">寵物論壇</a></li>
 								<li><a href="#">寵物領養</a></li>
 							</ul>
 						</div>

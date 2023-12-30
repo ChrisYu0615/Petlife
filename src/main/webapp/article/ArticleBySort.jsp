@@ -105,12 +105,12 @@ Article article = (Article) request.getAttribute("article");
 						<div class="sidebar_common_heading">
 							<div class="sidebar_search_wrapper">
 
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="Search">
-									<button class="btn btn_theme btn_sm">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
+<!-- 								<div class="input-group mb-3"> -->
+<!-- 									<input type="text" class="form-control" placeholder="Search"> -->
+<!-- 									<button class="btn btn_theme btn_sm"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
 							</div>
 
 							<div class="accordion" id="accordionExample">
@@ -167,8 +167,6 @@ Article article = (Article) request.getAttribute("article");
 										</li>
 										<li class="list-group-item"><a
 											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
-										</li>
-										<li class="list-group-item">木木梟</li>
 									</ul>
 								</div>
 							</div>
