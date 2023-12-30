@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="stylesheet" href="../assets/css/Article.css" type="text/css">
 </head>
 
 <body>
@@ -89,7 +90,9 @@
     <!--Our Blog-->
     <section id="our_blog_area" class="section_padding">
         <!-- <a href="/furry/blog-details.html" style="font-size:  50px; color: chocolate; padding: left 10px;">我要發文</a> -->
-
+		<input class="btn btn-primary" onclick="goBack()" type="submit"
+			value="回上一頁"
+			style="height: 50px; width: 300px; font-size: 30px; color: brown; background-color: darkorange;">
 
 
         </button>
@@ -101,57 +104,69 @@
                         <div class="sidebar_common_heading">
                             <div class="sidebar_search_wrapper">
 
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button>
-                                </div>
+<!--                                 <div class="input-group mb-3"> -->
+<!--                                     <input type="text" class="form-control" placeholder="Search"> -->
+<!--                                     <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button> -->
+<!--                                 </div> -->
                             </div>
 
                             <div class="accordion" id="accordionExample">
-                                <!-- 貓咪 -->
-                                <div class="accordion-item">
-                                    <span class="sidebar_common_heading">
-                                        <h3>狗狗</h3>
-                                    </span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">狗狗的家</li>
+								<!-- 狗狗 -->
+								<div class="accordion-item">
+									<span class="sidebar_common_heading">
+										<h3>狗狗</h3>
+									</span>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=1">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1">狗狗的家</a>
+										</li>
+									</ul>
+								</div>
 
-                                    </ul>
-                                </div>
-                                <!-- 狗狗 -->
-                                <div class="accordion-item">
-                                    <span class="sidebar_common_heading">
-                                        <h3>貓貓</h3>
-                                    </span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">貓貓的家</li>
-                                    </ul>
-                                </div>
-                                <!-- 範例-3 -->
-                                <div class="accordion-item">
-                                    <span class="sidebar_common_heading">
-                                        <h3>閒聊</h3>
-                                    </span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">來閒聊ㄅ</li>
-                                        <!-- <li class="list-group-item">貓貓保健</li> -->
-                                    </ul>
-                                </div>
-                                <div class="accordion-item">
-                                    <span class="sidebar_common_heading">
-                                        <h3>特殊</h3>
-                                    </span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">熱門文章</li>
-                                        <li class="list-group-item">爬蟲類</li>
-                                        <li class="list-group-item">木木梟</li>
-                                    </ul>
-
-                                </div>
-                            </div>
+								<!-- 貓貓 -->
+								<div class="accordion-item">
+									<span class="sidebar_common_heading">
+										<h3>貓貓</h3>
+									</span>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=2">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2">貓貓的家</a>
+										</li>
+									</ul>
+								</div>
+								<!-- 閒聊3 -->
+								<div class="accordion-item">
+									<span class="sidebar_common_heading">
+										<h3>閒聊</h3>
+									</span>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=3">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3">來閒聊ㄅ</a>
+										</li>
+									</ul>
+								</div>
+								<div class="accordion-item">
+									<span class="sidebar_common_heading">
+										<h3>特殊</h3>
+									</span>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=4">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
+									</ul>
+								</div>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -191,12 +206,10 @@
                                         <label for="inputGroupFile02">照片:</label>
                                         <input type="file" class="form-control" id="articlePhoto" name="articlePhoto" multiple>
                                     
-<%--                         	     <div><input type="text" name = "user" value ="<%=user.getUserId()%>"></div> --%>
-<!--                         	     <div><input type="text" name = "user">UserId</div> -->
             
                                     
-                                        <div class="pet_img"><span class="pet_img">預覽圖</span></div>
-                                        </div>
+                                        <div class="pet_img" style="border:5px dashed white;"><span class="pet_img">圖片上傳中~</span></div>
+
                                 </div>
                                 <div class="col-lg-12 col-md-6 col-sm-12 col-12">
                                     <div class="form-group" >
@@ -275,10 +288,14 @@
                 <script src="../assets/js/gallery-popup.js"></script>
                 <script src="../assets/js/custom.js"></script>
                 <script src="../assets/js/video.js"></script>
-              
+            <script>
+		function goBack() {
+			history.back();
+		}
+	</script>  
 <script>
     // 這是動物照片
-$("#petphoto").change(function () {
+$("#articlePhoto").change(function () {
 $("div.pet_img").html("");
 readURL(this);
 function readURL(input) {

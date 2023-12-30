@@ -34,4 +34,5 @@ public interface ArticleDAO {
 	
 	List <Article>  findArticlesByForumId(Integer forumId);
 	
+	List <Article>  findPopArticlesByCRT();
 }
