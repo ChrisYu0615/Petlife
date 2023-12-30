@@ -329,7 +329,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	            "info": "顯示第 _PAGE_ 頁，共 _PAGES_ 頁",
 	            "infoEmpty": "沒有可用記錄",
 	            "infoFiltered": "(從 _MAX_ 條記錄過濾)",
-	            "search": "搜索:",
+	            "search": "搜索商品名稱:",
 	            "paginate": {
 	                "first":      "首頁",
 	                "last":       "尾頁",

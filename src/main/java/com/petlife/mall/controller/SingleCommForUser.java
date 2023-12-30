@@ -38,29 +38,34 @@ public class SingleCommForUser extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String commIdString = req.getParameter("commId");
-		Integer commId = Integer.parseInt(commIdString);
-		String forwardPath = "";
 		
-		String action = req.getParameter("action");
-		Comm comm = commService.findByPk(commId);
-		
-		switch (action) {
-		case "show_comm_without_customer":
-			// 來自 index.jsp & listAllCommForUser.jsp
-			forwardPath = showCommWithoutCustomer(req, res, comm);
-			break;
-		case "show_comm_with_customer": 
-			// 來自 cart.jsp
-			forwardPath = showCommWithCustomer(req, res, comm);
-			break;
-		default:
-			forwardPath = "/comm_for_user/listAllCommForUser.jsp";
+		try {
+			String commIdString = req.getParameter("commId");
+			Integer commId = Integer.parseInt(commIdString);
+			String forwardPath = "";
+			
+			String action = req.getParameter("action");
+			Comm comm = commService.findByPk(commId);
+			
+			switch (action) {
+			case "show_comm_without_customer":
+				// 來自 index.jsp & listAllCommForUser.jsp
+				forwardPath = showCommWithoutCustomer(req, res, comm);
+				break;
+			case "show_comm_with_customer": 
+				// 來自 cart.jsp
+				forwardPath = showCommWithCustomer(req, res, comm);
+				break;
+			default:
+				forwardPath = "/comm_for_user/listAllCommForUser.jsp";
+			}
+			
+			res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		} catch (Exception e) {
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
-		
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
 	}
 	
 	private String showCommWithoutCustomer(HttpServletRequest req, HttpServletResponse res, Comm comm) {
