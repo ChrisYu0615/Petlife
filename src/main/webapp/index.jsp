@@ -2,6 +2,9 @@
 <%@page import="com.petlife.admin.service.impl.AdvertisementServiceImpl"%>
 <%@page import="com.petlife.admin.service.AdvertisementService"%>
 <%@page import="com.petlife.admin.entity.Advertisement"%>
+<%@page import="com.petlife.mall.service.impl.CommServiceImpl"%>
+<%@page import="com.petlife.mall.service.CommService"%>
+<%@page import="com.petlife.mall.entity.Comm"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.petlife.forum.service.impl.ArticleServiceImpl"%>
@@ -21,6 +24,10 @@ pageContext.setAttribute("allActivedAd", advertisementList);
 ArticleService articleSvc = new ArticleServiceImpl();
 List<Article> articlesByCtr = articleSvc.getPopArticlesByCRT();
 pageContext.setAttribute("articlesByCtr", articlesByCtr);
+
+CommService commSvc = new CommServiceImpl();
+List<Comm> popularCommList = commSvc.getPopularComm();
+pageContext.setAttribute("popularCommList", popularCommList);
 %>
 
 <!DOCTYPE html>
@@ -31,7 +38,7 @@ pageContext.setAttribute("articlesByCtr", articlesByCtr);
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
-<title>寵愛生活</title>
+<title>寵愛生活Petlife</title>
 <!-- Bootstrap css -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <!-- animate css -->
@@ -122,14 +129,13 @@ pageContext.setAttribute("articlesByCtr", articlesByCtr);
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
-						<!-- 輪播元素結束 -->
-						<!-- <img src="assets/img/SIMPLE/S__26607622.jpg" alt="img" class="animation-img-one"> -->
 					</div>
 				</div>
 
 				<div class="col-md-12">
 					<div class="main_banner_text_wrapper">
 						<div class="banner_main_services">
+							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item">
 								<img
@@ -143,6 +149,7 @@ pageContext.setAttribute("articlesByCtr", articlesByCtr);
 									alt="img">
 								<h5>寵物領養</h5>
 							</div>
+
 							<a href="<%=request.getContextPath()%>/article/Articleindex.jsp">
 								<div class="banner_main_service_item">
 									<img
@@ -151,45 +158,16 @@ pageContext.setAttribute("articlesByCtr", articlesByCtr);
 									<h5>寵物論壇</h5>
 								</div>
 							</a>
-
 							<div class="banner_main_service_item invisible"></div>
+							<div class="banner_main_service_item invisible"></div>							
 						</div>
 					</div>
 				</div>
-				<!-- <div class="col-lg-6">
-                    <div class="main_banner_img_left">
-                        <img src="assets/img/SIMPLE/S__26607622.jpg" alt="img" class="animation-img-one">
-                    </div>
-                </div> -->
 			</div>
 
 		</div>
 	</section>
 
-	<!-- Banner Bottom Area -->
-	<!-- <section id="banner_bottom_area" class="section_padding">
-        <h2 class="col-lg-6">熱門商品</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-1.png" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-2.png" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="banner_bottom_item">
-                        <img src="assets/img/common/offer-3.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h2 class="d-none">Hidden</h2>
-    </section> -->
 
 	<div class="row">
 		<div class="col-lg-6 offset-lg-3">
@@ -199,183 +177,43 @@ pageContext.setAttribute("articlesByCtr", articlesByCtr);
 			</div>
 		</div>
 	</div>
-
 	<div class="shop_item_wrapper">
 		<div class="row">
-			<!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
-			<span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png"
-							alt="img"></a> <span class="shop_badge in_stock">In
-							stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
+			<c:forEach var="comm" items="${popularCommList}">
+				<!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
+				<span class="col-lg-4 col-md-6 col-sm-12 col-12">
+					<div class="shop_main_item">
+						<div class="shop_item_img">
+							<a href="shop-details.html"><img
+								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
+								style="width: 405px; height: 300px;"></a>
 						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
+						<div class="shop_item_content">
+							<h3>
+								<a href="shop-details.html">${comm.commName}</a>
+							</h3>
+							<div class="shop_item_price">
+								<c:choose>
+									<c:when test="${comm.commOnsalePrice == comm.commPrice}">
+										<h5>${comm.commPrice}</h5>
+									</c:when>
+									<c:otherwise>
+										<p>${comm.commPrice}</p>
+										<h5>${comm.commOnsalePrice}</h5>
+									</c:otherwise>
+								</c:choose>
 							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
+							<!-- 其他商品屬性的顯示 -->
+							<div class="shop_item_rating">
+								<!-- 商品評分的顯示 -->
 							</div>
 						</div>
 					</div>
-				</div>
-			</span> <span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png"
-							alt="img"></a> <span class="shop_badge in_stock">In
-							stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
-						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
-							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</span> <span class="col-lg-4 col-md-6 col-sm-12 col-12">
-				<div class="shop_main_item">
-					<div class="shop_item_img">
-						<a href="shop-details.html"><img
-							src="<%=request.getContextPath()%>/assets/img/shop/shop-1.png"
-							alt="img"></a> <span class="shop_badge in_stock">In
-							stock</span>
-					</div>
-					<div class="shop_item_content">
-						<h3>
-							<a href="shop-details.html">Automatic dog blue leash</a>
-						</h3>
-						<div class="shop_item_price">
-							<p>Tk. 500.00/KG</p>
-							<h5>Tk. 300.00/KG</h5>
-						</div>
-						<div class="shop_item_rating">
-							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-								class="fas fa-star"></i> <span>729</span>
-						</div>
-						<div class="shop_quent_wrapper">
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-minus-circle"></i>
-								</button>
-							</div>
-							<div class="shop_quentiy_item_shows">
-								<input type="number" value="1">
-							</div>
-							<div class="shop_quentiy_item">
-								<button>
-									<i class="fas fa-plus-circle"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</span>
+				</span>
+			</c:forEach>
 		</div>
-
-
-
-
-		<!-- <div></div> 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="testmoinal_main_slider owl-theme owl-carousel">
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-3.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-                <div class="testimonial_area_item">
-                    <img src="assets/img/testimonial/test-2.png" class="test_main_img" alt="img">
-                    <p class="test_main_para">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusm menos tdolore magna aliqua andhn.</p>
-                   <img src="assets/img/testimonial/quote.png" class="test_quote_img" alt="icon">
-                    <div class="test_destination">
-                        <h3>Adam brown</h3>
-                        <p>Businessman</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
 	</div>
+
 	<br>
 	<section>
 		<div class="row">

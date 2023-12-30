@@ -155,6 +155,8 @@ $(function() {
 
 					if ($.trim(data.success).length != 0) {
 						alert(data.success);
+						$("#useraccount").val("");
+						$("#authencode").val("");
 					}
 				}
 			});

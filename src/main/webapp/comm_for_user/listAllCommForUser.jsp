@@ -8,24 +8,18 @@
 
 
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@page import="com.petlife.admin.*"%>
 
-
-<%
-CommService commSvc = new CommServiceImpl();
-List<Comm> list = commSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>≈w™Ô®”®Ï√d∑R•Õ¨°™∫∞”´∞</title>
+<title>Ê≠°Ëøé‰æÜÂà∞ÂØµÊÑõÁîüÊ¥ªÁöÑÂïÜÂüé</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -54,6 +48,8 @@ pageContext.setAttribute("list", list);
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	<!-- datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 </head>
 
 
@@ -63,8 +59,8 @@ pageContext.setAttribute("list", list);
 			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
-	<!-- ¿≥∏”¨Oheader •˝§£∫ﬁ -->
-	<div class="headerPage"></div>
+	<!-- header -->
+	<%@include file="../components/header.jsp"%>
 		    <section id="our_shop_main" class="section_padding">
         <div class="container">
             <div class="row">
@@ -72,51 +68,72 @@ pageContext.setAttribute("list", list);
                 <div class="col-lg-3">
                     <div class="sidebar_boxed_wrapper">
                         <div class="sidebar_common_heading">
-                            <h3>Sidebar</h3>
+                            <h3>ÊêúÂ∞ãÂïÜÂüé</h3>
                         </div>
                         <!-- search bar -->
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <button class="btn btn_theme btn_sm"><i class="fas fa-search"></i></button>
-                        </div>
-
+                        <form action="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do" method="post">
+                       		<div class="input-group mb-3">
+                           	 	<input type="text" class="form-control" name="searchQuery" placeholder="Search">
+                            	<input type="submit" value="ÊêúÂ∞ãÂêçÁ®±" class="btn btn_theme btn_sm">
+                            	
+                        	</div>
+                        </form>
                         <!-- accordion -->
                         <div class="accordion" id="accordionExample">
-                            <!-- øﬂ´} -->
+                            <!-- Ë≤ìÂí™ -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                        øﬂ´}±M∞œ
+                                        Ë≤ìÂí™Â∞àÂçÄ
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">øﬂ´}π}Æ∆</li>
-                                            <li class="list-group-item">øﬂ´}•D≠π≈¯</li>
-                                            <li class="list-group-item">øﬂ´}∞∆≠π≈¯</li>
-                                            <li class="list-group-item">øﬂ´}πs≠π</li>
-                                            <li class="list-group-item">øﬂ´}•Œ´~</li>
-                                            <li class="list-group-item">øﬂ®F</li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1000">Ë≤ìÂí™È£ºÊñô</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1001">Ë≤ìÂí™‰∏ªÈ£üÁΩê</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1002">Ë≤ìÂí™ÂâØÈ£üÁΩê</a>
+                                            </li>
+                                            <li class="list-group-item">
+	                                            <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1003">Ë≤ìÂí™Èõ∂È£ü</a>
+                                            </li>
+                                            <li class="list-group-item">
+    	                                        <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=1004">Ë≤ìÂí™Áî®ÂìÅ</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!-- ™Ø™Ø -->
+                            <!-- ÁãóÁãó -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        ™Ø™Ø±M∞œ
+                                        ÁãóÁãóÂ∞àÂçÄ
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">™Ø™Øπ}Æ∆</li>
-                                            <li class="list-group-item">™Ø™Ø•D≠π≈¯</li>
-                                            <li class="list-group-item">™Ø™Ø∞∆≠π≈¯</li>
-                                            <li class="list-group-item">™Ø™Øπs≠π</li>
-                                            <li class="list-group-item">™Ø™Ø•Œ´~</li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2000">ÁãóÁãóÈ£ºÊñô</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2001">ÁãóÁãó‰∏ªÈ£üÁΩê</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                            	<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2002">ÁãóÁãóÂâØÈ£üÁΩê</a>
+                                            </li>
+                                            <li class="list-group-item">
+	                                            <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2003">ÁãóÁãóÈõ∂È£ü</a>
+                                            </li>
+                                            <li class="list-group-item">
+    	                                        <a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do?action=2004">ÁãóÁãóÁî®ÂìÅ</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -126,31 +143,30 @@ pageContext.setAttribute("list", list);
                 </div>
                 <div class="col-lg-9">
                     <div class="shop_main_area_wrapper">
-                        <div class="shop_heading_sort_area">
-<!--                         	ª°©˙ß‰®Ï¥X≠”∞”´~ -->
-                            <div class="shop_main_area_heading">
-                                <h3>We found 29 items</h3>
-                            </div>
-                        </div>
                         <div class="shop_item_wrapper">
                             <div class="row">
-                                <!-- §@≠” class="col-lg-4 col-md-6 col-sm-12 col-12" ¥N¨O§@≠”comm_item-->
-                                <%@ include file="page1.file" %>
-                                <c:forEach var="comm" items="${list}" begin="<%=pageIndex%>"
-										end="<%=pageIndex+rowsPerPage-1%>">
+                                <!-- ‰∏ÄÂÄã class="col-lg-4 col-md-6 col-sm-12 col-12" Â∞±ÊòØ‰∏ÄÂÄãcomm_item-->
+                                <c:forEach var="comm" items="${list}">
 									<div class="col-lg-4 col-md-6 col-sm-12 col-12">
                                     <div class="shop_main_item">
                                         <div class="shop_item_img">
-<!--                                         	ß‰≥ÊøW§@≠”comm™∫´ˆ∂s -->
+<!--                                         	ÊâæÂñÆÁç®‰∏ÄÂÄãcommÁöÑÊåâÈàï -->
                                             <a href="shop-details.html"><img src="../assets/img/shop/shop-1.png"
                                                     alt="img"></a>
                                         </div>
                                         <div class="shop_item_content">
-                                            <h3><a href="shop-details.html">${comm.commName}</a></h3>
+                                            <h3><a href="#">${comm.commName}</a></h3>
                                             <div class="shop_item_price">
-                                                <p>${comm.commPrice}</p>
-                                                <h5>${comm.commOnsalePrice}</h5>
-                                            </div>
+											    <c:choose>
+											        <c:when test="${comm.commOnsalePrice == comm.commPrice}">
+											        	<h5>${comm.commPrice}</h5>
+											        </c:when>
+											        <c:otherwise>
+											        	<p>${comm.commPrice}</p>
+											        	<h5>${comm.commOnsalePrice}</h5>
+											        </c:otherwise>
+											    </c:choose>
+											</div>
                                             
                                             <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cart/cart.do" style="margin-bottom: 0px;">
 											    <div class="shop_quent_wrapper">
@@ -158,70 +174,35 @@ pageContext.setAttribute("list", list);
 											            <input type="number" name="purchasing_amount" value="1" min="1">
 											        </div>
 											    </div>
-											    <input type="submit" value="•[§J¡ ™´®Æ">
+											    <input type="submit" value="Âä†ÂÖ•Ë≥ºÁâ©Ëªä">
 											    <input type="hidden" name="action" value="add_comm_to_cart">
 											    <input type="hidden" name="commId" value="${comm.commId}">
-											    
 											</FORM>
                                         </div>
                                     </div>
                                 </div>	
-										
 								</c:forEach>
-                                <%@ include file="page2.file"%>
-                                
-<!--                                 <div class="col-lg-4 col-md-6 col-sm-12 col-12"> -->
-<!--                                     <div class="shop_main_item"> -->
-<!--                                         <div class="shop_item_img"> -->
-<!--                                             <a href="shop-details.html"><img src="../assets/img/shop/shop-2.png" -->
-<!--                                                     alt="img"></a> -->
-
-<!--                                         </div> -->
-<!--                                         <div class="shop_item_content"> -->
-<!--                                             <h3><a href="shop-details.html">Cat toilet bowl</a></h3> -->
-<!--                                             <div class="shop_item_price"> -->
-<!--                                                 <p>Tk. 500.00/KG</p> -->
-<!--                                                 <h5>Tk. 300.00/KG</h5> -->
-<!--                                             </div> -->
-<!--                                             <div class="shop_item_rating"> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <i class="fas fa-star"></i> -->
-<!--                                                 <span>729</span> -->
-<!--                                             </div> -->
-<!--                                             <div class="shop_quent_wrapper"> -->
-<!--                                                 <div class="shop_quentiy_item"> -->
-<!--                                                     <button><i class="fas fa-minus-circle"></i></button> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="shop_quentiy_item_shows"> -->
-<!--                                                     <input type="number" value="1"> -->
-<!--                                                 </div> -->
-<!--                                                 <div class="shop_quentiy_item"> -->
-<!--                                                     <button><i class="fas fa-plus-circle"></i></button> -->
-<!--                                                 </div> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-                                
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
     </section>
 
-	<div class="footerPage"></div>
+	<%@include file="../components/footer.jsp"%>
 
 	<script src="../assets/js/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="../assets/js/user_profile.js"></script>
+	<!-- dataTables -->
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<!-- 	<script> -->
+		
+<!-- 	</script> -->
+	
+	
 </body>
 
 </html>

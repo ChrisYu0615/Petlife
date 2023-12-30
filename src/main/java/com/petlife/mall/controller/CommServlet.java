@@ -80,9 +80,9 @@ public class CommServlet extends HttpServlet {
 		case "getCommByMemberId":
 			forwardPath = getCommByMemberId(req, res);
 			break;
-//		case "getCommImg":
-//			getCommImg(req, res);
-//			break;
+		case "getPopularComm":
+			forwardPath = getPopularComm(req, res);
+			break;
 		default:
 			forwardPath = "/comm/listAllComm.jsp";
 		}
@@ -91,7 +91,18 @@ public class CommServlet extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}
+//===================熱門三筆========================
+	private String getPopularComm(HttpServletRequest req, HttpServletResponse res) {
+        List<Comm> popularCommList = commService.getPopularComm();
 
+        // 將結果放入 request 屬性中
+        req.setAttribute("popularCommList", popularCommList);
+
+        // 轉發到顯示熱門商品的 JSP 頁面
+        return "index.jsp";
+    }
+
+//===================/熱門三筆========================
 //===================圖片===========================
 	private void findByPk(HttpServletRequest req, HttpServletResponse res) {
 		try {
@@ -121,8 +132,8 @@ public class CommServlet extends HttpServlet {
 	}
 
 	// ===================/圖片===========================
-	
-	//=================================================
+
+	// =================================================
 	private String getCommByMemberId(HttpServletRequest req, HttpServletResponse res) {
 		String memberId = req.getParameter("memberId");
 		System.out.println("===========================" + memberId + "============================");
@@ -138,11 +149,10 @@ public class CommServlet extends HttpServlet {
 			forwardPath = "/buylist/listAllComm.jsp";
 			break;
 		}
-		//================================================================
+		// ================================================================
 		String sellerId = req.getParameter("sellerId");
 		System.out.println("===========================" + sellerId + "============================");
-		
-		
+
 		switch (sellerId.charAt(0)) {
 		case '1':
 			commList = commService.getAll(sellerId);
@@ -153,11 +163,12 @@ public class CommServlet extends HttpServlet {
 			forwardPath = "/comm/listAllComm.jsp";
 			break;
 		}
-		//================================================================
+		// ================================================================
 		req.setAttribute("getAll", commList);
 		return forwardPath;
 	}
-	//=================================================
+
+	// =================================================
 	// 1,查詢
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
 		// 錯誤處理
@@ -269,21 +280,21 @@ public class CommServlet extends HttpServlet {
 //========================================================
 		byte[] commImg = null;
 		try {
-			InputStream in = req.getPart("commImg").getInputStream(); 
+			InputStream in = req.getPart("commImg").getInputStream();
 
-		    if (in.available() != 0) {
-		        commImg = new byte[in.available()];
-		        in.read(commImg);
-		        in.close();
-		    }
+			if (in.available() != 0) {
+				commImg = new byte[in.available()];
+				in.read(commImg);
+				in.close();
+			}
 		} catch (IOException | ServletException e) {
-		    errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+			errorMsgs.add("圖片上傳失敗: " + e.getMessage());
 		}
 
 		// 如果 commImg 為 null，代表上傳失敗，或者使用預設的商品圖片
 		if (commImg == null) {
-		    CommService commService = new CommServiceImpl();
-		    commImg = commService.findByPk(commId).getCommImg();
+			CommService commService = new CommServiceImpl();
+			commImg = commService.findByPk(commId).getCommImg();
 		}
 
 //========================================================
@@ -339,7 +350,7 @@ public class CommServlet extends HttpServlet {
 
 //		Comm comm = new Comm();
 		Comm comm = commService.findByPk(commId);
-		System.out.println("==================================="+comm+"=========================");
+		System.out.println("===================================" + comm + "=========================");
 //		comm.setCommId(commId);
 
 //		Seller seller = new Seller();

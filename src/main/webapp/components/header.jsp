@@ -29,7 +29,7 @@ User user = (User) session.getAttribute("user");
 					<div class="main-responsive-menu">
 						<div class="logo">
 							<img src="<%=request.getContextPath()%>/assets/img/favicon.png" alt="logo"> <a
-								href="index.html"> </a>
+								href="${pageContext.request.contextPath}/index.jsp"> </a>
 						</div>
 					</div>
 				</div>
@@ -38,14 +38,14 @@ User user = (User) session.getAttribute("user");
 				<div class="container">
 					<div class="row">
 						<nav class="navbar navbar-expand-md">
-							<a class="navbar-brand col-2" href="#"> <img
+							<a class="navbar-brand col-2" href="${pageContext.request.contextPath}/index.jsp"> <img
 								src="<%=request.getContextPath()%>/assets/img/main_logo.png" alt="logo">
 							</a>
 							<div class="collapse navbar-collapse mean-menu"
 								id="navbarSupportedContent">
 								<ul class="navbar-nav">
 
-									<li class="nav-item"><a href="#" class="nav-link active">首頁</a>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link active">首頁</a>
 									</li>
 
 									<li class="nav-item"><a href="#" class="nav-link">
@@ -89,7 +89,7 @@ User user = (User) session.getAttribute("user");
 
 								<div class="others-options d-flex align-items-center">
 									<div class="option-item" style="left: -50px;">
-										<a href="#" class="nav-link shopping-cart"> <i
+										<a href="<%=request.getContextPath()%>/cart/cart.do?userId=${user.userId}" class="nav-link shopping-cart"> <i
 											class="fas fa-shopping-cart">購物車</i>
 										</a>
 									</div>

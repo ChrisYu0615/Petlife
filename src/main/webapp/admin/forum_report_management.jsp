@@ -59,10 +59,11 @@ Admin admin = (Admin) session.getAttribute("admin");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="brand-link"> <img
-				src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-				class="brand-image img-corners elevation-3 logo" style="opacity: .8">
-				<span class="brand-text font-weight-light">PetLife後臺管理</span>
+			<a href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+				class="brand-link"> <img src="../dist/img/main_logo.png"
+				alt="AdminLTE Logo" class="brand-image img-corners elevation-3 logo"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">PetLife後臺管理</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -87,73 +88,60 @@ Admin admin = (Admin) session.getAttribute("admin");
 							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
 							class="nav-link"> <i class="fas fa-solid fa-address-card"></i>
 								<p>修改管理員資料</p>
-						</a></li>   						
+						</a></li>
 
-          				<li class="nav-item">
-          				  <a href="#" class="nav-link">
-          				    <i class="fas fa-solid fa-users"></i>
-          				    <p>
-          				      會員管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>一般會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>賣家會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>收容所會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待審核會員</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>		
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
+								<p>
+									會員管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>一般會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>賣家會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>收容所會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待審核會員</p>
+								</a></li>
+							</ul></li>
 
-          				<li class="nav-item menu-open">
-          				  <a href="#" class="nav-link active">
-          				    <i class="fas fa-solid fa-newspaper"></i>
-          				    <p>
-          				      文章管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>文章列表</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待處理檢舉</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>已處理檢舉</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>						
+						<li class="nav-item menu-open"><a href="#"
+							class="nav-link active"> <i class="fas fa-solid fa-newspaper"></i>
+								<p>
+									文章管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>文章列表</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待處理檢舉</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>已處理檢舉</p>
+								</a></li>
+							</ul></li>
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
@@ -167,8 +155,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
-								class="fas fa-sign-out-alt"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
 					</ul>
@@ -189,7 +178,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
+								<li class="breadcrumb-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">文章檢舉</li>
 							</ol>
 						</div>
@@ -206,9 +196,12 @@ Admin admin = (Admin) session.getAttribute("admin");
 							<div class="card">
 								<div class="card-header">
 									<ul class="list-group list-group-horizontal-sm">
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles">全部文章列表</a></li>
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply">待處理檢舉</a></li>
-										<li class="list-group-item"><a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied">已處理檢舉</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles">全部文章列表</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply">待處理檢舉</a></li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied">已處理檢舉</a></li>
 									</ul>
 									<!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
 								</div>
@@ -236,22 +229,18 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<td>${report.reportForumReason}</td>
 													<td><fmt:formatDate value="${report.reportForumTime}"
 															pattern="yyyy-MM-dd HH:mm:ss" /></td>
-													<td>
-                                                        <c:choose>
-                                                            <c:when test="${report.admin==null}">
-														        <button class="btn-sm btn-primary btn_reply"
-															      data-bs-toggle="modal"
-															     data-bs-target="#reply_report"
-															     value="${report.reportForumId}">回覆</button>
-                                                            </c:when>
-                                                            <c:otherwise>
-														        <button class="btn-sm btn-secondary btn_check"
-															      data-bs-toggle="modal"
-															     data-bs-target="#check_reply"
-															     value="${report.reportForumId}">查看</button>
-                                                            </c:otherwise>
-                                                        </c:choose>
-													</td>
+													<td><c:choose>
+															<c:when test="${report.admin==null}">
+																<button class="btn-sm btn-primary btn_reply"
+																	data-bs-toggle="modal" data-bs-target="#reply_report"
+																	value="${report.reportForumId}">回覆</button>
+															</c:when>
+															<c:otherwise>
+																<button class="btn-sm btn-secondary btn_check"
+																	data-bs-toggle="modal" data-bs-target="#check_reply"
+																	value="${report.reportForumId}">查看</button>
+															</c:otherwise>
+														</c:choose></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -259,173 +248,204 @@ Admin admin = (Admin) session.getAttribute("admin");
 								</div>
 								<!-- /.card-body -->
 
-									<!-- 查看檢舉並回覆(使用ajax撈資料) -->
-									<form
-										action="<%=request.getContextPath()%>/reportForum/reportForum.do"
-										method="post" id="replyReportData_form">
-										<div class="modal fade" id="reply_report" tabindex="-1"
-											aria-labelledby="replyModalLabel" aria-hidden="true">
-											<div
-												class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="replyModalLabel">查看檢舉資料</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
+								<!-- 查看檢舉並回覆(使用ajax撈資料) -->
+								<form
+									action="<%=request.getContextPath()%>/reportForum/reportForum.do"
+									method="post" id="replyReportData_form">
+									<div class="modal fade" id="reply_report" tabindex="-1"
+										aria-labelledby="replyModalLabel" aria-hidden="true">
+										<div
+											class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="replyModalLabel">查看檢舉資料</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+
+												<div class="row modal-body">
+													<div class="form-group mb-3">
+														<label for="unreply_reportId" class="form-label">檢舉編號
+														</label> <input type="text" class="form-control"
+															id="unreply_reportId" name="reportId"
+															placeholder="請輸入檢舉編號" readonly>
 													</div>
 
-													<div class="row modal-body">
-														<div class="form-group mb-3">
-															<label for="unreply_reportId" class="form-label">檢舉編號
-															</label> <input type="text" class="form-control"
-																id="unreply_reportId" name="reportId"
-																placeholder="請輸入檢舉編號" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_memberId" class="form-label">檢舉人會員編號(姓名)
-															</label> <input type="text" class="form-control"
-																id="unreply_memberId" name="memberId"
-																placeholder="請輸入會員編號(姓名)" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_articleId" class="form-label">檢舉文章編號(文章名)
-															</label> <input type="text" class="form-control"
-																id="unreply_articleId" name="articleId"
-																placeholder="請輸入文章編號(文章名)" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_reportType" class="form-label">檢舉類型
-															</label> <input type="text" class="form-control" id="unreply_reportType"
-																name="reportType" placeholder="請輸入檢舉類型" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_reportContent" class="form-label">內容 </label>
-															<textarea class = "col-12" id="unreply_reportContent" name="reportContent" rows="4"
-															cols="50" placeholder="請輸入檢舉原因..." readonly></textarea>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_reportTime" class="form-label">檢舉時間 </label> <input
-																type="text" class="form-control" id="unreply_reportTime"
-																name="reportTime" placeholder="請輸入檢舉時間" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="unreply_adminId" class="form-label">管理員編號(暱稱) </label> <input
-																type="text" class="form-control" id="unreply_adminId"
-																name="adminIdwithNickname" value="<%=admin.getAdminId()%>(<%=admin.getAdminNickname()%>)"placeholder="請輸入管理員編號(暱稱)" readonly>
-														</div>									
-
-														<div class="form-group mb-3">
-															<label for="unreply_adminReply" class="form-label">管理員回覆內容 </label>
-															<span id="verify_adminReply"></span>
-															<textarea class = "col-12" id="unreply_adminReply" name="adminReply" rows="4"
-															cols="50" placeholder="請輸入回覆內容..."></textarea>
-														</div>														
+													<div class="form-group mb-3">
+														<label for="unreply_memberId" class="form-label">檢舉人會員編號(姓名)
+														</label> <input type="text" class="form-control"
+															id="unreply_memberId" name="memberId"
+															placeholder="請輸入會員編號(姓名)" readonly>
 													</div>
 
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="submit" class="col-auto btn btn-danger">確定</button>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">返回</button>
-														<input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
-														<input type="hidden" name="reportId">
-														<input type="hidden" name="action" value="adminReply">
-														<div class="col"></div>
+													<div class="form-group mb-3">
+														<label for="unreply_articleId" class="form-label">檢舉文章編號(文章名)
+														</label> <input type="text" class="form-control"
+															id="unreply_articleId" name="articleId"
+															placeholder="請輸入文章編號(文章名)" readonly>
 													</div>
+
+													<div class="form-group mb-3">
+														<label for="unreply_reportType" class="form-label">檢舉類型
+														</label> <input type="text" class="form-control"
+															id="unreply_reportType" name="reportType"
+															placeholder="請輸入檢舉類型" readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="unreply_reportContent" class="form-label">內容
+														</label>
+														<textarea class="col-12" id="unreply_reportContent"
+															name="reportContent" rows="4" cols="50"
+															placeholder="請輸入檢舉原因..." readonly></textarea>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="unreply_reportTime" class="form-label">檢舉時間
+														</label> <input type="text" class="form-control"
+															id="unreply_reportTime" name="reportTime"
+															placeholder="請輸入檢舉時間" readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="unreply_adminId" class="form-label">管理員編號(暱稱)
+														</label> <input type="text" class="form-control"
+															id="unreply_adminId" name="adminIdwithNickname"
+															value="<%=admin.getAdminId()%>(<%=admin.getAdminNickname()%>)"
+															placeholder="請輸入管理員編號(暱稱)" readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="unreply_adminReply" class="form-label">管理員回覆內容
+														</label> <span id="verify_adminReply"></span>
+														<textarea class="col-12" id="unreply_adminReply"
+															name="adminReply" rows="4" cols="50"
+															placeholder="請輸入回覆內容..."></textarea>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="" class="form-label">是否下架 </label><br>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio"
+																name="article_state" id="launched" value="true">
+															<label class="form-check-label" for="launched">是</label>
+														</div>
+
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio"
+																name="article_state" id="unlaunched" value="false">
+															<label class="form-check-label" for="unlaunched">否</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="row modal-footer">
+													<div class="col"></div>
+													<button type="submit" class="col-auto btn btn-danger">確定</button>
+													<button type="button" class="col-auto btn btn-secondary"
+														data-bs-dismiss="modal">返回</button>
+													<input type="hidden" name="adminId"
+														value="<%=admin.getAdminId()%>"> <input
+														type="hidden" name="reportId"> <input
+														type="hidden" name="action" value="adminReply">
+													<div class="col"></div>
 												</div>
 											</div>
 										</div>
-									</form>
+									</div>
+								</form>
 
 
-									<!-- 查看已回覆檢舉(使用ajax撈資料) -->
-									<form action="#" method="get">
-										<div class="modal fade" id="check_reply" tabindex="-1"
-											aria-labelledby="checkReplyModalLabel" aria-hidden="true">
-											<div
-												class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="checkReplyModalLabel">查看檢舉資料</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
+								<!-- 查看已回覆檢舉(使用ajax撈資料) -->
+								<form action="#" method="get">
+									<div class="modal fade" id="check_reply" tabindex="-1"
+										aria-labelledby="checkReplyModalLabel" aria-hidden="true">
+										<div
+											class="modal-dialog modal-l modal-dialog-scrollable modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="checkReplyModalLabel">查看檢舉資料</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+
+												<div class="row modal-body">
+													<div class="form-group mb-3">
+														<label for="reply_reportId" class="form-label">檢舉編號
+														</label> <input type="text" class="form-control"
+															id="reply_reportId" name="reportId" placeholder="請輸入檢舉編號"
+															readonly>
 													</div>
 
-													<div class="row modal-body">
-														<div class="form-group mb-3">
-															<label for="reply_reportId" class="form-label">檢舉編號
-															</label> <input type="text" class="form-control"
-																id="reply_reportId" name="reportId"
-																placeholder="請輸入檢舉編號" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_memberId" class="form-label">檢舉人會員編號(姓名)
-															</label> <input type="text" class="form-control"
-																id="reply_memberId" name="memberId"
-																placeholder="請輸入會員編號(姓名)" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_articleId" class="form-label">檢舉文章編號(文章名)
-															</label> <input type="text" class="form-control"
-																id="reply_articleId" name="articleId"
-																placeholder="請輸入文章編號(文章名)" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_reportType" class="form-label">檢舉類型
-															</label> <input type="text" class="form-control" id="reply_reportType"
-																name="reportType" placeholder="請輸入檢舉類型" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_reportContent" class="form-label">內容 </label>
-															<textarea class = "col-12" id="reply_reportContent" name="reportContent" rows="4"
-															cols="50" placeholder="請輸入檢舉原因..." readonly></textarea>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_reportTime" class="form-label">檢舉時間 </label> <input
-																type="text" class="form-control" id="reply_reportTime"
-																name="reportTime" placeholder="請輸入檢舉時間" readonly>
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="reply_adminId" class="form-label">管理員編號 </label> <input
-																type="text" class="form-control" id="reply_adminId"
-																name="adminId"  placeholder="請輸入檢舉時間" readonly>
-														</div>									
-
-														<div class="form-group mb-3">
-															<label for="reply_adminReply" class="form-label">管理員回覆內容 </label>
-															<textarea class = "col-12" id="reply_adminReply" name="adminReply" rows="4"
-															cols="50" placeholder="請輸入回覆內容..." readonly></textarea>
-														</div>		
-														
-														<div class="form-group mb-3">
-															<label for="reply_adminReplyTime" class="form-label">管理員回覆時間 </label>
-															<input type="text" class="form-control" id="reply_adminReplyTime" name="adminReplyTime" placeholder="請輸入檢舉時間" readonly>
-														</div>																											
+													<div class="form-group mb-3">
+														<label for="reply_memberId" class="form-label">檢舉人會員編號(姓名)
+														</label> <input type="text" class="form-control"
+															id="reply_memberId" name="memberId"
+															placeholder="請輸入會員編號(姓名)" readonly>
 													</div>
 
-													<div class="row modal-footer">
-														<div class="col"></div>
-														<button type="button" class="col-auto btn btn-secondary"
-															data-bs-dismiss="modal">返回</button>
-														<div class="col"></div>
+													<div class="form-group mb-3">
+														<label for="reply_articleId" class="form-label">檢舉文章編號(文章名)
+														</label> <input type="text" class="form-control"
+															id="reply_articleId" name="articleId"
+															placeholder="請輸入文章編號(文章名)" readonly>
 													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_reportType" class="form-label">檢舉類型
+														</label> <input type="text" class="form-control"
+															id="reply_reportType" name="reportType"
+															placeholder="請輸入檢舉類型" readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_reportContent" class="form-label">內容
+														</label>
+														<textarea class="col-12" id="reply_reportContent"
+															name="reportContent" rows="4" cols="50"
+															placeholder="請輸入檢舉原因..." readonly></textarea>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_reportTime" class="form-label">檢舉時間
+														</label> <input type="text" class="form-control"
+															id="reply_reportTime" name="reportTime"
+															placeholder="請輸入檢舉時間" readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_adminId" class="form-label">管理員編號
+														</label> <input type="text" class="form-control"
+															id="reply_adminId" name="adminId" placeholder="請輸入檢舉時間"
+															readonly>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_adminReply" class="form-label">管理員回覆內容
+														</label>
+														<textarea class="col-12" id="reply_adminReply"
+															name="adminReply" rows="4" cols="50"
+															placeholder="請輸入回覆內容..." readonly></textarea>
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="reply_adminReplyTime" class="form-label">管理員回覆時間
+														</label> <input type="text" class="form-control"
+															id="reply_adminReplyTime" name="adminReplyTime"
+															placeholder="請輸入檢舉時間" readonly>
+													</div>
+												</div>
+
+												<div class="row modal-footer">
+													<div class="col"></div>
+													<button type="button" class="col-auto btn btn-secondary"
+														data-bs-dismiss="modal">返回</button>
+													<div class="col"></div>
 												</div>
 											</div>
 										</div>
-									</form>
-
+									</div>
+								</form>
 							</div>
 							<!-- /.card -->
 						</div>

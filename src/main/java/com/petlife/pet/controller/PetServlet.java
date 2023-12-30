@@ -36,11 +36,6 @@ import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ReservationServiceImpl;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 
-
-
-
-
-
 @WebServlet("/project/pet.do")
 @MultipartConfig(fileSizeThreshold = 0 * 1024 * 1024, maxFileSize = 1 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
 public class PetServlet extends HttpServlet {
@@ -61,7 +56,7 @@ public class PetServlet extends HttpServlet {
 		petService = new PetServiceImpl();
 		petVarietyService = new PetVarietyServiceImpl();
 		petPhotoService = new PetPhotoServiceImpl();
-		shelterService=new ShelterServiceImpl();
+		shelterService = new ShelterServiceImpl();
 		reservationService = new ReservationServiceImpl();
 	}
 
@@ -71,7 +66,7 @@ public class PetServlet extends HttpServlet {
 		if (req.getContentType() != null && req.getContentType().startsWith("application/json")) {
 			// Request to JSON
 			jsonRequest = readJsonRequest(req);
-        }
+		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode jsonNode = objectMapper.readTree(jsonRequest);
 
@@ -82,7 +77,7 @@ public class PetServlet extends HttpServlet {
 		case "insert":
 			forwardPath = insert(req, res);
 			break;
-		case "getPetById"://for test
+		case "getPetById":// for test
 			forwardPath = getPetById(req, res, jsonNode);
 			break;
 		case "getPetById2":
@@ -94,7 +89,7 @@ public class PetServlet extends HttpServlet {
 		case "getCompositePetsQuery":
 			forwardPath = getCompositePetsQuery(req, res);
 //			forwardPath = "/index.jsp";
-			break;			
+			break;
 		case "getCompositePetsQuery2":
 			forwardPath = getCompositePetsQuery2(req, res);
 //			forwardPath = "/index.jsp";
@@ -103,14 +98,14 @@ public class PetServlet extends HttpServlet {
 			forwardPath = getAllPet(req, res, jsonNode);
 			break;
 		case "update":
-			forwardPath = update(req, res); 
+			forwardPath = update(req, res);
 			break;
 		case "update_put":
 			forwardPath = update_put(req, res);
 			break;
-			
+
 		case "updatePet":
-			 updatePet(req, res);
+			updatePet(req, res);
 			break;
 		default:
 			forwardPath = "/index.jsp";
@@ -120,29 +115,28 @@ public class PetServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
-	
-	private void updatePet(HttpServletRequest req, HttpServletResponse res)throws IOException {
+
+	private void updatePet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Integer resId = Integer.valueOf(req.getParameter("resId"));
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		Reservation reservation = reservationService.getResByResId(resId);
-		Integer petId =reservation.getPetId();
+		Integer petId = reservation.getPetId();
 		Pet pet = petService.getOnePet(petId);
 		Boolean adopt = Boolean.valueOf(req.getParameter("adopt"));
 		System.out.println(adopt);
 		pet.setAdopt(adopt);
-		
-			petService.updatePet(pet);
-			
-			out.print("<font color='red'>已將收容動物重新上架!!</font>");
-			
-		
+
+		petService.updatePet(pet);
+
+		out.print("<font color='red'>已將收容動物重新上架!!</font>");
+
 	}
 
 	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
 		Pet pet = petService.getOnePet(Id);
-		Integer shelterId =pet.getShelterId();
+		Integer shelterId = pet.getShelterId();
 		String petGender = req.getParameter("petGender").trim();
 		Integer petVarietyId = Integer.valueOf(req.getParameter("petVarietyId").trim());
 		String petLigation = req.getParameter("petLigation").trim();
@@ -154,7 +148,7 @@ public class PetServlet extends HttpServlet {
 		comeInDate = java.sql.Date.valueOf(req.getParameter("comeInDate"));
 		String petCage = req.getParameter("petCage").trim();
 		String petNum = req.getParameter("petNum").trim();
-		
+
 		Boolean adopted = Boolean.valueOf(req.getParameter("adopted"));
 		String userId = null;
 		java.sql.Date adoptDate = null;
@@ -163,8 +157,7 @@ public class PetServlet extends HttpServlet {
 			System.out.println(req.getParameter("adopt_date"));
 			adoptDate = java.sql.Date.valueOf(req.getParameter("adopt_date"));
 		}
-		
-		
+
 		pet.setShelterId(shelterId);
 		pet.setPetGender(petGender);
 		pet.setPetVariety(petVarietyId);
@@ -195,44 +188,43 @@ public class PetServlet extends HttpServlet {
 				pet.getPetPhotos().add(petPhoto);
 			}
 		}
-		  String[] photoIds = req.getParameterValues("deletePhoto");
-		  if (photoIds != null) {
-		        System.out.println("delete Photo Entry:");
-		        for (String photoId : photoIds) {
-		        	Integer id=Integer.valueOf(photoId);
-		        	System.out.println(id);
-		        	PetPhoto petphoto = petPhotoService.getOnePetphoto(id);
-		        	pet.getPetPhotos().remove(petphoto);
-		        	petPhotoService.deletePetPhoto(id);
-		        }
-		    }
-		  
+		String[] photoIds = req.getParameterValues("deletePhoto");
+		if (photoIds != null) {
+			System.out.println("delete Photo Entry:");
+			for (String photoId : photoIds) {
+				Integer id = Integer.valueOf(photoId);
+				System.out.println(id);
+				PetPhoto petphoto = petPhotoService.getOnePetphoto(id);
+				pet.getPetPhotos().remove(petphoto);
+				petPhotoService.deletePetPhoto(id);
+			}
+		}
+
 		System.out.println(pet.getPetPhotos().size());
-		if(pet.getPetPhotos().size() != 0) {
-			
+		if (pet.getPetPhotos().size() != 0) {
+
 		}
 		try {
 			petService.updatePet(pet);
 			req.setAttribute("pet", pet);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}   
+		}
 		return "/petjsp/petUpdate_put.jsp";
 	}
-	
+
 	private String getPetById(HttpServletRequest req, HttpServletResponse res, JsonNode node) throws IOException {
 		try {
 			System.out.println("PetServlet: getById Entry");
 			Integer Id = Integer.valueOf(req.getParameter("id"));
 			Pet pet = petService.getOnePet(Id);
-			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-					.setPrettyPrinting().create();
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 			res.setContentType("application/json;charset=UTF-8");
 			res.getWriter().println(gson.toJson(pet));
 		} catch (Exception e) {
 			res.resetBuffer();
 			res.setContentType("application/json;charset=UTF-8");
-			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			res.getWriter().write(e.getMessage());
 		}
 
@@ -240,18 +232,21 @@ public class PetServlet extends HttpServlet {
 	}
 
 	// 收容所前端搜尋用，思涵2023/12/21新增
-		private String getPetById2(HttpServletRequest req, HttpServletResponse res) throws IOException {
-			try {
-				System.out.println("PetServlet: getById Entry");
-				Integer Id = Integer.valueOf(req.getParameter("id"));
-				Pet pet = petService.getOnePet(Id);
-				req.setAttribute("pet", pet);
-			} catch (Exception e) {
-				e.getStackTrace();
-			}
+	private String getPetById2(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		try {
+			System.out.println("PetServlet: getById Entry");
+			Integer Id = Integer.valueOf(req.getParameter("id"));
+			Pet pet = petService.getOnePet(Id);
+			System.out.println(pet.getPetPhotos().size());
 
-			return "/shelter/adoptionDetails.jsp";
+			
+			req.setAttribute("pet", pet);
+		} catch (Exception e) {
+			e.getStackTrace();
 		}
+
+		return "/shelter/adoptionDetails.jsp";
+	}
 
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 		Integer Id = Integer.valueOf(req.getParameter("rowId"));
@@ -318,8 +313,7 @@ public class PetServlet extends HttpServlet {
 		return "/petjsp/pet_insert.jsp";
 
 	}
-		
-	
+
 	private String readJsonRequest(HttpServletRequest request) throws IOException {
 		System.out.println("readJsonRequest Entry");
 		StringBuilder stringBuilder = new StringBuilder();
@@ -329,20 +323,19 @@ public class PetServlet extends HttpServlet {
 		while ((line = bufferedReader.readLine()) != null) {
 			stringBuilder.append(line);
 		}
-		
+
 		System.out.println(stringBuilder.toString());
 		return stringBuilder.toString();
 	}
-	
 
 //將insert 前資料做檢查是否重複(petfrom.html)
 	private String getPetListAsync(HttpServletRequest req, HttpServletResponse res, JsonNode node) throws IOException {
 		try {
-	        String shelterId = node.get("shelterId").asText();
-	        String petNum = node.get("petNum").asText();
+			String shelterId = node.get("shelterId").asText();
+			String petNum = node.get("petNum").asText();
 			Map<String, String[]> map = new HashMap<String, String[]>();
 			map.put("petNum", new String[] { petNum });
-			map.put("shelterId", new String[] {shelterId});
+			map.put("shelterId", new String[] { shelterId });
 
 			if (map != null) {
 				List<Pet> petList = petService.getByCompositeQuery(map);
@@ -353,15 +346,16 @@ public class PetServlet extends HttpServlet {
 		} catch (Exception e) {
 			res.resetBuffer();
 			res.setContentType("application/json;charset=UTF-8");
-			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 
-																			
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
 			res.getWriter().write(e.getMessage());
 		}
 
 		return "";
 
 	}
-	//複合查詢 (pet_search.html)
+
+	// 複合查詢 (pet_search.html)
 	private String getCompositePetsQuery(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("getCompositePetsQuery Entry");
 		Map<String, String[]> map = req.getParameterMap();
@@ -369,25 +363,27 @@ public class PetServlet extends HttpServlet {
 		if (map != null) {
 			List<Pet> petList = petService.getByCompositeQuery(map);
 			req.setAttribute("petList", petList);
-		} 
+		}
 		return "/petjsp/listAllPets.jsp";
 	}
-	//收容所前端搜尋使用 思涵2023/12/21新增
-		private String getCompositePetsQuery2(HttpServletRequest req, HttpServletResponse res) {
-			System.out.println("getCompositePetsQuery2 Entry");
-			Map<String, String[]> map = req.getParameterMap();
 
-			if (map != null) {
-				List<Pet> petList = petService.getByCompositeQuery(map);
-				req.setAttribute("petList", petList);
-			} 
-			return "/shelter/listAllPets.jsp";
+	// 收容所前端搜尋使用 思涵2023/12/21新增
+	private String getCompositePetsQuery2(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("getCompositePetsQuery2 Entry");
+		Map<String, String[]> map = req.getParameterMap();
+
+		if (map != null) {
+			List<Pet> petList = petService.getByCompositeQuery(map);
+			req.setAttribute("petList", petList);
 		}
-	//全部
-	private String getAllPet(HttpServletRequest req, HttpServletResponse res,JsonNode node)throws IOException {
+		return "/shelter/listAllPets.jsp";
+	}
+
+	// 全部
+	private String getAllPet(HttpServletRequest req, HttpServletResponse res, JsonNode node) throws IOException {
 		List<Pet> petList = petService.getAll();
 		ArrayList<Pet> petViewList = new ArrayList<>();
-		for(Pet pet : petList) {
+		for (Pet pet : petList) {
 			Pet petTemp = new Pet();
 			petTemp.setId(pet.getId());
 			petTemp.setComeInDate(pet.getComeInDate());
@@ -396,14 +392,13 @@ public class PetServlet extends HttpServlet {
 			petTemp.setPetNum(pet.getPetNum());
 			petTemp.setPetLigation(pet.getPetLigation());
 			petTemp.setAdoptDate(pet.getAdoptDate());
-			
-		
+
 			petViewList.add(petTemp);
 		}
 		req.setAttribute("petList", petList);
 		return "/petjsp/listAllPets.jsp";
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

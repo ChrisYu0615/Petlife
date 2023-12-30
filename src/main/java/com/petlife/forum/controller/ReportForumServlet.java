@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.entity.Admin;
+import com.petlife.admin.service.AcctStateService;
 import com.petlife.admin.service.AdminService;
+import com.petlife.admin.service.impl.AcctStateServiceImpl;
 import com.petlife.admin.service.impl.AdminServiceImpl;
 import com.petlife.forum.entity.Article;
 import com.petlife.forum.entity.ReportForum;
@@ -28,12 +31,14 @@ import com.petlife.forum.service.ReportForumService;
 import com.petlife.forum.service.impl.ArticleServiceImpl;
 import com.petlife.forum.service.impl.ReportForumServiceImpl;
 import com.petlife.user.entity.User;
+import com.petlife.user.service.UserService;
+import com.petlife.user.service.impl.UserServiceImpl;
+import com.petlife.util.MailService;
 
 @WebServlet("/reportForum/reportForum.do")
 @MultipartConfig
 public class ReportForumServlet extends HttpServlet {
 	private ReportForumService reportForumService;
-	private ArticleService articleService;
 
 	@Override
 	public void init() throws ServletException {
@@ -84,11 +89,38 @@ public class ReportForumServlet extends HttpServlet {
 		AdminService adminService = new AdminServiceImpl();
 		Admin admin = adminService.getAdminByAdminId(adminId);
 
+		Boolean articleState = Boolean.valueOf(req.getParameter("article_state"));
+		Article article = reportForum.getArticle();
+		User user = reportForum.getUser();
+
+		// 修改文章狀態為true時，文章狀態是false(下架)，發文者的被檢舉次數+1，檢舉到達5次就停權
+		if (articleState == true) {
+			article.setState(false);
+			Integer userReportCountInteger = user.getUserReportCount();
+			if (userReportCountInteger < 5) {
+				user.setUserReportCount(user.getUserReportCount() + 1);
+			} else {
+				AcctStateService acctStateService = new AcctStateServiceImpl();
+				AcctState acctState = acctStateService.getByAcctStateId(1);
+				user.setAcctState(acctState);
+			}
+			// 二、將修改過的文章存到資料庫中
+			ArticleService articleService = new ArticleServiceImpl();
+			articleService.updateArticle(article);
+			UserService userService = new UserServiceImpl();
+			userService.updateUser(user);
+
+		}
+
 		reportForum.setAdminReply(replyMsg);
 		reportForum.setAdmin(admin);
 		reportForum.setAdminReplyTime(timestamp);
 
 		reportForumService.updateReportForum(reportForum);
+		Thread thread = new Thread(() -> {
+			MailService.replyReportMsg(article, user.getUserAcct(), replyMsg);
+		});
+		thread.start();
 
 		return "/reportForum/reportForum.do?action=getAllReports&condition=unReply";
 	}
@@ -152,12 +184,10 @@ public class ReportForumServlet extends HttpServlet {
 
 		User user = (User) req.getSession().getAttribute("user");
 		reportForum.setUser(user);
-		
+
 		ArticleService articleService = new ArticleServiceImpl();
 		Article article = articleService.getArticleByArticleId(articleId);
 		reportForum.setArticle(article);
-		
-		
 
 		/*************************** 2.開始新增資料 ***************************************/
 //			try {
@@ -166,10 +196,10 @@ public class ReportForumServlet extends HttpServlet {
 //				System.out.println("檢舉失敗" + e.getMessage());
 //				e.getMessage();
 //			};
-		
+
 		reportForumService.addReportForum(reportForum);
 		req.setAttribute("article", article);
-		
+
 		return "/article/spec-blog.jsp";
 
 	}
