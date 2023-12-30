@@ -167,7 +167,7 @@
 											<div class="shop_item_content">
 												<h3>
 													<a
-														href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?commId=${comm.commId}">${comm.commName}</a>
+														href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=showCommWithCustomer&commId=${comm.commId}">${comm.commName}</a>
 												</h3>
 												<div class="shop_item_price">
 													<c:choose>

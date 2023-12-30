@@ -100,6 +100,7 @@
 								method="post" class="product_count_form_one">
 								<div class="shop_quent_wrapper">
 									<div class="shop_quentiy_item_shows">
+										
 										<input type="number" name="purchasing_amount" value="1"
 											min="1">
 									</div>

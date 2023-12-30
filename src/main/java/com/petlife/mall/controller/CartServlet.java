@@ -59,7 +59,7 @@ public class CartServlet extends HttpServlet{
 			deleteCartItem(req, res);
 			return; // 使用return, 因為ajax請求不需要跳轉
 		default:
-			forwardPath = "/comm/select_page.jsp";
+			forwardPath = "/index.jsp";
 		}
 
 		res.setContentType("text/html; charset=UTF-8");

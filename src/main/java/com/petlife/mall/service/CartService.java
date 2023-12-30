@@ -14,6 +14,7 @@ public interface CartService {
 	public Integer update(Cart cart);
 	//查(單個)
 	public Cart findByPK(Integer cartId);
+	public Cart findByCommId(Integer commId);
 	//查(多個)
 	public List<Cart> getAll();
 	public List<Cart> getCartsByUser(User user);

@@ -87,7 +87,7 @@ User user = (User) session.getAttribute("user");
 
 								<div class="others-options d-flex align-items-center">
 									<div class="option-item" style="left: -50px;">
-										<a href="<%=request.getContextPath()%>/cart/cart.do?userId=${user.userId}" class="nav-link shopping-cart"> <i
+										<a href="<%=request.getContextPath()%>/cart/cart.jsp" class="nav-link shopping-cart"> <i
 											class="fas fa-shopping-cart">購物車</i>
 										</a>
 									</div>

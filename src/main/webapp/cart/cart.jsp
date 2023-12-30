@@ -148,7 +148,8 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                     		data-seller-id="${cart.comm.seller.sellerId}" >
                                     	</td>
 										<!--  <td><img src="../assets/img/shop/cart-1.png" alt="img"></td> -->
-                                        <td>${cart.comm.commName}</td>
+                                        <td><a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_with_customer&commId=${cart.comm.commId}&cartId=${cart.cartId}">${cart.comm.commName}</a>
+                                        </td>
 
                                         <td>${cart.comm.commOnsalePrice}</td>
                                         <td>${cart.purchasingAmount}</td>
