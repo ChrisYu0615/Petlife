@@ -52,12 +52,13 @@ User user = (User) session.getAttribute("user");
 											寵物商城 <i class="fas fa-angle-down"></i>
 									</a>
 										<ul class="dropdown-menu" style="left: -50px;">
-											<li class="nav-item"><a href="#" class="nav-link">Service1</a>
+											<li class="nav-item">
+												<a href="${pageContext.request.contextPath}/comm_for_user/listAllCommForUser.do" class="nav-link">寵物商城</a>
 											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service2</a>
-											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service3</a>
-											</li>
+<!-- 											<li class="nav-item"><a href="#" class="nav-link">Service2</a> -->
+<!-- 											</li> -->
+<!-- 											<li class="nav-item"><a href="#" class="nav-link">Service3</a> -->
+<!-- 											</li> -->
 										</ul></li>
 
 									<li class="nav-item"><a href="#" class="nav-link">

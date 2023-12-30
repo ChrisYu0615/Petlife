@@ -176,7 +176,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             <div class="cart_tabel_bottom">
                             	<!-- ¦^°Ó«°ªºbtn -->
                                 <div class="cart_submit_btn">
-                                    <a href="../comm_for_user/listAllCommForUser.jsp" class="btn btn_theme btn_md">Continue shopping</a>
+                                    <a href="../comm_for_user/listAllCommForUser.do" class="btn btn_theme btn_md">Continue shopping</a>
                                 </div>
                                 <div class="cart_right_side">
 								<!-- coupon btn -->
