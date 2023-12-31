@@ -7,12 +7,24 @@
 <%@page import="com.petlife.mall.entity.Comm"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.petlife.forum.service.impl.ArticleServiceImpl"%>
+<%@page import="com.petlife.forum.service.impl.ArticleImgServiceImpl"%>
+<%@page import="com.petlife.forum.service.ArticleService"%>
+<%@page import="com.petlife.forum.service.ArticleImgService"%>
+<%@page import="com.petlife.forum.entity.Article"%>
+<%@page import="com.petlife.forum.entity.ArticleImg"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <%
 AdvertisementService advertisementService = new AdvertisementServiceImpl();
 List<Advertisement> advertisementList = advertisementService.getAllWithActived();
 pageContext.setAttribute("allActivedAd", advertisementList);
+
+ArticleService articleSvc = new ArticleServiceImpl();
+List<Article> articlesByCtr = articleSvc.getPopArticlesByCRT();
+pageContext.setAttribute("articlesByCtr", articlesByCtr);
+
 CommService commSvc = new CommServiceImpl();
 List<Comm> popularCommList = commSvc.getPopularComm();
 pageContext.setAttribute("popularCommList", popularCommList);
@@ -50,6 +62,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="assets/css/Article.css" type="text/css">
 </head>
 
 <body>
@@ -136,12 +149,15 @@ pageContext.setAttribute("popularCommList", popularCommList);
 									alt="img">
 								<h5>寵物領養</h5>
 							</div>
-							<div class="banner_main_service_item">
-								<img
-									src="<%=request.getContextPath()%>/assets/img/icon/banner-3.png"
-									alt="img">
-								<h5>寵物論壇</h5>
-							</div>
+
+							<a href="<%=request.getContextPath()%>/article/Articleindex.jsp">
+								<div class="banner_main_service_item">
+									<img
+										src="<%=request.getContextPath()%>/assets/img/icon/banner-3.png"
+										alt="img">
+									<h5>寵物論壇</h5>
+								</div>
+							</a>
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item invisible"></div>							
 						</div>
@@ -211,134 +227,55 @@ pageContext.setAttribute("popularCommList", popularCommList);
 		<br>
 		<div class="col-lg-12">
 			<div class="row">
-				<div class="col-lg-3 col-md-6 col-sm-12 col-12">
-					<div class="blog_area_wrapper">
-						<div class="blog_area_img">
-							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-1.png"
-								alt="img"></a>
-						</div>
-						<div class="blog_area_content">
-							<h3>
-								<a href="blog-details.html">Top cat foods to consider if you
-									are a first time owner</a>
-							</h3>
-							<p>Irure enim eiusmod ipsum do Lorem sit consectetur enim
-								consectetur. Nostrud ipsum eiusmod eiusmod culpa anim excepteur.
-							</p>
-							<div class="blog_area_author_wrappe">
-								<div class="blog_area_author_img">
+				<c:forEach var="article" items="${articlesByCtr}">
+					<div class="col-lg-3 col-md-6 col-sm-12 col-12">
+						<div class="blog_area_wrapper">
+							<div class="blog_area_img">
+								<a
+									href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}">
 									<img
-										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-1.png"
-										alt="img">
-								</div>
-								<div class="blog_area_author_text">
-									<h5>Jennifer lawrence</h5>
-									<p>
-										<span>26 Oct 2021</span> <i class="fas fa-circle"></i> <span>8
-											min read</span>
-									</p>
+									src="<%=request.getContextPath()%>/art/art.do?action=getArticleImgById&articleId=${article.articleId}"
+									alt="img"
+									style="width: 200px; height: 200px; border-radius: 10px;">
+								</a>
+							</div>
+							<div class="blog_area_content">
+								<h3>
+									<a
+										href="<%=request.getContextPath()%>/art/art.do?action=getArticleById&articleId=${article.articleId}">
+										${article.articleName}
+										<div style="font-size: 20px">瀏覽數 : ${article.ctr}
+									</a>
+								</h3>
+								<p>
+									<c:choose>
+										<c:when test="${fn:length(article.articleContent) > 50}">
+        									${fn:substring(article.articleContent, 0, 50)}...
+    								</c:when>
+										<c:otherwise>
+        							${article.articleContent}
+    								</c:otherwise>
+									</c:choose>
+								</p>
+								<%-- 								<p>${article.articleContent}</p> --%>
+								<div class="blog_area_author_wrappe">
+									<div class="blog_area_author_img">
+										<a href="blog-details.html"><img
+											src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=${article.user.userId}"
+											alt="img" style="width: 50px; height: 50px"></a>
+									</div>
+									<div class="blog_area_author_text">
+										<h5>${article.user.userName}</h5>
+										<p>
+											<span>${article.updateTime}</span> <i class="fas fa-circle"></i>
+											<span>8 min read</span>
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 col-12">
-					<div class="blog_area_wrapper">
-						<div class="blog_area_img">
-							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-2.png"
-								alt="img"></a>
-						</div>
-						<div class="blog_area_content">
-							<h3>
-								<a href="blog-details.html">5 crazy things dogs do when left
-									alone at home</a>
-							</h3>
-							<p>Irure enim eiusmod ipsum do Lorem sit consectetur enim
-								consectetur. Nostrud ipsum eiusmod eiusmod culpa anim excepteur.
-							</p>
-							<div class="blog_area_author_wrappe">
-								<div class="blog_area_author_img">
-									<img
-										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-2.png"
-										alt="img">
-								</div>
-								<div class="blog_area_author_text">
-									<h5>Jennifer lawrence</h5>
-									<p>
-										<span>26 Oct 2021</span> <i class="fas fa-circle"></i> <span>8
-											min read</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 col-12">
-					<div class="blog_area_wrapper">
-						<div class="blog_area_img">
-							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png"
-								alt="img"></a>
-						</div>
-						<div class="blog_area_content">
-							<h3>
-								<a href="blog-details.html">Your dog desperately needs
-									support from you</a>
-							</h3>
-							<p>Irure enim eiusmod ipsum do Lorem sit consectetur enim
-								consectetur. Nostrud ipsum eiusmod eiusmod culpa anim excepteur.
-							</p>
-							<div class="blog_area_author_wrappe">
-								<div class="blog_area_author_img">
-									<img
-										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png"
-										alt="img">
-								</div>
-								<div class="blog_area_author_text">
-									<h5>Jennifer lawrence</h5>
-									<p>
-										<span>26 Oct 2021</span> <i class="fas fa-circle"></i> <span>8
-											min read</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 col-12">
-					<div class="blog_area_wrapper">
-						<div class="blog_area_img">
-							<a href="blog-details.html"><img
-								src="<%=request.getContextPath()%>/assets/img/blog/blog-3.png"
-								alt="img"></a>
-						</div>
-						<div class="blog_area_content">
-							<h3>
-								<a href="blog-details.html">Your dog desperately needs
-									support from you</a>
-							</h3>
-							<p>Irure enim eiusmod ipsum do Lorem sit consectetur enim
-								consectetur. Nostrud ipsum eiusmod eiusmod culpa anim excepteur.
-							</p>
-							<div class="blog_area_author_wrappe">
-								<div class="blog_area_author_img">
-									<img
-										src="<%=request.getContextPath()%>/assets/img/blog/blog-post-3.png"
-										alt="img">
-								</div>
-								<div class="blog_area_author_text">
-									<h5>Jennifer lawrence</h5>
-									<p>
-										<span>26 Oct 2021</span> <i class="fas fa-circle"></i> <span>8
-											min read</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</section>
@@ -463,6 +400,15 @@ pageContext.setAttribute("popularCommList", popularCommList);
 	<!-- <script src="assets/js/gallery-popup.js"></script> -->
 	<script src="assets/js/custom.js"></script>
 	<!-- <script src="assets/js/video.js"></script> -->
+
+	<!-- 	<script> -->
+	// document // .querySelectorAll('.read-more') // .forEach( //
+	function(link) { // link // .addEventListener( // 'click', //
+	function(event) { // event.preventDefault(); // var content =
+	this.previousElementSibling; // content //
+	.querySelector('.ellipsis').style.display = 'none'; // content //
+	.querySelector('.more-content').style.display = 'inline'; // }); // });
+	<!-- 	</script> -->
 
 </body>
 

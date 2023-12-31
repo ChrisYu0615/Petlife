@@ -28,6 +28,7 @@ pageContext.setAttribute("list", list);
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 <!-- Title -->
 <title>Blog - Furry</title>
 <!-- Bootstrap css -->
@@ -112,44 +113,56 @@ pageContext.setAttribute("list", list);
 						<div class="sidebar_common_heading">
 							<div class="sidebar_search_wrapper">
 
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="Search">
-									<button class="btn btn_theme btn_sm">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
+<!-- 								<div class="input-group mb-3"> -->
+<!-- 									<input type="text" class="form-control" placeholder="Search"> -->
+<!-- 									<button class="btn btn_theme btn_sm"> -->
+<!-- 										<i class="fas fa-search"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
 							</div>
 
-							<div class="accordion" id="accordionExample">
-								<!-- 貓咪 -->
+							        <div class="accordion" id="accordionExample">
+								<!-- 狗狗 -->
 								<div class="accordion-item">
 									<span class="sidebar_common_heading">
 										<h3>狗狗</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">熱門文章</li>
-										<li class="list-group-item">狗狗的家</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=1">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1">狗狗的家</a>
+										</li>
 									</ul>
 								</div>
-								<!-- 狗狗 -->
+
+								<!-- 貓貓 -->
 								<div class="accordion-item">
 									<span class="sidebar_common_heading">
 										<h3>貓貓</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">熱門文章</li>
-										<li class="list-group-item">貓貓的家</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=2">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2">貓貓的家</a>
+										</li>
 									</ul>
 								</div>
-								<!-- 範例-3 -->
+								<!-- 閒聊3 -->
 								<div class="accordion-item">
 									<span class="sidebar_common_heading">
 										<h3>閒聊</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">熱門文章</li>
-										<li class="list-group-item">來閒聊ㄅ</li>
-										<!-- <li class="list-group-item">貓貓保健</li> -->
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=3">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3">來閒聊ㄅ</a>
+										</li>
 									</ul>
 								</div>
 								<div class="accordion-item">
@@ -157,9 +170,11 @@ pageContext.setAttribute("list", list);
 										<h3>特殊</h3>
 									</span>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">熱門文章</li>
-										<li class="list-group-item">爬蟲類</li>
-										<li class="list-group-item">木木梟</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getTopArticlesByCTR&forumId=4">熱門文章</a>
+										</li>
+										<li class="list-group-item"><a
+											href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4">特殊文章</a>
 									</ul>
 								</div>
 							</div>
@@ -187,9 +202,9 @@ pageContext.setAttribute("list", list);
 												alt="img" style="width: 50px; height: 50px">
 										</div>
 										<div class="blog_area_author_text">
-											<h5>Jennifer lawrence</h5>
+											<h5>${article.user.userName}</h5>
 											<p>
-												<span>發文時間</span> <i class="fas fa-circle"></i> <span>8
+												<span>${article.updateTime}</span> <i class="fas fa-circle"></i> <span>8
 													min read</span>
 											</p>
 										</div>
@@ -322,7 +337,7 @@ pageContext.setAttribute("list", list);
 								<img
 									src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=article.getUser().getUserId()%>"
 									alt="img" style="width: 50px; height: 50px">
-								<p class="p-2"><%=article.getUser().getUserName()%></p>
+								<p class="p-2">${user.userName}</p>
 								<img src="../../static/blogimages/張震.png" class="img-fluid p-0"
 									style="height: 50px" alt="" />
 							</div>

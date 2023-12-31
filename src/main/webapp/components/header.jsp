@@ -73,15 +73,17 @@ User user = (User) session.getAttribute("user");
 											</li>
 										</ul></li>
 
-									<li class="nav-item"><a href="#" class="nav-link">
+									<li class="nav-item"><a href="<%=request.getContextPath()%>/article/Articleindex.jsp" class="nav-link">
 											寵物論壇 <i class="fas fa-angle-down"></i>
 									</a>
 										<ul class="dropdown-menu" style="left: -50px;">
-											<li class="nav-item"><a href="#" class="nav-link">Service1</a>
+											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1" class="nav-link">狗狗的家</a>
 											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service2</a>
+											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2" class="nav-link">貓貓的家</a>
 											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service3</a>
+											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3" class="nav-link">來閒聊ㄅ</a>
+											</li>
+											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4" class="nav-link">特殊寵物</a>
 											</li>
 										</ul></li>
 								</ul>
