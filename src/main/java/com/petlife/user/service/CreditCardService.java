@@ -16,6 +16,7 @@ public interface CreditCardService {
 
 	// 查(單個)
 	CreditCard getCreditCardByCreditCardId(Integer creditCardId);
+	public CreditCard findByUserId(Integer userId);
 
 	// 查(多個)
 	List<CreditCard> getAllCreditCards();

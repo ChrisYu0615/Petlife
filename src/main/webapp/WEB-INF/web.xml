@@ -59,6 +59,8 @@
 	<filter-mapping>
 		<filter-name>userLoginFilter</filter-name>
 		<url-pattern>/member_center/*</url-pattern>
+		<url-pattern>/comm_for_user/*</url-pattern>
+		<url-pattern>/cart/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

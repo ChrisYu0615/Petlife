@@ -50,6 +50,20 @@ public class CreditCardDAOImpl implements CreditCardDAO {
 	public CreditCard findByPK(Integer creditCardId) {
 		return getSession().get(CreditCard.class, creditCardId);
 	}
+	
+	@Override
+	public CreditCard findByUserId(Integer userId) {
+	    try {
+	        return getSession()
+	                .createQuery("FROM CreditCard WHERE user.userId = :userId", CreditCard.class)
+	                .setParameter("userId", userId)
+	                .getSingleResult();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
 
 	@Override
 	public List<CreditCard> getAll() {

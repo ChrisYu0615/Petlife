@@ -49,7 +49,7 @@ public class CartServlet extends HttpServlet{
 		switch (action) {
 		// 編號1
 		case "add_comm_to_cart":
-			// 來自singleCommDetail.jsp 還沒出現
+			// 來自singleCommForUser.jsp
 			// 來自listAllCommForUser.jsp
 			forwardPath = addCommToCart(req, res);
 			break;
@@ -59,7 +59,7 @@ public class CartServlet extends HttpServlet{
 			deleteCartItem(req, res);
 			return; // 使用return, 因為ajax請求不需要跳轉
 		default:
-			forwardPath = "/comm/select_page.jsp";
+			forwardPath = "/index.jsp";
 		}
 
 		res.setContentType("text/html; charset=UTF-8");
@@ -97,11 +97,11 @@ public class CartServlet extends HttpServlet{
 	        Integer id = cartDAOImpl.add(cart);
 	        System.out.println("已經新增cart_id: " + id);
 	        
-	        return "/comm_for_user/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
+	        return "/cart/cart.jsp";
 		} catch (Exception e) {
 			errorMsgs.add("發生錯誤" + e.getMessage());
 			e.printStackTrace();
-			return "/comm_for_user/listAllCommForUser.jsp"; // 暫時先回去listAllCommForUser.jsp
+			return "/comm_for_user/listAllCommForUser.jsp"; 
 		}
 	}
 		

@@ -184,13 +184,13 @@ pageContext.setAttribute("popularCommList", popularCommList);
 				<span class="col-lg-4 col-md-6 col-sm-12 col-12">
 					<div class="shop_main_item">
 						<div class="shop_item_img">
-							<a href="shop-details.html"><img
+							<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}"><img
 								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 								style="width: 405px; height: 300px;"></a>
 						</div>
 						<div class="shop_item_content">
 							<h3>
-								<a href="shop-details.html">${comm.commName}</a>
+								<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}">${comm.commName}</a>
 							</h3>
 							<div class="shop_item_price">
 								<c:choose>
