@@ -138,7 +138,7 @@
                               
                              <div class="s_img" id="s_img">
                              <% if (shelterPhotoLength != 0) { %>
-                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${shelter.shelterId}" 
 									width="100px" height="100px" style="border-radius: 50%;" >
 							<% } %>
 									 </div>
