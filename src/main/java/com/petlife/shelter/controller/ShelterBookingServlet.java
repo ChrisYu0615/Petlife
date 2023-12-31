@@ -148,6 +148,7 @@ public class ShelterBookingServlet extends HttpServlet {
             	Integer shelterNumMax=Integer.valueOf(shlterBookingNumMax);
             	java.sql.Date shelterBookingDate = null;
             	shelterBookingDate = java.sql.Date.valueOf(date);
+            	System.out.println(date);
            
         		
         		

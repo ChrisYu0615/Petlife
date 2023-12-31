@@ -2,6 +2,9 @@ package com.petlife.shelter.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,9 +82,9 @@ public class ReservationServlet extends HttpServlet {
 		case "cancelReservation":
 			forwardPath = cancelReservation(req, res);
 			break;
-//			case "getOneToUpdate":
-//				forwardPath = getOneToUpdateShelter(req,res);
-//				break;
+		case "update_resType":
+				forwardPath = update_resType(req,res);
+				break;
 //			case "update":
 //				forwardPath = getUpdateShelter(req, res);
 //				break;
@@ -94,6 +97,29 @@ public class ReservationServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+	}
+
+	private String update_resType(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("ReservationServlet: update_resType Entry");
+		Date currentDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = dateFormat.format(currentDate);
+		System.out.println(dateString);
+//		java.sql.Date date =java.sql.Date.valueOf(dateString);
+//		System.out.println(date);
+		String reservationType = "2";
+		 Map<String, String[]> myMap = new HashMap<>();
+		 myMap.put("Date",new String[] {dateString});
+		 myMap.put("resType",new String[] {reservationType});
+		 if (myMap != null) {
+				List<Reservation> reservationList = reservationService.getResByCompositeQuery(myMap);
+//				req.setAttribute("reservationList", reservationList);
+				for(Reservation reservation : reservationList) {
+					reservation.setResTypeId(4);
+					reservationService.updateRes(reservation);
+				}
+			}
+	     return "";
 	}
 
 	private String cancelReservation(HttpServletRequest req, HttpServletResponse res) {
@@ -191,7 +217,16 @@ public class ReservationServlet extends HttpServlet {
 			pet.setAdopted(true);
 			petService.updatePet(pet);
 			return "";
-		}else {
+		}else if(reservation.getResTypeId()==6) {
+			Integer resPetId = reservation.getPetId();
+			Pet pet = petService.getOnePet(resPetId);
+			pet.setAdopt(true);
+			petService.updatePet(pet);
+			return "";
+		}
+		
+		
+		else {
 			return "/petjsp/pet_res.jsp";
 		}
 			
