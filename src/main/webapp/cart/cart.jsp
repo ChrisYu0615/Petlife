@@ -165,8 +165,8 @@ pageContext.setAttribute("totalAmount", totalAmount);
 	                                    	<!-- 傳送sellerId -->
 	                                    	<input type="hidden" name="sellerId" value="${cart.comm.seller.sellerId}">
 	                                    	<!-- 傳送couponId -->
-											<input type="hidden" id="coupon_id" name="couponId" value="0">
-											<input type="hidden" id="grand_amount" name="grandAmount" value="">
+											<!-- fewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwd9 -->
+											<!-- 上面貓按的, 留著當紀念 -->
 										</td>
                                     </tr>
                                     </c:forEach>
@@ -201,6 +201,8 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             </div>
                             <div class="cart_total_area bg_cart_item">
                                 <h4 id="grand_amount_display">Grand total: <span>$ 0</span></h4>
+                                <input type="hidden" name="grandAmount" id="grand_amount" value="">
+                                
                             </div>
                         </div>
 							<!-- 下單功能 -->
