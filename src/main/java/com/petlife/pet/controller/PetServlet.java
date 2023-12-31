@@ -135,6 +135,7 @@ public class PetServlet extends HttpServlet {
 
 	private String update_put(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Integer Id = Integer.valueOf(req.getParameter("id").trim());
+		System.out.println(Id);
 		Pet pet = petService.getOnePet(Id);
 		Integer shelterId = pet.getShelterId();
 		String petGender = req.getParameter("petGender").trim();
