@@ -30,10 +30,6 @@
 
         <table id="mytable">
             <tbody>
-<!--         <tr> -->
-<!--             <td name="Id">種類:</td> -->
-<%--             <td>${petVariety.type}</td> --%>
-<!--         </tr> -->
   
         <tr>
             <td >性別:</td>
@@ -83,7 +79,8 @@
         <tr>
             <td >毛色:</td>
             <td>
-                <input type="text" name="petColor" value="${pet.petColor}">
+                <input type="text" name="petColor" value="${pet.petColor}"><span id="pet_color"></span>
+                
             </td>
         </tr>
 
@@ -118,7 +115,7 @@
         <tr>
             <td >籠舍:</td>
             <td>
-                <input class="form-control" type="text" name="petCage"  id="pet_cage" value="${pet.petCage} ">
+                <input class="form-control" type="text" name="petCage"  id="pet_cage" value="${pet.petCage} "><span id="pet_cage"></span>
             </td>
         </tr>
         
@@ -127,13 +124,14 @@
             <td >收容編號:
              <input type="hidden" name="petNum" value="${pet.petNum}">
             </td>
+            
             <td>${pet.petNum}</td>
         </tr>
         
         <tr>
             <td >描述:</td>
             <td>
-           		 <input class="form-control" type="text"  name="pet_content"  id="petContent" value="${pet.petContent} ">
+           		 <input class="form-control" type="text"  name="pet_content"  id="petContent" value="${pet.petContent} "><span id="pet_content"></span>
             </td>
         </tr>
     
