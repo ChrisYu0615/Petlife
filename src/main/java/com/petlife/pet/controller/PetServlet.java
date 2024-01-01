@@ -337,14 +337,14 @@ public class PetServlet extends HttpServlet {
 			Map<String, String[]> map = new HashMap<String, String[]>();
 			map.put("petNum", new String[] { petNum });
 			map.put("shelterId", new String[] { shelterId });
-
 			if (map != null) {
 				List<Pet> petList = petService.getByCompositeQuery(map);
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 				res.setContentType("application/json;charset=UTF-8");
 				res.getWriter().println(gson.toJson(petList));
 			}
 		} catch (Exception e) {
+			
 			res.resetBuffer();
 			res.setContentType("application/json;charset=UTF-8");
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
