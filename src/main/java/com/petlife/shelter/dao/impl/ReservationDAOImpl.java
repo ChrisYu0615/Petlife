@@ -144,6 +144,14 @@ public class ReservationDAOImpl implements ReservationDAO {
 				predicates
 						.add(builder.lessThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
 			}
+			//1231 詩涵增加
+			if ("Date".equals(row.getKey())) {
+				predicates.add(builder.lessThanOrEqualTo(root.get("shelterBooking").get("shelterBookingDate"), Date.valueOf(row.getValue())));
+			}
+			//1231 詩涵增加
+			if ("resType".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("resTypeId"), row.getValue()));
+			}
 		}
 
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));

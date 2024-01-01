@@ -59,7 +59,7 @@
             	<input type="hidden" name="petVarietyId" value="${pet.petVariety}"  >
             </td>
             
-            <td>${pet.petVariety}</td>
+            <td>${pet.variety.variety}</td>
         </tr>
 
     

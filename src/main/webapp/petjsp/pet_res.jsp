@@ -174,6 +174,7 @@
             		// 當狀態是待確認(1) -> 將更改為已確認(2)
             		resType = "2";
             	}else if(resType === "4"){
+            		
             		resType = "5";
             	}
             	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType ;
@@ -265,6 +266,26 @@
             $(document).on("click","button.tab",function(){
             	var shelterId =$("#shelterId").val();
             	var res =$(this).val();
+            	if(res === "4"){
+            		var dataURL = '../shelter/reservation.do?action=update_resType';
+        			$.ajax({
+                		url: dataURL,
+                		method: "post",
+                		async: false,
+                		success: res => {                			
+                			
+               		
+                		}, error: function(jqXHR, textStatus, errorThrown) {
+                			try {
+                				console.log("Error code:", jqXHR.status);
+                				console.log("Error message:", jqXHR.responseText);
+                			} catch (e) {
+                				console.error("Error parsing JSON response:", e);
+                			}
+                		},
+                	});
+        				
+            	}
             	var dataURL = '../shelter/reservation.do?action=compositeQuery&resTypeId=' + res + '&shelterId=' + shelterId;
             	var search_start=$("#search_start").val();
             	if(search_start!=""){
