@@ -58,3 +58,4 @@
 		</div>
 	</div>
 </div>
+<script src="../assets/js/adoption.js"></script>

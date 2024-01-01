@@ -237,6 +237,7 @@ public class PetServlet extends HttpServlet {
 		try {
 			System.out.println("PetServlet: getById Entry");
 			Integer Id = Integer.valueOf(req.getParameter("id"));
+			System.out.println("getPetById2 pet_Id = " + Id);
 			Pet pet = petService.getOnePet(Id);
 			System.out.println(pet.getPetPhotos().size());
 
