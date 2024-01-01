@@ -74,8 +74,7 @@ div.button {
 			</ul>
 		</nav>
 		<!-- 		<!-- /.navbar -->
-		-->
-
+		
 		<!-- Main Sidebar Container -->
 		<%@ include file="sidebar.jsp"%>
 
@@ -120,20 +119,19 @@ div.button {
 
 					<div class="con">
 						<label for="pet_color">毛色:</label> <span>${pet.petColor} </span>
-
+						
 					</div>
 
 
 					<div class="con">
 						<label>是否開放領養:</label> 
-<%-- 						<span><%=(pet.getAdopt())?"是":"否" %></span> --%>
 						<span>${pet.adopt}</span>
 						
 					</div>
 
 					<div class="con">
-						<label for="pet_content">描述:</label> <span>${pet.petContent}
-						</span>
+						<label for="pet_content">描述:</label> <span>${pet.petContent}</span>
+						<span id="pet_content"></span>
 					</div>
 
 					<div class="con">
@@ -145,6 +143,7 @@ div.button {
 
 					<div class="con">
 						<label for="pet_cage">籠舍:</label> <span>${pet.petCage} </span>
+						<span id="pet_cage"></span>
 					</div>
 
 
