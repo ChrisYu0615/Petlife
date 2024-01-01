@@ -144,7 +144,7 @@ int shelterPhotoLength = (shelter.getShelterPhoto() != null) ? shelter.getShelte
 										<% } %>
 									</div>
 									
-								</span> <input type="file" id="s_blob" name="shelterblob">
+								</span> <input type="file" id="s_blob" name="shelterblob"  accept="image/*">
 							</div>
 						</form>
 					</div>
