@@ -10,7 +10,7 @@
 		aria-labelledby="nav-home-tab">
 		<div class="adoption_tab_item_wrapper">
 			<div class="row">
-				<c:forEach var="pet" items="${petList}">
+				<c:forEach var="pet" items="${petList}" varStatus="loop">
 					<div class="col-lg-3 col-md-6 col-sm-12 col-12">
 						<div class="adoption_card_wrapper">
 							<div class="adoption_item_img img_hover">
@@ -35,9 +35,9 @@
 								method="post">
 								<div class="adoption_item_content">
 									<div class="adoption_info_btn" id="adoption_info_btn">
-										<button type="submit" id="getOnePet">更多資訊</button>
-										<input type="hidden" name="id" value="${pet.id}" id="pet_id">
+										<input type="hidden" name="id" value="${pet.id}" id="pet_id_${loop.index}">
 										<input type="hidden" name="action" value="getPetById2">
+										<button type="submit" id="getOnePet" data-pet-id="${pet.id}">更多資訊</button>
 									</div>
 
 

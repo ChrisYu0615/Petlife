@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -376,6 +378,9 @@ public class PetServlet extends HttpServlet {
 
 		if (map != null) {
 			List<Pet> petList = petService.getByCompositeQuery(map);
+			petList = petList.stream()
+							.filter(pet -> pet.getAdopted() != true)
+							.collect(Collectors.toList());
 			req.setAttribute("petList", petList);
 		}
 		return "/shelter/listAllPets.jsp";

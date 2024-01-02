@@ -244,13 +244,11 @@ function redirectPage(newUrl) {
 }
 
 //列表中點擊"更多資訊"
-$(document).on("click","#getOnePet",function(e){
+$(document).on("click",".getOnePet",function(e){
 	e.preventDefault();
-	var id = $("#pet_id").val();
-	if(true){
-		$("#form").submit();
-	}
-	
+	var id = $(this).data("pet-id");
+    $("#pet_id").val(id);
+    $("#form").submit();	
 });
 
 //燈箱中的預約表
