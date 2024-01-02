@@ -11,7 +11,7 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="test.html" class="brand-link"> <img
+	<a href="<%= request.getContextPath()%>/petjsp/shelter_update.jsp" class="brand-link"> <img
 		src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 		class="brand-image img-corners elevation-3" style="opacity: .8">
 		<span class="brand-text font-weight-light">PetLife後臺管理</span>
