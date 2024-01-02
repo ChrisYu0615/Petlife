@@ -160,14 +160,14 @@
 										<div class="shop_main_item">
 											<div class="shop_item_img">
 												<!-- 找單獨一個comm的按鈕 -->
-												<a href="shop-details.html"><img
+												<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_with_customer&commId=${comm.commId}"><img
 													src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
 													width="100px"></a>
 											</div>
 											<div class="shop_item_content">
 												<h3>
 													<a
-														href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=showCommWithCustomer&commId=${comm.commId}">${comm.commName}</a>
+														href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_with_customer&commId=${comm.commId}">${comm.commName}</a>
 												</h3>
 												<div class="shop_item_price">
 													<c:choose>

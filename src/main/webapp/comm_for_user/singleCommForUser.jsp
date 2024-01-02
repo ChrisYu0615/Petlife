@@ -82,7 +82,7 @@
 					<div class="shop_details_slider_wrapper">
 						<div class="slider slider-for">
 							<div>
-								<img src="../assets/img/shop/big-item.png" alt="img">
+								<img src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}" alt="img">
 							</div>
 						</div>
 					</div>
