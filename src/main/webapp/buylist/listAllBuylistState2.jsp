@@ -19,7 +19,7 @@ pageContext.setAttribute("list", list);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>待付款訂單資料</title>
+<title>運送中訂單資料</title>
 <!-- 讓Loading, please wait消失 -->
 <link rel="stylesheet" href="/buylist.css">
 
