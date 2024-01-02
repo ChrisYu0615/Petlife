@@ -99,13 +99,8 @@ public class ReportForumServlet extends HttpServlet {
 			article.setState(false);
 			Integer userReportCountInteger = articleUser.getUserReportCount();
 			if (userReportCountInteger < 5) {
-<<<<<<< HEAD
 				articleUser.setUserReportCount(articleUser.getUserReportCount() + 1);
-			} else{
-=======
-				user.setUserReportCount(user.getUserReportCount() + 1);
-			} else {
->>>>>>> refs/heads/master
+			}else {
 				AcctStateService acctStateService = new AcctStateServiceImpl();
 				AcctState acctState = acctStateService.getByAcctStateId(1);
 				articleUser.setAcctState(acctState);

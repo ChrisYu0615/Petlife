@@ -99,7 +99,7 @@
 		<url-pattern>/buylist/listOneBuylist.jsp</url-pattern>
 		<url-pattern>/buylist/listOneBuylistDetails.jsp</url-pattern>
 		<url-pattern>/buylist/update_buylist_input.jsp</url-pattern>
-		<url-pattern>/buylistdetails/*</url-pattern>
+<!-- 		<url-pattern>/buylistdetails/*</url-pattern> -->
 		<url-pattern>/comm/addComm.jsp</url-pattern>
 		<url-pattern>/comm/listAllComm.jsp</url-pattern>
 		<url-pattern>/comm/listAllCommState0.jsp</url-pattern>

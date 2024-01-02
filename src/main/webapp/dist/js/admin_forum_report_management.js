@@ -318,11 +318,8 @@ $(function() {
 	$("#replyReportData_form").submit(function(event) {
 		let replyFlag = true;
 		let replyContent = $.trim($("#unreply_adminReply").val());
-<<<<<<< HEAD
 		let articleState = $("input[name='article_state']:checked");
-		console.log(articleState);
-=======
->>>>>>> refs/heads/master
+
 		if (replyContent == null || replyContent.length == 0) {
 			replyFlag = false;
 			$("#verify_adminReply").html("<font color='red'><b>請輸入回覆內容!!</font>");
@@ -330,17 +327,13 @@ $(function() {
 			$("#verify_adminReply").html("");
 		}
 
-<<<<<<< HEAD
 		if (articleState.length == 0 || articleState == null)  {
 			$("#verify_articleState").html("<font color='red'><b>請選擇是否下架!1</font>");
 			replyFlag = false;
 		} else {
 			$("#verify_articleState").html("");
 		}
-		if (replyFlag == false) {
-			event.preventDefault();
-		}
-=======
+		
 		if (replyFlag == false) {
 			event.preventDefault();
 		}
@@ -417,7 +410,6 @@ $(function() {
 				}
 			});
 		});
->>>>>>> refs/heads/master
 	});
 })
 
