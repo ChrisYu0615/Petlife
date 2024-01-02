@@ -149,8 +149,10 @@
 															<td><fmt:formatDate value="${article.updateTime}"
 																	pattern="yyyy-MM-dd HH:mm:ss" /></td>
 															<td>
-																<button class="btn-sm btn-primary"
-																	value="${article.articleId}">查看</button> <c:choose>
+															<a href="<%=request.getContextPath()%>/art/art.do?action=getOneDisplay">
+															<button class="btn-sm btn-primary" name="articleId"
+																	value="${article.articleId}">查看</button></a>
+															 <c:choose>
 																	<c:when test="${article.state}">
 																		<button class="btn-sm btn-danger btn_remove"
 																			data-bs-toggle="modal"

@@ -249,7 +249,7 @@ pageContext.setAttribute("list", list);
 													value="<%=article.getArticleId()%>">
 
 												<div class="form-group mb-3">
-													<label for="reportTypeId" class="form-label">選擇原因</label> <select
+													<label for="reportTypeId" class="form-label">檢舉類別</label> <select
 														class="form-control" id="reportTypeId" name="reportTypeId">
 														<option value="1">分類錯誤</option>
 														<option value="2">內容違規</option>
