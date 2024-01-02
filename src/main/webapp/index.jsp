@@ -137,18 +137,24 @@ pageContext.setAttribute("popularCommList", popularCommList);
 						<div class="banner_main_services">
 							<div class="banner_main_service_item invisible"></div>
 							<div class="banner_main_service_item invisible"></div>
+							
+							<a href="<%=request.getContextPath()%>/comm_for_user/listAllCommForUser.do">							
 							<div class="banner_main_service_item">
 								<img
 									src="<%=request.getContextPath()%>/assets/img/icon/banner-1.png"
 									alt="img">
 								<h5>寵物商城</h5>
 							</div>
+							</a>
+							
+							<a href="<%=request.getContextPath()%>/shelter/adoption.jsp">
 							<div class="banner_main_service_item">
 								<img
 									src="<%=request.getContextPath()%>/assets/img/icon/banner-2.png"
 									alt="img">
 								<h5>寵物領養</h5>
 							</div>
+							</a>
 
 							<a href="<%=request.getContextPath()%>/article/Articleindex.jsp">
 								<div class="banner_main_service_item">
@@ -282,102 +288,102 @@ pageContext.setAttribute("popularCommList", popularCommList);
 
 
 	<!-- Testimonial Area -->
-	<section id="testimonial_area"
-		class="section_padding_bottom slider_side_btn">
-		<div class="container">
-			<!-- Section Heading -->
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="section_heading">
-						<h2>遇見你的毛孩</h2>
-						<p></p>
-					</div>
-				</div>
-			</div>
-			<!-- Inner Content -->
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="testmoinal_main_slider owl-theme owl-carousel">
-						<div class="testimonial_area_item">
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
-								class="test_main_img" alt="img">
-							<p class="test_main_para">Lorem ipsum dolor sit amet,
-								consectetur notted adipisicing elit sed do eiusm menos tdolore
-								magna aliqua andhn.</p>
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
-								class="test_quote_img" alt="icon">
-							<div class="test_destination">
-								<h3>Adam brown</h3>
-								<p>Businessman</p>
-							</div>
-						</div>
-						<div class="testimonial_area_item">
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
-								class="test_main_img" alt="img">
-							<p class="test_main_para">Lorem ipsum dolor sit amet,
-								consectetur notted adipisicing elit sed do eiusm menos tdolore
-								magna aliqua andhn.</p>
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
-								class="test_quote_img" alt="icon">
-							<div class="test_destination">
-								<h3>Adam brown</h3>
-								<p>Businessman</p>
-							</div>
-						</div>
-						<div class="testimonial_area_item">
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
-								class="test_main_img" alt="img">
-							<p class="test_main_para">Lorem ipsum dolor sit amet,
-								consectetur notted adipisicing elit sed do eiusm menos tdolore
-								magna aliqua andhn.</p>
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
-								class="test_quote_img" alt="icon">
-							<div class="test_destination">
-								<h3>Adam brown</h3>
-								<p>Businessman</p>
-							</div>
-						</div>
-						<div class="testimonial_area_item">
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png"
-								class="test_main_img" alt="img">
-							<p class="test_main_para">Lorem ipsum dolor sit amet,
-								consectetur notted adipisicing elit sed do eiusm menos tdolore
-								magna aliqua andhn.</p>
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
-								class="test_quote_img" alt="icon">
-							<div class="test_destination">
-								<h3>Adam brown</h3>
-								<p>Businessman</p>
-							</div>
-						</div>
-						<div class="testimonial_area_item">
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png"
-								class="test_main_img" alt="img">
-							<p class="test_main_para">Lorem ipsum dolor sit amet,
-								consectetur notted adipisicing elit sed do eiusm menos tdolore
-								magna aliqua andhn.</p>
-							<img
-								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png"
-								class="test_quote_img" alt="icon">
-							<div class="test_destination">
-								<h3>Adam brown</h3>
-								<p>Businessman</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 	<section id="testimonial_area" -->
+<!-- 		class="section_padding_bottom slider_side_btn"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<!-- Section Heading -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-6 offset-lg-3"> -->
+<!-- 					<div class="section_heading"> -->
+<!-- 						<h2>遇見你的毛孩</h2> -->
+<!-- 						<p></p> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<!-- Inner Content -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-12"> -->
+<!-- 					<div class="testmoinal_main_slider owl-theme owl-carousel"> -->
+<!-- 						<div class="testimonial_area_item"> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png" --%>
+<!-- 								class="test_main_img" alt="img"> -->
+<!-- 							<p class="test_main_para">Lorem ipsum dolor sit amet, -->
+<!-- 								consectetur notted adipisicing elit sed do eiusm menos tdolore -->
+<!-- 								magna aliqua andhn.</p> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png" --%>
+<!-- 								class="test_quote_img" alt="icon"> -->
+<!-- 							<div class="test_destination"> -->
+<!-- 								<h3>Adam brown</h3> -->
+<!-- 								<p>Businessman</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="testimonial_area_item"> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png" --%>
+<!-- 								class="test_main_img" alt="img"> -->
+<!-- 							<p class="test_main_para">Lorem ipsum dolor sit amet, -->
+<!-- 								consectetur notted adipisicing elit sed do eiusm menos tdolore -->
+<!-- 								magna aliqua andhn.</p> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png" --%>
+<!-- 								class="test_quote_img" alt="icon"> -->
+<!-- 							<div class="test_destination"> -->
+<!-- 								<h3>Adam brown</h3> -->
+<!-- 								<p>Businessman</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="testimonial_area_item"> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png" --%>
+<!-- 								class="test_main_img" alt="img"> -->
+<!-- 							<p class="test_main_para">Lorem ipsum dolor sit amet, -->
+<!-- 								consectetur notted adipisicing elit sed do eiusm menos tdolore -->
+<!-- 								magna aliqua andhn.</p> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png" --%>
+<!-- 								class="test_quote_img" alt="icon"> -->
+<!-- 							<div class="test_destination"> -->
+<!-- 								<h3>Adam brown</h3> -->
+<!-- 								<p>Businessman</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="testimonial_area_item"> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/test-3.png" --%>
+<!-- 								class="test_main_img" alt="img"> -->
+<!-- 							<p class="test_main_para">Lorem ipsum dolor sit amet, -->
+<!-- 								consectetur notted adipisicing elit sed do eiusm menos tdolore -->
+<!-- 								magna aliqua andhn.</p> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png" --%>
+<!-- 								class="test_quote_img" alt="icon"> -->
+<!-- 							<div class="test_destination"> -->
+<!-- 								<h3>Adam brown</h3> -->
+<!-- 								<p>Businessman</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="testimonial_area_item"> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/test-2.png" --%>
+<!-- 								class="test_main_img" alt="img"> -->
+<!-- 							<p class="test_main_para">Lorem ipsum dolor sit amet, -->
+<!-- 								consectetur notted adipisicing elit sed do eiusm menos tdolore -->
+<!-- 								magna aliqua andhn.</p> -->
+<!-- 							<img -->
+<%-- 								src="<%=request.getContextPath()%>/assets/img/testimonial/quote.png" --%>
+<!-- 								class="test_quote_img" alt="icon"> -->
+<!-- 							<div class="test_destination"> -->
+<!-- 								<h3>Adam brown</h3> -->
+<!-- 								<p>Businessman</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 
 	<%@include file="components/footer.jsp"%>
 

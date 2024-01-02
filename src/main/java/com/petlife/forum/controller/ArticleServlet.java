@@ -233,11 +233,17 @@ public class ArticleServlet extends HttpServlet {
 
 	private String getArticleById(HttpServletRequest req, HttpServletResponse res) {
 		Integer articleId = Integer.valueOf(req.getParameter("articleId")); // 先拿到他的ID
+		String value = req.getParameter("value");
 		Article article = articleService.getArticleByArticleId(articleId); // 再透過articleId去articleService叫用getArticleByArticleId方法拿到Article的資料
 		req.setAttribute("article", article); // 這裡會對應到 spec-blog的 <%Article article =
 														// (Article)request.getAttribute("article");%> 來設置他的值 注意名稱要對應到
 		//瀏覽數			
 		articleService.updateView(articleId);
+		
+		if(value!=null && value.length()>0) {
+			return "/article/admin_spec-blog.jsp";
+
+		}
 		return "/article/spec-blog.jsp";
 	}
 
