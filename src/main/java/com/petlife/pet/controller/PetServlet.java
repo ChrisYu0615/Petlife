@@ -379,7 +379,7 @@ public class PetServlet extends HttpServlet {
 		if (map != null) {
 			List<Pet> petList = petService.getByCompositeQuery(map);
 			petList = petList.stream()
-							.filter(pet -> pet.getAdopted() != true)
+							.filter(pet -> pet.getAdopt() == true)
 							.collect(Collectors.toList());
 			req.setAttribute("petList", petList);
 		}

@@ -21,7 +21,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.oracle.wls.shaded.org.apache.bcel.generic.IF_ACMPEQ;
+import com.petlife.pet.entity.Pet;
+import com.petlife.pet.service.PetService;
+import com.petlife.pet.serviceimpl.PetServiceImpl;
+import com.petlife.pet.service.PetService;
 import com.petlife.shelter.entity.Reservation;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.entity.ShelterBooking;
@@ -35,9 +38,11 @@ import com.petlife.shelter.service.impl.ShelterServiceImpl;
 @WebServlet("/project/shelterbooking.do")
 public class ShelterBookingServlet extends HttpServlet {
 	private ShelterBookingService shelterBookingService;
+	private PetService petService;
 
 	public void init() throws ServletException {
 		shelterBookingService = new ShelterBookingServiceImpl();
+		petService = new PetServiceImpl();
 	}
 
 	private ReservationService reservationService;
@@ -85,11 +90,12 @@ public class ShelterBookingServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("ShelterBookingServlet1: getAvalibleBookings Entry");
 		Map<String, String[]> map = req.getParameterMap();
-
+		
 		if (map != null) {
 			List<ShelterBooking> shelterBookingList = shelterBookingService.getByCompositeQuery(map);
 			shelterBookingList = shelterBookingList.stream() // 轉stream
 					.filter(booking -> booking.getShelterBookingNum() != booking.getShelterBookingMax()) // ->之後是取出TRUE的資料
+
 					.collect(Collectors.toList()); // 再轉回list
 			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 			res.setContentType("application/json;charset=UTF-8");
@@ -123,10 +129,16 @@ public class ShelterBookingServlet extends HttpServlet {
 		System.out.println("resuserId" + userId);
 		Integer petId = Integer.valueOf(req.getParameter("pet_id"));
 		System.out.println("respetId" + petId);
+		
+		Pet pet = petService.getOnePet(petId);
+		pet.setAdopt(false);
+		
+				
 
 		Reservation reservation = new Reservation(shelter, shelterBookingId, userId, petId);
 
 		reservation = reservationService.addRes(reservation);
+		pet = petService.updatePet(pet);
 		req.setAttribute("reservation", reservation);
 
 		return "/shelter/adoptionConfirm.jsp";

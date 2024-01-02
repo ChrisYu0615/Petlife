@@ -112,6 +112,7 @@ public class ShelterBookingDAOImpl  implements Idao<ShelterBooking>{
 					predicates.add(builder.greaterThanOrEqualTo(root.get("shelterBookingDate"), Date.valueOf(row.getValue())));
 				}
 				if ("shelterId".equals(row.getKey())) {
+					System.out.println("shelterId Entry");
 					predicates.add(builder.equal(root.get("shelterId"), row.getValue()));
 				}
 				if ("month".equals(row.getKey())) {
