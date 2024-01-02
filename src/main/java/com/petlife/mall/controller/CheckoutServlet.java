@@ -11,24 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petlife.mall.entity.Buylist;
-import com.petlife.mall.entity.Cart;
-import com.petlife.mall.entity.Comm;
 import com.petlife.mall.service.BuylistService;
 import com.petlife.mall.service.BuylistStateService;
-import com.petlife.mall.service.CartService;
-import com.petlife.mall.service.CommService;
 import com.petlife.mall.service.impl.BuylistServiceImpl;
 import com.petlife.mall.service.impl.BuylistStateServiceImpl;
-import com.petlife.mall.service.impl.CartServiceImpl;
-import com.petlife.mall.service.impl.CommServiceImpl;
-import com.petlife.user.entity.CreditCard;
-import com.petlife.user.entity.User;
-import com.petlife.user.service.CreditCardService;
-import com.petlife.user.service.impl.CreditCardServiceImpl;
 
 @WebServlet("/comm_for_user/checkout.do")
 @MultipartConfig
-public class checkout extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private BuylistService buylistService;
 	private BuylistStateService buylistStateService;
