@@ -147,7 +147,7 @@
                                                             </td>
                                                             <td>${res.resId}</td>
                                                             <td>${res.shelter.shelterName}</td>
-                                                            <td>${res.shelterBooking.shelterBookingDate}&nbsp&nbsp${res.shelterBooking.shelterBookingTime}</td>
+                                                            <td>${res.shelterBooking.shelterBookingDate}&nbsp;&nbsp;<fmt:formatDate value="${res.shelterBooking.shelterBookingTime}" pattern="hh:mm:ss"/></td>
                                                             <td>${res.shelter.shelterAddress}</td>
                                                             <td>
                                                                 <button class="btn-sm btn-primary btn_checkReservation" data-bs-toggle="modal" data-bs-target="#check_reservation" value="${res.resId}">查看</button>
