@@ -61,17 +61,10 @@ User user = (User) session.getAttribute("user");
 <!-- 											</li> -->
 										</ul></li>
 
-									<li class="nav-item"><a href="#" class="nav-link">
+									<li class="nav-item"><a href="<%=request.getContextPath()%>/shelter/adoption.jsp" class="nav-link">
 											寵物領養 <i class="fas fa-angle-down"></i>
 									</a>
-										<ul class="dropdown-menu" style="left: -50px;">
-											<li class="nav-item"><a href="#" class="nav-link">Service1</a>
-											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service2</a>
-											</li>
-											<li class="nav-item"><a href="#" class="nav-link">Service3</a>
-											</li>
-										</ul></li>
+										</li>
 
 									<li class="nav-item"><a href="<%=request.getContextPath()%>/article/Articleindex.jsp" class="nav-link">
 											寵物論壇 <i class="fas fa-angle-down"></i>
