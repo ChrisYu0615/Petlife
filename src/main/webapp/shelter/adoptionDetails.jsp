@@ -242,7 +242,7 @@ a:hover, a:active {
 			<button type="button" class="make_reservation_btn" name="action"
 				id="make_reservation_btn" value="" data-bs-toggle="modal"
 				data-bs-target="#exampleModal">我要預約</button>
-			<input type="hidden" name="shelter_Id" value="${pet.shelter.shelterId}" id="shelter_Id">
+			<input type="hidden" name="shelterId" value="${pet.shelter.shelterId}" id="shelter_Id">
 
 	</div>
 	<!-- Modal -->

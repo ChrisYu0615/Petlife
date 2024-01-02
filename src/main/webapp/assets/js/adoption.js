@@ -26,8 +26,8 @@ $(document).on("change","#month",function(){
 	var checkMonth=$("#month").val();
 	var checkbookingend= checkMonth + "-01";
 	var checkbookingstart = checkMonth + "-31";
-	
-	var dataURL = `../project/shelterbooking.do?action=getAvalibleBookings&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}`;
+	var shelterId =$("input[name='shelterId']").val();
+	var dataURL = `../project/shelterbooking.do?action=getAvalibleBookings&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}&shelterId=${shelterId}`;
 				
 	$.ajax({
 		url: dataURL,
