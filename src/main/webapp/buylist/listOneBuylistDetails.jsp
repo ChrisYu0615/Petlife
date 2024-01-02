@@ -431,7 +431,7 @@ th, td {
 				<tr>
 					<th>訂單商品細項ID</th>
 					<th>訂單編號ID</th>
-					<th>商品ID</th>
+					<th>商品名稱</th>
 					<th>訂單商品細項價格</th>
 					<th>訂單商品細項購買量</th>
 <!-- 					<th>修改</th> -->
@@ -441,7 +441,7 @@ th, td {
 				<tr>
 					<td>${buylistDetails.buylistDetailsId}</td>
 					<td>${buylistDetails.buylist.buylistId}</td>
-					<td>${buylistDetails.comm.commId}</td>
+					<td>${buylistDetails.comm.commName}</td>
 					<td>${buylistDetails.buylistDetailsPrice}</td>
 					<td>${buylistDetails.buylistDetailsPurchaseAmount}</td>
 					<!-- 					========================================= -->
