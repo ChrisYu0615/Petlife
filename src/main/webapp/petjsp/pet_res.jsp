@@ -7,7 +7,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後臺切版測試</title>
+    <title>收容所預約管理</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
-<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/form_update.css"> --%>
+
 <% 
 	Integer id =null;
 	Shelter shelter = (Shelter) session.getAttribute("shelter");
@@ -165,6 +165,9 @@
         <script src="../dist/js/adminlte.js"></script>
 
         <script>
+        $(document).ready(function() {
+        	 $("button[value='1']").click();
+          });
             //在待確認畫面點擊確認預約更改狀態
             $(document).on("click","#res_ok",function(){
             	var shelterId =$("#shelterId").val();

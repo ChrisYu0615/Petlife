@@ -64,7 +64,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public List<Article> getAll() {
-		return getSession().createQuery("from Article where state = true", Article.class).getResultList();
+		return getSession().createQuery("from Article", Article.class).getResultList();
 	}
 
 	@Override

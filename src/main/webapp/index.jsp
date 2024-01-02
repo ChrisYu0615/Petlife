@@ -260,7 +260,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 								<%-- 								<p>${article.articleContent}</p> --%>
 								<div class="blog_area_author_wrappe">
 									<div class="blog_area_author_img">
-										<a href="blog-details.html"><img
+										<a href="#"><img
 											src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=${article.user.userId}"
 											alt="img" style="width: 50px; height: 50px"></a>
 									</div>
@@ -401,14 +401,7 @@ pageContext.setAttribute("popularCommList", popularCommList);
 	<script src="assets/js/custom.js"></script>
 	<!-- <script src="assets/js/video.js"></script> -->
 
-	<!-- 	<script> -->
-	// document // .querySelectorAll('.read-more') // .forEach( //
-	function(link) { // link // .addEventListener( // 'click', //
-	function(event) { // event.preventDefault(); // var content =
-	this.previousElementSibling; // content //
-	.querySelector('.ellipsis').style.display = 'none'; // content //
-	.querySelector('.more-content').style.display = 'inline'; // }); // });
-	<!-- 	</script> -->
+	
 
 </body>
 

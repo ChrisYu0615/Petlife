@@ -14,7 +14,7 @@
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
-    <title>後臺切版測試</title>
+    <title>收容所基本資料</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

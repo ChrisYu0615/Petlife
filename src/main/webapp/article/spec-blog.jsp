@@ -335,7 +335,7 @@ pageContext.setAttribute("list", list);
 						<div class="row mt-3">
 							<div class="col d-inline-flex p-2">
 								<img
-									src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=article.getUser().getUserId()%>"
+									src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=user.getUserId()%>"
 									alt="img" style="width: 50px; height: 50px">
 								<p class="p-2">${user.userName}</p>
 								<img src="../../static/blogimages/張震.png" class="img-fluid p-0"

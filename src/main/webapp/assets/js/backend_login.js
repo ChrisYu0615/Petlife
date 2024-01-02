@@ -1,6 +1,14 @@
 $(function() {
-	$(".headerPage").load("../components/header.jsp");
-	$(".footerPage").load("../components/footer.jsp");
+	// 顯示密碼功能
+	$("#showPassword").on("change", function() {
+		let password = $("#userpassword");
+
+		if (this.checked) {
+			password.attr("type", "text");
+		} else {
+			password.attr("type", "password");
+		}
+	});
 
 	// 表單驗證，判斷是否有填入帳號與密碼
 	var loginFlag = true;
@@ -92,7 +100,7 @@ $(function() {
 			});
 		}
 	});
-})
+});
 function redirectPage(newUrl) {
 	window.location.href = newUrl;
 }

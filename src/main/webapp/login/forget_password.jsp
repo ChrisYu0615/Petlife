@@ -54,7 +54,7 @@
 	<%@include file="../components/header.jsp"%>
 
 	<div class="row justify-content-around" id="forget_password_menu">
-		<div class="col-4 card card-outline card-warning">
+		<div class="col-md-6 col-lg-4 card card-outline card-warning">
 			<div class="card-header text-center">
 				<img src="${pageContext.request.contextPath}/assets/img/Big_logo_v4.png" alt="" class="h1" id="top_logo">
 			</div>
