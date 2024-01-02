@@ -16,7 +16,8 @@ User user = (User) session.getAttribute("user");
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
 <title>寵愛生活Petlife</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/header.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/header.css">
 </head>
 
 <body>
@@ -28,7 +29,8 @@ User user = (User) session.getAttribute("user");
 				<div class="container">
 					<div class="main-responsive-menu">
 						<div class="logo">
-							<img src="<%=request.getContextPath()%>/assets/img/favicon.png" alt="logo"> <a
+							<img src="<%=request.getContextPath()%>/assets/img/favicon.png"
+								alt="logo"> <a
 								href="${pageContext.request.contextPath}/index.jsp"> </a>
 						</div>
 					</div>
@@ -38,28 +40,22 @@ User user = (User) session.getAttribute("user");
 				<div class="container">
 					<div class="row">
 						<nav class="navbar navbar-expand-md">
-							<a class="navbar-brand col-2" href="${pageContext.request.contextPath}/index.jsp"> <img
-								src="<%=request.getContextPath()%>/assets/img/main_logo.png" alt="logo">
+							<a class="navbar-brand col-2"
+								href="${pageContext.request.contextPath}/index.jsp"> <img
+								src="<%=request.getContextPath()%>/assets/img/main_logo.png"
+								alt="logo">
 							</a>
 							<div class="collapse navbar-collapse mean-menu"
 								id="navbarSupportedContent">
 								<ul class="navbar-nav">
 
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link active">首頁</a>
-									</li>
+									<li class="nav-item"><a
+										href="${pageContext.request.contextPath}/index.jsp"
+										class="nav-link active">首頁</a></li>
 
-									<li class="nav-item"><a href="#" class="nav-link">
-											寵物商城 <i class="fas fa-angle-down"></i>
-									</a>
-										<ul class="dropdown-menu" style="left: -50px;">
-											<li class="nav-item">
-												<a href="${pageContext.request.contextPath}/comm_for_user/listAllCommForUser.do" class="nav-link">寵物商城</a>
-											</li>
-<!-- 											<li class="nav-item"><a href="#" class="nav-link">Service2</a> -->
-<!-- 											</li> -->
-<!-- 											<li class="nav-item"><a href="#" class="nav-link">Service3</a> -->
-<!-- 											</li> -->
-										</ul></li>
+									<li class="nav-item"><a
+										href="${pageContext.request.contextPath}/comm_for_user/listAllCommForUser.do"
+										class="nav-link"> 寵物商城 </a></li>
 
 									<li class="nav-item"><a href="#" class="nav-link">
 											寵物領養 <i class="fas fa-angle-down"></i>
@@ -73,24 +69,30 @@ User user = (User) session.getAttribute("user");
 											</li>
 										</ul></li>
 
-									<li class="nav-item"><a href="<%=request.getContextPath()%>/article/Articleindex.jsp" class="nav-link">
-											寵物論壇 <i class="fas fa-angle-down"></i>
+									<li class="nav-item"><a
+										href="<%=request.getContextPath()%>/article/Articleindex.jsp"
+										class="nav-link"> 寵物論壇 <i class="fas fa-angle-down"></i>
 									</a>
 										<ul class="dropdown-menu" style="left: -50px;">
-											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1" class="nav-link">狗狗的家</a>
-											</li>
-											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2" class="nav-link">貓貓的家</a>
-											</li>
-											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3" class="nav-link">來閒聊ㄅ</a>
-											</li>
-											<li class="nav-item"><a href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4" class="nav-link">特殊寵物</a>
-											</li>
+											<li class="nav-item"><a
+												href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=1"
+												class="nav-link">狗狗的家</a></li>
+											<li class="nav-item"><a
+												href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=2"
+												class="nav-link">貓貓的家</a></li>
+											<li class="nav-item"><a
+												href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=3"
+												class="nav-link">來閒聊ㄅ</a></li>
+											<li class="nav-item"><a
+												href="<%=request.getContextPath()%>/art/art.do?action=getArticlesByForumId&forumId=4"
+												class="nav-link">特殊寵物</a></li>
 										</ul></li>
 								</ul>
 
 								<div class="others-options d-flex align-items-center">
 									<div class="option-item" style="left: -50px;">
-										<a href="<%=request.getContextPath()%>/cart/cart.jsp" class="nav-link shopping-cart"> <i
+										<a href="<%=request.getContextPath()%>/cart/cart.jsp"
+											class="nav-link shopping-cart"> <i
 											class="fas fa-shopping-cart">購物車</i>
 										</a>
 									</div>
@@ -103,11 +105,11 @@ User user = (User) session.getAttribute("user");
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 														<ul class="dropdown-menu" style="left: -50px;">
 															<li class="nav-item"><a
-																href="<%=request.getContextPath()%>/login/member_login.jsp" class="nav-link">一般會員登入</a>
-															</li>
+																href="<%=request.getContextPath()%>/login/member_login.jsp"
+																class="nav-link">一般會員登入</a></li>
 															<li class="nav-item"><a
-																href="<%=request.getContextPath()%>/login/backend_login.jsp" class="nav-link">後臺管理登入</a>
-															</li>
+																href="<%=request.getContextPath()%>/login/backend_login.jsp"
+																class="nav-link">後臺管理登入</a></li>
 														</ul></li>
 												</c:when>
 
@@ -116,8 +118,8 @@ User user = (User) session.getAttribute("user");
 															<img
 															src="<%=request.getContextPath()%>/user/user.do?action=getUserHeadshot&userId=<%=user.getUserId()%>"
 															alt="" class="preview_img shadow rounded-circle"
-															style="width: 35px ;height:35px; background-color:white;"> <span
-															style="font-size: 15px;"><%=user.getUserName()%></span>
+															style="width: 35px; height: 35px; background-color: white;">
+															<span style="font-size: 15px;"><%=user.getUserName()%></span>
 															<i class="fas fa-angle-down"></i>
 													</a> <!-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 														<ul class="dropdown-menu" style="left: -50px;">
@@ -135,7 +137,7 @@ User user = (User) session.getAttribute("user");
 																class="nav-link">文章管理</a></li>
 															<li class="nav-item"><a
 																href="<%=request.getContextPath()%>/logout/logout.do"
-																class="nav-link">登出</a></li>																
+																class="nav-link">登出</a></li>
 														</ul></li>
 												</c:otherwise>
 											</c:choose>
@@ -152,21 +154,26 @@ User user = (User) session.getAttribute("user");
 
 	<script src="<%=request.getContextPath()%>/assets/js/jquery.min.js"></script>
 	<!-- Bootstrap js -->
-	<script src="<%=request.getContextPath()%>/assets/js/bootstrap.bundle.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/bootstrap.bundle.js"></script>
 	<!-- Meanu js -->
-	<script src="<%=request.getContextPath()%>/assets/js/jquery.meanmenu.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/jquery.meanmenu.js"></script>
 	<!-- Magnific Popup js -->
-	<script src="<%=request.getContextPath()%>/assets/js/jquery.magnific-popup.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/jquery.magnific-popup.min.js"></script>
 	<!-- owl carousel js -->
-	<script src="<%=request.getContextPath()%>/assets/js/owl.carousel.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/owl.carousel.min.js"></script>
 	<!-- wow.js -->
 	<script src="<%=request.getContextPath()%>/assets/js/wow.min.js"></script>
 	<!-- waypoints.js -->
 	<script src="<%=request.getContextPath()%>/assets/js/waypoints.min.js"></script>
 	<!-- counterup.js -->
-	<script src="<%=request.getContextPath()%>/assets/js/jquery.counterup.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/jquery.counterup.min.js"></script>
 	<!-- Custom js -->
-<!-- 	<script src="../assets/js/gallery-popup.js"></script> -->
+	<!-- 	<script src="../assets/js/gallery-popup.js"></script> -->
 	<script src="<%=request.getContextPath()%>/assets/js/custom.js"></script>
 	<%-- <script src="assets/js/video.js"></script> --%>
 </body>
