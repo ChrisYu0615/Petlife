@@ -358,7 +358,7 @@ th, td {
 					<th>訂單建立時間</th>
 					<th>修改</th>
 					<th>查看訂單細項</th>
-					<th>評價</th>
+<!-- 					<th>評價</th> -->
 					<!-- 					<th>刪除</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
@@ -397,61 +397,61 @@ th, td {
 							</FORM>
 						</td>
 <!-- ================================================================== -->
-						<td>
-							<button class="btn-sm btn-warning btn_rate"
-								data-bs-toggle="modal" data-bs-target="#rate_order"
-								value="${buyList.buylistId}">評價</button>
-								<form
-											action="<%=request.getContextPath()%>/buylist/buylist.do"
-											method="post" id="rate_orderForm">
-											<div class="modal fade" id="rate_order" tabindex="-1"
-												aria-labelledby="rateModalLabel" aria-hidden="true">
-												<div
-													class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="rateModalLabel">評價訂單</h5>
-															<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<div class="row modal-body delete_box">
-															<span id="verify_rateStar"></span>
-															<div class="col rounded star_block" id="delete_content">
-																評價此訂單<br> <span class="star" data-star="1"><i
-																	class="fas fa-star"></i></span> <span class="star"
-																	data-star="2"><i class="fas fa-star"></i></span> <span
-																	class="star" data-star="3"><i
-																	class="fas fa-star"></i></span> <span class="star"
-																	data-star="4"><i class="fas fa-star"></i></span> <span
-																	class="star" data-star="5"><i
-																	class="fas fa-star"></i></span>
-															</div>
-															<div class="col-auto">
-																<span id="verify_rateComment"></span> <label
-																	class="col-md-12" for="sellerEvaluateNarrative">評論：</label> <br>
-																<textarea class="col-md-12" id="sellerEvaluateNarrative"
-																	name="sellerEvaluateNarrative" rows="4" cols="80"
-																	placeholder="請輸入原因..."></textarea>
-															</div>
-														</div>
+<!-- 						<td> -->
+<!-- 							<button class="btn-sm btn-warning btn_rate" -->
+<!-- 								data-bs-toggle="modal" data-bs-target="#rate_order" -->
+<%-- 								value="${buyList.buylistId}">評價</button> --%>
+<!-- 								<form -->
+<%-- 											action="<%=request.getContextPath()%>/buylist/buylist.do" --%>
+<!-- 											method="post" id="rate_orderForm"> -->
+<!-- 											<div class="modal fade" id="rate_order" tabindex="-1" -->
+<!-- 												aria-labelledby="rateModalLabel" aria-hidden="true"> -->
+<!-- 												<div -->
+<!-- 													class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> -->
+<!-- 													<div class="modal-content"> -->
+<!-- 														<div class="modal-header"> -->
+<!-- 															<h5 class="modal-title" id="rateModalLabel">評價訂單</h5> -->
+<!-- 															<button type="button" class="btn-close" -->
+<!-- 																data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 														</div> -->
+<!-- 														<div class="row modal-body delete_box"> -->
+<!-- 															<span id="verify_rateStar"></span> -->
+<!-- 															<div class="col rounded star_block" id="delete_content"> -->
+<!-- 																評價此訂單<br> <span class="star" data-star="1"><i -->
+<!-- 																	class="fas fa-star"></i></span> <span class="star" -->
+<!-- 																	data-star="2"><i class="fas fa-star"></i></span> <span -->
+<!-- 																	class="star" data-star="3"><i -->
+<!-- 																	class="fas fa-star"></i></span> <span class="star" -->
+<!-- 																	data-star="4"><i class="fas fa-star"></i></span> <span -->
+<!-- 																	class="star" data-star="5"><i -->
+<!-- 																	class="fas fa-star"></i></span> -->
+<!-- 															</div> -->
+<!-- 															<div class="col-auto"> -->
+<!-- 																<span id="verify_rateComment"></span> <label -->
+<!-- 																	class="col-md-12" for="sellerEvaluateNarrative">評論：</label> <br> -->
+<!-- 																<textarea class="col-md-12" id="sellerEvaluateNarrative" -->
+<!-- 																	name="sellerEvaluateNarrative" rows="4" cols="80" -->
+<!-- 																	placeholder="請輸入原因..."></textarea> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
 
-														<div class="row modal-footer">
-															<div class="col"></div>
-															<button type="submit" class="col-auto btn btn-danger">評價</button>
-															<button type="button" class="col-auto btn btn-secondary"
-																data-bs-dismiss="modal">取消</button>
-															<div class="col"></div>
-															<input type="hidden" name="action"
-																value="sellerRateBuylist"> <input type="hidden"
-																name="ratedSellerId" value=<%=seller.getSellerId()%>>
-															<input type="hidden" name="buylistId"  value="${buylist.buylistId}"> <input
-																type="hidden" name="sellerRatingStars">
-														</div>
-													</div>
-												</div>
-											</div>
-										</form>
-						</td>
+<!-- 														<div class="row modal-footer"> -->
+<!-- 															<div class="col"></div> -->
+<!-- 															<button type="submit" class="col-auto btn btn-danger">評價</button> -->
+<!-- 															<button type="button" class="col-auto btn btn-secondary" -->
+<!-- 																data-bs-dismiss="modal">取消</button> -->
+<!-- 															<div class="col"></div> -->
+<!-- 															<input type="hidden" name="action" -->
+<!-- 																value="sellerRateBuylist"> <input type="hidden" -->
+<%-- 																name="ratedSellerId" value=<%=seller.getSellerId()%>> --%>
+<%-- 															<input type="hidden" name="buylistId"  value="${buylist.buylistId}"> <input --%>
+<!-- 																type="hidden" name="sellerRatingStars"> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</form> -->
+<!-- 						</td> -->
 <!-- ================================================================== -->
 						<!-- 							測試=========== -->
 						<%-- <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/buylistdetails/buylistdetails.do"> --%>

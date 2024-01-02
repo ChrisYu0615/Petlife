@@ -1,3 +1,60 @@
+//petUPdate 修改驗證
+$(document).on("click","#petUpdate",function(e){
+	e.preventDefault();
+	var verifyFlag = true;
+	
+	var regex = /^[a-zA-Z0-9]+$/; //英文,數字
+	var regex2 = /^[a-zA-Z\u4E00-\u9FA5]+$/;
+	
+	var petColor = $("input[name='petColor']").val().trim();
+	if (petColor.length === 0) {
+		$("span#pet_color").html("<font color='red'>請輸入寵物毛色!!</font>")
+		verifyFlag = false;
+	} else {
+		if (!regex2.test(petColor)) {
+			$("span#pet_color").html("<font color='red'>只能輸入英文以及中文!!</font>")
+			verifyFlag = false;
+		}else{
+			if(petColor.length > 20){
+				$("span#pet_color").html("<font color='red'>請勿超過20個字!!</font>")
+				verifyFlag = false;
+			}
+		}
+	}
+	var petCage=$("input[name='petCage']").val().trim();
+	if (petCage.length === 0) {
+		$("span#pet_cage").html("<font color='red'>請輸入籠舍編號!!</font>")
+		verifyFlag = false;
+	} else if (!regex.test(petCage)) {
+			$("span#pet_cage").html("<font color='red'>只能輸入英文以及數字!!</font>")
+			verifyFlag = false;
+		}else if(petCage.length>40){
+			$("span#pet_cage").html("<font color='red'>請勿超過40個字!!</font>")
+			verifyFlag = false;
+		}
+		
+		var pet_content= $("input[name='pet_content']").val().trim();
+		if(pet_content.length === 0){
+		$("span#pet_content").html("<font color='red'>請輸入寵物描述!!</font>")
+		verifyFlag = false;
+	}else if(pet_content.length > 100){
+		$("span#pet_content").html("<font color='red'>請勿超過100個字!!!</font>")
+		verifyFlag = false;
+	}else if (!regex2.test(pet_content)){
+		$("span#pet_content").html("<font color='red'>只能輸入英文以及中文!!</font>")
+		verifyFlag = false;
+	}
+	
+	if (verifyFlag == false) {
+		window.document.documentElement.scrollTop=0;
+//		return;
+	}else{
+		ReAppendPhotos();
+		$("#form_update").submit();
+	}
+	
+})
+
 //petUpdate 讀取圖片
 function previewImage() {
 	var fileInput = document.getElementById('addPetPhoto');
@@ -268,8 +325,8 @@ $(document).on("click", "input[name='adopted']", function() {
 	}
 });
 
-$(document).on("click","#petUpdate",function(e){
-		e.preventDefault();
-		ReAppendPhotos();
-		$("#form_update").submit();
-})
+//$(document).on("click","#petUpdate",function(e){
+//		e.preventDefault();
+//		
+//		$("#form_update").submit();
+//})

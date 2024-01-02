@@ -69,6 +69,72 @@ $(document).on("change","#month",function(){
 	});
 })
 
+//拿到使用者點擊欲預約的上午或下午按鈕及日期
+//宣告全域變數
+//var bookingDate;
+//var bookingTime;
+//$(document).on("click",".booking_btn",function(){
+////	console.log('old = '+bookingdate);
+////	console.log('old = '+bookingtime);
+////	console.log($(this).val());
+////	console.log($(this).siblings("div").text());
+//	bookingdate = $(this).siblings("div").text();
+//	bookingtime = $(this).val();
+////	console.log('new = '+bookingdate);
+////	console.log('new = '+bookingtime);
+//});
+
+//拿到使用者點擊欲預約的id
+//宣告全域變數
+var bookingId;
+//$(document).on("click",".booking_btn",function(){
+//	    // 獲取點擊的按鈕元素
+//    var clickedButton = $(this);
+//
+//    // 設定點擊的按鈕背景顏色
+//    clickedButton.css("background-color", "yellow");
+//
+//    // 存儲點擊的按鈕的ID
+//    bookingId = clickedButton.attr("id");
+//});
+
+var lastClickedButton;
+
+$(document).on("click", ".booking_btn", function () {
+    // 如果存在上一次點擊的按鈕，清除其背景色
+    if (lastClickedButton) {
+        lastClickedButton.css("background-color", "");
+    }
+
+    // 獲取點擊的按鈕元素
+    var clickedButton = $(this);
+
+    // 設定點擊的按鈕背景色
+    clickedButton.css("background-color", "yellow");
+
+    // 存儲當前點擊的按鈕，以便下次清除其背景色
+    lastClickedButton = clickedButton;
+
+    // 儲存點擊的按鈕的ID
+    bookingId = clickedButton.attr("id");
+
+});
+
+function booking() {
+
+    var user = $("#userId").val();
+	$("#bookingId").val(bookingId);	//由全域變數取值
+    
+    if (user != 'null') {
+        // if有登入
+        $("#bookingSubmit").submit();
+    } else {
+        // else沒登入
+//        console.log("User is not logged in");
+		alert("您沒有登入");
+		window.location.href = "../login/member_login.jsp"
+    }
+}
 
 //搜尋按鈕ajax
 $(document).on("click","#search_btn",function(){
@@ -137,21 +203,6 @@ $(document).on("change", "select.pet_type", function() {
 	});
 })
 
-//預約按鈕
-//document.getElementById('mydate').addEventListener('click', function (event) {
-//        // 阻止事件傳播到包含它的 div
-//        event.stopPropagation();
-//    });
-//    
-////======我要預約按鈕=====
-//$(document).on("click","#make_reservation_btn",function(){
-//	var dataURL = '../project/shelterbooking.do?action=getCompositePetsQuery';
-//	
-//	$.ajax({
-//		type: "GET",
-//		url: "dataURL",
-//	})
-//})
 
 //收容所縣市搜尋
 $(function() {
@@ -192,6 +243,7 @@ function redirectPage(newUrl) {
 	window.location.href = newUrl;
 }
 
+//列表中點擊"更多資訊"
 $(document).on("click","#getOnePet",function(e){
 	e.preventDefault();
 	var id = $("#pet_id").val();
@@ -855,8 +907,8 @@ $(document).on("click","#getOnePet",function(e){
 								var a_content = (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1))+"/"+((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date);
 								
 								cell.html("<div class='parent'>"
-	                           		 + "<button type='button' class='make_reservation_btn_am' value='am'><p>\u4E0A\u5348</p></button>"
-	                           		 + "<button type='button' class='make_reservation_btn_pm' value='pm'><p>\u4E0B\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_btn_am booking_btn' value='am'><p>\u4E0A\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_btn_pm booking_btn' value='pm'><p>\u4E0B\u5348</p></button>"
 //	                           		 + "<iframe src=\'" +select_page+ "?theDate=" + theDate + "\'" 
 //	                           		 + " style='background-color: white; border-color: black; border: 1px 1px 1px 1px;'"
 //	                           		 + " width=95% height=43% scrolling=no></iframe>"
