@@ -324,7 +324,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 													</div>
 
 													<div class="form-group mb-3">
-														<label for="" class="form-label">是否下架 </label><br>
+														<label for="" class="form-label">是否下架 </label><span
+															id="verify_articleState"></span><br>
 														<div class="form-check form-check-inline">
 															<input class="form-check-input" type="radio"
 																name="article_state" id="launched" value="true">

@@ -144,6 +144,7 @@
 															<td>${article.ctr}</td>
 															<td><fmt:formatDate value="${article.updateTime}"
 																	pattern="yyyy-MM-dd HH:mm:ss" /></td>
+
 															<td><a href="${pageContext.request.contextPath}/art/art.do?action=getArticleById&articleId=${article.articleId}" target="_blank">
 																	<button class="btn-sm btn-primary"
 																		value="${article.articleId}">查看</button>
