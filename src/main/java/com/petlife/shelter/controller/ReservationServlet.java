@@ -79,6 +79,9 @@ public class ReservationServlet extends HttpServlet {
 		case "getByUserId":
 			forwardPath = getReservationsByUserId(req, res);
 			break;
+		case "getResByResId":
+			forwardPath = getResByResId(req, res);
+			break;
 		case "cancelReservation":
 			forwardPath = cancelReservation(req, res);
 			break;
@@ -158,6 +161,16 @@ public class ReservationServlet extends HttpServlet {
 
 		req.setAttribute("getAllReservations", reservationList);
 		return "/member_center/reservation_management.jsp";
+	}
+	
+	// 0103思涵
+	private String getResByResId(HttpServletRequest req, HttpServletResponse res) {
+		Integer resId = Integer.valueOf(req.getParameter("resId"));
+		System.out.println(resId);
+		Reservation reservation = reservationService.getResByResId(resId);
+		
+		req.setAttribute("reservation", reservation);
+		return "/shelter/resLookUp.jsp";
 	}
 
 	// 更新過1215詩涵

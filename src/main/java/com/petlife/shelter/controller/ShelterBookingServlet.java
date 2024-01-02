@@ -138,6 +138,11 @@ public class ShelterBookingServlet extends HttpServlet {
 		Reservation reservation = new Reservation(shelter, shelterBookingId, userId, petId);
 
 		reservation = reservationService.addRes(reservation);
+		
+		idData = shelterBookingService.getOneShelterBooking(Integer.valueOf(id));
+						
+		reservation.setShelterBooking(idData);
+		
 		pet = petService.updatePet(pet);
 		req.setAttribute("reservation", reservation);
 
