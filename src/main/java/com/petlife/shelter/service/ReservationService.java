@@ -23,4 +23,6 @@ public interface ReservationService {
 	
 	List<Reservation> getResByCompositeQuery(Map<String, String[]> map);
 	
+	List<Reservation> getResByShelterBookingId(Integer shelterBookingId);
+	
 }

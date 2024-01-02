@@ -88,6 +88,9 @@ public class ReservationServlet extends HttpServlet {
 //			case "update":
 //				forwardPath = getUpdateShelter(req, res);
 //				break;
+		case "getByShelterBookingId":
+			forwardPath = getByShelterBookingId(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -97,6 +100,15 @@ public class ReservationServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+	}
+
+	private String getByShelterBookingId(HttpServletRequest req, HttpServletResponse res) {
+		Integer ShelterBookingId = Integer.valueOf(req.getParameter("rowId"));
+		List<Reservation> reservationList = reservationService.getResByShelterBookingId(ShelterBookingId);
+		
+		
+		req.setAttribute("reservationList", reservationList);
+		return "/petjsp/booking_put.jsp";
 	}
 
 	private String update_resType(HttpServletRequest req, HttpServletResponse res) {
