@@ -269,7 +269,7 @@ a:hover, a:active {
 						data-bs-dismiss="modal">關閉</button>
 					<button type="button" class="btn btn-primary" onclick="booking()">確認</button>
 				</div>
-				<form action="${pageContext.request.contextPath}/project/shelterbooking.do?action=setAddBookingNum" method="post" action="setAddBookingNum" id="bookingSubmit">
+				<form action="${pageContext.request.contextPath}/project/shelterbooking.do?action=setAddBookingNum" method="post"  id="bookingSubmit">
 					<input type="hidden" name="bookingId" value="${shelter_booking.id}" id="bookingId">
 					<input type="hidden" value="<%=id %>" id="userId" name="userId">
 					<input type="hidden" name="shelter_Id" value="${pet.shelter.shelterId}" id="shelter_Id">
