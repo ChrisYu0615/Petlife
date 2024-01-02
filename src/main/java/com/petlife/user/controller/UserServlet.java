@@ -100,11 +100,16 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private void getUserHeadshot(HttpServletRequest req, HttpServletResponse resp) {
+		
 		Integer userId = Integer.parseInt(req.getParameter("userId"));
+		
 		User user = userService.getUserByUserId(userId);
 		FileInputStream fis = null;
 		ServletOutputStream out = null;
-		byte[] headshot = user.getHeadshot();
+		byte[] headshot = null;
+		if (user != null) {
+			headshot = user.getHeadshot();
+		}
 
 		resp.setContentType("image/png");
 
@@ -411,7 +416,7 @@ public class UserServlet extends HttpServlet {
 		User user = (User) req.getSession().getAttribute("user");
 		BuylistService buylistService = new BuylistServiceImpl();
 		Double userRating = buylistService.getUserRatingScore(user.getUserId());
-		
+
 		resp.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.print(userRating);

@@ -310,7 +310,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<td><fmt:formatDate value="${article.updateTime}"
 															pattern="yyyy-MM-dd HH:mm:ss" /></td>
 													<td><a
-														href="${pageContext.request.contextPath}/art/art.do?action=getArticleById&articleId=${article.articleId}"
+														href="${pageContext.request.contextPath}/art/art.do?action=getArticleById&articleId=${article.articleId}&value=admin"
 														target="_blank">
 															<button class="btn-sm btn-primary"
 																value="${article.articleId}">查看</button>

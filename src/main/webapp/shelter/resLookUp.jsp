@@ -66,9 +66,9 @@ if (user1 != null) {
 <!-- counterup.js -->
 <script src="../assets/js/jquery.counterup.min.js"></script>
 <!-- Custom js -->
-<script src="../assets/js/gallery-popup.js"></script>
+<!-- <script src="../assets/js/gallery-popup.js"></script> -->
 <script src="../assets/js/custom.js"></script>
-<script src="../assets/js/video.js"></script>
+<!-- <script src="../assets/js/video.js"></script> -->
 <!-- 原版預設 -->
 <script src="../assets/js/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

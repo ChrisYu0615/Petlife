@@ -206,9 +206,6 @@ $(document).on("change", "select.pet_type", function() {
 
 //收容所縣市搜尋
 $(function() {
-	$(".headerPage").load("../components/header.html");
-	$(".footerPage").load("../components/footer.html");
-
     fetch('../assets/json/shelters_cities_final.json')
 		.then(response => response.json())
 		.then(data => {
