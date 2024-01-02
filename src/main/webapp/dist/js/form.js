@@ -267,4 +267,3 @@ $("#adopt_date").on("click", function() {
 
 
 
-

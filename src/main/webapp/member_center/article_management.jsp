@@ -4,10 +4,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%-- <%-- <% --%>
-<!-- // User user = (User) session.getAttribute("user"); -->
-<%-- <%-- %> --%> 
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -148,11 +144,18 @@
 															<td>${article.ctr}</td>
 															<td><fmt:formatDate value="${article.updateTime}"
 																	pattern="yyyy-MM-dd HH:mm:ss" /></td>
+<<<<<<< HEAD
 															<td>
 															<a href="<%=request.getContextPath()%>/art/art.do?action=getOneDisplay">
 															<button class="btn-sm btn-primary" name="articleId"
 																	value="${article.articleId}">查看</button></a>
 															 <c:choose>
+=======
+															<td><a href="${pageContext.request.contextPath}/art/art.do?action=getArticleById&articleId=${article.articleId}" target="_blank">
+																	<button class="btn-sm btn-primary"
+																		value="${article.articleId}">查看</button>
+															</a> <c:choose>
+>>>>>>> refs/heads/master
 																	<c:when test="${article.state}">
 																		<button class="btn-sm btn-danger btn_remove"
 																			data-bs-toggle="modal"
@@ -166,8 +169,7 @@
 																			data-bs-target="#upload_article"
 																			value="${article.articleId}">上架</button>
 																	</c:otherwise>
-																</c:choose>
-															</td>
+																</c:choose></td>
 														</tr>
 													</c:forEach>
 												</tbody>

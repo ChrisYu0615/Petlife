@@ -57,7 +57,7 @@
 
 	<div class="row justify-content-around" id="login_menu">
 		<!-- /.login-logo -->
-		<div class="col-md-4 card card-outline card-warning">
+		<div class="col-md-6 col-lg-4 card card-outline card-warning">
 			<div class="card-header text-center">
 				<img src="../assets/img/Big_logo_v4.png" alt="" class="h1"
 					id="top_logo">
@@ -67,7 +67,7 @@
 					<b>一般會員登入</b>
 				</p>
 
-				<form action="/Petlife/user/user.do" method="post">
+				<form action="${pageContext.request.contextPath}/user/user.do" method="post">
 					<fieldset>
 						<span class="verify_result" id="verify_account"></span>
 						<div class="input-group mb-3">
@@ -95,12 +95,12 @@
 						<div class="row">
 							<div class="col-9">
 								<div class="icheck-primary">
-									<input type="checkbox" id="remember"> <label
-										for="remember"> 記住帳號 </label>
+									<input type="checkbox" id="showPassword"> <label
+										for="showPassword"> 顯示密碼 </label>
 								</div>
 							</div>
 							<!-- /.col -->
-							<div class="col-3">
+							<div class="col">
 								<button type="button" class="btn btn-primary btn-block"
 									id="btn_login">登入</button>
 							</div>
@@ -109,18 +109,7 @@
 					</fieldset>
 				</form>
 
-				<p class="social-auth-links border-top">第三方登入</p>
-				<div class="row social-auth-links text-center mt-2 mb-3">
-					<a href="#" class="btn btn-success col-4 offset-1"> <i
-						class="fab fa-brands fa-line mr-2"></i> Line
-					</a> <a href="#" class="btn btn-danger col-4 offset-2"> <i
-						class="fab fa-google-plus mr-2"></i> Google
-					</a>
-				</div>
-				<!-- /.social-auth-links -->
-
-
-
+				<hr>
 				<p class="mb-1">
 					<a href="./forget_password.jsp">忘記密碼</a><br> <a
 						href="../register/member_register.jsp" class="text-center">註冊成為新會員</a>

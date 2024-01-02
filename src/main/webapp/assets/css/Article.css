@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+/* 未选中时的按钮样式 */
+.btn-outline-primary {
+    color: #FF4500; /* 暗橘色文字 */
+    background-color: #FFF8DC; /* 淡橘黄色背景 */
+    border-color: #FFA500; /* 明亮的橘黄色边框 */
+}
+
+/* 当按钮被选中时的样式 */
+.btn-check:checked + .btn-outline-primary {
+    background-color: #FFA500; /* 明亮的橘黄色背景 */
+    border-color: #FF4500; /* 暗橘色边框 */
+    color: #FFF8DC; /* 淡橘黄色文字 */
+}
+
+/* 鼠标悬停在按钮上时的样式 */
+.btn-outline-primary:hover {
+    background-color: #FFA500; /* 明亮的橘黄色背景 */
+    border-color: #FFD700; /* 金色边框 */
+    color: white; /* 白色文字 */
+}
+.blog_area_img {
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        height: 200px; /* 指定高度，根据需要调整 */
+    }
+ .blog_area_img {
+        text-align: center; /* 水平居中 */
+        line-height: 200px; /* 这应该与您的高度相同 */
+        height: 200px; /* 指定高度，根据需要调整 */
+    }
+
+.blog_area_img img {
+        vertical-align: middle; /* 垂直居中 */
+        max-height: 100%; /* 确保图片不会超出容器 */
+    }
+.blog_area_wrapper {
+    min-height: 350px; /* 調整以符合您的佈局需求 */
+    display: flex;
+    flex-direction: column;
+}
+
+.blog_area_content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 讓內容區域彈性增長 */
+    justify-content: space-between; /* 分散對齊子元素 */
+}
+
+.blog_area_content p {
+    height: 100px; /* 固定文章摘要的高度 */
+    overflow: hidden; /* 如果內容過長，則隱藏多餘的部分 */
+}
+.blog_area_author_wrappe{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 讓內容區域彈性增長 */
+    justify-content: space-between; /* 分散對齊子元素 */
+}
+     
+    
+    

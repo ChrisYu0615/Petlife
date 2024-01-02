@@ -193,7 +193,7 @@ textarea.form-control {
 }
 
 .section_padding {
-    padding: 100px 0 0 0;
+    padding: 0;
 } 
 
 .section_padding_top {
@@ -1335,6 +1335,8 @@ textarea.form-control {
 
 .adoption_item_img {
     position: relative;
+    width:270px;
+    height:200px;
 }
 
 .adoption_item_img a img {
@@ -1401,6 +1403,11 @@ textarea.form-control {
     transition: var(--transition);
 }
 
+#getOnePet{
+	border-radius: 50px;
+    background-color: #B5D6F4;
+}
+
 .adoption_info_btn a {
     border: 2px solid var(--main-color);
     padding: 7px 12px;
@@ -1427,6 +1434,20 @@ textarea.form-control {
         Adoption Details Page
 ------------------------------------*/
 
+div.pet_detail {
+    color: #000;
+    position: absolute;
+    height: 40px;
+    font-size: 28px;
+    left: auto;
+    top: 10%;
+    text-align: center;
+    width: 55%;
+    /* border: 1px solid red; */
+    border-radius: 50px;
+    background-color: #B5D6F4;
+    box-shadow: 5px 5px 5px grey;
+}
 div.adoption_detail {
     color: #000;
     position: absolute;
@@ -1470,9 +1491,21 @@ div.adoption_details_content {
     width: 800px;
     height: 680px;
     background-color: #FFF2CC;
-    margin: 0px 0 0px 0;
+    margin: 100px 0 0px 0;
     border-radius: 50px;
     padding: 30px 40px 30px 40px;
+    /* display: flex; */
+    justify-content: center;
+}
+
+div.adoption_booking_content {
+    /* border:1px solid red; */
+    width: 800px;
+    height: 680px;
+    background-color: #FFF2CC;
+    margin: 120px 0 100px 0;
+    border-radius: 50px;
+    padding: 50px 40px 30px 40px;
     /* display: flex; */
     justify-content: center;
 }
@@ -1519,8 +1552,7 @@ div.adoption_details_content {
     border: 1px solid #DDD;
     background: #FBF8FF;
     box-shadow: 2px 6px 14px 0px rgba(43, 33, 30, 0.12);
-    border-bottom-right-radius: 12px;
-    border-top-right-radius: 12px;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -1709,12 +1741,12 @@ div.adoption_details_content {
 	position: relative;
 	bottom: 10px;
 	z-index: 2;
-	cursor: pointer;
 	text-align: center;
 	width: 40%;
 	border-radius: 15px;
-	background-color: #B5D6F4;
+	background-color: lightgrey;
 	box-shadow: 1px 1px 1px grey;
+	pointer-events: none;
 }
 
 #mydateContainer {

@@ -89,75 +89,63 @@ Admin admin = (Admin) session.getAttribute("admin");
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/admin/modify_admin_profile.jsp"
-							class="nav-link active"> <i class="fas fa-solid fa-address-card"></i>
+							class="nav-link active"> <i
+								class="fas fa-solid fa-address-card"></i>
 								<p>修改管理員資料</p>
-						</a></li>   	
-						
-          				<li class="nav-item">
-          				  <a href="#" class="nav-link">
-          				    <i class="fas fa-solid fa-users"></i>
-          				    <p>
-          				      會員管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/user/user.do?action=getAll" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>一般會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>賣家會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>收容所會員</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待審核會員</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>		
+						</a></li>
 
-          				<li class="nav-item">
-          				  <a href="#" class="nav-link">
-          				    <i class="fas fa-solid fa-newspaper"></i>
-          				    <p>
-          				      文章管理
-          				      <i class="right fas fa-angle-left"></i>
-          				    </p>
-          				  </a>
-          				  <ul class="nav nav-treeview">
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>文章列表</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>待處理檢舉</p>
-          				      </a>
-          				    </li>
-          				    <li class="nav-item">
-          				      <a href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied" class="nav-link">
-          				        <i class="far fa-circle nav-icon"></i>
-          				        <p>已處理檢舉</p>
-          				      </a>
-          				    </li>							
-          				  </ul>
-          				</li>						
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-solid fa-users"></i>
+								<p>
+									會員管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>一般會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/seller/seller.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>賣家會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/shelter/shelter.do?action=getAll&condition=verified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>收容所會員</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/admin/admin.do?action=getAllMembers&condition=unverified"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待審核會員</p>
+								</a></li>
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="fas fa-solid fa-newspaper"></i>
+								<p>
+									文章管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/art/art.do?action=getAllArticles"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>文章列表</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=unReply"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>待處理檢舉</p>
+								</a></li>
+								<li class="nav-item"><a
+									href="<%=request.getContextPath()%>/reportForum/reportForum.do?action=getAllReports&condition=replied"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>已處理檢舉</p>
+								</a></li>
+							</ul></li>
 
 						<li class="nav-item"><a
 							href="<%=request.getContextPath()%>/coupon/coupon.do?action=getAllCoupons"
@@ -171,8 +159,9 @@ Admin admin = (Admin) session.getAttribute("admin");
 								<p>廣告管理</p>
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/logout/logout.do" class="nav-link" id="logout"> <i
-								class="fas fa-sign-out-alt"></i>
+						<li class="nav-item"><a
+							href="<%=request.getContextPath()%>/logout/logout.do"
+							class="nav-link" id="logout"> <i class="fas fa-sign-out-alt"></i>
 								<p>登出</p>
 						</a></li>
 					</ul>
@@ -192,7 +181,8 @@ Admin admin = (Admin) session.getAttribute("admin");
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
+								<li class="breadcrumb-item"><a
+									href="<%=request.getContextPath()%>/user/user.do?action=getAll">Home</a></li>
 								<li class="breadcrumb-item active">修改管理員資料</li>
 							</ol>
 						</div>
@@ -209,49 +199,65 @@ Admin admin = (Admin) session.getAttribute("admin");
 							<div class="card">
 								<div class="card-header">
 									<ul class="list-group list-group-horizontal-sm">
-                                        <h2 class="card-title">管理員資料</h3>
+										<h2 class="card-title">
+											管理員資料
+											</h3>
 									</ul>
 								</div>
 
-                                <form action="<%=request.getContextPath()%>/admin/admin.do" method="post" id="adminProfileForm">
-								    <!-- /.card-header -->
-								    <div class="card-body">
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">管理員編號</label>
-                                          <input type="text" class="form-control" id="admin_id" name="admin_id" placeholder="請輸入管理員編號" value="<%=admin.getAdminId()%>" disabled>
-                                        </div>                                    
-                                        <div class="form-group">
-                                          <label for="exampleInputEmail1">管理員帳號</label>
-                                          <input type="email" class="form-control" id="admin_acct" name="admin_acct" placeholder="請輸入管理員帳號" value="<%=admin.getAdminAcct()%>" disabled>
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="exampleInputPassword1">修改密碼</label>
-                                          <input type="password" class="form-control" id="admin_pwd" name="admin_pwd" placeholder="管理員密碼">
-                                          <span id="verify_password"></span>
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="exampleInputPassword1">管理員暱稱</label>
-                                          <input type="text" class="form-control" id="admin_nickname" name="admin_nickname" placeholder="請輸入管理員暱稱" value="<%=admin.getAdminNickname()%>">
-                                          <span id="verify_nickname"></span>                                          
-                                        </div>                     
-								    </div>
-								    <!-- /.card-body -->
-                                    <div class="row card-footer">
-                                        <div class="col"></div>
-                                        
-                                        <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary">修改</button>                                        
-                                        </div>
-                                        
-                                        <div class="col-auto offset-1">
-                                        <button type="submit" class="btn btn-warning">取消</button>                                        
-                                        </div>
-                                        
-                                        <div class="col"></div>
-                                        <input type="hidden" name="action" value="updateAdminProfile">                                        
-                                        <input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">                                      
-                                    </div>
-                                </form>
+								<form action="<%=request.getContextPath()%>/admin/admin.do"
+									method="post" id="adminProfileForm">
+									<!-- /.card-header -->
+									<div class="card-body">
+										<div class="form-group">
+											<label for="exampleInputEmail1">管理員編號</label> <input
+												type="text" class="form-control" id="admin_id"
+												name="admin_id" placeholder="請輸入管理員編號"
+												value="<%=admin.getAdminId()%>" disabled>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">管理員帳號</label> <input
+												type="email" class="form-control" id="admin_acct"
+												name="admin_acct" placeholder="請輸入管理員帳號"
+												value="<%=admin.getAdminAcct()%>" disabled>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">修改密碼</label> <input
+												type="password" class="form-control" id="admin_pwd"
+												name="admin_pwd" placeholder="管理員密碼"> <span
+												id="verify_password"></span>
+										</div>
+										<div class="form-check mb-3">
+											<input class="form-check-input" type="checkbox"
+												id="showPassword"> <label class="form-check-label"
+												for="showPassword"> 顯示密碼 </label>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">管理員暱稱</label> <input
+												type="text" class="form-control" id="admin_nickname"
+												name="admin_nickname" placeholder="請輸入管理員暱稱"
+												value="<%=admin.getAdminNickname()%>"> <span
+												id="verify_nickname"></span>
+										</div>
+									</div>
+									<!-- /.card-body -->
+									<div class="row card-footer">
+										<div class="col"></div>
+
+										<div class="col-auto">
+											<button type="submit" class="btn btn-primary">修改</button>
+										</div>
+
+										<div class="col-auto offset-1">
+											<button type="submit" class="btn btn-warning">取消</button>
+										</div>
+
+										<div class="col"></div>
+										<input type="hidden" name="action" value="updateAdminProfile">
+										<input type="hidden" name="adminId"
+											value="<%=admin.getAdminId()%>">
+									</div>
+								</form>
 							</div>
 							<!-- /.card -->
 						</div>

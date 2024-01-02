@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -35,14 +36,11 @@ import com.petlife.admin.dao.impl.AcctStateDAOImpl;
 import com.petlife.admin.entity.AcctState;
 import com.petlife.admin.service.AcctStateService;
 import com.petlife.admin.service.impl.AcctStateServiceImpl;
-import com.petlife.pet.entity.PetPhoto;
-import com.petlife.seller.entity.Seller;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ShelterService;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
 import com.petlife.util.MailService;
 import com.petlife.util.RandomAuthenCode;
-import com.petlife.util.RandomPassword;
 import com.petlife.util.Sha1Util;
 
 @WebServlet("/shelter/shelter.do")
@@ -164,10 +162,10 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)t
 //1215新增 詩涵
 	private String update_put(HttpServletRequest req, HttpServletResponse res)throws IOException, ServletException {
 		System.out.println("ShelterServlet: update_put Entry");
+		HttpSession session = req.getSession();	
 		Shelter shelter2= (Shelter)(req.getSession().getAttribute("shelter"));
 		Integer shelterId = shelter2.getShelterId();
 		Shelter shelter = shelterService.getShelterByShelterId(shelterId);
-		
 		String shelterName = req.getParameter("shelterName").trim();
 		String shelterAcct = req.getParameter("shelterAcct").trim();
 		String password = req.getParameter("password").trim();
@@ -207,7 +205,10 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)t
 		shelter.setShelterIntroduction(shelterIntroduction);
 
 		shelter = shelterService.updateShelter(shelter);
+		session.removeAttribute("shelter");
+		session.setAttribute("shelter", shelter);
 		req.setAttribute("shelter", shelter);
+		
 		return "/petjsp/shelter_update.jsp";
 	}
 
@@ -462,7 +463,7 @@ private String getShelterPhoto(HttpServletRequest req, HttpServletResponse res)t
 
 			// 這裡要重導還是轉發，目的地應該是首頁?
 			Gson gson = new Gson();
-			String redirectPath = gson.toJson(req.getContextPath() + "/index.html");
+			String redirectPath = gson.toJson(req.getContextPath() + "/petjsp/shelter_update.jsp");
 			try {
 				out = res.getWriter();
 				out.print(redirectPath);

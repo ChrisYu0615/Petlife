@@ -318,8 +318,11 @@ $(function() {
 	$("#replyReportData_form").submit(function(event) {
 		let replyFlag = true;
 		let replyContent = $.trim($("#unreply_adminReply").val());
+<<<<<<< HEAD
 		let articleState = $("input[name='article_state']:checked");
 		console.log(articleState);
+=======
+>>>>>>> refs/heads/master
 		if (replyContent == null || replyContent.length == 0) {
 			replyFlag = false;
 			$("#verify_adminReply").html("<font color='red'><b>請輸入回覆內容!!</font>");
@@ -327,6 +330,7 @@ $(function() {
 			$("#verify_adminReply").html("");
 		}
 
+<<<<<<< HEAD
 		if (articleState.length == 0 || articleState == null)  {
 			$("#verify_articleState").html("<font color='red'><b>請選擇是否下架!1</font>");
 			replyFlag = false;
@@ -336,6 +340,84 @@ $(function() {
 		if (replyFlag == false) {
 			event.preventDefault();
 		}
+=======
+		if (replyFlag == false) {
+			event.preventDefault();
+		}
+	});
+
+	$("#logout").on("click", function() {
+		alert("您已成功登出!!");
+	});
+
+	$("myTable").on("draw.dt", function() {
+		// 回覆(使用ajax)
+		$(".btn_reply").on("click", function() {
+			let reportForumId = $(this).val();
+			console.log(reportForumId);
+			$("input[name='reportId']").val(reportForumId);
+			$("#verify_adminReply").html("");
+
+			let formData = new FormData();
+			let url = "/Petlife/reportForum/reportForum.do?action=getOne";
+			formData.append("reportForumId", reportForumId);
+
+			$.ajax({
+				url: url,
+				type: "POST",
+				data: formData,
+				dataType: "json",
+				contentType: false,
+				processData: false,
+				cache: false,
+				success: function(data) {
+					console.log(data);
+					console.log("成功!!");
+					$("#unreply_reportId").val(data.reportForumId);
+					$("#unreply_memberId").val(data.user.userId + "(" + data.user.userName + ")");
+					$("#unreply_articleId").val(data.article.articleId + "(" + data.article.articleName + ")");
+					$("#unreply_reportType").val(data.reportType.reportTypeName);
+					$("#unreply_reportContent").val(data.reportForumReason);
+					$("#unreply_reportTime").val(data.reportForumTime);
+				}
+			});
+		});
+		// 查看(使用ajax)
+		$(".btn_check").on("click", function() {
+			let reportForumId = $(this).val();
+			console.log(reportForumId);
+			$("input[name='reportId']").val(reportForumId);
+
+			let formData = new FormData();
+			let url = "/Petlife/reportForum/reportForum.do?action=getOne";
+			formData.append("reportForumId", reportForumId);
+			formData.append("value", "replied");
+
+			$.ajax({
+				url: url,
+				type: "POST",
+				data: formData,
+				dataType: "json",
+				contentType: false,
+				processData: false,
+				cache: false,
+				success: function(data) {
+					console.log(data);
+					console.log("成功!!");
+					$("#reply_reportId").val(data.reportForumId);
+					$("#reply_memberId").val(data.user.userId + "(" + data.user.userName + ")");
+					$("#reply_articleId").val(data.article.articleId + "(" + data.article.articleName + ")");
+					$("#reply_reportType").val(data.reportType.reportTypeName);
+					$("#reply_reportContent").val(data.reportForumReason);
+					$("#reply_reportTime").val(data.reportForumTime);
+
+					$("#reply_adminId").val(data.admin.adminId + "(" + data.admin.adminNickname + ")");
+					$("#reply_adminReply").val(data.adminReply);
+					$("#reply_adminReplyTime").val(data.adminReplyTime);
+				}
+			});
+		});
+>>>>>>> refs/heads/master
 	});
 })
 

@@ -42,4 +42,9 @@ public class CreditCardServiceImpl implements CreditCardService {
 	public List<CreditCard> getAllCreditCards() {
 		return dao.getAll();
 	}
+
+	@Override
+	public CreditCard findByUserId(Integer userId) {
+		return dao.findByUserId(userId);
+	}
 }

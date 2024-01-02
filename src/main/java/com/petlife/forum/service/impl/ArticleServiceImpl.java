@@ -125,6 +125,12 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> getArticlesByForumId(Integer forumId) {
         return dao.findArticlesByForumId(forumId);
     }
+
+	@Override
+	public List<Article> getPopArticlesByCRT() {
+		
+		return dao.findPopArticlesByCRT();
+	}
 	
 	
 	

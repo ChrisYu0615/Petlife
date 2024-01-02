@@ -38,5 +38,7 @@ public interface ArticleService {
 	
 	public List<Article> getTopArticlesByCTR(int forumId, int limit);
 	
-	public List<Article> getArticlesByForumId(Integer forumId); 
+	public List<Article> getArticlesByForumId(Integer forumId);
+	
+	List <Article>  getPopArticlesByCRT();
 }

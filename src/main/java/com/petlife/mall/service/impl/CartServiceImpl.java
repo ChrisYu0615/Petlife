@@ -50,4 +50,9 @@ public class CartServiceImpl implements CartService {
 	public List<Cart> getCartsByUserAndSortBySeller(User user) {
 		return dao.getCartsByUserAndSortBySeller(user);
 	}
+
+	@Override
+	public Cart findByCommId(Integer commId) {
+		return dao.findByCommId(commId);
+	}
 }

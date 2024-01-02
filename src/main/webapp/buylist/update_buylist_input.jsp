@@ -34,94 +34,93 @@ Buylist buylist = (Buylist) request.getAttribute("buylist");
 	href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
 <style>
-img.brand-image{
-    background-color: antiquewhite;
-
+img.brand-image {
+	background-color: antiquewhite;
 }
+
 .brand-link .brand-image {
-    margin-left: 0rem;
+	margin-left: 0rem;
 }
-    body {
-        font-family: 'Source Sans Pro', sans-serif;
-        background-color: #f4f6f9;
-    }
 
-    .wrapper {
-        background-color: #fff;
-    }
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #f4f6f9;
+}
 
-    /* Header styles */
-    .navbar {
-        background-color: #fff; /* 保留原本的白色 */
-        color: #343a40;
-    }
+.wrapper {
+	background-color: #fff;
+}
 
-    .navbar a {
-        color: #343a40;
-    }
+/* Header styles */
+.navbar {
+	background-color: #fff; /* 保留原本的白色 */
+	color: #343a40;
+}
 
-    /* Sidebar styles */
-    .main-sidebar {
-        background-color: #343a40;
-    }
+.navbar a {
+	color: #343a40;
+}
 
-    .brand-link {
-        background-color: #343a40;
-        color: #fff;
-    }
+/* Sidebar styles */
+.main-sidebar {
+	background-color: #343a40;
+}
 
-    .brand-link:hover {
-        color: #fff;
-    }
+.brand-link {
+	background-color: #343a40;
+	color: #fff;
+}
 
-    .nav-sidebar a {
-        color: #d4d4d4;
-    }
+.brand-link:hover {
+	color: #fff;
+}
 
-    .nav-sidebar a:hover {
-        color: #fff !important;
-    }
+.nav-sidebar a {
+	color: #d4d4d4;
+}
 
-    /* Content styles */
-    .content-wrapper {
-        background-color: #f4f6f9;
-        padding: 20px;
-    }
+.nav-sidebar a:hover {
+	color: #fff !important;
+}
 
-    h1,
-    h3,
-    h4 {
-        color: #343a40;
-    }
+/* Content styles */
+.content-wrapper {
+	background-color: #f4f6f9;
+	padding: 20px;
+}
 
-    /* Form styles */
-    form {
-        margin-top: 20px;
-    }
+h1, h3, h4 {
+	color: #343a40;
+}
 
-    label {
-        font-weight: bold;
-        color: #343a40;
-    }
+/* Form styles */
+form {
+	margin-top: 20px;
+}
 
-    .form-control {
-        border: 1px solid #ced4da;
-    }
+label {
+	font-weight: bold;
+	color: #343a40;
+}
 
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
+.form-control {
+	border: 1px solid #ced4da;
+}
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+.form-control:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
 </style>
 
 </head>
@@ -136,8 +135,8 @@ img.brand-image{
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
-<!-- 					href="test.html" class="nav-link">Home</a></li> -->
+				<!-- 				<li class="nav-item d-none d-sm-inline-block"><a -->
+				<!-- 					href="test.html" class="nav-link">Home</a></li> -->
 				<!-- 這是contact bar -->
 				<!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -187,9 +186,8 @@ img.brand-image{
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- 以下是可伸縮的側邊欄 -->
-						<li class="nav-item"><a href="#"
-							class="nav-link active"> <i
-								class="nav-icon fas fa-tachometer-alt"></i>
+						<li class="nav-item"><a href="#" class="nav-link active">
+								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
 									訂單管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -225,15 +223,15 @@ img.brand-image{
 								</a></li>
 							</ul></li>
 						<!-- ========================================================== -->
-<!-- 						<li class="nav-item"><a -->
-<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
-<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
-<!-- 								<p>訂單商品細項</p> -->
-<!-- 						</a></li> -->
+						<!-- 						<li class="nav-item"><a -->
+						<!-- 							href="../buylistdetails/listAllBuylistDetails.jsp" -->
+						<!-- 							class="nav-link"> <i class="nav-icon fas fa-solid fa-id-card"></i> -->
+						<!-- 								<p>訂單商品細項</p> -->
+						<!-- 						</a></li> -->
 						<!-- ========================================================== -->
 
-						<li class="nav-item"><a href="#"
-							class="nav-link active"> <i class="nav-icon fas far fa-copy"></i>
+						<li class="nav-item"><a href="#" class="nav-link active">
+								<i class="nav-icon fas far fa-copy"></i>
 								<p>
 									商品管理 <i class="right fas fa-angle-left"></i>
 								</p>
@@ -295,12 +293,12 @@ img.brand-image{
 							<h1 class="m-0">修改訂單</h1>
 						</div>
 						<!-- /.col -->
-<!-- 						<div class="col-sm-6"> -->
-<!-- 							<ol class="breadcrumb float-sm-right"> -->
-<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
-<!-- 								<li class="breadcrumb-item active">訂單管理</li> -->
-<!-- 							</ol> -->
-<!-- 						</div> -->
+						<!-- 						<div class="col-sm-6"> -->
+						<!-- 							<ol class="breadcrumb float-sm-right"> -->
+						<!-- 								<li class="breadcrumb-item"><a href="test.html">Home</a></li> -->
+						<!-- 								<li class="breadcrumb-item active">訂單管理</li> -->
+						<!-- 							</ol> -->
+						<!-- 						</div> -->
 						<!-- /.col -->
 					</div>
 					<!-- /.row -->
@@ -319,16 +317,17 @@ img.brand-image{
 					<td>
 						<h3>訂單編號資料修改</h3>
 						<h4>
-							<a href="listAllBuylist.jsp">
-<!-- 							<img src="images/back1.gif" -->
-<!-- 								width="100" height="32" border="0">  -->
-								回所有訂單首頁 </a>
+							<a href="listAllBuylist.jsp"> <!-- 							<img src="images/back1.gif" -->
+								<!-- 								width="100" height="32" border="0">  --> 回所有訂單首頁
+							</a>
 						</h4>
 					</td>
 				</tr>
 			</table>
 
-			<h3>資料修改:<span style= "font-size:14px;color:red;">(僅得修改訂單狀態、星等、敘述)</span></h3>
+			<h3>
+				資料修改:<span style="font-size: 14px; color: red;">(僅得修改訂單狀態、星等、敘述)</span>
+			</h3>
 
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
@@ -380,37 +379,51 @@ img.brand-image{
 									<%=(buylist.getBuylistState().getBuylistStateId() == 5) ? "selected" : ""%>>退貨/退款</option>
 						</select></td>
 					</tr>
-					
+
 					<!-- 					<tr> -->
 					<!-- 						<td>訂單狀態ID:</td> -->
 					<!-- 						<td><input type="TEXT" name="buylistState" -->
 					<%-- 							value="<%=buylist.getBuylistState().getBuylistStateId()%>" --%>
 					<!-- 							size="45" required /></td> -->
 					<!-- 					</tr> -->
-					<tr>
-						<td>優惠碼ID:</td>
-						<td><input name="coupon" id="coupon" type="text"
-							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>"
-							required readonly></td>
-					</tr>
+					<!-- 					<tr> -->
+					<!-- 						<td>優惠碼ID:</td> -->
+					<!-- 						<td><input name="coupon" id="coupon" type="text" -->
+					<%-- 							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>" --%>
+					<!-- 							required readonly></td> -->
+					<!-- 					</tr> -->
 					<tr>
 						<td>賣家評價星等:</td>
-						<td><input name="sellerRatingStars" id="sellerRatingStars"
-							type="text" value="<%=buylist.getSellerRatingStars()%>" required
-							></td>
+						<td><select name="sellerRatingStars" id="sellerRatingStars"
+							required>
+								<option value="null"
+									<%=(buylist.getSellerRatingStars() == null) ? "selected" : ""%>>請選擇星等</option>
+								<option value="1"
+									<%=(buylist.getSellerRatingStars() != null && buylist.getSellerRatingStars() == 1) ? "selected" : ""%>>1</option>
+								<option value="2"
+									<%=(buylist.getSellerRatingStars() != null && buylist.getSellerRatingStars() == 2) ? "selected" : ""%>>2</option>
+								<option value="3"
+									<%=(buylist.getSellerRatingStars() != null && buylist.getSellerRatingStars() == 3) ? "selected" : ""%>>3</option>
+								<option value="4"
+									<%=(buylist.getSellerRatingStars() != null && buylist.getSellerRatingStars() == 4) ? "selected" : ""%>>4</option>
+								<option value="5"
+									<%=(buylist.getSellerRatingStars() != null && buylist.getSellerRatingStars() == 5) ? "selected" : ""%>>5</option>
+						</select></td>
+						<!-- 						<td><input name="sellerRatingStars" id="sellerRatingStars" -->
+						<%-- 							type="text" value="<%=buylist.getSellerRatingStars()%>" required --%>
+						<!-- 							></td> -->
 					</tr>
 					<tr>
 						<td>賣家評價敘述:</td>
 						<td><input name="sellerEvaluateNarrative"
 							id="sellerEvaluateNarrative" type="text"
-							value="<%=buylist.getSellerEvaluateNarrative()%>" required
-							></td>
+							value="<%=buylist.getSellerEvaluateNarrative()%>" required></td>
 					</tr>
 					<tr>
-<!-- 						<td>賣家評價時間:</td> -->
+						<!-- 						<td>賣家評價時間:</td> -->
 						<td><input name="sellerEvaluateTime" id="sellerEvaluateTime"
-							type="hidden" value="<%=buylist.getSellerEvaluateTime()%>" required
-							readonly></td>
+							type="hidden" value="<%=buylist.getSellerEvaluateTime()%>"
+							required readonly></td>
 					</tr>
 					<tr>
 						<td>訂單金額:</td>
@@ -432,7 +445,11 @@ img.brand-image{
 			</FORM>
 
 			<script>
-			<!-- 帶入現在時間到sellerEvaluateTime -->
+				
+				
+				
+				
+// 			<!-- 帶入現在時間到sellerEvaluateTime -->
 		    document.addEventListener('DOMContentLoaded', function () {
 		        // 獲取當前日期和時間
 		        var currentDateTime = new Date();
@@ -455,11 +472,21 @@ img.brand-image{
 
 		        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 		    }
-					<!-- /帶入現在時間到sellerEvaluateTime -->
+// 					<!-- /帶入現在時間到sellerEvaluateTime -->
 			
 				function validateForm() {
 					var sellerEvaluateTime = document.forms["form1"]["sellerEvaluateTime"].value;
 					var buylistDate = document.forms["form1"]["buylistDate"].value;
+					var sellerRatingStars = document.forms["form1"]["sellerRatingStars"].value;
+				    var sellerEvaluateNarrative = document.forms["form1"]["sellerEvaluateNarrative"].value;
+
+				   // 檢查賣家評價星等和敘述是否為 null 或空值
+if (sellerRatingStars.trim() === "" || sellerEvaluateNarrative.trim() === "" || sellerRatingStars === "null" || sellerEvaluateNarrative === "null") {
+    alert("請輸入賣家評價星等和敘述且不得輸入null");
+    return false;
+}
+
+
 
 					// 檢查日期格式
 					var dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}|^\d{4}-\d{2}-\d{2}$/;
@@ -470,6 +497,10 @@ img.brand-image{
 						return false;
 					}
 				}
+			
+			
+			
+			
 			</script>
 </body>
 

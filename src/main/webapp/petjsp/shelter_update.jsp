@@ -14,7 +14,7 @@
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
-    <title>後臺切版測試</title>
+    <title>收容所基本資料</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -138,7 +138,7 @@
                               
                              <div class="s_img" id="s_img">
                              <% if (shelterPhotoLength != 0) { %>
-                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${id}" 
+                                <img src="<%=request.getContextPath()%>/shelter/shelter.do?action=getShelterPhoto&shelterId=${shelter.shelterId}" 
 									width="100px" height="100px" style="border-radius: 50%;" >
 							<% } %>
 									 </div>

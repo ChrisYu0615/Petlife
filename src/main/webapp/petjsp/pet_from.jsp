@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後臺切版測試</title>
+    <title>收容所新增動物</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -145,8 +145,16 @@
                             
                             <div class="col">
                                 <label for="comin_date">入所日期:</label>
-                                <input type="date" class="form-control" id="comin_date" name="comeInDate" placeholder="選擇日期">
+                                <input type="date" class="form-control" id="comin_date" name="comeInDate" max="" >
                             	<span id="come_in_date"></span>
+                            	<script>
+
+								    var today = new Date();
+								
+								    // 设置最大日期为今天
+								    document.getElementById('comin_date').max = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
+								 
+								</script>
                             </div>
                     
                     
@@ -167,7 +175,7 @@
                     
                         <div class="col">
                             <label for="inputGroupFile02">照片:</label><span>請選擇一 ~ 三張照片</span>
-                            <input type="file" class="form-control"id="petphoto" multiple name="petphoto" >
+                            <input type="file" class="form-control"id="petphoto" multiple name="petphoto"  accept="image/*" >
                         	<span id="petphoto"></span>
 
                         

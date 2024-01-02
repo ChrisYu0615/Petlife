@@ -12,6 +12,8 @@ public interface PetPhotoService {
 	PetPhoto getOnePetphoto(Integer id) ;
 	
 	void deletePetPhoto(Integer id);
+	
+	List<PetPhoto> getAllPetPhotos();
 //	
 //	PetVariety updatePetVariety(PetVariety petVariety);
 //	

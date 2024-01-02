@@ -2,8 +2,9 @@ package com.petlife.shelter.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,32 +15,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.petlife.admin.entity.Member;
+import com.petlife.pet.entity.Pet;
+import com.petlife.pet.service.PetService;
+import com.petlife.pet.serviceimpl.PetServiceImpl;
 import com.petlife.shelter.dao.ResTypeDAO;
 import com.petlife.shelter.dao.impl.ResTypeDAOImpl;
 import com.petlife.shelter.entity.ResType;
 import com.petlife.shelter.entity.Reservation;
 import com.petlife.shelter.entity.Shelter;
 import com.petlife.shelter.service.ReservationService;
-import com.petlife.shelter.service.impl.ReservationServiceImpl;
 import com.petlife.shelter.service.ShelterService;
+import com.petlife.shelter.service.impl.ReservationServiceImpl;
 import com.petlife.shelter.service.impl.ShelterServiceImpl;
+import com.petlife.user.entity.User;
 
 @WebServlet("/shelter/reservation.do")
 @MultipartConfig
 public class ReservationServlet extends HttpServlet {
 
 	private ReservationService reservationService;
+	private PetService petService;
 
 	@Override
 	public void init() throws ServletException {
 		reservationService = new ReservationServiceImpl();
+		petService = new PetServiceImpl();
 	}
 
 	@Override
@@ -74,22 +79,62 @@ public class ReservationServlet extends HttpServlet {
 		case "getByUserId":
 			forwardPath = getReservationsByUserId(req, res);
 			break;
+		case "getResByResId":
+			forwardPath = getResByResId(req, res);
+			break;
 		case "cancelReservation":
 			forwardPath = cancelReservation(req, res);
 			break;
-//			case "getOneToUpdate":
-//				forwardPath = getOneToUpdateShelter(req,res);
-//				break;
+		case "update_resType":
+				forwardPath = update_resType(req,res);
+				break;
 //			case "update":
 //				forwardPath = getUpdateShelter(req, res);
 //				break;
+		case "getByShelterBookingId":
+			forwardPath = getByShelterBookingId(req, res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
+		if(!forwardPath.isEmpty()) {
+			res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
+		
+	}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
+	private String getByShelterBookingId(HttpServletRequest req, HttpServletResponse res) {
+		Integer ShelterBookingId = Integer.valueOf(req.getParameter("rowId"));
+		List<Reservation> reservationList = reservationService.getResByShelterBookingId(ShelterBookingId);
+		
+		
+		req.setAttribute("reservationList", reservationList);
+		return "/petjsp/booking_put.jsp";
+	}
+
+	private String update_resType(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("ReservationServlet: update_resType Entry");
+		Date currentDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = dateFormat.format(currentDate);
+		System.out.println(dateString);
+//		java.sql.Date date =java.sql.Date.valueOf(dateString);
+//		System.out.println(date);
+		String reservationType = "2";
+		 Map<String, String[]> myMap = new HashMap<>();
+		 myMap.put("Date",new String[] {dateString});
+		 myMap.put("resType",new String[] {reservationType});
+		 if (myMap != null) {
+				List<Reservation> reservationList = reservationService.getResByCompositeQuery(myMap);
+//				req.setAttribute("reservationList", reservationList);
+				for(Reservation reservation : reservationList) {
+					reservation.setResTypeId(4);
+					reservationService.updateRes(reservation);
+				}
+			}
+	     return "";
 	}
 
 	private String cancelReservation(HttpServletRequest req, HttpServletResponse res) {
@@ -116,6 +161,16 @@ public class ReservationServlet extends HttpServlet {
 
 		req.setAttribute("getAllReservations", reservationList);
 		return "/member_center/reservation_management.jsp";
+	}
+	
+	// 0103思涵
+	private String getResByResId(HttpServletRequest req, HttpServletResponse res) {
+		Integer resId = Integer.valueOf(req.getParameter("resId"));
+		System.out.println(resId);
+		Reservation reservation = reservationService.getResByResId(resId);
+		
+		req.setAttribute("reservation", reservation);
+		return "/shelter/resLookUp.jsp";
 	}
 
 	// 更新過1215詩涵
@@ -165,20 +220,43 @@ public class ReservationServlet extends HttpServlet {
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 
 		System.out.println("ReservationServlet: update Entry");
-	
 		Integer Id = Integer.valueOf(req.getParameter("resId"));
-		System.out.println(Id);
-
 		Reservation reservation = reservationService.getResByResType(Id);
-
 		Integer resType = Integer.valueOf(req.getParameter("resType"));
 		
 		reservation.setResId(Id);
 		reservation.setResTypeId(resType);
-		System.out.println(resType);
 		reservationService.updateRes(reservation);
+
 		req.setAttribute("reservation", reservation);
-		return "/petjsp/pet_res.jsp";
+		if(reservation.getResTypeId()==5) {
+			Integer resPetId = reservation.getPetId();
+			Pet pet = petService.getOnePet(resPetId);
+
+			User user = reservation.getUser();
+			String resUser = user.getUserAcct();
+
+			java.sql.Date resDate = reservation.getShelterBooking().getShelterBookingDate();
+			pet.setAdoptDate(resDate);
+			pet.setUserId(resUser);
+			pet.setAdopted(true);
+			petService.updatePet(pet);
+			return "";
+		}else if(reservation.getResTypeId()==6) {
+			Integer resPetId = reservation.getPetId();
+			Pet pet = petService.getOnePet(resPetId);
+			pet.setAdopt(true);
+			petService.updatePet(pet);
+			return "";
+		}
+		
+		
+		else {
+			return "/petjsp/pet_res.jsp";
+		}
+			
+		
+		
 
 	}
 

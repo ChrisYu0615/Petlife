@@ -113,7 +113,6 @@ pageContext.setAttribute("totalAmount", totalAmount);
 			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
-	<!-- header -->
 		<!-- 購買勾選商品的傳送url -->
 		<form action="<%=request.getContextPath()%>/buylist_for_user/buylist_for_user.do" method="post">
 		
@@ -149,7 +148,8 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                     		data-seller-id="${cart.comm.seller.sellerId}" >
                                     	</td>
 										<!--  <td><img src="../assets/img/shop/cart-1.png" alt="img"></td> -->
-                                        <td>${cart.comm.commName}</td>
+                                        <td><a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_with_customer&commId=${cart.comm.commId}&cartId=${cart.cartId}">${cart.comm.commName}</a>
+                                        </td>
 
                                         <td>${cart.comm.commOnsalePrice}</td>
                                         <td>${cart.purchasingAmount}</td>
@@ -159,14 +159,14 @@ pageContext.setAttribute("totalAmount", totalAmount);
 										<td>${cart.comm.seller.sellerName}</td>
 										<!-- DELETE ajax version -->
 										<td>
-											<button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除${cart.cartId}</button>
+											<button type="button" onclick="deleteCartItem('${cart.cartId}')" class="btn btn-danger">刪除</button>
 											<!-- 傳送purchasingAmount -->
 	                                    	<input type="hidden" name="purchasingAmount_${cart.cartId}" value="${cart.purchasingAmount}">
 	                                    	<!-- 傳送sellerId -->
 	                                    	<input type="hidden" name="sellerId" value="${cart.comm.seller.sellerId}">
 	                                    	<!-- 傳送couponId -->
-											<input type="hidden" id="coupon_id" name="couponId" value="0">
-											<input type="hidden" id="grand_amount" name="grandAmount" value="">
+											<!-- fewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwd9 -->
+											<!-- 上面貓按的, 留著當紀念 -->
 										</td>
                                     </tr>
                                     </c:forEach>
@@ -176,7 +176,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             <div class="cart_tabel_bottom">
                             	<!-- 回商城的btn -->
                                 <div class="cart_submit_btn">
-                                    <a href="../comm_for_user/listAllCommForUser.jsp" class="btn btn_theme btn_md">Continue shopping</a>
+                                    <a href="../comm_for_user/listAllCommForUser.do" class="btn btn_theme btn_md">Continue shopping</a>
                                 </div>
                                 <div class="cart_right_side">
 								<!-- coupon btn -->
@@ -201,6 +201,8 @@ pageContext.setAttribute("totalAmount", totalAmount);
                             </div>
                             <div class="cart_total_area bg_cart_item">
                                 <h4 id="grand_amount_display">Grand total: <span>$ 0</span></h4>
+                                <input type="hidden" name="grandAmount" id="grand_amount" value="">
+                                
                             </div>
                         </div>
 							<!-- 下單功能 -->

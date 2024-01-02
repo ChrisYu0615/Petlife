@@ -38,7 +38,7 @@
 							<ul>
 								<li><a href="<%=request.getContextPath()%>/member_center/user_profile.jsp">會員中心</a></li>
 								<li><a href="#">寵物商城</a></li>
-								<li><a href="#">寵物論壇</a></li>
+								<li><a href="<%=request.getContextPath()%>/article/Articleindex.jsp">寵物論壇</a></li>
 								<li><a href="#">寵物領養</a></li>
 							</ul>
 						</div>
@@ -67,7 +67,7 @@
 									<strong>tel:</strong> <span style="color: orangered;">0800-123-456</span>
 								</h6>
 								<h6>
-									<strong>Email:</strong> <a href="mailto:info@example.com">info@example.com</a>
+									<strong>Email:</strong> <a href="mailto:ixlogic.wu@gmail.com">ixlogic.wu@gmail.com</a>
 								</h6>
 								<h6>
 									<strong>Address:</strong> <span style="color: orangered;">104台北市中山區南京東路三段219號5樓</span>

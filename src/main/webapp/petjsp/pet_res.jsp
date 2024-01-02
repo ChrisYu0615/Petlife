@@ -7,7 +7,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後臺切版測試</title>
+    <title>收容所預約管理</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+
 <% 
 	Integer id =null;
 	Shelter shelter = (Shelter) session.getAttribute("shelter");
@@ -37,6 +38,7 @@
 
 
 %>
+
 
 </head>
 
@@ -103,6 +105,7 @@
 
                     
                  </div>
+                 <div id="pet"></div>
             <div id="res_result" class="container"></div>        
 <!-- ============================================================================ -->
                     
@@ -162,6 +165,9 @@
         <script src="../dist/js/adminlte.js"></script>
 
         <script>
+        $(document).ready(function() {
+        	 $("button[value='1']").click();
+          });
             //在待確認畫面點擊確認預約更改狀態
             $(document).on("click","#res_ok",function(){
             	var shelterId =$("#shelterId").val();
@@ -171,6 +177,7 @@
             		// 當狀態是待確認(1) -> 將更改為已確認(2)
             		resType = "2";
             	}else if(resType === "4"){
+            		
             		resType = "5";
             	}
             	var dataURL = '../shelter/reservation.do?action=update&resId=' + resId + '&resType=' + resType ;
@@ -179,6 +186,14 @@
             		method: "post",
             		async: false,
             		success: res => {
+            			if(res === ""){
+            				console.log(res);
+            				result.innerHTML="";
+            				$("#button_result").click();
+            				$("#staticBackdropLabel").html("成功領養");
+            				$("#result").html("已將此收容動物登記為已被收容");
+            			}
+            			
             			 var row = $(this).closest("tr"); // 使用 closest 方法找到最接近的 tr 元素
             	            row.remove();
             		}, error: function(jqXHR, textStatus, errorThrown) {
@@ -254,6 +269,26 @@
             $(document).on("click","button.tab",function(){
             	var shelterId =$("#shelterId").val();
             	var res =$(this).val();
+            	if(res === "4"){
+            		var dataURL = '../shelter/reservation.do?action=update_resType';
+        			$.ajax({
+                		url: dataURL,
+                		method: "post",
+                		async: false,
+                		success: res => {                			
+                			
+               		
+                		}, error: function(jqXHR, textStatus, errorThrown) {
+                			try {
+                				console.log("Error code:", jqXHR.status);
+                				console.log("Error message:", jqXHR.responseText);
+                			} catch (e) {
+                				console.error("Error parsing JSON response:", e);
+                			}
+                		},
+                	});
+        				
+            	}
             	var dataURL = '../shelter/reservation.do?action=compositeQuery&resTypeId=' + res + '&shelterId=' + shelterId;
             	var search_start=$("#search_start").val();
             	if(search_start!=""){

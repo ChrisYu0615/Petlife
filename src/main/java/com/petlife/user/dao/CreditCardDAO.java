@@ -15,6 +15,8 @@ public interface CreditCardDAO {
 	public Integer update(CreditCard creditCard);
 	//查(單個)
 	public CreditCard findByPK(Integer creditCardId);
+	public CreditCard findByUserId(Integer userId);
 	//查(多個)
 	public List<CreditCard> getAll();
+	
 }

@@ -94,6 +94,9 @@ public class ArticleServlet extends HttpServlet {
 		case "getArticlesByForumId":
 	        forwardPath = getArticlesByForumId(req, res);
 	        break;	    
+		case "getPopArticlesByCRT":
+	        forwardPath = getPopArticlesByCRT(req, res);
+	        break;	        
 		case "getArticleImgById":
 			getArticleImgById(req, res);
 			break;
@@ -107,6 +110,24 @@ public class ArticleServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
+	
+	private String getPopArticlesByCRT(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	   
+
+	    // 从服务层获取与论坛ID相关联的文章列表
+	    List<Article> articlesByCtr = articleService.getPopArticlesByCRT();
+
+	    // 将文章列表设置为请求属性
+	    req.setAttribute("articlesByCtr", articlesByCtr);
+
+	    // 返回适当的 JSP 页面路径
+	    return "/article/spec-blog.jsp";
+	}
+	
+	
+	
+	
+	
 	
 	private String getArticlesByForumId(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 	    // 从请求中获取论坛ID参数

@@ -1,5 +1,5 @@
-$(function () {
-	$(document).ready(function () {
+$(function() {
+	$(document).ready(function() {
 		$('#myTable').DataTable({
 			orderClasses: false,
 			responsive: true,
@@ -246,20 +246,20 @@ $(function () {
 		});
 	});
 
-	$(".btn_recover").on("click", function () {
+	$(".btn_recover").on("click", function() {
 		let memberId = $(this).val();
 		console.log(memberId);
 		$("#recoverMemberId").val(memberId);
 	})
 
-	$(".btn_suspend").on("click", function () {
+	$(".btn_suspend").on("click", function() {
 		let memberId = $(this).val();
 		console.log(memberId);
 		$("#suspendMemberId").val(memberId);
 	})
 
 	// 發起ajax顯示到前端(賣家)
-	$(".btn_sellerCheck").on("click", function () {
+	$(".btn_sellerCheck").on("click", function() {
 		let memberId = $(this).val();
 		$("#memberId").val(memberId);
 		console.log(memberId);
@@ -277,7 +277,7 @@ $(function () {
 			contentType: false,
 			processData: false,
 			cache: false,
-			success: function (data) {      // request 成功取得回應後執行
+			success: function(data) {      // request 成功取得回應後執行
 				console.log(data);
 				console.log("成功!!");
 				$('#useraccount').val(data.seller.sellerAcct);
@@ -296,7 +296,7 @@ $(function () {
 		});
 	})
 
-	$("#sellerReviewResult").change(function () {
+	$("#sellerReviewResult").change(function() {
 		var selectedValue = $(this).val();
 		var reasonTextarea = $("#sellerReasonTextarea");
 
@@ -307,7 +307,7 @@ $(function () {
 		}
 	});
 
-	$("#sellerData_form").submit(function (e) {
+	$("#sellerData_form").submit(function(e) {
 		let select = $.trim($("#sellerReviewResult").val());
 		let reason = $.trim($("#reason").val());
 		console.log(select);
@@ -322,7 +322,7 @@ $(function () {
 		}
 	});
 
-	$("#reason").on("blur", function () {
+	$("#reason").on("blur", function() {
 		let reason = $.trim($("#reason").val());
 		if (reason.length > 0) {
 			$("#verify_sellerConfirm").html("");
@@ -331,7 +331,7 @@ $(function () {
 
 
 	// 發起ajax顯示到前端(收容所)
-	$(".btn_shelterCheck").on("click", function () {
+	$(".btn_shelterCheck").on("click", function() {
 		let memberId = $(this).val();
 		$("#sheltermemberId").val(memberId);
 		console.log(memberId);
@@ -349,7 +349,7 @@ $(function () {
 			contentType: false,
 			processData: false,
 			catch: false,
-			success: function (data) {      // request 成功取得回應後執行
+			success: function(data) {      // request 成功取得回應後執行
 				console.log(data);
 				console.log("成功!!");
 				$('#shelteraccount').val(data.shelterAcct);
@@ -361,7 +361,7 @@ $(function () {
 		});
 	})
 
-	$("#shelterReviewResult").change(function () {
+	$("#shelterReviewResult").change(function() {
 		var selectedValue = $(this).val();
 		var reasonTextarea = $("#shelterReasonTextarea");
 
@@ -372,7 +372,7 @@ $(function () {
 		}
 	});
 
-	$("#shelterData_form").submit(function (e) {
+	$("#shelterData_form").submit(function(e) {
 		let select = $.trim($("#shelterReviewResult").val());
 		let reason = $.trim($("#shelterReason").val());
 		console.log(select);
@@ -387,21 +387,95 @@ $(function () {
 		}
 	});
 
-	$("#shelterReason").on("blur", function () {
+	$("#shelterReason").on("blur", function() {
 		let reason = $.trim($("#shelterReason").val());
 		if (reason.length > 0) {
 			$("#verify_shelterConfirm").html("");
 		}
 	});
+
+	$("#logout").on("click", function() {
+		alert("您已成功登出!!");
+	});
+
+	$("#myTable").on("draw.dt", function() {
+		$(".btn_recover").on("click", function() {
+			let memberId = $(this).val();
+			console.log(memberId);
+			$("#recoverMemberId").val(memberId);
+		})
+
+		$(".btn_suspend").on("click", function() {
+			let memberId = $(this).val();
+			console.log(memberId);
+			$("#suspendMemberId").val(memberId);
+		})
+		// 發起ajax顯示到前端(賣家)
+		$(".btn_sellerCheck").on("click", function() {
+			let memberId = $(this).val();
+			$("#memberId").val(memberId);
+			console.log(memberId);
+			$("#verify_sellerConfirm").html("");
+
+			let formData = new FormData();
+			let url = "/Petlife/seller/seller.do?action=getOne&memberId=" + memberId;
+			formData.append("memberId", memberId);
+
+			$.ajax({
+				url: url,// 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+				contentType: false,
+				processData: false,
+				cache: false,
+				success: function(data) {      // request 成功取得回應後執行
+					console.log(data);
+					console.log("成功!!");
+					$('#useraccount').val(data.seller.sellerAcct);
+					$('#account_category').val(data.seller.acctType.acctType);
+					$('#username').val(data.seller.sellerName);
+					$('#shopname').val(data.seller.sellerNickname);
+					$('#birthdate').val(data.seller.birthday);
+					$('#phone').val(data.seller.phoneNum);
+					$('#address').val(data.seller.sellerAddress);
+					$('#bankcode').val(data.seller.swiftCode);
+					$('#bankaccount').val(data.seller.bankAcct);
+					$('#idcard-front-preview').attr('src', 'data:image/jpeg;base64,' + data.imgs[0]);
+					$('#idcard-back-preview').attr('src', 'data:image/jpeg;base64,' + data.imgs[1]);
+					$('#account-img-preview').attr('src', 'data:image/jpeg;base64,' + data.imgs[2]);
+				}
+			});
+		})
+		// 發起ajax顯示到前端(收容所)
+		$(".btn_shelterCheck").on("click", function() {
+			let memberId = $(this).val();
+			$("#sheltermemberId").val(memberId);
+			console.log(memberId);
+			$("#verify_shelterConfirm").html("");
+
+			let formData = new FormData();
+			let url = "/Petlife/shelter/shelter.do?action=getOne&memberId=" + memberId;
+			formData.append("memberId", memberId);
+
+			$.ajax({
+				url: url,// 資料請求的網址
+				type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+				data: formData,             // 將物件資料(不用雙引號) 傳送到指定的 url
+				dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+				contentType: false,
+				processData: false,
+				catch: false,
+				success: function(data) {      // request 成功取得回應後執行
+					console.log(data);
+					console.log("成功!!");
+					$('#shelteraccount').val(data.shelterAcct);
+					$('#shelter_category').val(data.acctType.acctType);
+					$('#sheltername').val(data.shelterName);
+					$('#shelterphone').val(data.shelterPhoneNum);
+					$('#shelteraddress').val(data.shelterAddress);
+				}
+			});
+		})
+	});
 })
-
-// 刪除文章的函數
-function suspendUser(memberId) {
-	// 在這裡添加刪除文章的邏輯
-	console.log('suspend user with ID: ' + memberId);
-}
-
-function resumeUser(memberId) {
-	// 在這裡添加刪除文章的邏輯
-	console.log('resume user  with ID: ' + memberId);
-}

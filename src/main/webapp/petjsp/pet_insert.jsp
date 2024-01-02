@@ -21,9 +21,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>收容所新增動物</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>後臺切版測試</title>
+
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -91,68 +91,8 @@ div.button {
 
 			</ul>
 		</nav>
-	</div>
-	<!-- /.navbar -->
 
-
-
-
-
-	<!-- Main Sidebar Container -->
-	<aside class="main-sidebar sidebar-dark-primary elevation-4">
-		<!-- Brand Logo -->
-		<a href="test.html" class="brand-link"> <img
-			src="../dist/img/main_logo.png" alt="AdminLTE Logo"
-			class="brand-image img-corners elevation-3" style="opacity: .8">
-			<span class="brand-text font-weight-light">PetLife後臺管理</span>
-		</a>
-
-		<!-- Sidebar -->
-		<div class="sidebar">
-			<!-- Sidebar user panel (optional) -->
-			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-				<div class="image">
-					<img src="../dist/img/login_user1.png"
-						class="img-circle elevation-2" alt="User Image">
-				</div>
-				<div class="info">
-					<a href="#" class="d-block">OOO管理員，你好</a>
-				</div>
-			</div>
-
-			<!-- Sidebar Menu -->
-			<nav class="mt-2">
-				<ul class="nav nav-pills nav-sidebar flex-column"
-					data-widget="treeview" role="menu" data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-							class="fas fa-pencil-alt"></i>
-							<p>編輯基本資料</p>
-					</a></li>
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-							class="fas fa-paw"></i>
-							<p>收容動物管理</p>
-					</a></li>
-					<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-copy"></i> -->
-							<i class="far fa-calendar-plus"></i>
-							<p>日曆功能</p>
-					</a></li>
-
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-							class="fas fa-dog"></i>
-							<p>預約管理</p>
-					</a></li>
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-							class="fas fa-sign-out-alt"></i>
-							<p>登出</p>
-					</a></li>
-
-
-				</ul>
-			</nav>
-		</div>
-	</aside>
+<%@ include file="sidebar.jsp"%>
 
 
 	<!-- //這邊塞主內容文字 -->

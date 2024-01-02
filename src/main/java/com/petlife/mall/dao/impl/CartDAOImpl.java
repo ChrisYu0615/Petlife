@@ -85,4 +85,16 @@ public class CartDAOImpl implements CartDAO {
 	        return Collections.emptyList();
 	    }
 	}
+
+	public Cart findByCommId(Integer commId) {
+		try {
+			return getSession()
+					.createQuery("FROM Cart WHERE commId = :commId", Cart.class)
+					.setParameter("commId", commId)
+					.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

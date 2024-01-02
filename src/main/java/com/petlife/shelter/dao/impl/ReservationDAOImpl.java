@@ -85,10 +85,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		return getSession().get(Reservation.class, resType);
 	}
 
-	@Override
-	public Reservation getByShelterBookingId(Integer shelterBookingId) {
-		return getSession().get(Reservation.class, shelterBookingId);
-	}
+
 
 	@Override
 	public Reservation getByPetId(Integer petId) {
@@ -144,6 +141,14 @@ public class ReservationDAOImpl implements ReservationDAO {
 				predicates
 						.add(builder.lessThanOrEqualTo(shelterBookingJoin.get("shelterBookingDate"), searchStartDate));
 			}
+			//1231 詩涵增加
+			if ("Date".equals(row.getKey())) {
+				predicates.add(builder.lessThanOrEqualTo(root.get("shelterBooking").get("shelterBookingDate"), Date.valueOf(row.getValue())));
+			}
+			//1231 詩涵增加
+			if ("resType".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("resTypeId"), row.getValue()));
+			}
 		}
 
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
@@ -156,6 +161,20 @@ public class ReservationDAOImpl implements ReservationDAO {
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Reservation", Long.class).uniqueResult();
+	}
+	
+	public  List<Reservation> getByShelterBookingId(Integer shelterBookingId) {
+		try {
+			System.out.println("ReservationDAOImpl : getByShelterBookingId Entry");
+			System.out.println("ReservationDAOImpl: shelterBookingId = " + shelterBookingId);
+			List<Reservation> reservation = getSession().createQuery("from Reservation where shelterBookingId =" + shelterBookingId, Reservation.class).list();
+			return reservation ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getMessage();
+			getSession().getTransaction().rollback();
+		}
+		return null;
 	}
 
 }

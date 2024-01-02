@@ -15,7 +15,7 @@ public interface ReservationDAO {
 	
 	Reservation getById(Integer id);
 	Reservation getByResType(Integer resType);
-	Reservation getByShelterBookingId(Integer shelterBookingId);
+	List<Reservation> getByShelterBookingId(Integer shelterBookingId);
 	Reservation getByPetId(Integer petId);
 	
 	List<Reservation> getAll();
@@ -25,5 +25,7 @@ public interface ReservationDAO {
 	List<Reservation> getResByCompositeQuery(Map<String, String> map);
 	
 	long getTotal();
+	
+	
 	
 }

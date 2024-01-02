@@ -1,49 +1,59 @@
 //撈資料
 $(document).on("change","#month",function(){
-	$("#mydate").click();
 	var checkMonth=$("#month").val();
-	console.log(month);
-	var checkbookingend= checkMonth + "-01";
-	
-	var checkbookingstart = checkMonth + "-31";
+	var list = checkMonth.split('-');
+	var year = parseInt(list[0]);
+	var month = parseInt(list[1]) - 1;
+	$('#mydate').glDatePicker(
+	{
+		showAlways : true,       // 預設為 false
+		cssName: 'default',      // 可用 'default' 或  'darkneon' 或  'flatwhite'
+		format: 'yyyy-mm-dd',    // 預設
+		dowOffset: 0,            // 預設
+		allowMonthSelect: false, // 預設
+		allowYearSelect: true,   // 預設
+		prevArrow: '\u25c4',     // 預設
+		nextArrow: '\u25ba',     // 預設
+		dowNames : [ '<font color=red>星期日</font>', '星期一', '星期二', '星期三', '星期四', '星期五', '<font color=red>星期六</font>' ], //自定
+		monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'], //自定
+// ====================================================================================================              
+//		以下的'月'為陣列index，加1才為正確的幾月
+		selectedDate: new Date(year, month,1),
+	    selectableYears:  [year],	//可選的年份
+	    selectableMonths: [month],  //可選的月份
 
-	
-	var dataURL = `../project/shelterbooking.do?action=getAvalibleBookings&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}`;
+	});
+	var checkMonth=$("#month").val();
+	var checkbookingend= checkMonth + "-01";
+	var checkbookingstart = checkMonth + "-31";
+	var shelterId =$("input[name='shelterId']").val();
+	var dataURL = `../project/shelterbooking.do?action=getAvalibleBookings&checkbookingstart=${checkbookingstart}&checkbookingend=${checkbookingend}&shelterId=${shelterId}`;
 				
 	$.ajax({
 		url: dataURL,
 		method: "post",
 		async: false,
 		success: res => {
-			
-			 
 			 for(var j =0;j<res.length;j++){	
 				var dateString = res[j].shelterBookingDate;
 				dateString = dateString.split(',')[0].replace('月 ', '/');
 				var month = dateString.split('/')[0].padStart(2, '0');
 				var day = dateString.split('/')[1].padStart(2, '0');
 				dateString= month + '/'+ day;
-				console.log(dateString);
-
-//				 Jan 1, 1970, 1:30:00 PM
-					
+				console.log(dateString);	
 				for(var i = 0 ;i<document.getElementsByTagName('a').length;i++){
 					var a_element = document.getElementsByTagName('a')[i];
 					if(dateString === a_element.textContent){
 						if(res[j].shelterBookingTime.includes('AM')){
 							var button = a_element.closest("div.parent").querySelector("button.make_reservation_btn_am");
-//							button.style.backgroundColor="red";
 							button.id = res[j].id;
 							$(`#${res[j].id}`).addClass('on');
 						}else{
 							var button = a_element.closest("div.parent").querySelector("button.make_reservation_btn_pm");
-//							button.style.backgroundColor="red";
 							button.id = res[j].id;
 							$(`#${res[j].id}`).addClass('on');
 						}
-						
 					}
-					
 				}
 			}
 			
@@ -59,6 +69,72 @@ $(document).on("change","#month",function(){
 	});
 })
 
+//拿到使用者點擊欲預約的上午或下午按鈕及日期
+//宣告全域變數
+//var bookingDate;
+//var bookingTime;
+//$(document).on("click",".booking_btn",function(){
+////	console.log('old = '+bookingdate);
+////	console.log('old = '+bookingtime);
+////	console.log($(this).val());
+////	console.log($(this).siblings("div").text());
+//	bookingdate = $(this).siblings("div").text();
+//	bookingtime = $(this).val();
+////	console.log('new = '+bookingdate);
+////	console.log('new = '+bookingtime);
+//});
+
+//拿到使用者點擊欲預約的id
+//宣告全域變數
+var bookingId;
+//$(document).on("click",".booking_btn",function(){
+//	    // 獲取點擊的按鈕元素
+//    var clickedButton = $(this);
+//
+//    // 設定點擊的按鈕背景顏色
+//    clickedButton.css("background-color", "yellow");
+//
+//    // 存儲點擊的按鈕的ID
+//    bookingId = clickedButton.attr("id");
+//});
+
+var lastClickedButton;
+
+$(document).on("click", ".booking_btn", function () {
+    // 如果存在上一次點擊的按鈕，清除其背景色
+    if (lastClickedButton) {
+        lastClickedButton.css("background-color", "");
+    }
+
+    // 獲取點擊的按鈕元素
+    var clickedButton = $(this);
+
+    // 設定點擊的按鈕背景色
+    clickedButton.css("background-color", "yellow");
+
+    // 存儲當前點擊的按鈕，以便下次清除其背景色
+    lastClickedButton = clickedButton;
+
+    // 儲存點擊的按鈕的ID
+    bookingId = clickedButton.attr("id");
+
+});
+
+function booking() {
+
+    var user = $("#userId").val();
+	$("#bookingId").val(bookingId);	//由全域變數取值
+    
+    if (user != 'null') {
+        // if有登入
+        $("#bookingSubmit").submit();
+    } else {
+        // else沒登入
+//        console.log("User is not logged in");
+		alert("您沒有登入");
+		window.location.href = "../login/member_login.jsp"
+    }
+}
 
 //搜尋按鈕ajax
 $(document).on("click","#search_btn",function(){
@@ -127,21 +203,6 @@ $(document).on("change", "select.pet_type", function() {
 	});
 })
 
-//預約按鈕
-//document.getElementById('mydate').addEventListener('click', function (event) {
-//        // 阻止事件傳播到包含它的 div
-//        event.stopPropagation();
-//    });
-//    
-////======我要預約按鈕=====
-//$(document).on("click","#make_reservation_btn",function(){
-//	var dataURL = '../project/shelterbooking.do?action=getCompositePetsQuery';
-//	
-//	$.ajax({
-//		type: "GET",
-//		url: "dataURL",
-//	})
-//})
 
 //收容所縣市搜尋
 $(function() {
@@ -182,13 +243,12 @@ function redirectPage(newUrl) {
 	window.location.href = newUrl;
 }
 
-$(document).on("click","#getOnePet",function(e){
+//列表中點擊"更多資訊"
+$(document).on("click",".getOnePet",function(e){
 	e.preventDefault();
-	var id = $("#pet_id").val();
-	if(true){
-		$("#form").submit();
-	}
-	
+	var id = $(this).data("pet-id");
+    $("#pet_id").val(id);
+    $("#form").submit();	
 });
 
 //燈箱中的預約表
@@ -197,20 +257,9 @@ $(document).on("click","#getOnePet",function(e){
 	$.fn.glDatePicker = function(options) {
 		var pluginName = 'glDatePicker';
 
-		// Find the plugin attached to the element
-		var instance = this.data(pluginName);
-
-		// If the instance wasn't found, create it...
-		if(!instance) {
-			// Return the element being bound to
-			return this.each(function() {
-				return $(this).data(pluginName, new glDatePicker(this, options));
-			});
-		}
-
-		// ...otherwise if the user passes true to the plugin (on the second call),
-		// then return the instance of the plugin itself
-		return (options === true) ? instance : this;
+		return this.each(function() {
+			return $(this).data(pluginName, new glDatePicker(this, options));
+		});
 	};
 
 	// Default options
@@ -631,9 +680,10 @@ $(document).on("click","#getOnePet",function(e){
 
 				// Offset weekdays
 				var startOffset = startDate.getDay() - dowOffset;
-					startOffset = startOffset < 1 ? -7 - startOffset : -startOffset;
-					dowNames = (dowNames.concat(dowNames))
-								.slice(dowOffset, dowOffset + 7);
+//				startOffset = startOffset < 1 ? - 7 - startOffset : -startOffset;
+				startOffset = -startOffset;
+				dowNames = (dowNames.concat(dowNames))
+							.slice(dowOffset, dowOffset + 7);
 
 				// Offset the start date
 				startDate._add(startOffset);
@@ -650,7 +700,8 @@ $(document).on("click","#getOnePet",function(e){
 								.css(
 									$.extend({}, cellCSS,
 									{
-										borderWidth: borderSize + ' 0 0 ' + borderSize
+										borderWidth: borderSize + ' 0 0 ' + borderSize,
+										display: 'none'
 									})
 								)
 								.append(
@@ -675,7 +726,8 @@ $(document).on("click","#getOnePet",function(e){
 									{
 										width: titleWidth + 'px',
 										borderTopWidth: borderSize,
-										marginLeft: '-' + (borderSize)
+										marginLeft: '-' + (borderSize),
+										display: 'none'
 									})
 								);
 
@@ -685,7 +737,8 @@ $(document).on("click","#getOnePet",function(e){
 									$.extend({}, cellCSS,
 									{
 										marginLeft: '-' + (borderSize),
-										borderWidth: borderSize + ' ' + borderSize + ' 0 0'
+										borderWidth: borderSize + ' ' + borderSize + ' 0 0',
+										display: 'none'
 									})
 								)
 								.append(
@@ -708,6 +761,7 @@ $(document).on("click","#getOnePet",function(e){
 					.append(nextCell);
 
 				// Add all the cells to the calendar
+				if(options.selectedDate.getDay()<5) maxRow = maxRow - 1;
 				for(var row = 0, cellIndex = 0; row < maxRow + 1; row++) {
 					for(var col = 0; col < maxCol; col++, cellIndex++) {
 						var cellDate = new Date(startDate);
@@ -787,6 +841,7 @@ $(document).on("click","#getOnePet",function(e){
 								selectableYears.indexOf(cellDateVal.year) < 0 ||
 								selectableMonths.indexOf(cellDateVal.month) < 0 ||
 								selectableDOW.indexOf(cellDateVal.day) < 0) {
+								cell.html("");
 								cellClass = 'noday';
 							}
 							else {
@@ -795,8 +850,8 @@ $(document).on("click","#getOnePet",function(e){
 
 								// Handle today or selected dates
 								if(firstDateMonth != cellDateVal.month) { cellClass += ' outday'; }
-								if(todayTime == cellDateTime) { cellClass = 'today'; cellZIndex += 50; }
-								if(options.selectedDate._time() == cellDateTime) { cellClass = 'selected'; cellZIndex += 51; }
+//								if(todayTime == cellDateTime) { cellClass = 'today'; cellZIndex += 50; }
+//								if(options.selectedDate._time() == cellDateTime) { cellClass = 'selected'; cellZIndex += 51; }
 
 								// Handle special dates
 								if(options.specialDates) {
@@ -822,39 +877,42 @@ $(document).on("click","#getOnePet",function(e){
 										// Call callback
 										options.onHover(el, cell, hoverData.date, hoverData.data);
 									})
-									.click(function(e) {
-										e.stopPropagation();
-
-										// Get the data from this cell
-										var clickedData = $(this).data('data');
-
-										// Save date to selected and first
-										options.selectedDate = options.firstDate = clickedData.date;
-
-										// Update calendar (and auto-hide if necessary)
-										self.render(function() {
-											if(!options.showAlways && options.hideOnClick) {
-												self.hide();
-											}
-										});
-
-										// Call callback
-										options.onClick(el, $(this), clickedData.date, clickedData.data);
-									}); //原656行
+//									.click(function(e) {
+//										e.stopPropagation();
+//
+//										// Get the data from this cell
+//										var clickedData = $(this).data('data');
+//
+//										// Save date to selected and first
+//										options.selectedDate = options.firstDate = clickedData.date;
+//
+//										// Update calendar (and auto-hide if necessary)
+//										self.render(function() {
+//											if(!options.showAlways && options.hideOnClick) {
+//												self.hide();
+//											}
+//										});
+//
+//										// Call callback
+//										options.onClick(el, $(this), clickedData.date, clickedData.data);
+//									})
+									; //原656行
 // =================================================================================================================== 
-								var select_page  = "select_page_Basic.jsp";
+//								var select_page  = "select_page_Basic.jsp";
 //								var select_page2 = "https://tw.yahoo.com/index.html";
-var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_page_Basic.jsp";
+//								var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_page_Basic.jsp";
 								var theDate = cellDateVal.year + '-' + (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1)) + '-' + ((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date);
+								var a_content = (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1))+"/"+((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date);
+								
 								cell.html("<div class='parent'>"
-	                           		 + "<button type='button' class='make_reservation_btn_am' value='am'><p>\u4E0A\u5348</p></button>"
-	                           		 + "<button type='button' class='make_reservation_btn_pm' value='pm'><p>\u4E0B\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_btn_am booking_btn' value='am'><p>\u4E0A\u5348</p></button>"
+	                           		 + "<button type='button' class='make_reservation_btn_pm booking_btn' value='pm'><p>\u4E0B\u5348</p></button>"
 //	                           		 + "<iframe src=\'" +select_page+ "?theDate=" + theDate + "\'" 
 //	                           		 + " style='background-color: white; border-color: black; border: 1px 1px 1px 1px;'"
 //	                           		 + " width=95% height=43% scrolling=no></iframe>"
 	                           		 + "<div class='date' id='date'>"
 	                           		 + "<a>"
-	                           		 +  (((cellDateVal.month+1)<10)? "0"+(cellDateVal.month+1):(cellDateVal.month+1))+"/"+((cellDateVal.date<10)? "0"+cellDateVal.date:cellDateVal.date)
+	                           		 +  a_content
 //                                     +  (cellDateVal.month+1)+"/"+cellDateVal.date
 	                           		 + "</a>"
 	                           		 + "</div>"
@@ -1134,5 +1192,6 @@ var select_page2 = "http://localhost:8081/glDatePicker-master-upgrade1/select_pa
 		}
 	})();
 })();
+
 
 
