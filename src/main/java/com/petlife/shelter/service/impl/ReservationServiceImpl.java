@@ -83,4 +83,8 @@ public class ReservationServiceImpl implements ReservationService {
 		return dao.getById(resId);
 	}
 	
+	public List<Reservation> getResByShelterBookingId(Integer shelterBookingId) {
+		return dao.getByShelterBookingId(shelterBookingId);
+	}
+	
 }

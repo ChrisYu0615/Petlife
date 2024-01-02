@@ -23,7 +23,7 @@
 		<c:forEach var="shelterbooking" items="${shelterBookingList}">
 			
 			<tr class="tb_con"  >
-				<td scope="row" id="booking_list" class="tb_con shelterBooking_id" data-row-id="${shelterbooking.id}" ><a href="#" >查看</a></td>
+				<td scope="row" id="booking_list" class="tb_con shelterBooking_id" data-row-id="${shelterbooking.id}" >查看</td>
 				<td class="tb_con" id="booking_list">${shelterbooking.shelterBookingDate}</td>
 				<td class="tb_con" id="booking_list">
 				<fmt:formatDate value="${shelterbooking.shelterBookingTime}" pattern="HH:mm"/>
