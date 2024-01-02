@@ -91,24 +91,30 @@ public class ReportForumServlet extends HttpServlet {
 
 		Boolean articleState = Boolean.valueOf(req.getParameter("article_state"));
 		Article article = reportForum.getArticle();
-		User user = reportForum.getUser();
+		User user = reportForum.getUser();  //檢舉方		
+		User articleUser = article.getUser(); //被檢舉方
 
 		// 修改文章狀態為true時，文章狀態是false(下架)，發文者的被檢舉次數+1，檢舉到達5次就停權
 		if (articleState == true) {
 			article.setState(false);
-			Integer userReportCountInteger = user.getUserReportCount();
+			Integer userReportCountInteger = articleUser.getUserReportCount();
 			if (userReportCountInteger < 5) {
+<<<<<<< HEAD
+				articleUser.setUserReportCount(articleUser.getUserReportCount() + 1);
+			} else{
+=======
 				user.setUserReportCount(user.getUserReportCount() + 1);
 			} else {
+>>>>>>> refs/heads/master
 				AcctStateService acctStateService = new AcctStateServiceImpl();
 				AcctState acctState = acctStateService.getByAcctStateId(1);
-				user.setAcctState(acctState);
+				articleUser.setAcctState(acctState);
 			}
 			// 二、將修改過的文章存到資料庫中
 			ArticleService articleService = new ArticleServiceImpl();
 			articleService.updateArticle(article);
 			UserService userService = new UserServiceImpl();
-			userService.updateUser(user);
+			userService.updateUser(articleUser);
 
 		}
 
