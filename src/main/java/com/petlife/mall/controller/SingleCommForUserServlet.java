@@ -19,7 +19,7 @@ import com.petlife.mall.service.impl.CommServiceImpl;
 
 @WebServlet("/comm_for_user/singleCommForUser.do")
 @MultipartConfig
-public class SingleCommForUser extends HttpServlet {
+public class SingleCommForUserServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private CommService commService;
 	private CartService cartService;
