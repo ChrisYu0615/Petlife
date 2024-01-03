@@ -4,6 +4,7 @@
 }
 
 
+
 /* search */
 h1 {
     position: relative;
@@ -173,8 +174,8 @@ img.logo{
 /* 表格 */
 table.table{
     border: 0px;
-     position: relative;
-     left:50%;
+/*      position: relative; */
+/*      left:50%; */
      margin-top:50px;
 }
 th.tb_header{
@@ -191,13 +192,23 @@ th.tb_header{
 .tb_header:last-child {
     border-radius: 0 15px  15px 0; /* 設置第一個th的左上角為圓弧形狀 */
 }
-div.fixed-table-body{
-    position: relative;
-    left: 50%;
-    width: 800px;
-    margin-top: 40px;
-  
+.fixed-table-container .fixed-table-body { 
+  	overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    height: 0% !important;
+  	width: 800px !important;
+    position: relative !important;
+    left:50% !important;
+} 
+
+div.fht-cell {
+	padding:0px !important;
+	
 }
+.table-bordered>:not(caption)>*{
+	border:0px !important;
+}
+
 thead.table{
 	 border-radius: 25px;
 }
