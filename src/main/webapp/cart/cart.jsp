@@ -183,7 +183,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                                 	<div class="input-group">
                                         <input type="text" class="form-control" placeholder="Your coupon code"
                                          id="coupon_code">
-                                        <input type="hidden" name="couponId" id="coupon_id" value="">
+                                        <input type="hidden" name="couponId" id="coupon_id" value="0">
                                         <button class="btn btn_theme btn_md" type="button" onclick="applyCoupon()">Enter coupon</button>
                                     </div>
                                 </div>
