@@ -54,7 +54,15 @@ $(document).on("click","#petUpdate",function(e){
 	}
 	
 })
-
+$(document).on("click","input[name='petColor']",function(){
+	$("#pet_color").html("");
+})
+$(document).on("click","input[name='petCage']",function(){
+	$("span#pet_cage").html("");
+})
+$(document).on("click","input[name='pet_content']",function(){
+	$("#pet_content").html("");
+})
 //petUpdate 讀取圖片
 function previewImage() {
 	var fileInput = document.getElementById('addPetPhoto');
