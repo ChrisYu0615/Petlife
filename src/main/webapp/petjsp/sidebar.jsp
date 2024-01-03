@@ -11,7 +11,8 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="<%= request.getContextPath()%>/petjsp/shelter_update.jsp" class="brand-link"> <img
+	<a href="<%= request.getContextPath()%>/petjsp/shelter_update.jsp" class="brand-link"> 
+	<img
 		src="../dist/img/main_logo.png" alt="AdminLTE Logo"
 		class="brand-image img-corners elevation-3" style="opacity: .8">
 		<span class="brand-text font-weight-light">PetLife後臺管理</span>
@@ -22,11 +23,11 @@
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
-				<img src="../dist/img/login_user1.png"
-					class="img-circle elevation-2" alt="User Image">
+<!-- 				<img src="../dist/img/login_user1.png" -->
+<!-- 					class="img-circle elevation-2" alt="User Image"> -->
 			</div>
 			<div class="info">
-				<a href="#" class="d-block"><%= shelter_2.getShelterName()%></a>
+				<a href="<%= request.getContextPath()%>/petjsp/shelter_update.jsp" class="d-block"><%= shelter_2.getShelterName()%></a>
 			</div>
 		</div>
 		<!-- Sidebar Menu -->
