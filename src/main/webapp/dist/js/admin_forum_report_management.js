@@ -328,7 +328,7 @@ $(function() {
 		}
 
 		if (articleState.length == 0 || articleState == null)  {
-			$("#verify_articleState").html("<font color='red'><b>請選擇是否下架!1</font>");
+			$("#verify_articleState").html("<font color='red'><b>請選擇是否下架!!</font>");
 			replyFlag = false;
 		} else {
 			$("#verify_articleState").html("");
