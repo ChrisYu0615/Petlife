@@ -72,7 +72,7 @@
 	<!-- preloader Area -->
 	<div id="preloader">
 		<div id="status">
-			<img src="assets/img/loader.gif" alt="img">
+			<img src="../assets/img/loader.gif" alt="img">
 		</div>
 	</div>
 

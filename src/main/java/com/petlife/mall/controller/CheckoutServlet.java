@@ -45,7 +45,6 @@ public class CheckoutServlet extends HttpServlet {
 			String buylistIdString = (String) req.getParameter("buylistId");
 			Integer buylistId = Integer.parseInt(buylistIdString);
 			Buylist buylist = buylistService.getBuylistByBuylistId(buylistId);
-			System.out.println("buylist: " + buylist);
 			
 			String yearStr = req.getParameter("creditCardExpiryYear");
 		    String monthStr = req.getParameter("creditCardExpiryMonth");
@@ -62,7 +61,6 @@ public class CheckoutServlet extends HttpServlet {
 		        // 如果一切正常，繼續處理
 		        buylist.setBuylistState(buylistStateService.getBuylistStateByBuylistStateId(1));
 		        buylistService.updateBuylist(buylist);
-		        System.out.println("buylist after update: " + buylist);
 		        forwardPath = "/cart/cart.jsp";
 
 		    } catch (NumberFormatException e) {

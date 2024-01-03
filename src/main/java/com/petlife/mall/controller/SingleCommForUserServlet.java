@@ -19,7 +19,7 @@ import com.petlife.mall.service.impl.CommServiceImpl;
 
 @WebServlet("/comm_for_user/singleCommForUser.do")
 @MultipartConfig
-public class SingleCommForUser extends HttpServlet {
+public class SingleCommForUserServlet extends HttpServlet {
 	// 一個 servlet 實體對應一個 service 實體
 	private CommService commService;
 	private CartService cartService;
@@ -70,6 +70,7 @@ public class SingleCommForUser extends HttpServlet {
 	
 	private String showCommWithoutCustomer(HttpServletRequest req, HttpServletResponse res, Comm comm) {
 		req.setAttribute("comm", comm);
+		commService.updateView(comm.getCommId());
 		return "/comm_for_user/singleCommForUser.jsp";
 	}
 	
@@ -77,6 +78,7 @@ public class SingleCommForUser extends HttpServlet {
 		Cart cart = cartService.findByCommId(comm.getCommId());
 		req.setAttribute("cart", cart);
 		req.setAttribute("comm", comm);
+		commService.updateView(comm.getCommId());
 		return "/comm_for_user/singleCommForUser.jsp";
 	}
 }
