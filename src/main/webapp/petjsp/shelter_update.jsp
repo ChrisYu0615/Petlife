@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- my_css -->
     <link rel="stylesheet" href="../dist/css/pet_edit.css">
-    
+     <script defer src="your-script.js"></script>
     
 <% 
 	Integer id =null;
@@ -47,7 +47,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" onload="opener.location.reload()">
     <div class="wrapper">
         <!-- 上方Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -166,18 +166,14 @@
         <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
         <script src="../dist/js/adminlte.js"></script>
-        <script>
-            // 這是環境照片
-            $("#e_photo").change(function () {
-                // ... (rest of the script for handling environment photos) ...
-            });
-
-            // 大頭貼
-            $("#s_blob").change(function () {
-                // ... (rest of the script for handling avatar) ...
-            });
-         
+        
+<!--         <script> 
+         window.onload = function() {
+             location.reload(true);
+            window.onload = null; 
+         };
+   
           
-        </script>
+         </script> -->
     </body>
 </html>

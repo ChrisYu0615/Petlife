@@ -45,7 +45,7 @@ int shelterPhotoLength = (shelter.getShelterPhoto() != null) ? shelter.getShelte
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" >
 	<div class="wrapper">
 		<!-- 上方Navbar -->
 		<nav
