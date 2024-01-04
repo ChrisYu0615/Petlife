@@ -298,6 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// 當表單提交時，驗證有無欄位沒有輸入
 	$("#btn_regist").on("click", function () {
+		verifyFlag = true;
 		if ($.trim($("#useraccount").val()) == "") {
 			$("#verify_useraccount").html("<font color='red'>請輸入會員帳號!!</font>");
 			verifyFlag = false;
