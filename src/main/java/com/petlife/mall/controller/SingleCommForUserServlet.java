@@ -54,7 +54,7 @@ public class SingleCommForUserServlet extends HttpServlet {
 				break;
 			case "show_comm_with_customer": 
 				// 來自 cart.jsp
-				forwardPath = showCommWithCustomer(req, res, comm);
+				forwardPath = showCommWithCustomer(req, res, comm, commId);
 				break;
 			default:
 				forwardPath = "/comm_for_user/listAllCommForUser.jsp";
@@ -74,8 +74,8 @@ public class SingleCommForUserServlet extends HttpServlet {
 		return "/comm_for_user/singleCommForUser.jsp";
 	}
 	
-	private String showCommWithCustomer(HttpServletRequest req, HttpServletResponse res, Comm comm) {
-		Cart cart = cartService.findByCommId(comm.getCommId());
+	private String showCommWithCustomer(HttpServletRequest req, HttpServletResponse res, Comm comm, Integer commId) {
+		Cart cart = cartService.findByCommId(commId);
 		req.setAttribute("cart", cart);
 		req.setAttribute("comm", comm);
 		commService.updateView(comm.getCommId());
