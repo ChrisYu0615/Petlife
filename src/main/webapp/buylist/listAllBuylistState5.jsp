@@ -295,6 +295,7 @@ th, td {
 					<th>訂單金額</th>
 					<th>訂單建立時間</th>
 					<th>修改</th>
+					<th>查看訂單細項</th>
 					<!-- 					<th>刪除</th> -->
 				</tr>
 				<%@ include file="page1.file"%>
@@ -321,6 +322,14 @@ th, td {
 								<input type="submit" value="修改"> <input type="hidden"
 									name="buylistId" value="${buylist.buylistId}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
+							</FORM>
+						</td>
+						<td>
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/buylist/buylist.do">
+								<input type="submit" value="查看細項"><input type="hidden"
+									name="buylistId" value="${buylist.buylistId}"> <input
+									type="hidden" name="action" value="showBuylistDetails">
 							</FORM>
 						</td>
 						<!-- 						<td> -->
