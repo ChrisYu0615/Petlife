@@ -360,11 +360,11 @@ label {
 					</tr>
 					<tr>
 						<td>商品名稱:</td>
-						<td><input type="text" name="commName" size="45" /></td>
+						<td><input type="text" name="commName" size="45" required/></td>
 					</tr>
 					<tr>
 						<td>商品描述:</td>
-						<td><input type="text" name="commDesc" size="45" /></td>
+						<td><input type="text" name="commDesc" size="45" required/></td>
 					</tr>
 					<tr>
 						<td>商品狀態:</td>
@@ -381,11 +381,11 @@ label {
 					<!-- 					</tr> -->
 					<tr>
 						<!-- 						<td>上架時間:</td> -->
-						<input type="hidden" name="listDatetime" size="45" />
+						<input type="hidden" name="listDatetime" size="45" required/>
 					</tr>
 					<tr>
 						<td>商品縮圖:</td>
-						<td><input type="file" name="commImg" size="45" /></td>
+						<td><input type="file" name="commImg" size="45" required/></td>
 					</tr>
 					<tr>
 						<td>商品分類:</td>
@@ -413,11 +413,11 @@ label {
 					</tr>
 					<tr>
 						<td>商品庫存量:</td>
-						<td><input type="text" name="commStock" size="45" /></td>
+						<td><input type="text" name="commStock" size="45" required/></td>
 					</tr>
 					<tr>
 						<td>商品價格:</td>
-						<td><input type="text" name="commPrice" size="45" /></td>
+						<td><input type="text" name="commPrice" size="45" required/></td>
 					</tr>
 					<tr>
 						<td>商品優惠價:</td>
