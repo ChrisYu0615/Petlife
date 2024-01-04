@@ -309,6 +309,11 @@ public class BuylistServlet extends HttpServlet {
 		Integer sellerId = Integer.parseInt(req.getParameter("seller"));
 		Integer buylistStateId = Integer.parseInt(req.getParameter("buylistState"));
 //		Integer couponId = Integer.parseInt(req.getParameter("coupon"));
+	    Integer couponId = null;
+	    String couponParam = req.getParameter("coupon");
+	    if (couponParam != null && !couponParam.isEmpty()) {
+	        couponId = Integer.parseInt(couponParam);
+	    }
 		Double sellerRatingStars = Double.parseDouble(req.getParameter("sellerRatingStars"));
 		String sellerEvaluateNarrative = req.getParameter("sellerEvaluateNarrative");
 		Timestamp sellerEvaluateTime = java.sql.Timestamp.valueOf(req.getParameter("sellerEvaluateTime").trim());
@@ -369,6 +374,11 @@ public class BuylistServlet extends HttpServlet {
 //		Coupon coupon = new Coupon();
 //		coupon.setCouponId(couponId);
 //		buylist.setCoupon(coupon);
+		if (couponId != null) {
+	        Coupon coupon = new Coupon();
+	        coupon.setCouponId(couponId);
+	        buylist.setCoupon(coupon);
+	    }
 
 		buylist.setSellerRatingStars(sellerRatingStars);
 		buylist.setSellerEvaluateNarrative(sellerEvaluateNarrative);

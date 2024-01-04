@@ -386,12 +386,12 @@ label {
 					<%-- 							value="<%=buylist.getBuylistState().getBuylistStateId()%>" --%>
 					<!-- 							size="45" required /></td> -->
 					<!-- 					</tr> -->
-					<!-- 					<tr> -->
-					<!-- 						<td>優惠碼ID:</td> -->
-					<!-- 						<td><input name="coupon" id="coupon" type="text" -->
-					<%-- 							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>" --%>
-					<!-- 							required readonly></td> -->
-					<!-- 					</tr> -->
+					<tr>
+<!-- 						<td>優惠碼ID:</td> -->
+						<td><input name="coupon" id="coupon" type="hidden"
+							value="<%=buylist.getCoupon() == null ? "" : buylist.getCoupon().getCouponId()%>"
+							required readonly></td>
+					</tr>
 					<tr>
 						<td>賣家評價星等:</td>
 						<td><select name="sellerRatingStars" id="sellerRatingStars"
@@ -449,6 +449,7 @@ label {
 				
 				
 				
+				
 // 			<!-- 帶入現在時間到sellerEvaluateTime -->
 		    document.addEventListener('DOMContentLoaded', function () {
 		        // 獲取當前日期和時間
@@ -497,6 +498,7 @@ if (sellerRatingStars.trim() === "" || sellerEvaluateNarrative.trim() === "" || 
 						return false;
 					}
 				}
+			
 			
 			
 			

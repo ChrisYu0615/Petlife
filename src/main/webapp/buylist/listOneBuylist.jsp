@@ -282,13 +282,14 @@ th, td {
 					<th>會員ID</th>
 					<th>賣家ID</th>
 					<th>訂單狀態</th>
-					<th>優惠碼名稱</th>
+<!-- 					<th>優惠碼</th> -->
 					<th>賣家評價星等</th>
 					<th>賣家評價敘述</th>
 					<th>賣家評價時間</th>
 					<th>訂單金額</th>
 					<th>訂單建立時間</th>
 					<th>修改</th>
+					<th>查看訂單細項</th>
 					<!-- 					<th>刪除</th> -->
 				</tr>
 				<tr>
@@ -308,7 +309,7 @@ th, td {
 										? "訂單已取消"
 										: (buylist.getBuylistState().getBuylistStateId() == 5) ? "退貨/退款" : ""%>
 					</td>
-					<td><%=buylist.getCoupon() == null ? "未使用優惠碼" : buylist.getCoupon().getCouponId()%></td>
+<%-- 					<td><%=buylist.getCoupon() == null ? "未使用優惠碼" : buylist.getCoupon().getCouponId()%></td> --%>
 					<td><%=buylist.getSellerRatingStars()%></td>
 					<td><%=buylist.getSellerEvaluateNarrative()%></td>
 					<td><%=buylist.getSellerEvaluateTime()%></td>
@@ -323,6 +324,14 @@ th, td {
 								type="hidden" name="action" value="getOne_For_Update">
 						</FORM>
 					</td>
+					<td>
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/buylist/buylist.do">
+								<input type="submit" value="查看細項"><input type="hidden"
+									name="buylistId" value="${buylist.buylistId}"> <input
+									type="hidden" name="action" value="showBuylistDetails">
+							</FORM>
+						</td>
 					<!-- 					<td> -->
 					<!-- 						<FORM METHOD="post" -->
 					<%-- 							ACTION="<%=request.getContextPath()%>/buylist/buylist.do" --%>
