@@ -312,7 +312,7 @@ Admin admin = (Admin) session.getAttribute("admin");
 													<div class="row modal-footer">
 														<div class="col"></div>
 														<button type="submit" class="col-auto btn btn-primary"
-															id="btn_save">修改</button>
+															id="btn_save">新增</button>
 														<button type="button" class="col-auto btn btn-secondary"
 															data-bs-dismiss="modal">取消</button>
 														<div class="col"></div>
