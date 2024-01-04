@@ -129,7 +129,6 @@
 														<th>賣場名稱</th>
 														<th>訂單狀態</th>
 														<th>訂單金額</th>
-														<th>付款方式</th>
 														<th>訂單成立日期</th>
 														<th>操作</th>
 													</tr>
@@ -141,7 +140,6 @@
 															<td>${buyList.seller.sellerNickname}</td>
 															<td>${buyList.buylistState.buylistStateName}</td>
 															<td>${buyList.buylistAmount}</td>
-															<td>付款方式</td>
 															<td><fmt:formatDate value="${buyList.buylistDate}"
 																	pattern="yyyy-MM-dd"></fmt:formatDate></td>
 															<td>
