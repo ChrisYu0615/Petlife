@@ -266,7 +266,7 @@ $(document).on("click", "#search_btn", function() {
 //			$('#myTable').bootstrapTable({});
 							var tbody=$("tbody.tb_con")
 	            			if(tbody.find('tr').length > 0){
-	            				$('#myTable').bootstrapTable;
+	            				$('#myTable').bootstrapTable();
 	            			}else{
 	            				result.innerHTML="";
 	            				$("#myTable").empty();
