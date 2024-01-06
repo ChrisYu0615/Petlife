@@ -75,4 +75,10 @@ public class CommServiceImpl implements CommService {
 		return dao.getCommBySearchQuery(searchQuery);
 	}
 
+	@Override
+	public List<Comm> getCommsForUser() {
+		// TODO Auto-generated method stub
+		return dao.getCommsForUser();
+	}
+
 }
