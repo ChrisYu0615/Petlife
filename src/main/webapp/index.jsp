@@ -106,29 +106,29 @@ pageContext.setAttribute("popularCommList", popularCommList);
 				<div class="col-md-12">
 					<div class="main_banner_img_left">
 						<!-- 在這裡嵌入輪播元素 -->
-						<div id="carouselExampleSlidesOnly" class="carousel slide"
-							data-bs-ride="carousel" data-interval="1">
-							<div class="carousel-inner">
-								<c:forEach var="activedAd" items="${allActivedAd}"
-									varStatus="loop">
-									<div class="carousel-item ${loop.first ? 'active' : ''}">
-										<img
-											src="<%= request.getContextPath() %>/advertisement/advertisement.do?action=getAdImg&adId=${activedAd.advertisementId}"
-											class="d-block w-100 adImg" alt="img">
-									</div>
-								</c:forEach>
-							</div>
-							<button class="carousel-control-prev" type="button"
-								data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Previous</span>
-							</button>
-							<button class="carousel-control-next" type="button"
-								data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Next</span>
-							</button>
-						</div>
+<!-- 						<div id="carouselExampleSlidesOnly" class="carousel slide" -->
+<!-- 							data-bs-ride="carousel" data-interval="1"> -->
+<!-- 							<div class="carousel-inner"> -->
+<%-- 								<c:forEach var="activedAd" items="${allActivedAd}" --%>
+<%-- 									varStatus="loop"> --%>
+<%-- 									<div class="carousel-item ${loop.first ? 'active' : ''}"> --%>
+<!-- 										<img -->
+<%-- 											src="<%= request.getContextPath() %>/advertisement/advertisement.do?action=getAdImg&adId=${activedAd.advertisementId}" --%>
+<!-- 											class="d-block w-100 adImg" alt="img"> -->
+<!-- 									</div> -->
+<%-- 								</c:forEach> --%>
+<!-- 							</div> -->
+<!-- 							<button class="carousel-control-prev" type="button" -->
+<!-- 								data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev"> -->
+<!-- 								<span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!-- 								<span class="visually-hidden">Previous</span> -->
+<!-- 							</button> -->
+<!-- 							<button class="carousel-control-next" type="button" -->
+<!-- 								data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next"> -->
+<!-- 								<span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!-- 								<span class="visually-hidden">Next</span> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
 					</div>
 				</div>
 
@@ -189,15 +189,15 @@ pageContext.setAttribute("popularCommList", popularCommList);
 				<!-- 一個 class="col-lg-4 col-md-6 col-sm-12 col-12" 就是一個comm_item-->
 				<span class="col-lg-4 col-md-6 col-sm-12 col-12">
 					<div class="shop_main_item">
-						<div class="shop_item_img">
-							<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}"><img
-								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
-								style="width: 405px; height: 300px;"></a>
-						</div>
-						<div class="shop_item_content">
-							<h3>
-								<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}">${comm.commName}</a>
-							</h3>
+<!-- 						<div class="shop_item_img"> -->
+<%-- 							<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}"><img --%>
+<%-- 								src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}" --%>
+<!-- 								style="width: 405px; height: 300px;"></a> -->
+<!-- 						</div> -->
+<!-- 						<div class="shop_item_content"> -->
+<!-- 							<h3> -->
+<%-- 								<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}">${comm.commName}</a> --%>
+<!-- 							</h3> -->
 							<div class="shop_item_price">
 								<c:choose>
 									<c:when test="${comm.commOnsalePrice == comm.commPrice}">

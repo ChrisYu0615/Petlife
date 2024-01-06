@@ -3,6 +3,8 @@ package com.petlife.mall.dao.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -93,6 +95,22 @@ public class CartDAOImpl implements CartDAO {
 					.setParameter("commId", commId)
 					.getSingleResult();
 		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Cart findCartByCommIdAndUserId(Integer commId, Integer userId) {
+		try {
+			 Cart cart = getSession()
+					.createQuery("FROM Cart WHERE comm.id = :commId AND user.id = :userId", Cart.class)
+					.setParameter("commId", commId)
+					.setParameter("userId", userId)
+					.getSingleResult();
+			return cart;
+		} catch (NoResultException e) {
+			return null;
+		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

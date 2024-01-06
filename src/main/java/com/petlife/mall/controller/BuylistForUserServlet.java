@@ -148,12 +148,15 @@ public class BuylistForUserServlet extends HttpServlet {
 		for (String cartIdStr : cartIds) {
 			try {
 				// 準備建立buylist details
-				Integer cartId = Integer.parseInt(cartIdStr); // 就是只有cartId
+				
+				// 找cart & comm
+				Integer cartId = Integer.parseInt(cartIdStr);
 				Cart cart = cartService.findByPK(cartId);
 				Comm comm = cart.getComm();
 				BigDecimal commOnsalePrice = cart.getComm().getCommOnsalePrice();
 				Integer purchasingAmount = cart.getPurchasingAmount();
-
+				
+				// 建立空的buylist
 				BuylistDetails buylistDetails = new BuylistDetails();
 				buylistDetails.setBuylist(buylist);
 				buylistDetails.setComm(comm);

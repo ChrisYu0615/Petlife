@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -79,6 +80,8 @@ public class CartServlet extends HttpServlet{
 			Integer commId = Integer.parseInt(req.getParameter("commId"));
 			Integer purchasingAmount = Integer.parseInt(req.getParameter("purchasing_amount"));
 			
+			// 查詢user之前是否有加入過此商品
+			
 			Cart cart = new Cart();
 			
 			// 創建 DAOImpl 實例.
@@ -86,17 +89,23 @@ public class CartServlet extends HttpServlet{
 			CommDAOImpl commDAOImpl = new CommDAOImpl();
 			CartDAOImpl cartDAOImpl = new CartDAOImpl();
 			
-			// 得到 User & Comm 的 Object.
-			User user = userDAOImpl2.findByPK(userId);
-			Comm comm = commDAOImpl.findByPk(commId);
+			if(cartDAOImpl.findCartByCommIdAndUserId(commId, userId) != null) {
+				// user之前加入過相同的商品
+				cart = cartDAOImpl.findCartByCommIdAndUserId(commId, userId);
+				cart.setPurchasingAmount(purchasingAmount);
+			} else {
+				// 得到 User & Comm 的 Object.
+				User user = userDAOImpl2.findByPK(userId);
+				Comm comm = commDAOImpl.findByPk(commId);
+				
+		        cart.setUser(user);
+		        cart.setComm(comm);
+		        cart.setPurchasingAmount(purchasingAmount);
+		        
+		        Integer id = cartDAOImpl.add(cart);
+		        System.out.println("已經新增cart_id: " + id);
+			}
 			
-	        cart.setUser(user);
-	        cart.setComm(comm);
-	        cart.setPurchasingAmount(purchasingAmount);
-	        
-	        Integer id = cartDAOImpl.add(cart);
-	        System.out.println("已經新增cart_id: " + id);
-	        
 	        return "/cart/cart.jsp";
 		} catch (Exception e) {
 			errorMsgs.add("發生錯誤" + e.getMessage());

@@ -160,9 +160,9 @@
 										<div class="shop_main_item">
 											<div class="shop_item_img">
 												<!-- 找單獨一個comm的按鈕 -->
-												<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}"><img
-													src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}"
-													width="100px"></a>
+<%-- 												<a href="<%=request.getContextPath()%>/comm_for_user/singleCommForUser.do?action=show_comm_without_customer&commId=${comm.commId}"><img --%>
+<%-- 													src="<%=request.getContextPath()%>/comm/DBJPGReader?commId=${comm.commId}" --%>
+<!-- 													width="100px"></a> -->
 											</div>
 											<div class="shop_item_content">
 												<h3>
