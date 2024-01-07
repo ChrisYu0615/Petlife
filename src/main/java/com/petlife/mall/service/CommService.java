@@ -41,5 +41,7 @@ public interface CommService {
 	public List<Comm> getCommByCategoryId(Integer commCatId);
 
 	public List<Comm> getCommBySearchQuery(String searchQuery);
+	
+	public List<Comm> getCommsForUser(); 
 
 }

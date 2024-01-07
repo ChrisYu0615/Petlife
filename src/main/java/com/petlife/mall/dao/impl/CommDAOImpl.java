@@ -78,6 +78,13 @@ public class CommDAOImpl implements CommDAO {
 	public List<Comm> getAll() {
 		return getSession().createQuery("FROM Comm", Comm.class).list();
 	}
+	
+	@Override
+	public List<Comm> getCommsForUser() {
+		return getSession()
+				.createQuery("FROM Comm WHERE commState = 0 AND seller.acctState.acctStateId = 0", Comm.class)
+				.getResultList();
+	}
 
 	@Override
 	public List<Comm> getCommsByState(Integer commState, Integer sellerId) {

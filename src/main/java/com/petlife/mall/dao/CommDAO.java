@@ -46,4 +46,7 @@ public interface CommDAO {
 
 	// 抓熱門商品三筆
 	public List<Comm> getPopularComm();
+
+	// User抓取商品
+	public List<Comm> getCommsForUser();
 }

@@ -208,7 +208,7 @@ pageContext.setAttribute("totalAmount", totalAmount);
                         </div>
 							<!-- 下單功能 -->
                         <div class="cart_proce_btn">
-    						<button type="submit" class="btn btn_theme btn_md">為你家的寵物快樂下單</button>
+    						<button type="submit" class="btn btn_theme btn_md">Order</button>
                         </div>
                     </div>
                 </div>

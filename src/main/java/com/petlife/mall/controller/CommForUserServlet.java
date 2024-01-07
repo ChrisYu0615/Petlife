@@ -74,7 +74,7 @@ public class CommForUserServlet extends HttpServlet {
 		} else if(searchQuery != null && !searchQuery.isEmpty()){
 			list = commService.getCommBySearchQuery(searchQuery);
 		} else {
-			list = commService.getAll();
+			list = commService.getCommsForUser();
 		}
 		
 		req.setAttribute("list", list);
